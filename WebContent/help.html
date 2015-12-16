@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FASTDB</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="css/bootstrap.css" rel="stylesheet">
+ <style type="text/css">
+   body {
+     padding-top: 60px;
+     padding-bottom: 40px;
+   }
+   .allgreen
+   {
+     color: #007700;
+   }
+   .instances
+   {
+     -moz-column-count:3; /* Firefox */
+     -webkit-column-count:3; /* Safari and Chrome */
+     column-count:3;
+     -moz-column-gap:40px; /* Firefox */
+     -webkit-column-gap:40px; /* Safari and Chrome */
+     column-gap:40px;
+   }
+
+    table.api-param-values {
+        align: center;
+        width: 100%;
+    }
+
+    table.api-param-values th, table.api-param-values td {
+        text-align: left;
+        vertical-align: top;
+        padding: 6px 6px 6px 11px;
+    }
+
+    table.api-param-values tr {
+        width: 20px;
+    }
+
+    table.api-param-values tr:nth-child(2) td {
+        padding-top: 11px;
+    }
+    table.api-param-values tr:last-child td {
+        padding-bottom: 12px;
+    }
+
+    table.center-first-col tr td:first-child, table.center-first-col tr th:first-child {
+        text-align: center;
+        width: 70px;
+    }
+
+    table.api-param-values th {
+        background-color: #fafafa;
+        border-bottom: 1px solid #ddd;
+    }
+
+ </style>
+ <link href="bootstrap-responsive.css" rel="stylesheet">
+ <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+ <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+ <![endif]-->
+ <link rel="apple-touch-icon-precomposed" href="favicon.png">
+ <link rel="shortcut icon" href="favicon.ico">
+</head>
+
+<body>
+
+  <div class="container">
+Here is a full example using the curl program from the command line
+talking to SciDB running on localhost.
+</p>
+<pre>
+# Log in with username=fast password=12345 (assuming that such a user exists on the system that you had container):
+curl "http://localhost:8080/fast/v1/userlogin?name=fast&password=12345"
+fast:12345
+Session_Id:******   # (authentication token returned on success)
+
+curl "http://localhost:8080/fast/v1/csv/AFL?statement=list()"
+No,name,uaid,aid,schema,availability,temporary
+0,A,3,3,A&lt;val:double&gt; [i=0:9,10,0],true,false
+1,B,1,1,B&lt;val:double &gt; [i=0:9,10,0],true,false
+2,C,5,5,C&lt;val:double&gt; [i=0:9,10,0],true,false
+3,D,7,7,D&lt;val:double,val_2:double&gt; [i=0:9,10,0],true,false
+4,M,9,9,M&lt;val:double&gt; [i=0:9999,10000,0],true,falses
+
+
+<tr><td>EXAMPLE
+<td>
+http://localhost:8080/fast/v1/SciDB_version
+<pre>
+14.12
+</pre>
+
+
+<tr><td>EXAMPLE
+<td>
+http://localhost:8080/fast/v1/csv/AFL?statement=show(A)
+<br/><br/>
+<pre>
+i,schema
+0,A&lt;val:double&gt; [i=0:9,10,0]
+</pre>
+<tr><td>EXAMPLE STREAMING DATA USING curl
+<td>
+<pre>
+# Obtain a shim session ID:
+curl "http://localhost:8080/fast/v1/SessionId"
+echo "sessionId: *********"
+
+# Run a query, requesting compressed streaming output with high compression:
+crul "http://localhost:8080/fast/v1/csv/AFL?statement=list('functions')"
+
+
+# Run a query
+crul "http://localhost:8080/fast/v1/json/AFL?statement=show(A)"
+[ {
+  "schema" : "A&lt;val:double&gt; [i=0:9,10,0]",
+  "i" : "0"
+} ]
+
+
+# Run a query
+crul "http://localhost:8080/fast/v1/csv/AQL?statement=select * from A"
+i,val
+0,1590.0
+1,849.0
+2,99.0
+3,1418.0
+4,109.0
+5,774.0
+6,867.0
+7,1475.0
+8,1028.0
+9,1796.0
+
+
+# Run a query
+crul "http://localhost:8080/fast/v1/json/AQL?statement=select * from B"
+[ {
+  "val" : "1590.0",
+  "i" : "0"
+}, {
+  "val" : "849.0",
+  "i" : "1"
+}, {
+  "val" : "99.0",
+  "i" : "2"
+}, {
+  "val" : "1418.0",
+  "i" : "3"
+}, {
+  "val" : "109.0",
+  "i" : "4"
+}, {
+  "val" : "774.0",
+  "i" : "5"
+}, {
+  "val" : "867.0",
+  "i" : "6"
+}, {
+  "val" : "1475.0",
+  "i" : "7"
+}, {
+  "val" : "1028.0",
+  "i" : "8"
+}, {
+  "val" : "1796.0",
+  "i" : "9"
+} ]
+
+
+# Run a query in your docker container,you must login first
+curl "http://localhost:8080/fast/v1/userlogin?name=fast&password=12345"
+fast:12345
+Session_Id:******   # (authentication token returned on success)
+
+# Run a query in docker container
+curl "http://localhost:8080/fast/v1/container/json/AFL?statement=list()"
+[ {
+  "schema" : "B&lt;val:double&gt; [i=0:99,100,0]",
+  "No" : "0",
+  "uaid" : "1",
+  "temporary" : "false",
+  "name" : "B",
+  "availability" : "true",
+  "aid" : "1"
+} ]
+
+# Run a query in docker container
+curl "http://localhost:8080/fast/v1/container/csv/AFL?statement=show(B)"
+i,schema
+0,B&lt;val:double&gt; [i=0:99,100,0]
+
+
+</pre>
+
+<tr>
+<td>
+</body>
+</html>
