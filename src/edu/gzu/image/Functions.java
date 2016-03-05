@@ -177,6 +177,12 @@ public class Functions {
         aql.append(" ORDER BY distance ASC");
         return aql.toString();
 	}
+	public static String fPhotoTypeN(int value)
+	{
+		StringBuilder aql = new StringBuilder();
+		aql.append("SELECT name FROM PhotoType WHERE value="+value);
+		return aql.toString();
+	}
 	/**
 	 * 
 	 * param ra 赤经

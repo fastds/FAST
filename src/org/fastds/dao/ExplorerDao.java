@@ -945,4 +945,89 @@ public class ExplorerDao {
 		return attrs;
 	}
 
+	public Map<String, Object> getApogeeByID(String apid) {
+		String aql = ExplorerQueries.getApogee(apid);
+		
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		Map<String, Object> attrs = new HashMap<String, Object>();
+		
+		try {
+			rs = exQuery.aqlQuery(aql);
+			if (!rs.isAfterLast())
+			{
+				double ra = rs.getFloat("ra");
+				double dec = rs.getFloat("dec");
+				
+				attrs.put("ra", ra);
+				attrs.put("dec", dec);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return attrs;
+	}
+	public Map<String, Object> getApogeeByID2(String apid) {
+		String aql = ExplorerQueries.getApogee2(apid);
+		
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		Map<String, Object> attrs = new HashMap<String, Object>();
+		
+		try {
+			rs = exQuery.aqlQuery(aql);
+			if (!rs.isAfterLast())
+			{
+				double ra = rs.getFloat("ra");
+				double dec = rs.getFloat("dec");
+				
+				attrs.put("ra", ra);
+				attrs.put("dec", dec);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return attrs;
+	}
+
+	public Map<String, Object> getObjIDFromPlatefiberMjd(String mjd,
+			String plate, String fiber) {
+		String aql = ExplorerQueries.getObjIDFromPlatefiberMjd(mjd+"",plate+"",fiber+"");
+		 /*if (reader.Read())
+         {
+            objectInfo.objId = reader["objId"] is DBNull  null : Functions.BytesToHex((byte[])reader["objId"]);
+            objectInfo.specObjId = reader["specObjId"] is DBNull  null : Functions.BytesToHex((byte[])reader["specObjId"]);
+            objectInfo.ra = (double)reader["ra"];
+            objectInfo.dec = (double)reader["dec"];
+         }*/
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		Map<String, Object> attrs = new HashMap<String, Object>();
+		/* if (reader.Read())
+        {
+           objectInfo.objId = reader["objId"] is DBNull  null : Functions.BytesToHex((byte[])reader["objId"]);
+           objectInfo.specObjId = reader["specObjId"] is DBNull  null : Functions.BytesToHex((byte[])reader["specObjId"]);
+           objectInfo.ra = (double)reader["ra"];
+           objectInfo.dec = (double)reader["dec"];
+        } old */
+		try {
+			rs = exQuery.aqlQuery(aql);
+			if (!rs.isAfterLast())
+			{
+				long objID = rs.getLong("objID");
+				long specObjID = rs.getLong("specObjID");
+				double ra = rs.getFloat("objID");
+				double dec = rs.getFloat("dec");
+				
+				attrs.put("objID", objID);
+				attrs.put("specObjID", specObjID);
+				attrs.put("ra", ra);
+				attrs.put("dec", dec);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return attrs;
+	}
+
 }

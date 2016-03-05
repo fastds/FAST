@@ -100,4 +100,19 @@ public class ExplorerService {
 		return dao.getAttrsFromSpecObjAllAndPlateX(objID,specID);
 	}
 
+	public Map<String, Object> findApogeeByID(String apid) {
+		// TODO Auto-generated method stub
+		return dao.getApogeeByID(apid);
+	}
+
+	public Map<String, Object> findApogeeByID2(String apid) {
+		// TODO Auto-generated method stub
+		return dao.getApogeeByID2(apid);
+	}
+
+	public Map<String, Object> findObjIDFromPlatefiberMjd(String mjd,
+			String plate, String fiber) {
+		return dao.getObjIDFromPlatefiberMjd(mjd,plate,fiber);
+	}
+
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
+import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.explorehelpers.ObjectInfo;
 import org.fastds.model.ApogeeControl;
 import org.fastds.model.CrossIDControls;
@@ -34,15 +35,15 @@ public class ExplorerResource {
 	
 	protected final String ZERO_ID = "0x0000000000000000";
     public ObjectInfo objectInfo = new ObjectInfo();
-    long id ;
+    Long id ;
     String apid;
-    long specID;
+    Long specID;
     String sid = null;
-    double qra ;
-    double qdec ;
-    int mjd ;
-    short plate ;
-    short fiber ;
+    Double qra ;
+    Double qdec ;
+    Integer mjd ;
+    Short plate ;
+    Short fiber ;
     String sidstring = null;
     
     /*
@@ -185,53 +186,37 @@ public class ExplorerResource {
 
     private void getObjPmts()
     {
-    /* old   if (fiber.HasValue && plate.HasValue) ObjIDFromPlfib(plate, mjd, fiber);
-        else if (qra.HasValue && qdec.HasValue) pmtsFromEq(qra, qdec);
-        else if (specId.HasValue || !String.IsNullOrEmpty(sidstring)) pmtsFromSpec(sidstring);
-        else if (id.HasValue && !specId.HasValue) pmtsFromPhoto(id);
-        else if (!String.IsNullOrEmpty(apid)) parseApogeeID(apid);*/
+        if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
+        else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
+        else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
+        else if (id != null && specID != null) pmtsFromPhoto(id);
+        else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid);
     	pmtsFromEq(qra, qdec);
     }
 
-   /* private void ObjIDFromPlfib(short plate, int mjd, short fiber)
+    private void ObjIDFromPlfib(short plate, int mjd, short fiber)
     {
-        String cmd = ExplorerQueries.getObjIDFromPlatefiberMjd;
-        cmd = cmd.Replace("@mjd", mjd.ToString());
-        cmd = cmd.Replace("@plate", plate.ToString());
-        cmd = cmd.Replace("@fiberId", fiber.ToString());
-
-        DataSet ds = runQuery.RunCasjobs(cmd);
-        using (DataTableReader reader = ds.Tables[0].CreateDataReader())
+        
+        Map<String,Object> attrsOne = null;
+        attrsOne = explorerService.findObjIDFromPlatefiberMjd(mjd+"",plate+"",fiber+"");
+        
+        if(attrsOne != null && attrsOne.size()!=0)
         {
-            if (reader.Read())
-            {
-               objectInfo.objId = reader["objId"] is DBNull  null : Functions.BytesToHex((byte[])reader["objId"]);
-               objectInfo.specObjId = reader["specObjId"] is DBNull  null : Functions.BytesToHex((byte[])reader["specObjId"]);
-               objectInfo.ra = (double)reader["ra"];
-               objectInfo.dec = (double)reader["dec"];
-            }
-        } // using DataTableReader
+        	objectInfo.objID = attrsOne.get("objID")== null ? null :  Utilities.longToHex((Long)attrsOne.get("objID"));
+        	objectInfo.specObjID = (String)attrsOne.get("specObjID") == null? null : Utilities.longToHex((Long)attrsOne.get("specObjID"));
+        	objectInfo.ra = (Double)attrsOne.get("specObjID");
+        	objectInfo.dec = (Double)attrsOne.get("specObjID");
+        }
 
-
-        cmd = ExplorerQueries.getApogeeFromEq;
-        cmd = cmd.Replace("@qra", objectInfo.ra.ToString());
-        cmd = cmd.Replace("@qdec", objectInfo.dec.ToString());
-        cmd = cmd.Replace("@searchRadius", (0.5 / 60).ToString());
+        long apid = explorerService.findApid(objectInfo.ra, objectInfo.dec,(0.5 / 60));
         // if we couldn't find that plate/mjd/fiber, maybe it's an APOGEE object
-        if (!String.IsNullOrEmpty(objectInfo.objId))
+        if (apid != -1)
         {
-            ds = runQuery.RunCasjobs(cmd);
-            using (DataTableReader reader = ds.Tables[0].CreateDataReader())
-            {
-                if (reader.Read())
-                {
-                    objectInfo.apid = (String)reader["apstar_id"];
-                }
-            } // using DataTableReader                
+            objectInfo.apid = apid +"";
         }
 
     }
-   old */
+    
    private void apogeeFromEq(double qra, double qdec)
     {
 	   double searchRadius = 0.5 / 60;
@@ -351,41 +336,30 @@ public class ExplorerResource {
         catch(Exception e) { }
     }
 
-    /*private void parseApogeeID(String idstring)
+    private void parseApogeeID(String idstring)
     {
         double qra =0, qdec=0;
         objectInfo.apid = apid;
-        String cmd = "";
         apid = apid.toLowerCase();
+        Map<String,Object> attrsOne = null; 
         if(apid.contains("apogee"))
-         cmd = ExplorerQueries.getApogee;
+        	attrsOne = explorerService.findApogeeByID(apid);
         else
-         cmd = ExplorerQueries.getApogee2;
-
-        cmd = cmd.replace("@apogeeId",apid);
-        DataSet ds = runQuery.RunCasjobs(cmd);
-        using (DataTableReader reader = ds.Tables[0].CreateDataReader())
+        	attrsOne = explorerService.findApogeeByID2(apid);
+        
+        if (attrsOne != null && attrsOne.size()!=0)
         {
-            if (reader.Read())
-            {
-                qra = (double)reader["ra"];
-                qdec =(double)reader["dec"];
-                
-            }
+            qra = (Double)attrsOne.get("ra");
+            qdec =(Double)attrsOne.get("dec");
         }
-        cmd = ExplorerQueries.getpmtsFromEq;
-        cmd = cmd.Replace("@qra", qra.ToString());
-        cmd = cmd.Replace("@qdec", qdec.ToString());
-        cmd = cmd.Replace("@searchRadius", (0.5/60).ToString());
-
-        ds = runQuery.RunCasjobs(cmd);
-        using (DataTableReader reader = ds.Tables[0].CreateDataReader())
+        
+        Map<String,Long> attrsTwo = null; 
+        attrsTwo = explorerService.fillObjectInfo(qra, qdec);
+        if (attrsTwo != null && attrsTwo.size()!=0)
         {
-            if (reader.Read())
-            {
-               objectInfo.objId = reader["objId"] is DBNull ? null : Functions.BytesToHex((byte[])reader["objId"]);
-               objectInfo.specObjId = reader["specObjId"] is DBNull ? null : Functions.BytesToHex((byte[])reader["specObjId"]);                    
-            }
+           objectInfo.objID = attrsTwo.get("objID")==null || attrsTwo.get("objID")==0 ? null : Utilities.longToHex(attrsTwo.get("objID"));
+           objectInfo.specObjID = attrsTwo.get("specObjID")==null || attrsTwo.get("specObjID")==0 ? null : Utilities.longToHex(attrsTwo.get("specObjID"));                    
         }
-    } old */
+    }
+    
 }
