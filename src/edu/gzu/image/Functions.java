@@ -1,14 +1,15 @@
 package edu.gzu.image;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.fastds.dao.ExQuery;
+import org.junit.Test;
 
 import edu.gzu.domain.Obj;
+import edu.gzu.domain.PhotoObjAll;
 import edu.gzu.image.sphericalhtm.Cover;
 import edu.gzu.image.sphericalhtm.Pair;
 import edu.gzu.image.sphericalhtm.Trixel;
@@ -514,5 +515,86 @@ public class Functions {
 		        }
 		        return objList;
 	}
-
+/*--------------------------------以下是explore用到的函数---------------------------------------------*/
+	
+	public static String fGetNearbyObjAllEq(double ra, double dec, double r)
+	{
+		double d2r, nx, ny, nz;
+		d2r = Math.PI/180.0;
+		if (r<0) 
+			return null;
+		nx  = Math.cos(dec*d2r)*Math.cos(ra*d2r);
+		ny  = Math.cos(dec*d2r)*Math.sin(ra*d2r);
+		nz  = Math.sin(dec*d2r);
+		return fGetNearbyObjAllXYZ(nx,ny,nz,r) ;
+	}
+	
+	
+	
+	public static String fGetNearbyObjAllXYZ(double nx ,double ny ,double nz ,double r )
+	{
+		List<PhotoObjAll> photoObjAllList = new ArrayList<PhotoObjAll>();
+		StringBuilder aql = new StringBuilder();
+		
+		double lim = Math.pow(2*Math.sin(Math.toRadians(r/120)),2);
+		double d2r = Math.PI/180.0;
+		List<Pair> pair = fHtmCoverCircleXyz(nx,ny,nz,r);
+		
+		aql = aql.append("SELECT objID, run, camcol, field, rerun, "
+				+" type, mode, cx, cy, cz, htmID, "
+//            --sqrt(pow(@nx-cx,2)+pow(@ny-cy,2)+pow(@nz-cz,2))/@d2r*60 
+//            +"2*DEGREES(asin(sqrt(pow(@nx-cx,2)+pow(@ny-cy,2)+pow(@nz-cz,2))/2))*60 "
+				+" sqrt(pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2))/"+d2r+"*60 "
+				+" FROM PhotoObjAll AS P "
+				+" WHERE (P.HtmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" )"
+				+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)< "+lim
+				+" ORDER BY pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2) ASC");
+		return aql.toString();
+//		ResultSet rs = null;
+//		ExQuery exQuery = new ExQuery();
+//		try {
+//			rs = exQuery.aqlQuery(aql.toString());
+//			while(!rs.isAfterLast())
+//			{
+//				long objID = rs.getLong("objID");
+//				long htmID = rs.getLong("htmID");
+//				int run = rs.getInt("run");
+//				int camcol = rs.getInt("camcol");
+//				int field = rs.getInt("field");
+//				int rerun = rs.getInt("rerun");
+//				int type = rs.getInt("type");
+//				int mode = rs.getInt("mode");
+//				float cx = rs.getInt("cx");
+//				float cy = rs.getFloat("cy");
+//				float cz = rs.getFloat("cz");
+//				float distance = rs.getFloat("distance");
+//				
+//				PhotoObjAll obj = new PhotoObjAll();
+//				obj.setId(objID);
+//				obj.setHtmID(htmID);
+//				obj.setRun(run);
+//				obj.setCamcol(camcol);
+//				obj.setField(field);
+//				obj.setRerun(rerun);
+//				obj.setType(type);
+//				obj.setMode(mode);
+//				obj.setCx(cx);
+//				obj.setCy(cy);
+//				obj.setCz(cz);
+//				obj.setDistance(distance);
+//				photoObjAllList.add(obj);
+//				
+//				rs.next();
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return photoObjAllList;
+	}
+	public static String fGetNearestApogeeStarEq(double qra, double qdec,
+			double searchRadius) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -281,7 +281,7 @@
 	// open new window for the Explorer
 	//--------------------------------------
 	function gotoExp() {
-		var s = "../explore/obj.aspx";
+		var s = "/explore/Summary";
 		if (branchname!='list') {
 			s += "?ra="+document.getElementById('getjpeg').ra.value;
 			s += "&dec="+document.getElementById('getjpeg').dec.value;

@@ -1,0 +1,80 @@
+package org.fastds.model;
+
+import java.util.Map;
+
+import org.fastds.service.ExplorerService;
+
+public class MetaDataControl {
+
+    protected double ra ;
+    protected double dec ;
+
+    protected Long specObjId = null;
+    protected Integer clean = null;
+    protected Integer mode = null;
+    protected String otype = null;
+    protected String survey;
+    protected Integer imageMJD = null;
+
+    protected ObjectExplorer master;
+  
+    public MetaDataControl(ObjectExplorer master)
+    {
+    	load(master);
+    }
+    protected void load(ObjectExplorer master)
+    {
+//        globals = (Globals)Application[Globals.PROPERTY_NAME];   old 
+
+        if (master.objID != null && !master.objID.equals(""))
+        executeQuery();      
+    }
+    ExplorerService explorerService = new ExplorerService();
+    private void executeQuery()
+    {
+        Map<String,Object> params = null;
+        params = explorerService.findParamsFromTables(master.objID);
+        if(params !=null && params.size()!=0)
+        {
+        	ra = (Double)params.get("ra");
+            dec = (Double)params.get("ra");
+            specObjId = (Long)params.get("specObjID") == 0 ? -999999 : (Long)(params.get("specObjID"));                       
+            clean = (Integer)params.get("clean");
+            survey = params.get("survey") == null ? null:(String)params.get("survey");
+            mode = (Integer)params.get("mode");
+            otype = params.get("otype") ==null ? null : (String)params.get("survey");
+            imageMJD = (Integer)params.get("mjd");
+        }
+    }
+	public double getRa() {
+		return ra;
+	}
+	public double getDec() {
+		return dec;
+	}
+	public Long getSpecObjId() {
+		return specObjId;
+	}
+	public Integer getClean() {
+		return clean;
+	}
+	public Integer getMode() {
+		return mode;
+	}
+	public String getOtype() {
+		return otype;
+	}
+	public String getSurvey() {
+		return survey;
+	}
+	public Integer getImageMJD() {
+		return imageMJD;
+	}
+	public ObjectExplorer getMaster() {
+		return master;
+	}
+	public ExplorerService getExplorerService() {
+		return explorerService;
+	}
+    
+}

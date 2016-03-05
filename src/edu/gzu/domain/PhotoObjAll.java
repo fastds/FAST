@@ -12,6 +12,77 @@ public class PhotoObjAll {
 	private double r;
 	private double i;
 	private double z;
+	
+	private long htmID;
+	private short run;
+	private short rerun;
+	private byte camcol;
+	private short field;
+	private byte mode;
+	private double cx;
+	private double cy;
+	private double cz;
+	private double distance;      //通过计算得到
+	public int getRerun() {
+		return rerun;
+	}
+	public void setRerun(short rerun) {
+		this.rerun = rerun;
+	}
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+	public long getHtmID() {
+		return htmID;
+	}
+	public void setHtmID(long htmID) {
+		this.htmID = htmID;
+	}
+	public int getRun() {
+		return run;
+	}
+	public void setRun(short run) {
+		this.run = run;
+	}
+	public int getCamcol() {
+		return camcol;
+	}
+	public void setCamcol(byte camcol) {
+		this.camcol = camcol;
+	}
+	public int getField() {
+		return field;
+	}
+	public void setField(short field) {
+		this.field = field;
+	}
+	public int getMode() {
+		return mode;
+	}
+	public void setMode(byte mode) {
+		this.mode = mode;
+	}
+	public double getCx() {
+		return cx;
+	}
+	public void setCx(double cx) {
+		this.cx = cx;
+	}
+	public double getCy() {
+		return cy;
+	}
+	public void setCy(double cy) {
+		this.cy = cy;
+	}
+	public double getCz() {
+		return cz;
+	}
+	public void setCz(double cz) {
+		this.cz = cz;
+	}
 	public long getId() {
 		return id;
 	}

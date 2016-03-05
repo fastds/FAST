@@ -44,7 +44,7 @@ public class ExQuery {
 			IStatementWrapper staWrapper = state
 					.unwrap(IStatementWrapper.class);
 			staWrapper.setAfl(true);
-
+			
 			res = (ResultSet) state.executeQuery(queryString);
 			conn.commit();
 		} catch (SQLException e) {

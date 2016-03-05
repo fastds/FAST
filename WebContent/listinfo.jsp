@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				         
 					    <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Navigate Tool')"><a href="navi.jsp?ra=337.138&dec=-0.948">Navi&nbsp;|</a></td>
 			            			
-		        <!-- <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td> -->	
+		        		<td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td>	
 	        </tr>
         </table>
 
