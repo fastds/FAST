@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.explorehelpers.ObjectInfo;
@@ -191,7 +193,6 @@ public class ExplorerResource {
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
         else if (id != null && specID != null) pmtsFromPhoto(id);
         else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid);
-    	pmtsFromEq(qra, qdec);
     }
 
     private void ObjIDFromPlfib(short plate, int mjd, short fiber)
