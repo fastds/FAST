@@ -188,6 +188,12 @@ public class ExplorerResource {
 
     private void getObjPmts()
     {
+    	System.out.print("fiber:"+fiber==null);
+    	System.out.print(";ra,dec:"+(qra==null)+","+(qdec==null));
+    	System.out.print(";specID:"+specID==null);
+    	System.out.print(";sidstring:"+sidstring==null);
+    	System.out.print(";id:"+id==null);
+    	System.out.print(";apid:"+apid==null);
         if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
