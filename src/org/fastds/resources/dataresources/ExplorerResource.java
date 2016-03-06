@@ -245,9 +245,12 @@ public class ExplorerResource {
     private void pmtsFromEq(double qra, double qdec)
     {
        Map<String,Long> ids = explorerService.fillObjectInfo(qra, qdec);
-        objectInfo.objID = ids.get("objID")+"";
-        objectInfo.specObjID = ids.get("specObjID")+"";
-        
+       if(ids!=null && ids.size()>0)
+       {
+    	   objectInfo.objID = ids.get("objID")+"";
+           objectInfo.specObjID = ids.get("specObjID")+"";
+       }
+       
        if (objectInfo.objID != null && !objectInfo.objID.equals(""))
         {
             // This is required to get the primary specObjId (with sciprimary=1). PhotoTag.specObjId is not necessarily primary...

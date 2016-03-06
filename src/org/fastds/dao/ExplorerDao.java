@@ -21,6 +21,7 @@ public class ExplorerDao {
 	public Map<String,Long> getObjIDAndSpecObjIDByCoord(double qra, double qdec) {
 		double searchRadius = 0.5 / 60;
         String aql = ExplorerQueries.getPmtsFromEq(qra,qdec,searchRadius);
+        System.out.println("ExplorerDao.getObjIDAndSpecObjIDByCoord-->aql:"+aql);
     	ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Long> result = new HashMap<String,Long>();
@@ -44,6 +45,7 @@ public class ExplorerDao {
 
 	public long getApid(double qra, double qdec, double searchRadius) {
 		String aql = ExplorerQueries.getApogeeFromEq(qra,qdec,searchRadius);
+		System.out.println("ExplorerDao.getApid-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		long apid = -1; //
@@ -58,6 +60,7 @@ public class ExplorerDao {
 
 	public PhotoTag getPhotoTag(long id) {
 		String aql = ExplorerQueries.getPmtsFromPhoto(id);
+		System.out.println("ExplorerDao.getPhotoTag-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		PhotoTag photoTag = new PhotoTag(); //
@@ -106,7 +109,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFormSpecObjAllAndPlateX(long specID) {
 		 String aql = ExplorerQueries.getPlateFiberFromSpecObj(specID);
-		 
+		 System.out.println("ExplorerDao.getAttrsFormSpecObjAllAndPlateX-->aql:"+aql);
 		 ResultSet rs = null;
 		 ExQuery exQuery = new ExQuery();
 		 Map<String, Object> res = new HashMap<String, Object>();
@@ -140,7 +143,7 @@ public class ExplorerDao {
 
 	public PhotoTag getPhotoFromEq(double ra, double dec, double r) {
 		String aql = ExplorerQueries.getPhotoFromEq(ra, dec, r);
-		
+		System.out.println("ExplorerDao.getPhotoFromEq-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		PhotoTag pt = new PhotoTag();
@@ -167,7 +170,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getApogeeStar(String whatdoiget, String sid) {
 		String aql = ExplorerQueries.getPmtsFromSpecWithApogeeId(whatdoiget, sid);
-		
+		System.out.println("ExplorerDao.getApogeeStar-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -196,7 +199,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getPmtsFromSpecWithSpecobjID(long sid) {
 		String aql = ExplorerQueries.getPmtsFromSpecWithSpecobjID(sid);
-		 
+		System.out.println("ExplorerDao.getPmtsFromSpecWithSpecobjID-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -244,7 +247,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getImaging(String objID) {
 		String aql = ExplorerQueries.getImagingQuery(objID);
-		
+		System.out.println("ExplorerDao.getImaging-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -394,6 +397,7 @@ public class ExplorerDao {
 
 	public Map<String, String> getAttrsFromDBColumns() {
 		String aql = ExplorerQueries.unitQuery();
+		System.out.println("ExplorerDao.getAttrsFromDBColumns-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,String> attrs = new HashMap<String,String>();
@@ -418,6 +422,7 @@ public class ExplorerDao {
 	public String getUnitFromDBColumns(String tablename,
 			String columname) {
 		String aql = ExplorerQueries.getUnit(tablename,columname);
+		System.out.println("ExplorerDao.getUnitFromDBColumns-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		String unit = "";
@@ -438,6 +443,7 @@ public class ExplorerDao {
 	 */
 	public ApogeeVisit getApogeevisitsByID(String id) {
 		String aql = ExplorerQueries.apogeevisitsBaseQuery(id);
+		System.out.println("ExplorerDao.getApogeevisitsByID-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		ApogeeVisit obj = null;
@@ -474,6 +480,7 @@ public class ExplorerDao {
 	}
 
 	public Map<String, Object> getApogeeByAql(String command) {
+		System.out.println("ExplorerDao.getApogeeByAql-->aql:"+command);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -597,6 +604,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFromUSNOByID(String objID) {
 		String aql = ExplorerQueries.USNO(objID);
+		System.out.println("ExplorerDao.getAttrsFromUSNOByID-->aql:"+aql);
 		 /*if (reader.Read())
         {
             if (reader.HasRows)
@@ -631,7 +639,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> findAttrsFromFirst(String objID) {
 		String aql = ExplorerQueries.FIRST(objID);
-		
+		System.out.println("ExplorerDao.findAttrsFromFirst-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -668,6 +676,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFromRosat(String objID) {
 		String aql = ExplorerQueries.ROSAT(objID);
+		System.out.println("ExplorerDao.getAttrsFromRosat-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -708,6 +717,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFromRC3(String objID) {
 		String aql = ExplorerQueries.RC3(objID);
+		System.out.println("ExplorerDao.getAttrsFromRC3-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -744,7 +754,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFromWISE(String objID) {
 		String aql = ExplorerQueries.WISE(objID);
-		
+		System.out.println("ExplorerDao.getAttrsFromWISE-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -787,7 +797,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getAttrsFromTWOMASS(String objID) {
 		String aql = ExplorerQueries.WISE(objID);
-		
+		System.out.println("ExplorerDao.getAttrsFromTWOMASS-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -827,7 +837,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getParamsFromTables(String objID) {
 		String aql = ExplorerQueries.getObjParamaters(objID);
-		
+		System.out.println("ExplorerDao.getParamsFromTables-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -877,7 +887,7 @@ public class ExplorerDao {
 	public Map<String, Object> getAttrsFromSpecObjAllAndPlateX(String objID,
 			String specID) {
 		String aql = ExplorerQueries.getSpectroQuery(objID,specID);
-		
+		System.out.println("ExplorerDao.getAttrsFromSpecObjAllAndPlateX-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -947,7 +957,7 @@ public class ExplorerDao {
 
 	public Map<String, Object> getApogeeByID(String apid) {
 		String aql = ExplorerQueries.getApogee(apid);
-		
+		System.out.println("ExplorerDao.getApogeeByID-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -969,7 +979,7 @@ public class ExplorerDao {
 	}
 	public Map<String, Object> getApogeeByID2(String apid) {
 		String aql = ExplorerQueries.getApogee2(apid);
-		
+		System.out.println("ExplorerDao.getApogeeByID-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
@@ -993,6 +1003,7 @@ public class ExplorerDao {
 	public Map<String, Object> getObjIDFromPlatefiberMjd(String mjd,
 			String plate, String fiber) {
 		String aql = ExplorerQueries.getObjIDFromPlatefiberMjd(mjd+"",plate+"",fiber+"");
+		System.out.println("ExplorerDao.getObjIDFromPlatefiberMjd-->aql:"+aql);
 		 /*if (reader.Read())
          {
             objectInfo.objId = reader["objId"] is DBNull  null : Functions.BytesToHex((byte[])reader["objId"]);
