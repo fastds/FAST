@@ -6,12 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 
-import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.explorehelpers.ObjectInfo;
 import org.fastds.model.ApogeeControl;
 import org.fastds.model.CrossIDControls;
@@ -65,8 +62,8 @@ public class ExplorerResource {
 	public Viewable summary(@QueryParam("ra") String ra
 						,@QueryParam("dec") String dec) {
 		
-		double qra = Utilities.parseRA(ra); // need to parse J2000
-        double qdec = Utilities.parseDec(dec); // need to parse J2000
+		qra = Utilities.parseRA(ra); // need to parse J2000
+        qdec = Utilities.parseDec(dec); // need to parse J2000
         
         //This is imp function to get all different ids.(获取所有不同的ID)
         getObjPmts();
