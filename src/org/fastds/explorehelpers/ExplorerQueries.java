@@ -131,55 +131,134 @@ public class ExplorerQueries {
                             +"FROM Neighbors n, photoobjall t WHERE n.neighborObjid=t.objid and n.objID=@objID order by n.distance asc ";
             
     /// Fits Parameters Queries
-    public static  String fitsParametersSppParams = " SELECT targetString as 'Targeting criteria', flag as 'SEGUE flags',spectypehammer as 'HAMMER spectral type', SPECTYPESUBCLASS as 'Spectral subclass',"
-                    +"str(elodiervfinal,7,2) as 'Radial velocity (km/s)', str(elodiervfinalerr,8,3) as 'RV error', str(teffadop,6,0) as 'Effective temp (K)'," 
-                    +"str(teffadopunc,6,1) as 'Teff error' , str(fehadop,7,2) as '[Fe/H] (dex)', str(fehadopunc,8,3) as '[Fe/H] error', str(loggadop,7,2) as 'log<sub>10</sub>(g) (dex)'," 
-                    +"str(loggadopunc,8,3) as 'log<sub>10</sub>(g) error' FROM sppParams WHERE specObjID=@specID";
             
+    public static String getFitsParametersSppParams(String specID)
+    {
+//    	public static  String fitsParametersSppParams = " SELECT targetString as 'Targeting criteria', flag as 'SEGUE flags',spectypehammer as 'HAMMER spectral type', SPECTYPESUBCLASS as 'Spectral subclass',"
+//    		+"str(elodiervfinal,7,2) as 'Radial velocity (km/s)', str(elodiervfinalerr,8,3) as 'RV error', str(teffadop,6,0) as 'Effective temp (K)'," 
+//    		+"str(teffadopunc,6,1) as 'Teff error' , str(fehadop,7,2) as '[Fe/H] (dex)', str(fehadopunc,8,3) as '[Fe/H] error', str(loggadop,7,2) as 'log<sub>10</sub>(g) (dex)'," 
+//    		+"str(loggadopunc,8,3) as 'log<sub>10</sub>(g) error' FROM sppParams WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT targetString as 'Targeting criteria', flag as 'SEGUE flags',spectypehammer as 'HAMMER spectral type', SPECTYPESUBCLASS as 'Spectral subclass',");
+    	aql.append("str(elodiervfinal,7,2) as 'Radial velocity (km/s)', str(elodiervfinalerr,8,3) as 'RV error', str(teffadop,6,0) as 'Effective temp (K)',");
+    	aql.append("str(teffadopunc,6,1) as 'Teff error' , str(fehadop,7,2) as '[Fe/H] (dex)', str(fehadopunc,8,3) as '[Fe/H] error', str(loggadop,7,2) as 'log<sub>10</sub>(g) (dex)',");
+    	aql.append("str(loggadopunc,8,3) as 'log<sub>10</sub>(g) error' FROM sppParams WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    
+    public static String getFitsParametersStellarMassStarformingPort(String specID)
+    {
+//    public static String fitsParametersStellarMassStarformingPort  = "  SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)',minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max',"
+//                    +"age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age',"
+//                    +"SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)', minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'" 
+//                    +"FROM stellarMassStarformingPort WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("  SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)',minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max',");
+    	aql.append("age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age',");
+    	aql.append("SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)', minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'");
+    	aql.append("FROM stellarMassStarformingPort WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    
+    public static String getFitsParameterSstellarMassPassivePort(String specID)
+    {
+//    public static String fitsParameterSstellarMassPassivePort = " SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)', minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max'"
+//                     +", age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age', SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)',"
+//                     +"minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'" 
+//                     +"FROM stellarMassPassivePort WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)', minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max'");
+    	aql.append(", age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age', SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)',");
+    	aql.append("minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'");
+    	aql.append("FROM stellarMassPassivePort WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    public static String getFitsParametersEmissionLinesPort(String specID)
+    {
+//    public static String fitsParametersEmissionLinesPort  = " SELECT velstars as 'Stellar velocity (km/s)',sigmaStars as 'Stellar velocity disperson (km/s)'," 
+//                                                            +"sigmaStarsErr as 'Velocity dispersion error' ,chisq as 'Chi-squared fit of template',"
+//                                                            +"bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT velstars as 'Stellar velocity (km/s)',sigmaStars as 'Stellar velocity disperson (km/s)',");
+    	aql.append("sigmaStarsErr as 'Velocity dispersion error' ,chisq as 'Chi-squared fit of template',");
+    	aql.append("bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID="+specID);
+    	return aql.toString();
+    }
 
-    public static String fitsParametersStellarMassStarformingPort  = "  SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)',minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max',"
-                    +"age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age',"
-                    +"SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)', minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'" 
-                    +"FROM stellarMassStarformingPort WHERE specObjID=@specID";
-
-    public static String fitsParameterSstellarMassPassivePort = " SELECT logMass as 'Best-fit log<sub>10</sub>(stellar mass)', minLogMass as '1-&sigma; min', maxLogMass as '1-&sigma; max'"
-                     +", age as 'Best-fit age (Gyr)', minAge as '1-&sigma; min Age', maxAge as '1-&sigma; max Age', SFR as 'Best-fit SFR (M<sub>&#9737;</sub> / yr)',"
-                     +"minSFR as '1-&sigma; min SFR', maxSFR as '1-&sigma; max SFR'" 
-                     +"FROM stellarMassPassivePort WHERE specObjID=@specID";
-
-    public static String fitsParametersEmissionLinesPort  = " SELECT velstars as 'Stellar velocity (km/s)',sigmaStars as 'Stellar velocity disperson (km/s)'," 
-                                                            +"sigmaStarsErr as 'Velocity dispersion error' ,chisq as 'Chi-squared fit of template',"
-                                                            +"bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID=@specID";
-            
-
-    public static  String fitsParametersStellarMassPCAWiscBC03 = " SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',"
-                                                                +"str(mstellar_err,8,3) as 'Error', str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'"
-                                                                +"FROM stellarMassPCAWiscBC03 WHERE specObjID=@specID";
-
+    public static String getFisParametersStellarMassPCAWiscBC03(String specID)
+    {
+//    public static  String fitsParametersStellarMassPCAWiscBC03 = " SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',"
+//                                                                +"str(mstellar_err,8,3) as 'Error', str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'"
+//                                                                +"FROM stellarMassPCAWiscBC03 WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',");
+    	aql.append("str(mstellar_err,8,3) as 'Error', str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'");
+    	aql.append("FROM stellarMassPCAWiscBC03 WHERE specObjID="+specID);
+    	return aql.toString();
+    }
     public static String fitsParametersstellarMassPCAWiscM11 = "SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(mstellar_err,8,3) as 'Error',"
                                                                +" str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'"
                                                                 +"FROM stellarMassPCAWiscM11 WHERE specObjID=@specID";
-
-    public static String fitsParametersStellarmassFSPSGranEarlyDust = "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error'," 
-                                                                      +"str(age,8,2) as 'Age (Gyr)', "
-                                                                      +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
-                                                                     +" FROM stellarmassFSPSGranEarlyDust WHERE specObjID=@specID";
-
-    public static String fitsParametersStellarmassFSPSGranEarlyNoDust = "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)'," 
-                                                                        +"str(logmass_err,8,3) as 'Error', str(age,8,2) as 'Age (Gyr)'," 
-                                                                        +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
-                                                                        +"FROM stellarmassFSPSGranEarlyNoDust WHERE specObjID=@specID";
-
-    public static String fitsParametersStellarmassFSPSGranWideDust= "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',"
-                                                                    +"str(age,8,2) as 'Age (Gyr)'," 
-                                                                    +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
-                                                                    +"FROM stellarmassFSPSGranWideDust WHERE specObjID=@specID";
-
-    public static  String fitsParametersStellarmassFSPSGranWideNoDust= "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',"
-                                                                        +"str(age,8,2) as 'Age (Gyr)'," 
-                                                                        +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
-                                                                        +"FROM stellarmassFSPSGranWideNoDust WHERE specObjID=@specID";
-            
+    public static String getFitsParametersstellarMassPCAWiscM11(String specID)
+    {
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(mstellar_err,8,3) as 'Error',");
+    	aql.append(" str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'");
+    	aql.append("FROM stellarMassPCAWiscM11 WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    public static String getFitsParametersStellarmassFSPSGranEarlyDust(String specID)
+    {
+//    public static String fitsParametersStellarmassFSPSGranEarlyDust = "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error'," 
+//                                                                      +"str(age,8,2) as 'Age (Gyr)', "
+//                                                                      +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
+//                                                                     +" FROM stellarmassFSPSGranEarlyDust WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',");
+    	aql.append("str(age,8,2) as 'Age (Gyr)', ");
+    	aql.append("str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'");
+    	aql.append(" FROM stellarmassFSPSGranEarlyDust WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    public static String getFitsParametersStellarmassFSPSGranEarlyNoDust(String specID)
+    {
+//    public static String fitsParametersStellarmassFSPSGranEarlyNoDust = "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)'," 
+//                                                                        +"str(logmass_err,8,3) as 'Error', str(age,8,2) as 'Age (Gyr)'," 
+//                                                                        +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
+//                                                                        +"FROM stellarmassFSPSGranEarlyNoDust WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',");
+    	aql.append("str(logmass_err,8,3) as 'Error', str(age,8,2) as 'Age (Gyr)',");
+    	aql.append("str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'");
+    	aql.append("FROM stellarmassFSPSGranEarlyNoDust WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    public static String getFitsParametersStellarmassFSPSGranWideDust(String specID)
+    {
+//    public static String fitsParametersStellarmassFSPSGranWideDust= " SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',"
+//                                                                    +"str(age,8,2) as 'Age (Gyr)'," 
+//                                                                    +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
+//                                                                    +"FROM stellarmassFSPSGranWideDust WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',");
+    	aql.append("str(age,8,2) as 'Age (Gyr)',");
+    	aql.append("str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'");
+    	aql.append("FROM stellarmassFSPSGranWideDust WHERE specObjID="+specID);
+    	return aql.toString();
+    }
+    public static String getFitsParametersStellarmassFSPSGranWideNoDust(String specID)
+    {
+//    public static  String fitsParametersStellarmassFSPSGranWideNoDust= "SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',"
+//                                                                        +"str(age,8,2) as 'Age (Gyr)'," 
+//                                                                        +"str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'"
+//                                                                        +"FROM stellarmassFSPSGranWideNoDust WHERE specObjID=@specID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT str(logmass,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)', str(logmass_err,8,3) as 'Error',");
+    	aql.append("str(age,8,2) as 'Age (Gyr)',");
+    	aql.append("str(ssfr,8,2) as 'SSFR', str(metallicity,8,2) as 'metallicity'");
+    	aql.append("FROM stellarmassFSPSGranWideNoDust WHERE specObjID="+specID);
+    	return aql.toString();
+    }
     //GalaxyZooQueries
     public static  String zooSpec ="SELECT * FROM zooSpec WHERE objid=@objID";
         
