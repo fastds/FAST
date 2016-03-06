@@ -69,9 +69,9 @@ public class ExplorerDao {
 			
 			double ra = rs.getDouble("ra");
 			double dec = rs.getDouble("dec");
-			short run = rs.getShort("run");
+			int run = rs.getShort("run");
 			short rerun = rs.getShort("rerun");
-			byte camcol = rs.getByte("camcol");
+			short camcol = rs.getByte("camcol");
 			short field = rs.getShort("field");
 			long fieldID = rs.getLong("fieldID");
 			long specObjID = rs.getLong("specObjID");
@@ -152,7 +152,7 @@ public class ExplorerDao {
 			if(!rs.isAfterLast())
 			{
 				long objID = rs.getLong("objID");
-				int specObjID = rs.getInt("specObjID");
+				long specObjID = rs.getLong("specObjID");
 				pt.setObjID(objID);
 				pt.setSpecObjID(specObjID);
 			}

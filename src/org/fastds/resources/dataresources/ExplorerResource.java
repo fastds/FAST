@@ -34,15 +34,15 @@ public class ExplorerResource {
 	
 	protected final String ZERO_ID = "0x0000000000000000";
     public ObjectInfo objectInfo = new ObjectInfo();
-    Long id ;
-    String apid;
-    Long specID;
+    Long id = null;
+    String apid = null;
+    Long specID = null;
     String sid = null;
-    Double qra ;
-    Double qdec ;
-    Integer mjd ;
-    Short plate ;
-    Short fiber ;
+    Double qra = null;
+    Double qdec = null;
+    Integer mjd = null;
+    Short plate = null;
+    Short fiber = null;
     String sidstring = null;
     
     /*

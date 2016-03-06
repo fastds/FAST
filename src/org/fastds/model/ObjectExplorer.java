@@ -30,13 +30,13 @@ public class ObjectExplorer {
     public String plateID = null;
     public String fieldID = null;
     public Short fiberID = null;
-    public int mjd;
-    public short plate;
+    public Integer mjd;
+    public Short plate;
 
-    public int run ;
-    public short rerun;
-    public short camcol;
-    public short field ;
+    public Integer run ;
+    public Short rerun;
+    public Short camcol;
+    public Short field ;
     
     public String getApid() {
 		return apid;

@@ -17,8 +17,8 @@ public class ObjectInfo {
     public Short fiberID = null;
     public String fieldID = null;
 
-    public Short run = null;
+    public Integer run = null;
     public Short rerun = null;
-    public Byte/*原来是Short*/ camcol = null;
+    public Short camcol = null;
     public Short field = null;
 }

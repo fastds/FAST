@@ -1,68 +1,68 @@
 package edu.gzu.domain;
 
 public class PhotoTag {
-	private double ra ;
-	private double dec;
-	private short run;
-	private short rerun;
-	private byte camcol;
-	private short field;
-	private long fieldID;
-	private long specObjID;
-	private long objID;
+	private Double ra ;
+	private Double dec;
+	private Integer run;
+	private Short rerun;
+	private Short camcol;
+	private Short field;
+	private Long fieldID;
+	private Long specObjID;
+	private Long objID;
 	
-	public double getRa() {
+	public Double getRa() {
 		return ra;
 	}
-	public void setRa(double ra) {
+	public void setRa(Double ra) {
 		this.ra = ra;
 	}
-	public double getDec() {
+	public Double getDec() {
 		return dec;
 	}
-	public void setDec(double dec) {
+	public void setDec(Double dec) {
 		this.dec = dec;
 	}
-	public short getRun() {
+	public Integer getRun() {
 		return run;
 	}
-	public void setRun(short run) {
+	public void setRun(Integer run) {
 		this.run = run;
 	}
-	public short getRerun() {
+	public Short getRerun() {
 		return rerun;
 	}
-	public void setRerun(short rerun) {
+	public void setRerun(Short rerun) {
 		this.rerun = rerun;
 	}
-	public byte getCamcol() {
+	public Short getCamcol() {
 		return camcol;
 	}
-	public void setCamcol(byte camcol) {
+	public void setCamcol(Short camcol) {
 		this.camcol = camcol;
 	}
-	public short getField() {
+	public Short getField() {
 		return field;
 	}
-	public void setField(short field) {
+	public void setField(Short field) {
 		this.field = field;
 	}
-	public long getFieldID() {
+	public Long getFieldID() {
 		return fieldID;
 	}
-	public void setFieldID(long fieldID) {
+	public void setFieldID(Long fieldID) {
 		this.fieldID = fieldID;
 	}
-	public long getSpecObjID() {
+	public Long getSpecObjID() {
 		return specObjID;
 	}
-	public void setSpecObjID(long specObjID) {
+	public void setSpecObjID(Long specObjID) {
 		this.specObjID = specObjID;
 	}
-	public long getObjID() {
+	public Long getObjID() {
 		return objID;
 	}
-	public void setObjID(long objID) {
+	public void setObjID(Long objID) {
 		this.objID = objID;
 	}
 
