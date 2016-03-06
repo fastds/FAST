@@ -309,7 +309,7 @@ public class ExplorerResource {
     } 
 
 
-    private void pmtsFromPhoto(long id)
+    private void pmtsFromPhoto(Long id)
     {
        
         PhotoTag photoTag = explorerService.findPhotoTag(id);
