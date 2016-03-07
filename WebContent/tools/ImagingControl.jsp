@@ -75,11 +75,11 @@
 			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_i") %>">err_i</span></td>
 			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_z") %>">err_z</span></td>
 	                </tr>
-	                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_u") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_g") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_r") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_i") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_z") %>" pattern="#.##"></fmt:formatNumber></tr>
+	                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_u")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_u") %>" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_g")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_g") %>" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_r")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_r") %>" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_i")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_i") %>" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_z")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_z") %>" pattern="#.##"></fmt:formatNumber></tr>
 	              </table>       
 	          </td>
 	        </tr>
