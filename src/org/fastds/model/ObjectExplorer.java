@@ -115,7 +115,7 @@ public class ObjectExplorer {
 
         String dmsDec;
             if (dec >= 0)
-                dmsDec = Utilities.dmsPad(dec ==null ? 0:dec).replace("+", "%2B");
+                dmsDec = Utilities.dmsPad(dec == null ? 0:dec).replace("+", "%2B");
             else
                 dmsDec = Utilities.dmsPad(dec ==null ? 0:dec);
             dmsDec = dmsDec.replace(" ", "+");
