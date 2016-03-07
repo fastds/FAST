@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="org.fastds.model.ImagingControl" %>
 <%@ page import="java.util.Map" %>
 <c:if test="${not empty imagingCtrl.objID}">
 	<div id="imaging">
@@ -69,30 +70,30 @@
 	            </table>
 	            <table cellpadding=2 cellspacing=2 border=0 width=420>
 	                <tr>
-	                	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_u") %>">err_u</span></td>
-			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_g") %>">err_g</span></td>
-			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_r") %>">err_r</span></td>
-			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_i") %>">err_i</span></td>
-			        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("err_z") %>">err_z</span></td>
+	                	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_u") %>">err_u</span></td>
+			        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_g") %>">err_g</span></td>
+			        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_r") %>">err_r</span></td>
+			        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_i") %>">err_i</span></td>
+			        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_z") %>">err_z</span></td>
 	                </tr>
-	                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_u")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_u") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_g")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_g") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_r")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_r") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_i")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_i") %>" pattern="#.##"></fmt:formatNumber></td>
-	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="<%=((Map)request.getAttribute("imagingCtrl")).get("err_z")==null?0:((Map)request.getAttribute("imagingCtrl")).get("err_z") %>" pattern="#.##"></fmt:formatNumber></tr>
+	                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_u }" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_g }" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_r }" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_i }" pattern="#.##"></fmt:formatNumber></td>
+	                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_z }" pattern="#.##"></fmt:formatNumber></tr>
 	              </table>       
 	          </td>
 	        </tr>
 	        <tr>
 	          <td colspan="2">
 	            <table cellpadding=2 cellspacing=2 border=0 width=625>
-	               <tr><td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("mjd") %>" >Image MJD</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("mode")%>" >mode</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("nDetect") %>" >Other observations</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("parentID") %>" >parentID</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("nChild") %>" >nChild</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("extinction_r") %>" >extinction_r</span></td>
-	                   <td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("petroRad_r") %>" >PetroRad_r (arcsec)</span></td>
+	               <tr><td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd}" >Image MJD</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mode}" >mode</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nDetect }" >Other observations</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nChild }" >nChild</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.extinction_r }" >extinction_r</span></td>
+	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.petrodRad_r }" >PetroRad_r (arcsec)</span></td>
 	               </tr>
 	               <tr><td nowrap align='middle' class='t'>${imagingCtrl.mjdNum }</td>
 	                   <td nowrap align='middle' class='t'>${imagingCtrl.mode }</td>
@@ -105,8 +106,8 @@
 	            </table>
 	            <table cellpadding=2 cellspacing=2 border=0 width=625>
 	                <tr>
-	                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.Get("mjd") }" >Mjd-Date</span></td>
-	                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.Get("z") }" >photoZ (KD-tree method)</span></td>
+	                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd }" >Mjd-Date</span></td>
+	                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.z }" >photoZ (KD-tree method)</span></td>
 	                    <%--
 	                    <td align='middle' class='h'><span title="unit=<%=columnUnit.Get('z') %>" >photoZ (RF method)</span></td>
 	                    --%>
