@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	 <div id="headerAlert">
             <a href="http://www.sciserver.org/updates/" class="imgwithlink" target="_blank">
-                <img src="../../images/sciserver_logo_usermsg.png" alt="logo" width="190" />
+                <img src="../images/sciserver_logo_usermsg.png" alt="logo" width="190" />
             </a>
             <p><a href="http://www.sciserver.org/updates/" target="_blank">Coming soon!<img src="../../images/new_window_cyan.png" alt=" (new window)" style="max-width:95%;margin:2%" /></a></p>
       </div>    
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>        
       <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	  <tr>
-		<td width="40"><a href="http://skyserver.sdss.org/dr12/en" target="_top"><img src="images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
+		<td width="40"><a href="http://skyserver.sdss.org/dr12/en" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
 		<td class="title" align="left" width="68">&nbsp;&nbsp;FASTDS</td>
 	  </tr>
       </table>
