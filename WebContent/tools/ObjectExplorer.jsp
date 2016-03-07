@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="headerAlert">
     <a href="${master.globals.sciServerLink}updates/" class="imgwithlink" target="_blank">
-        <img src="../../images/sciserver_logo_usermsg.png" alt="logo" width="190" />
+        <img src="../images/planet.jpg" alt="logo" width="190" />
     </a>
     <p><a href="${master.globals.sciServerLink}updates/" target="_blank">Coming soon!<img src="../../images/new_window_cyan.png" alt=" (new window)" style="max-width:95%;margin:2%" /></a></p>
 </div>    
@@ -10,7 +10,7 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
 		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
 	</tr>
    </table>
