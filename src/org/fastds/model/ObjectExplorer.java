@@ -114,8 +114,8 @@ public class ObjectExplorer {
             hmsRA = Utilities.hmsPad(ra ==null ? 0:ra).replace(" ", "+");
 
         String dmsDec;
-            if (dec >= 0)
-                dmsDec = Utilities.dmsPad(dec == null ? 0:dec).replace("+", "%2B");
+            if (dec != null && dec >= 0)
+                dmsDec = Utilities.dmsPad(dec ==null ? 0:dec).replace("+", "%2B");
             else
                 dmsDec = Utilities.dmsPad(dec ==null ? 0:dec);
             dmsDec = dmsDec.replace(" ", "+");
