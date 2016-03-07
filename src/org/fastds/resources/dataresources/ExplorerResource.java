@@ -119,7 +119,7 @@ public class ExplorerResource {
 		DisplayResults displayResults = new DisplayResults(master);
 		
          if(apid != null && !apid.isEmpty())
-             apid= HttpUtility.UrlEncode(Request.QueryString["apid"]);
+        	 displayResults.setApid(HttpUtility.UrlEncode(apid));
          displayResults.setObjID(id);
          displayResults.setSpecID(spec);
          
