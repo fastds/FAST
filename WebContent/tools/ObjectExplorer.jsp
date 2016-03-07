@@ -115,6 +115,6 @@
    </div>              
     </div>
 </form>
-<script language="JavaScript" type="text/javascript" src="../../wz_tooltip.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/wz_tooltip.js"></script>
 
 <iframe id="test" name='test' width ="0" height="0" scrolling="no"  src="../chart/blank.html"/>
