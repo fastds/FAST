@@ -15,7 +15,7 @@ public class CrossIDControls {
     protected String properMotion;
     protected float angle;
 
-    protected String first;
+	protected String first;
     protected String peakflux;
     protected float major;
     protected float minor;
@@ -51,7 +51,11 @@ public class CrossIDControls {
     protected boolean isRC3 = false;
     protected boolean isWISE = false;
     protected boolean is2MASS = false;
-
+    
+    
+    public String getObjID() {
+    	return objID;
+    }
     public CrossIDControls(ObjectExplorer master)
     {
     	load(master);
