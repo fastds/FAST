@@ -100,20 +100,39 @@ public class ExplorerQueries {
             
 
     //AllSpectra Queries
-    public  static String AllSpec1= "SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber," 
-                        +"str(t.ra,10,5) as ra, str(t.dec,10,5) as dec, str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec, s.sciencePrimary," 
-                        +"str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class "
-                        +"FROM SpecObjAll s, photoobjall t"
-                        +"WHERE t.objid=@objID  and s.bestobjid=t.objid  order by scienceprimary desc, plate, MJD, fiber";
-            
+    public static String AllSpec1(String objID)
+    {
+//    public  static String AllSpec1= "SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber," 
+//                        +"str(t.ra,10,5) as ra, str(t.dec,10,5) as dec, str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec, s.sciencePrimary," 
+//                        +"str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class "
+//                        +"FROM SpecObjAll s, photoobjall t"
+//                        +"WHERE t.objid=@objID  and s.bestobjid=t.objid  order by scienceprimary desc, plate, MJD, fiber";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber,");
+    	aql.append("str(t.ra,10,5) as ra, str(t.dec,10,5) as dec, str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec, s.sciencePrimary,");
+    	aql.append("str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class ");
+    	aql.append("FROM SpecObjAll s, photoobjall t");
+    	aql.append("WHERE t.objid="+objID+" and s.bestobjid=t.objid  order by scienceprimary desc, plate, MJD, fiber");
+    	return aql.toString();
+    }
     
-    public static String AllSpec2  = "SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber, str(t.ra,10,5) as ra, str(t.dec,10,5) as dec," 
-                        +"str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec,  s.sciencePrimary," 
-                        +"str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class" 
-                        +"FROM SpecObjAll s, photoobjall t" 
-                        +"WHERE t.objid=@objID  and s.fluxobjid=t.objid order by  plate, MJD, fiber," 
-                        +"scienceprimary desc, distanceArcMin asc";                
-            
+    public static String AllSpec2(String objID)
+    {
+//    public static String AllSpec2  = "SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber, str(t.ra,10,5) as ra, str(t.dec,10,5) as dec," 
+//                        +"str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec,  s.sciencePrimary," 
+//                        +"str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class" 
+//                        +"FROM SpecObjAll s, photoobjall t" 
+//                        +"WHERE t.objid=@objID  and s.fluxobjid=t.objid order by  plate, MJD, fiber," 
+//                        +"scienceprimary desc, distanceArcMin asc";                
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber, str(t.ra,10,5) as ra, str(t.dec,10,5) as dec,");
+    	aql.append("str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec,  s.sciencePrimary,");
+    	aql.append("str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class");
+    	aql.append("FROM SpecObjAll s, photoobjall t" );
+    	aql.append("WHERE t.objid="+objID+"  and s.fluxobjid=t.objid order by  plate, MJD, fiber,");
+    	aql.append("scienceprimary desc, distanceArcMin asc");
+    	return aql.toString();
+    }
     ///Matches Queries
     public static  String matches1 = "SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid, dbo.fPhotoModeN(p.mode) as mode"
                                    +" FROM Photoobjall p WHERE p.objid=@objID";

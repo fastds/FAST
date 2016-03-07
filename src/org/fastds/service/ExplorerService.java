@@ -1,6 +1,7 @@
 package org.fastds.service;
 
 
+import java.sql.ResultSet;
 import java.util.Map;
 
 import org.fastds.dao.ExplorerDao;
@@ -113,6 +114,21 @@ public class ExplorerService {
 	public Map<String, Object> findObjIDFromPlatefiberMjd(String mjd,
 			String plate, String fiber) {
 		return dao.getObjIDFromPlatefiberMjd(mjd,plate,fiber);
+	}
+
+	public ResultSet findAllSpec1RS(String objID) {
+		// TODO Auto-generated method stub
+		return dao.getAllSpec1RS(objID);
+	}
+
+	public ResultSet findAllSpec2RS(String objID) {
+		// TODO Auto-generated method stub
+		return dao.getAllSpec2RS(objID);
+	}
+
+	public ResultSet runCmd(String cmd) {
+		
+		return dao.getResultSetFromCmd(cmd);
 	}
 
 }

@@ -1041,4 +1041,39 @@ public class ExplorerDao {
 		return attrs;
 	}
 
+	public ResultSet getAllSpec1RS(String objID) {
+		String aql = ExplorerQueries.AllSpec1(objID);
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		try {
+			rs = exQuery.aqlQuery(aql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public ResultSet getAllSpec2RS(String objID) {
+		String aql = ExplorerQueries.AllSpec2(objID);
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		try {
+			rs = exQuery.aqlQuery(aql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public ResultSet getResultSetFromCmd(String cmd) {
+		ResultSet rs = null;
+		ExQuery exQuery = new ExQuery();
+		try {
+			rs = exQuery.aqlQuery(cmd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
 }
