@@ -1,18 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.DisplayResults %>
 <%@ page import="org.fastds.model.ObjectExplorer" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<asp:Content ID="Head1" ContentPlaceHolderID="OEHead" runat="server">
-    <script type="text/javascript" src="./javascript/explore.js"></script>
-</asp:Content>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<asp:Content ID="Content2" ContentPlaceHolderID="OEContent" runat="server">
-   <div class="content">
+	<link href="../css/tools.css" rel="stylesheet" type="text/css" />
+	<link href="../css/alerts.css" rel="stylesheet" type="text/css" />
+	
+	<title>
+		Object Explorer
+	</title>
+	
+    <script src="../js/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="../js/master.js"> </script>
+    <script type="text/javascript" src="../js/explore.js"></script>
+</head>
+<body>
+ 	<%@ include file="ObjectExplorer.jsp" %>
+ 	<div class="content">
    <div id="QueryResults">
       <!--  url = master.getURL(); 后台已有，但不明确这里赋值是否有影响，属于内嵌java代码 -->
        
@@ -23,4 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((DisplayResults)request.getAttribute("displayResults")).getDs(), 300))%>
     </div>
  </div>    
-</asp:Content>
+</body>
+</html>
+
+  

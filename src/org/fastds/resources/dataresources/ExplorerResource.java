@@ -1,5 +1,7 @@
 package org.fastds.resources.dataresources;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,7 +121,11 @@ public class ExplorerResource {
 		DisplayResults displayResults = new DisplayResults(master);
 		
          if(apid != null && !apid.isEmpty())
-        	 displayResults.setApid(HttpUtility.UrlEncode(apid));
+			try {
+				displayResults.setApid(URLEncoder.encode(apid, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
          displayResults.setObjID(id);
          displayResults.setSpecID(spec);
          
