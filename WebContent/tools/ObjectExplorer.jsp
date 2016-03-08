@@ -111,19 +111,12 @@
 		</div>
      
    <div id="content">
-	<div id="imaging">
-<h3>Imaging</h3>            
-
-
-            <div class="warning">
-                <table><tr><td>
-                    <b>WARNING:</b> 
-                    This object's photometry may be unreliable. See the photometric 
-                    <em>flags</em> below.
-                </td></tr></table>
-                </div>
-</div>
-       <asp:contentplaceholder id="OEContent" runat="server" />           
+       <asp:contentplaceholder id="OEContent" runat="server" />
+      	<%@ include file="MetaDataControl.jsp" %>
+	 	<%@ include file="ImagingControl.jsp" %>
+	 	<%@ include file="CrossIDControl.jsp" %>
+	 	<%@ include file="SpectralControl.jsp" %>
+	 	<%@ include file="ApogeeControl.jsp" %>
    </div>              
     </div>
 </form>
