@@ -112,11 +112,6 @@
      
    <div id="content">
        <asp:contentplaceholder id="OEContent" runat="server" />
-      	<%@ include file="MetaDataControl.jsp" %>
-	 	<%@ include file="ImagingControl.jsp" %>
-	 	<%@ include file="CrossIDControl.jsp" %>
-	 	<%@ include file="SpectralControl.jsp" %>
-	 	<%@ include file="ApogeeControl.jsp" %>
    </div>              
     </div>
 </form>
