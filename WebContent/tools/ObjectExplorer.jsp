@@ -111,10 +111,11 @@
 		</div>
      
    <div id="content">
+   <div class="content">dddddddddddddddd<</div>
        <asp:contentplaceholder id="OEContent" runat="server" />           
    </div>              
     </div>
 </form>
 <script language="JavaScript" type="text/javascript" src="../js/wz_tooltip.js"></script>
 
-<iframe id="test" name='test' width ="0" height="0" scrolling="no"  src="../chart/blank.html"/>
+<iframe id="test" name='test' width ="0" height="0" scrolling="no"  src="blank.html"/>
