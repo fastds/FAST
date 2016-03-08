@@ -712,7 +712,7 @@ public class ExplorerQueries {
     	+"   dbo.fGetUrlFitsMask(@fieldID,'z'),"
     	+"   dbo.fGetUrlFitsAtlas(@fieldID),"
     	+"   dbo.fGetUrlFitsField(@fieldID)";
-    public static String getFitsimg(long fieldID)
+    public static String getFitsimg(String fieldID)
     {
     	StringBuilder aql = new StringBuilder();
     	aql.append("SELECT ");
