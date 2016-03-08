@@ -339,43 +339,65 @@ public class ObjectExplorer {
 
     /**
      * Vertical aligned table  With DataSet
-     *//*
-    public void showVTable(DataSet ds, int w)
+     */
+    public String showVTable(ResultSet ds, int w)
     {
-        using (DataTableReader reader = ds.Tables[0].CreateDataReader())
-        {
-            char c = 't'; String unit = "test";
-            res.append("<table cellpadding=2 cellspacing=2 border=0");
-            if (w > 0)
-                res.append(" width=" + w);
-            res.append(">\n");
-            if (reader.HasRows)
-            {
-                if (reader.Read())
-                {
-                    for (int k = 0; k < reader.FieldCount; k++)
-                    {
-                        res.append("<tr align='left' >");
-                        res.append("<td  valign='top' class='h'>");
-                        res.append("<span ");
-                        if (unit != "")
-                            res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
-                        res.append("></span>");
-                        res.append(reader.GetName(k) + "</td>");
+    	StringBuilder res = new StringBuilder();
+    	
+        char c = 't'; String unit = "test";
+        res.append("<table cellpadding=2 cellspacing=2 border=0");
+        if (w > 0)
+            res.append(" width=" + w);
+        res.append(">\n");
+        ResultSetMetaData meta = null;
+        try {
+        	meta = ds.getMetaData();
+			if (!ds.isAfterLast())
+			{
+			        for (int k = 1; k <= meta.getColumnCount(); k++)
+			        {
+			            res.append("<tr align='left' >");
+			            res.append("<td  valign='top' class='h'>");
+			            res.append("<span ");
+			            if (unit != "")
+			                res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
+			            res.append("></span>");
+			            res.append(meta.getColumnLabel(k) + "</td>");
 
-                        res.append("<td valign='top' class='" + c + "'>");
-                        res.append(reader.GetValue(k));
-                        res.append("</td>");
-                        res.append("</tr>");
-                    }
-                }
-            }
-            else {
-                res.append("<tr> <td class='nodatafound'>No data found for this object </td></tr>");
-            }
-            res.append("</table>");
-        }
-    } old --*/
+			            res.append("<td valign='top' class='" + c + "'>");
+			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
+							res.append(ds.getBoolean(meta.getColumnLabel(k)));
+						} else if ("int".startsWith(meta.getColumnTypeName(k))) {
+							res.append(ds.getBigDecimal(meta.getColumnLabel(k)));
+						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+							String str = ds.getString(meta.getColumnTypeName(k));
+							if(str.contains("<"))
+								str = str.replace("<", "&lt;");
+							if(str.contains(">"))
+								str = str.replace(">","&gt;");
+							//System.out.println(str);
+							res.append(str);
+							
+						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+							
+							res.append(ds.getTime(meta.getColumnLabel(k)));
+						} else {
+							res.append(ds.getDouble(meta.getColumnLabel(k)));
+						}
+			            res.append("</td>");
+			            res.append("</tr>");
+			        }
+			}
+			else {
+			    res.append("<tr> <td class='nodatafound'>No data found for this object </td></tr>");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        res.append("</table>");
+        return res.toString();
+    } 
 
     /**
      * Added new HTable with namevalue pair options

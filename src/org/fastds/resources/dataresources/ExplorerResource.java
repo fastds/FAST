@@ -19,7 +19,9 @@ import org.fastds.model.DisplayResults;
 import org.fastds.model.Globals;
 import org.fastds.model.ImagingControl;
 import org.fastds.model.MetaDataControl;
+import org.fastds.model.Neighbors;
 import org.fastds.model.ObjectExplorer;
+import org.fastds.model.Plate;
 import org.fastds.model.SpectralControl;
 import org.fastds.service.ExplorerService;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -144,6 +146,28 @@ public class ExplorerResource {
 		return new Viewable("/tools/DisplayResults.jsp", null);
 	}
 	
+	@GET
+	@Path("neighbors")
+	public Viewable getNeighbors(@QueryParam("id") String id) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Neighbors neighbors = new Neighbors(master);
+		neighbors.setObjID(id);
+		neighbors.executeQuery();
+		request.setAttribute("neighbors", neighbors);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/Neighbors.jsp", null);
+	}
+	@GET
+	@Path("plate")
+	public Viewable getPlate(@QueryParam("plateID") String plateID) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Plate plate = new Plate(master);
+		plate.setPlateID(Utilities.ParseId(plateID));
+		plate.executeQuery();
+		request.setAttribute("plate", plate);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/plate.jsp", null);
+	}
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))
             objectInfo.id = Utilities.ParseId(objectInfo.objID);
