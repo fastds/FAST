@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="edu.gzu.utils.Utilities" %>
 <%@ page import="org.fastds.model.MetaDataControl" %>
-<<c:choose>
+<c:choose>
 	<c:when test="${not empty master.objID}">
 		<div id="metadata">
 		    <table class="content">
@@ -69,7 +69,7 @@
 		<table cellpadding=2 cellspacing=2 border=0 width=625>
             <%--<tr><td class='nodatafound'>Object is out of SDSS footprint</td></tr>--%>  
             <c:choose>
-            	<c:when test="${not empty master.apid and not empty master.specObjID }">
+            	<c:when test="${empty master.apid and empty master.specObjID }">
             		<tr><td class='nodatafound'>The object corresponding to the id specified does not exist in the database.<br> Please try another object.</td></tr>
             	</c:when>
             	<c:when test="${not empty master.apid or not empty master.specObjID }">
