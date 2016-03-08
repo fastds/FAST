@@ -111,7 +111,18 @@
 		</div>
      
    <div id="content">
-   <div class="content">dddddddddddddddd<</div>
+	<div id="imaging">
+<h3>Imaging</h3>            
+
+
+            <div class="warning">
+                <table><tr><td>
+                    <b>WARNING:</b> 
+                    This object's photometry may be unreliable. See the photometric 
+                    <em>flags</em> below.
+                </td></tr></table>
+                </div>
+</div>
        <asp:contentplaceholder id="OEContent" runat="server" />           
    </div>              
     </div>
