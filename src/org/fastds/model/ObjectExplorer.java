@@ -1,6 +1,9 @@
 package org.fastds.model;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.explorehelpers.ObjectInfo;
@@ -342,107 +345,171 @@ public class ObjectExplorer {
         using (DataTableReader reader = ds.Tables[0].CreateDataReader())
         {
             char c = 't'; String unit = "test";
-            Response.Write("<table cellpadding=2 cellspacing=2 border=0");
+            res.append("<table cellpadding=2 cellspacing=2 border=0");
             if (w > 0)
-                Response.Write(" width=" + w);
-            Response.Write(">\n");
+                res.append(" width=" + w);
+            res.append(">\n");
             if (reader.HasRows)
             {
                 if (reader.Read())
                 {
                     for (int k = 0; k < reader.FieldCount; k++)
                     {
-                        Response.Write("<tr align='left' >");
-                        Response.Write("<td  valign='top' class='h'>");
-                        Response.Write("<span ");
+                        res.append("<tr align='left' >");
+                        res.append("<td  valign='top' class='h'>");
+                        res.append("<span ");
                         if (unit != "")
-                            Response.Write("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
-                        Response.Write("></span>");
-                        Response.Write(reader.GetName(k) + "</td>");
+                            res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
+                        res.append("></span>");
+                        res.append(reader.GetName(k) + "</td>");
 
-                        Response.Write("<td valign='top' class='" + c + "'>");
-                        Response.Write(reader.GetValue(k));
-                        Response.Write("</td>");
-                        Response.Write("</tr>");
+                        res.append("<td valign='top' class='" + c + "'>");
+                        res.append(reader.GetValue(k));
+                        res.append("</td>");
+                        res.append("</tr>");
                     }
                 }
             }
             else {
-                Response.Write("<tr> <td class='nodatafound'>No data found for this object </td></tr>");
+                res.append("<tr> <td class='nodatafound'>No data found for this object </td></tr>");
             }
-            Response.Write("</table>");
+            res.append("</table>");
         }
     } old --*/
 
     /**
      * Added new HTable with namevalue pair options
+     * 返回要显示的页面元素
      */
-    /*  old   public void showHTable(DataSet ds, int w, String target)
+    public String showHTable(ResultSet rs, int w, String target)
     {
-        using (DataTableReader reader = ds.Tables[0].CreateDataReader())
-        {
-            char c = 't'; String unit = "test";
+    	StringBuilder res = new StringBuilder();
+    	ResultSetMetaData meta = null;
+        char c = 't'; String unit = "test";
 
-            Response.Write("<table cellpadding=2 cellspacing=2 border=0");
+        res.append("<table cellpadding=2 cellspacing=2 border=0");
+        if (w > 0)
+        	res.append(" width=" + w);
+        res.append(">\n");
 
-            if (w > 0)
-                Response.Write(" width=" + w);
-            Response.Write(">\n");
+        res.append("<tr>");
 
-            Response.Write("<tr>");
+        try {
+        meta = rs.getMetaData();
+        int colCount =  meta.getColumnCount();
+			if (!rs.isAfterLast())
+			{
+			    for (int k = 1; k <= colCount; k++)
+			    {
+			    	res.append("<td align='middle' class='h'>");
+			    	res.append("<span ");
+			        if (unit != "")
+			        	res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
+			        res.append("></span>");
+			        res.append(meta.getColumnName(k) + "</td>");
+			    }
+			    res.append("</tr>");
 
-            if (reader.HasRows)
-            {
-                for (int k = 0; k < reader.FieldCount; k++)
-                {
-                    Response.Write("<td align='middle' class='h'>");
-                    Response.Write("<span ");
-                    if (unit != "")
-                        Response.Write("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
-                    Response.Write("></span>");
-                    Response.Write(reader.GetName(k) + "</td>");
-                }
-                Response.Write("</tr>");
 
+			    while (!rs.isAfterLast())
+			    {
+			        res.append("<tr>");
 
-                while (reader.Read())
-                {
-                    Response.Write("<tr>");
+			        for (int k = 1; k <= colCount; k++)
+			        {
+			            res.append("<td nowrap align='middle' class='" + c + "'>");
 
-                    for (int k = 0; k < reader.FieldCount; k++)
-                    {
-                        Response.Write("<td nowrap align='middle' class='" + c + "'>");
+			            // think something else if possible for this
+			            if (target.equals("AllSpectra") && k == 1)
+			            {
+			                String u = "<a class='content' target='_top' href='Summary.aspx?sid=";
+//      old                      res.append(u + rs.GetValue(k) + "'>" + rs.GetValue(k) + "</a></td>");
+			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");
+							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBigDecimal(meta.getColumnLabel(k))+ "'>" + rs.getBigDecimal(meta.getColumnLabel(k)) + "</a></td>");
+							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
+								if(str.contains("<"))
+									str = str.replace("<", "&lt;");
+								if(str.contains(">"))
+									str = str.replace(">","&gt;");
+								//System.out.println(str);
+								res.append(str);
+								
+							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+								
+								res.append(u + rs.getTime(meta.getColumnLabel(k))+ "'>" + rs.getTime(meta.getColumnLabel(k)) + "</a></td>");
+							} else {
+								res.append(u + rs.getDouble(meta.getColumnLabel(k))+ "'>" + rs.getDouble(meta.getColumnLabel(k)) + "</a></td>");
+							}
+			            }
 
-                        // think something else if possible for this
-                        if (target.Equals("AllSpectra") && k == 0)
-                        {
-                            String u = "<a class='content' target='_top' href='Summary.aspx?sid=";
-                            Response.Write(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
-                        }
+			            else if (target.equals("Neighbors") && k == 1)
+			            {
+			                String u = "<a class='content' target='_top' href='Summary.aspx?id=";
+//                  old          res.append(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
+			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");
+							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBigDecimal(meta.getColumnLabel(k))+ "'>" + rs.getBigDecimal(meta.getColumnLabel(k)) + "</a></td>");
+							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
+								if(str.contains("<"))
+									str = str.replace("<", "&lt;");
+								if(str.contains(">"))
+									str = str.replace(">","&gt;");
+								//System.out.println(str);
+								res.append(str);
+								
+							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+								
+								res.append(u + rs.getTime(meta.getColumnLabel(k))+ "'>" + rs.getTime(meta.getColumnLabel(k)) + "</a></td>");
+							} else {
+								res.append(u + rs.getDouble(meta.getColumnLabel(k))+ "'>" + rs.getDouble(meta.getColumnLabel(k)) + "</a></td>");
+							}
+			            }
 
-                        else if (target.Equals("Neighbors") && k == 0)
-                        {
-                            String u = "<a class='content' target='_top' href='Summary.aspx?id=";
-                            Response.Write(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
-                        }
+			            else
+			            {
+//                            res.append(reader.GetValue(k));
+			            	if ("bool".endsWith(meta.getColumnTypeName(k))) {
+								res.append(rs.getBoolean(meta.getColumnLabel(k)));
+							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
+								res.append(rs.getBigDecimal(meta.getColumnLabel(k)));
+							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+								String str = rs.getString(meta.getColumnTypeName(k));
+								if(str.contains("<"))
+									str = str.replace("<", "&lt;");
+								if(str.contains(">"))
+									str = str.replace(">","&gt;");
+								//System.out.println(str);
+								res.append(str);
+								
+							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+								
+								res.append(rs.getTime(meta.getColumnLabel(k)));
+							} else {
+								res.append(rs.getDouble(meta.getColumnLabel(k)));
+							}
+			            }
+			            res.append("</td>");
+			        }
+			    }
+			}
+			else {
+			    res.append(" <td class='nodatafound'>No data found for this object </td>");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-                        else
-                        {
-                            Response.Write(reader.GetValue(k));
-                        }
-                        Response.Write("</td>");
-                    }
-                }
-            }
-            else {
-                Response.Write(" <td class='nodatafound'>No data found for this object </td>");
-            }
+        res.append("</tr>");
 
-            Response.Write("</tr>");
-
-            Response.Write("</table>");
-        }
-    }*/
+        res.append("</table>");
+        return res.toString();
+    }
 
     public String getEnUrl() {
     	return enUrl;

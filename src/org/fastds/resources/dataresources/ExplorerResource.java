@@ -1,5 +1,7 @@
 package org.fastds.resources.dataresources;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import org.fastds.explorehelpers.ObjectInfo;
+import org.fastds.model.AllSpec;
 import org.fastds.model.ApogeeControl;
 import org.fastds.model.CrossIDControls;
+import org.fastds.model.DisplayResults;
 import org.fastds.model.Globals;
 import org.fastds.model.ImagingControl;
 import org.fastds.model.MetaDataControl;
@@ -44,11 +48,11 @@ public class ExplorerResource {
     Short plate = null;
     Short fiber = null;
     String sidstring = null;
+    ObjectExplorer master = null;			//导航栏链接元素的动态变量
     
     /*
      * ---------以下是页面上显示的相关动态元素的对象---------
      */
-    ObjectExplorer master = null;			//导航栏链接元素的动态变量
     MetaDataControl metaDataCtrl = null;	//与meda data 相关的变量元素
     ImagingControl imagingCtrl = null;		//与图像相关联的变量元素
     CrossIDControls crossIDCtrl = null;	//与交叉认证相关的变量元素
@@ -96,84 +100,50 @@ public class ExplorerResource {
 		return new Viewable("/tools/test.jsp", null);//测试用
 	}
 	
+	@GET
+	@Path("allSpec")
+	public Viewable allSpec(@QueryParam("id") String id) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		AllSpec allSpec = new AllSpec(master);
+		allSpec.setObjID(id);
+		allSpec.executeQuery();
+		request.setAttribute("allSpec", allSpec);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/AllSpec.jsp", null);
+	}
+	@GET
+	@Path("displayResults")
+	public Viewable displayResults(@QueryParam("id") String id
+			,@QueryParam("apid") String apid,@QueryParam("spec") String spec
+			,@QueryParam("field") String field,@QueryParam("cmd") String cmd
+			,@QueryParam("name") String name,@QueryParam("url") String url) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		DisplayResults displayResults = new DisplayResults(master);
+		
+         if(apid != null && !apid.isEmpty())
+			try {
+				displayResults.setApid(URLEncoder.encode(apid, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+         displayResults.setObjID(id);
+         displayResults.setSpecID(spec);
+         
+         displayResults.setFieldID(field);
+
+         displayResults.setCmd(cmd);
+         displayResults.setName(name);
+         displayResults.setUrl(url);
+	    
+	     if(cmd == null || cmd.equals(""))
+	    	 displayResults.getQuery();
 	
+	     displayResults.executeQuery();
+	     request.setAttribute("displayResults", displayResults);
+	     request.setAttribute("master", master);
+		return new Viewable("/tools/DisplayResults.jsp", null);
+	}
 	
-	/*-----------------------------down c#--------------------------------------*/
-	/*      old
-	 * protected final String ZERO_ID = "0x0000000000000000";
-    protected Globals globals;
-    protected ObjectExplorer master;
-    
-    public RunQuery runQuery;
-    public ObjectInfo objectInfo = new ObjectInfo();
-
-    //protected HRefs hrefs = new HRefs();
-
-     long id = null;
-     String apid;
-     long specID = null;
-     String sid = null;
-     double qra = null;
-     double qdec = null;
-
-    int mjd = null;
-    short plate = null;
-    short fiber = null;*/
-
-   /* protected void Page_Load(Object sender, EventArgs e)
-    {
-        runQuery = new RunQuery();
-        globals = (Globals)Application[Globals.PROPERTY_NAME];
-        master = (ObjectExplorer)Page.Master;
-        Session["objectInfo"] = objectInfo;
-
-        if (Request.QueryString.Keys.Count == 0)
-        {
-            id = globals.ExploreDefault;
-        }
-
-        foreach (String key in Request.QueryString.Keys)
-        {
-            if (key == "id")
-            {
-                String s = Request.QueryString["id"];
-                id = Utilities.ParseID(s);                   
-            }
-            if (key == "sid")
-            {
-                String s = Request.QueryString["sid"].Trim().ToUpper();
-                if (s.StartsWith("2M")) sidstring = s;
-                else
-                sidstring = (String.Equals(s, ""))  s : Utilities.ParseID(s).ToString();                   
-            }
-            if (key == "spec")
-            {
-                String s = Request.QueryString["spec"];
-                sidstring = (String.Equals(s, ""))  s : Utilities.ParseID(s).ToString();                 
-            }
-            if (key == "apid")
-            {
-                String s = HttpUtility.UrlEncode(Request.QueryString["apid"]);                    
-                if (s != null & !"".Equals(s))
-                {
-                        apid = s;
-                }                    
-            }
-            if (key == "ra") qra = Utilities.parseRA(Request.QueryString["ra"]); // need to parse J2000
-            if (key == "dec") qdec = Utilities.parseDec(Request.QueryString["dec"]); // need to parse J2000
-            if (key == "plate") plate = short.Parse(Request.QueryString["plate"]);
-            if (key == "mjd") mjd = int.Parse(Request.QueryString["mjd"]);
-            if (key == "fiber") fiber = short.Parse(Request.QueryString["fiber"]);
-        }
-       
-        //This is imp function to get all different ids.
-        getObjPmts();
-
-        //parseID and store ObjectInfo in session
-        parseIDs();
-        
-    } old */
-
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))
             objectInfo.id = Utilities.ParseId(objectInfo.objID);
