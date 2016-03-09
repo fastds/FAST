@@ -68,10 +68,42 @@ public class ExplorerResource {
 	@GET
 	@Path("summary")
 	public Viewable summary(@QueryParam("ra") String ra
-						,@QueryParam("dec") String dec) {
-		
-		qra = Utilities.parseRA(ra); // need to parse J2000
-        qdec = Utilities.parseDec(dec); // need to parse J2000
+		,@QueryParam("dec") String dec,@QueryParam("id") String qid
+		,@QueryParam("sid") String sid,@QueryParam("spec") String spec
+		,@QueryParam("apid") String qapid,@QueryParam("plate") String plate
+		,@QueryParam("mjd") String mjd,@QueryParam("fiber") String fiber) {
+		/*
+		 * 对接收到的参数进行处理
+		 */
+		if(id != null)
+			this.id = Utilities.ParseId(qid);
+		if(sid != null)
+		{
+			if(sid.startsWith("2M"))
+				sidstring = sid;
+			else
+				sidstring = (sid.isEmpty()) ? sid : Utilities.ParseId(sid).toString();
+		}
+		if(spec != null)
+			sidstring = (sid.isEmpty()) ? sid : Utilities.ParseId(sid).toString();
+		try {
+				if(qapid !=null )
+				{
+					String s;
+					s = URLEncoder.encode(apid,"UTF-8");
+		            if (qapid != null & !"".equals(qapid))
+		            {
+		                    this.apid = s;
+		            } 
+				}
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		if(ra != null) qra = Utilities.parseRA(ra); // need to parse J2000
+        if(dec != null) qdec = Utilities.parseDec(dec); // need to parse J2000
+        if(plate != null) this.plate = Short.parseShort(plate);
+        if(mjd != null) this.mjd = Integer.parseInt(mjd);
+        if(fiber != null) this.fiber = Short.parseShort(fiber);
         
         //This is imp function to get all different ids.(获取所有不同的ID)
         getObjPmts();
@@ -210,11 +242,11 @@ public class ExplorerResource {
     private void getObjPmts()
     {
     	System.out.print("fiber:"+fiber==null);
-    	System.out.print(";ra,dec:"+(qra==null)+","+(qdec==null));
-    	System.out.print(";specID:"+specID==null);
-    	System.out.print(";sidstring:"+sidstring==null);
-    	System.out.print(";id:"+id==null);
-    	System.out.print(";apid:"+apid==null);
+    	System.out.print("; ra,dec:"+(qra==null)+","+(qdec==null));
+    	System.out.print("; specID:"+specID==null);
+    	System.out.print("; sidstring:"+sidstring==null);
+    	System.out.print("; id:"+id==null);
+    	System.out.println("; apid:"+apid==null);
         if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
