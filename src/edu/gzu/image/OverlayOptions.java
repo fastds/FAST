@@ -354,6 +354,7 @@ public class OverlayOptions
 //            showException("getPlates()", sQ.ToString(), e);
 	   
 //        }
+	   System.out.println("zhizhizhi:"+SdssConstants.plateflag+","+ra+","+dec+","+2 * radius + SdssConstants.plateRadiusArcMin+","+zoom);
 	   List<Obj> objList = Functions.fGetObjectsEq(SdssConstants.plateflag, ra, dec, 2 * radius + SdssConstants.plateRadiusArcMin, zoom);
 	   System.out.println("OverlayOptions:getPlates()...run..objList:size():"+objList.size());
 	   for(Obj obj : objList)
