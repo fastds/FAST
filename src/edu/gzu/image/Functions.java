@@ -315,6 +315,7 @@ public class Functions {
 	public static List<Obj> fGetObjectsEq(int flag,double ra, double dec,double radius,double zoom)
 	{
 		System.out.println("fGetObjectsEq run-------------");
+		System.out.println("flag:"+flag+",flag&1:"+(flag&1)+",flag&2:"+(flag&2)+",flag&4:"+(flag&4)+",flag&8:"+(flag&8)+",flag&16:"+(flag&16)+",flag&32:"+(flag&32));
 		    double nx,ny,nz,rad,mag;
 		                
 			rad = radius;
