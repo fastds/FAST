@@ -598,9 +598,9 @@ private void getFrames() throws Exception
       //%%%%%%%%%%%%%  utilities %%%%%%%%%%%%%%%
       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-      ///<summary>
-      /// validateInput(). Validate the range limits the input parameters.
-      ///</summary>		
+		/**
+		 *  validateInput(). Validate the range limits the input parameters.
+		 */
       private void validateInput(double ra_, double dec_, double scale_,
                                  int height_, int width_, String opt_,
                                  String query_, String imgtype_, String imgfield_)
@@ -616,7 +616,6 @@ private void getFrames() throws Exception
           }
           ra = ra % 360;					// bring ra into [0..360]
           if (ra < 0) ra += 360;
-
 
           for (int i = 0; i < opt_.length(); i++)
           {
