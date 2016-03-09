@@ -598,9 +598,9 @@ private void getFrames() throws Exception
       //%%%%%%%%%%%%%  utilities %%%%%%%%%%%%%%%
       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-      ///<summary>
-      /// validateInput(). Validate the range limits the input parameters.
-      ///</summary>		
+		/**
+		 *  validateInput(). Validate the range limits the input parameters.
+		 */
       private void validateInput(double ra_, double dec_, double scale_,
                                  int height_, int width_, String opt_,
                                  String query_, String imgtype_, String imgfield_)
@@ -617,7 +617,7 @@ private void getFrames() throws Exception
           ra = ra % 360;					// bring ra into [0..360]
           if (ra < 0) ra += 360;
 
-
+          System.out.println("ImgCutout.validateInput()-->"+opt_);
           for (int i = 0; i < opt_.length(); i++)
           {
               char c = opt_.charAt(i);
@@ -646,6 +646,7 @@ private void getFrames() throws Exception
                   case 'T': drawTargetObjs = true;
                       break;
                   case 'Q': drawPlate = true;
+                  System.out.println("case Q run");
                       break;
                   case 'X': draw2Mass = true;
                       break;
