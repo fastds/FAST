@@ -16,10 +16,14 @@ import org.fastds.model.AllSpec;
 import org.fastds.model.ApogeeControl;
 import org.fastds.model.CrossIDControls;
 import org.fastds.model.DisplayResults;
+import org.fastds.model.FitsImg;
+import org.fastds.model.GalaxyZoo;
 import org.fastds.model.Globals;
 import org.fastds.model.ImagingControl;
 import org.fastds.model.MetaDataControl;
+import org.fastds.model.Neighbors;
 import org.fastds.model.ObjectExplorer;
+import org.fastds.model.Plate;
 import org.fastds.model.SpectralControl;
 import org.fastds.service.ExplorerService;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -139,11 +143,61 @@ public class ExplorerResource {
 	    	 displayResults.getQuery();
 	
 	     displayResults.executeQuery();
+	     
 	     request.setAttribute("displayResults", displayResults);
 	     request.setAttribute("master", master);
 		return new Viewable("/tools/DisplayResults.jsp", null);
 	}
 	
+	@GET
+	@Path("neighbors")
+	public Viewable getNeighbors(@QueryParam("id") String id) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Neighbors neighbors = new Neighbors(master);
+		neighbors.setObjID(id);
+		neighbors.executeQuery();
+		
+		request.setAttribute("neighbors", neighbors);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/Neighbors.jsp", null);
+	}
+	@GET
+	@Path("plate")
+	public Viewable getPlate(@QueryParam("plateID") String plateID) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Plate plate = new Plate(master);
+		plate.setPlateID(Utilities.ParseId(plateID));
+		plate.executeQuery();
+		
+		request.setAttribute("plate", plate);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/plate.jsp", null);
+	}
+	@GET
+	@Path("fitsImg")
+	public Viewable getFitsImg(@QueryParam("field") String fieldID) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		FitsImg fitsImg = new FitsImg();
+		Long id = Utilities.ParseId(fieldID);
+		if(id !=null && id != 0)
+			fitsImg.setHrefsCf(fitsImg.getCFrame(id.longValue()));
+		
+		request.setAttribute("fitsImg", fitsImg);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/plate.jsp", null);
+	}
+	@GET
+	@Path("galaxyZoo")
+	public Viewable getGalaxyZoo(@QueryParam("id") String id) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		GalaxyZoo galaxyZoo = new GalaxyZoo(master);
+		galaxyZoo.setObjID(id);
+		galaxyZoo.executeQuery();
+		
+		request.setAttribute("galaxyZoo", galaxyZoo);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/plate.jsp", null);
+	}
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))
             objectInfo.id = Utilities.ParseId(objectInfo.objID);
