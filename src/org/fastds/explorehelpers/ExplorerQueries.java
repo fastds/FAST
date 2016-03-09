@@ -586,10 +586,11 @@ public class ExplorerQueries {
     	String subselect = Functions.fGetNearbyObjAllEq(ra, dec, searchRadius);
     	/*
     	 * 注意：存在类型转换
+    	 * 返回 top 1 
     	 */
-    	aql = aql.append(" SELECT top 1 p.objID AS objID, p.specObjID AS specObjID ");
-    	aql = aql.append(" FROM PhotoTag AS p, "+subselect.toString()+" AS n ");
-    	aql = aql.append(" WHERE p.objID=n.objID ORDER BY n.mode asc, n.distance asc");
+    	aql = aql.append(" SELECT p.objID, p.specObjID");
+    	aql = aql.append(" FROM PhotoTag AS p, ("+subselect.toString()+") AS n ");
+    	aql = aql.append(" WHERE p.objID=n.objID ORDER BY n.mode , n.distance");
     	
     	return aql.toString();
     }
