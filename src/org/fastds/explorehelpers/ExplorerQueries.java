@@ -592,7 +592,7 @@ public class ExplorerQueries {
     	 * 返回 top 1 
     	 */
     	aql = aql.append(" SELECT p.objID, p.specObjID");
-    	aql = aql.append(" FROM "+photoTag+" AS p, ("+subselect.toString()+") AS n ");
+    	aql = aql.append(" FROM ("+photoTag+") AS p, ("+subselect.toString()+") AS n ");
     	aql = aql.append(" WHERE p.objID=n.objID ORDER BY n.mode , n.distance");
     	
     	return aql.toString();
