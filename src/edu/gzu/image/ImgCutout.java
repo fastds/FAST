@@ -392,6 +392,7 @@ import org.fastds.dao.ExQuery;
               if (drawBoundingBox | drawOutline) options.getOutlines(drawBoundingBox, drawOutline, cTable);
               if (drawMask) options.getMasks();
               if (drawLabel) options.getLabel(sDataRelease, scale, imageScale);
+              System.out.println("drawPlate==true?"+drawPlate);
               if (drawPlate) options.getPlates();
 //                  if (drawList) getListObjects();
               if (drawRuler)
