@@ -192,7 +192,7 @@ public class OverlayOptions
         StringBuilder sQ = new StringBuilder();
         sQ.append(" SELECT q.objid AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
         sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS m, ");
-        sQ.append(" (SELECT min(f.objID) ");
+        sQ.append(" (SELECT min(f.objID) AS objID ");
         sQ.append(" FROM ("+subAql+") AS f, ");
         sQ.append(" "+SdssConstants.getOutlineTable()+" AS o ");
         sQ.append(" WHERE f.objID=o.objID GROUP BY rmin,rmax,cmin,cmax ) AS q ");

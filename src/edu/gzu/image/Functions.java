@@ -539,64 +539,22 @@ public class Functions {
 	
 	public static String fGetNearbyObjAllXYZ(double nx ,double ny ,double nz ,double r )
 	{
-		List<PhotoObjAll> photoObjAllList = new ArrayList<PhotoObjAll>();
 		StringBuilder aql = new StringBuilder();
 		
 		double lim = Math.pow(2*Math.sin(Math.toRadians(r/120)),2);
 		double d2r = Math.PI/180.0;
 		List<Pair> pair = fHtmCoverCircleXyz(nx,ny,nz,r);
 		
-		aql = aql.append("SELECT objID, run, camcol, field, rerun, "
+		aql = aql.append("SELECT * FROM (SELECT objID, run, camcol, field, rerun, "
 				+" type, mode, cx, cy, cz, htmID, "
 //            --sqrt(pow(@nx-cx,2)+pow(@ny-cy,2)+pow(@nz-cz,2))/@d2r*60 
 //            +"2*DEGREES(asin(sqrt(pow(@nx-cx,2)+pow(@ny-cy,2)+pow(@nz-cz,2))/2))*60 "
-				+" sqrt(pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2))/"+d2r+"*60 "
+				+" sqrt(pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2))/"+d2r+"*60 AS distance "
 				+" FROM PhotoObjAll AS P "
-				+" WHERE (P.HtmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" )"
-				+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)< "+lim
-				+" ORDER BY pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2) ASC");
+				+" WHERE (P.htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" )"
+				+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)< "+lim+") "
+				+" ORDER BY distance");
 		return aql.toString();
-//		ResultSet rs = null;
-//		ExQuery exQuery = new ExQuery();
-//		try {
-//			rs = exQuery.aqlQuery(aql.toString());
-//			while(!rs.isAfterLast())
-//			{
-//				long objID = rs.getLong("objID");
-//				long htmID = rs.getLong("htmID");
-//				int run = rs.getInt("run");
-//				int camcol = rs.getInt("camcol");
-//				int field = rs.getInt("field");
-//				int rerun = rs.getInt("rerun");
-//				int type = rs.getInt("type");
-//				int mode = rs.getInt("mode");
-//				float cx = rs.getInt("cx");
-//				float cy = rs.getFloat("cy");
-//				float cz = rs.getFloat("cz");
-//				float distance = rs.getFloat("distance");
-//				
-//				PhotoObjAll obj = new PhotoObjAll();
-//				obj.setId(objID);
-//				obj.setHtmID(htmID);
-//				obj.setRun(run);
-//				obj.setCamcol(camcol);
-//				obj.setField(field);
-//				obj.setRerun(rerun);
-//				obj.setType(type);
-//				obj.setMode(mode);
-//				obj.setCx(cx);
-//				obj.setCy(cy);
-//				obj.setCz(cz);
-//				obj.setDistance(distance);
-//				photoObjAllList.add(obj);
-//				
-//				rs.next();
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return photoObjAllList;
 	}
 	public static String fGetNearestApogeeStarEq(double qra, double qdec,
 			double searchRadius) {

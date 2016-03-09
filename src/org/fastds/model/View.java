@@ -8,7 +8,7 @@ public class View {
 	public static String getPhotoTag()
 	{
 		StringBuilder aql = new StringBuilder();
-		aql.append("SELECT objID"
+		aql.append(" SELECT objID"
 			      +",skyVersion"
 			      +",run"
 			      +",rerun"
@@ -48,16 +48,16 @@ public class View {
 			      +",petroMagErr_z"
 			      +",petroR50_r"
 			      +",petroR90_r"
-			      +",u as modelMag_u"
-			      +",g as modelMag_g"
-			      +",r as modelMag_r"
-			      +",i as modelMag_i"
-			      +",z as modelMag_z"
-			      +",err_u  as modelMagErr_u"
-			      +",err_g  as modelMagErr_g"
-			      +",err_r  as modelMagErr_r"
-			      +",err_i  as modelMagErr_i"
-			      +",err_z  as modelMagErr_z"
+			      +",u " /*as modelMag_u*/
+			      +",g "/*as modelMag_g*/
+			      +",r "/*as modelMag_r*/
+			      +",i "/*as modelMag_i*/
+			      +",z "/*as modelMag_z*/
+			      +",err_u " /*as modelMagErr_u*/
+			      +",err_g "/*as modelMagErr_g*/
+			      +",err_r "/*as modelMagErr_r*/
+			      +",err_i "/* as modelMagErr_i*/
+			      +",err_z "/*as modelMagErr_z*/
 			      +",cModelMag_u"
 			      +",cModelMag_g"
 			      +",cModelMag_r"
@@ -70,7 +70,7 @@ public class View {
 			      +",cModelMagErr_z"
 			      +",mRrCc_r"
 			      +",mRrCcErr_r"
-			      +",mRrCcPsf_r"
+			      +",mRrCcPSF_r"/*mRrCcPSF_r*/
 			      +",fracDeV_u"
 			      +",fracDeV_g"
 			      +",fracDeV_r"
@@ -104,7 +104,7 @@ public class View {
 			      +",htmID"
 			      +",fieldID"
 			      +",specObjID"
-			      +"FROM PhotoObjAll"
+			      +"FROM PhotoObjAll "
 			      );
 		/*,( case when mRrCc_r > 0 then SQRT(mRrCc_r/2.0)else 0 end) as size
 		  这一列推迟到获取结果集时处理*/
