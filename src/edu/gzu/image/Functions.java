@@ -603,4 +603,119 @@ public class Functions {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public static String fPhotoModeN(int value)
+	{
+		return "SELECT name FROM PhotoMode WHERE value="+ value;
+	}
+	public static String fPhotoFlagsN(long value)
+	{
+//		 DECLARE @bit int, @mask bigint, @out varchar(2000);
+//		    SET @bit=63;
+//		    SET @out ='';
+//		    WHILE (@bit>0)
+//			BEGIN
+//			    SET @bit = @bit-1;
+//			    SET @mask = power(cast(2 as bigint),@bit);
+//			    SET @out = @out + (CASE 
+//				WHEN (@mask & @value)=0 THEN '' 
+//				ELSE coalesce((select name from PhotoFlags where value=@mask),'')+' '
+//			    	END);
+//			END
+//		    RETURN @out;
+		int bit = 63;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit--;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) ==0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from PhotoFlags where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					while(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += " ";
+							break;
+						}
+						rs.next();
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+		
+		return out;
+	}
+	public static String fSpecZWarningN(Integer value)
+	{
+//		 DECLARE @bit int, @mask bigint, @out varchar(2000);
+//	    SET @bit=32;
+//	    SET @out ='';
+//	    IF @value IS NULL
+//		RETURN 'NULL';
+//	    IF @value = 0
+//		RETURN 'OK';
+//	    WHILE (@bit>0)
+//		BEGIN
+//		    SET @bit = @bit-1;
+//		    SET @mask = power(cast(2 as bigint),@bit);
+//		    SET @out = @out + (CASE 
+//			WHEN (@mask & @value)=0 THEN '' 
+//			ELSE coalesce((select name from SpecZWarning where value=@mask),'')+' '
+//		    	END);
+//		END
+//	    RETURN @out;
+		int bit =32;
+		String out = "";
+		long mask;
+		if(value == null)
+			return "NULL";
+		if(value.intValue()==0)
+			return "OK";
+		while(bit>0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value)==0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from SpecZWarning where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					while(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += " ";
+							break;
+						}
+						rs.next();
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return out;
+	}
 }
