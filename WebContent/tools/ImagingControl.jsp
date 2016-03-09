@@ -90,7 +90,7 @@
 	               <tr><td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd}" >Image MJD</span></td>
 	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mode}" >mode</span></td>
 	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nDetect }" >Other observations</span></td>
-	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
+	                   <td align='middle' class='h'><span title="./unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
 	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nChild }" >nChild</span></td>
 	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.extinction_r }" >extinction_r</span></td>
 	                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.petrodRad_r }" >PetroRad_r (arcsec)</span></td>
