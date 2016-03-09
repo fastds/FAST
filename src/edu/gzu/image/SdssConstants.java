@@ -34,7 +34,7 @@ public class SdssConstants
  public static Boolean isSdss = true;
 
 
- private static String _DataRelease = "DR12";
+ private static String _DataRelease = "DR9";
    //zoe      ConfigurationManager.AppSettings["DataRelease"].ToUpper();
 
  private static int _DR = -1;

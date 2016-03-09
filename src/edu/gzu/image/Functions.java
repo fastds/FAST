@@ -110,6 +110,7 @@ public class Functions {
 	}
 	public static List<Pair> fHtmCoverCircleXyz(double x, double y, double z, double radiusArcMin)
 	{
+		System.out.println("Functions.fHtmCoverCircleXyz-----run");
 	    double[] num = new double[1];
 	    double[] num2 = new double[1];
 //	    if (SqlBoolean.op_True(Trixel.Epsilon > (((x * x) + (y * y)) + (z * z))))
@@ -134,6 +135,7 @@ public class Functions {
 	        }
 	    }
 	    return list2;
+	    System.out.println("Functions.fHtmCoverCircleXyz-----finish");
 	}
 	/**
 	 * 

@@ -489,6 +489,7 @@ public class Region implements Iterable<Region>
 
     public void Simplify(boolean simple_simplify, boolean eliminate, boolean make_disjoint, boolean unify, DynSymMatrix<Boolean> collision)
     {
+    	System.out.println("Region.Simplify()------run");
         List<Convex> list = new ArrayList<Convex>();
         for (Convex convex : this.convexList)
         {
@@ -523,6 +524,7 @@ public class Region implements Iterable<Region>
             this.StitchConvexes();
         }
         this.UpdateArea();
+        System.out.println("Region.Simplify()------finish");
     }
 
     public boolean SmartContains(Cartesian x)

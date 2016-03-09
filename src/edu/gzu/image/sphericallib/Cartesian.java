@@ -276,6 +276,7 @@ public class Cartesian {
 
 	    public static void Xyz2Radec(double x, double y, double z, /*out*/ double[] ra, /*out*/ double[] dec)
 	    {
+	    	System.out.println("Cartesian.Xyz2Radec()------run");
 	        double num2;
 	        double num = Constant.DoublePrecision2x;
 	        if (z >= 1.0)
@@ -328,6 +329,7 @@ public class Cartesian {
 	        {
 	            ra[0] = 0.0;
 	        }
+	        System.out.println("Cartesian.Xyz2Radec()------finish");
 	    }
 
 	    public static void Xyz2RadecRadian(double x, double y, double z, /*out*/ double ra, /*out*/ double dec)
