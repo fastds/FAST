@@ -83,7 +83,7 @@ class Pen
 		private Pen bboxPen		= new Pen(new Color(255,0,255),0.25F);
 		private Pen outlinePen	= new Pen(new Color(0,255,0),0.25F);			
 		private Pen fieldPen	= new Pen(Color.GRAY,0.25F);						
-		private Pen maskPen		= new Pen(Color.BLUE,1);			
+		private Pen maskPen		= new Pen(Color.RED,1);			
 		private Pen platePen	= new Pen(Color.PINK,1);
 		private Pen testPen		= new Pen(Color.CYAN,1);
 		private Pen gridPen		= new Pen(Color.GREEN,1);
@@ -836,13 +836,6 @@ class Pen
 			gc.setTransform(beforeTS);
 		}
 
-
-		/// <summary>
-		/// drawMask. Draws a selected list of masks over the canvas.
-		/// Masks are encoded as spherical polygons, given by their
-		/// corners in equatorial coordinates.
-		/// </summary>
-		/// <param name="area">The string giving the vertex list</param>
 		/**
 		 * drawMask. Draws a selected list of masks over the canvas.
 		 * Masks are encoded as spherical polygons, given by their
@@ -851,6 +844,7 @@ class Pen
 		 */
 		public void drawMask(StringBuilder area)
 		{
+			System.out.println("SDSSGraphicsEnv.drawMask()---run ");
 			String[] sp = area.toString().split(" ");
           //newfile.WriteLine("Area :" + area);
           //newfile.WriteLine("SP :" + sp.Length);
