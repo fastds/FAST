@@ -315,20 +315,19 @@ public class Functions {
 	public static List<Obj> fGetObjectsEq(int flag,double ra, double dec,double radius,double zoom)
 	{
 		System.out.println("fGetObjectsEq run-------------");
-		System.out.println("flag:"+flag+",flag&1:"+(flag&1)+",flag&2:"+(flag&2)+",flag&4:"+(flag&4)+",flag&8:"+(flag&8)+",flag&16:"+(flag&16)+",flag&32:"+(flag&32));
-		    double nx,ny,nz,rad,mag;
-		                
-			rad = radius;
-	        if (rad > 250)  rad = 250 ;     //-- limit to 4.15 degrees == 250 arcminute radius
-	         nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
-	         ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
-	         nz  = Math.sin(radians(dec));
-	         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
-		        
-	         List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
-			
-	         double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
-			List<Obj> objList = new ArrayList<Obj>();
+	    double nx,ny,nz,rad,mag;
+	                
+		rad = radius;
+        if (rad > 250)  rad = 250 ;     //-- limit to 4.15 degrees == 250 arcminute radius
+         nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
+         ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
+         nz  = Math.sin(radians(dec));
+         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
+	        
+         List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
+		 System.out.println("fGetObjectsEq()--->pair.size()"+pair.size());
+         double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
+		  List<Obj> objList = new ArrayList<Obj>();
 			if ( (flag & 1) > 0 )  //-- specObj
 			{
 				StringBuilder aql = new StringBuilder();
