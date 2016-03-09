@@ -173,6 +173,7 @@ public class Cover {
 
     public List<Pair> GetPairs(Markup kind)
     {
+    	System.out.println("Cover.GetPairs()-----run");
         switch (kind)
         {
             case Inner:
@@ -192,6 +193,7 @@ public class Cover {
 		default:
 			break;
         }
+        System.out.println("Cover.GetPairs()-----finish");
         return new ArrayList<Pair>();
     }
 
@@ -272,8 +274,10 @@ public class Cover {
 
     public static List<Pair> HidRange(Region reg)
     {
+    	System.out.println("Cover.HidRange()----run");
         Cover cover = new Cover(reg);
         cover.Run();
+        System.out.println("Cover.HidRange()----finish");
         return cover.GetPairs(Markup.Outer);
     }
 
@@ -408,6 +412,7 @@ public class Cover {
 
     public void Run()
     {
+    	System.out.println("Cover.run()---run");
         if (this.reg != null)
         {
             this.RunStatus = edu.gzu.image.sphericalhtm.RunStatus.Continue;
@@ -426,6 +431,7 @@ public class Cover {
                 this.savedListOfPartials = null;
             }
         }
+        System.out.println("Cover.run()---finish");
     }
 
     public void SetTunables(int minr, int maxr, int maxl)

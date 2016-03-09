@@ -134,8 +134,8 @@ public class Functions {
 	            list2.add(new Pair(list.get(i).getLo(), list.get(i).getHi()));
 	        }
 	    }
-	    return list2;
 	    System.out.println("Functions.fHtmCoverCircleXyz-----finish");
+	    return list2;
 	}
 	/**
 	 * 
