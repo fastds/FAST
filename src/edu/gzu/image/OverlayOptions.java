@@ -327,9 +327,9 @@ public class OverlayOptions
     }
 
 
-    /// <summary>
-    /// getPlates. Display the outlines of the plates intersecting the canvas.
-    /// </summary>
+    /**
+     * getPlates. Display the outlines of the plates intersecting the canvas.
+     */
    void getPlates()
     {
 // zoe       StringBuilder sQ = new StringBuilder(" select ra, dec ");
