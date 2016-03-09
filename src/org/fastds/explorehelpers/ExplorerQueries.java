@@ -1,6 +1,8 @@
 package org.fastds.explorehelpers;
 
 
+import org.fastds.model.View;
+
 import edu.gzu.image.Functions;
 
 public class ExplorerQueries {
@@ -584,12 +586,13 @@ public class ExplorerQueries {
 //    	+" WHERE p.objID=n.objID order by n.mode asc, n.distance asc";
     	StringBuilder aql = new StringBuilder();
     	String subselect = Functions.fGetNearbyObjAllEq(ra, dec, searchRadius);
+    	String photoTag = View.getPhotoTag();
     	/*
     	 * 注意：存在类型转换
     	 * 返回 top 1 
     	 */
     	aql = aql.append(" SELECT p.objID, p.specObjID");
-    	aql = aql.append(" FROM PhotoTag AS p, ("+subselect.toString()+") AS n ");
+    	aql = aql.append(" FROM "+photoTag+" AS p, ("+subselect.toString()+") AS n ");
     	aql = aql.append(" WHERE p.objID=n.objID ORDER BY n.mode , n.distance");
     	
     	return aql.toString();

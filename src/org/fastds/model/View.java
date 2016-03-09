@@ -8,7 +8,7 @@ public class View {
 	public static String getPhotoTag()
 	{
 		StringBuilder aql = new StringBuilder();
-		aql.append("SELECT objID"
+		aql.append(" SELECT objID"
 			      +",skyVersion"
 			      +",run"
 			      +",rerun"
@@ -104,7 +104,7 @@ public class View {
 			      +",htmID"
 			      +",fieldID"
 			      +",specObjID"
-			      +"FROM PhotoObjAll"
+			      +"FROM PhotoObjAll "
 			      );
 		/*,( case when mRrCc_r > 0 then SQRT(mRrCc_r/2.0)else 0 end) as size
 		  这一列推迟到获取结果集时处理*/
