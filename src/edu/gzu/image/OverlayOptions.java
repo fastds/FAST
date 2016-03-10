@@ -289,6 +289,7 @@ public class OverlayOptions
         catch (Exception e)
         {
 //            showException("getMasks()", sQ.toString(), e);
+        	e.printStackTrace();
         }
         finally{
         	if(rs!=null)
@@ -354,7 +355,7 @@ public class OverlayOptions
 //            showException("getPlates()", sQ.ToString(), e);
 	   
 //        }
-	   System.out.println("zhizhizhi:"+SdssConstants.plateflag+","+ra+","+dec+","+2 * radius + SdssConstants.plateRadiusArcMin+","+zoom);
+	   System.out.println("zhizhizhi:"+SdssConstants.plateflag+","+ra+","+dec+","+(2 * radius + SdssConstants.plateRadiusArcMin)+","+zoom);
 	   List<Obj> objList = Functions.fGetObjectsEq(SdssConstants.plateflag, ra, dec, 2 * radius + SdssConstants.plateRadiusArcMin, zoom);
 	   System.out.println("OverlayOptions:getPlates()...run..objList:size():"+objList.size());
 	   for(Obj obj : objList)
@@ -362,5 +363,9 @@ public class OverlayOptions
 		   canvas.drawPlate(obj.getRa(), obj.getDec(), SdssConstants.plateRadiusArcMin);
 	   }
     }
+   public static void main(String[] args) {
+	//16,337.082,-0.945,28.68265860209495+89.4,1
+	   Functions.fGetObjectsEq(16,337.082,-0.945,118.08265860209495,0);
+}
 
 }
