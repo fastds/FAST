@@ -129,9 +129,9 @@ public class OverlayOptions
     }
 
 
-    /// <summary>
-    /// APOGEE objects for 2mass , this needs to be updated once we get final twomass data        
-    /// </summary>
+//    /**
+//     *  APOGEE objects for 2mass , this needs to be updated once we get final twomass data
+//     */
 //    void getApogeeObjects()        
 //    {  
 //        StringBuilder sq1 = new StringBuilder();
@@ -154,7 +154,7 @@ public class OverlayOptions
 //        {
 //            showException("getApogee Objects", sq1.toString(), e);
 //        }
-//    }
+//    }		old
 
    
 

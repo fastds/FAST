@@ -278,7 +278,7 @@ public class Cover {
         Cover cover = new Cover(reg);
         cover.Run();
         System.out.println("Cover.HidRange()----finish");
-        return cover.GetPairs(Markup.Outer);
+        return cover.GetPairs(Markup.Outer);//有问题
     }
 
     private void Init(Region r, boolean haspathces)

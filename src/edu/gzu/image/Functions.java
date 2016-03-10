@@ -124,7 +124,7 @@ public class Functions {
 	    radiusArcMin = Math.max(0.0, Math.min(648000.0, radiusArcMin));
 	    Region reg = new Region(num[0], num2[0],  radiusArcMin);
 	    reg.Simplify();
-	    List<Pair> list = Cover.HidRange(reg);
+	    List<Pair> list = Cover.HidRange(reg);   //有问题
 	    List<Pair> list2 = new ArrayList<Pair>();
 	    if (list != null)
 	    {
