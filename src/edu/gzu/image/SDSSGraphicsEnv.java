@@ -792,7 +792,7 @@ class Pen
 		 */ 
 		public void drawBoundingBox (Coord coord, double xmin, double xmax, double ymin, double ymax)		
 		{			
-			System.out.println("drawBoundingBox  in......");
+			System.out.println("SDSSGraphicsEnv:drawBoundingBox()  in......");
 			AffineTransform beforeTS = gc.getTransform();
 			gc.transform(coord.m);
 //	zoe		gc.DrawRectangle(bboxPen, (float)xmin, (float)ymin, 
@@ -801,7 +801,7 @@ class Pen
 			gc.drawRect((int)xmin, (int)ymin, 
 					(int)(xmax-xmin+SdssConstants.getOutlinePix()), (int)(ymax-ymin+SdssConstants.getOutlinePix()));		
 			gc.setTransform(beforeTS);
-			System.out.println("drawBoundingBox  out ......");
+			System.out.println("SDSSGraphicsEnv:drawBoundingBox  out ......");
 		}
 
 

@@ -197,6 +197,7 @@ public class OverlayOptions
         sQ.append(" "+SdssConstants.getOutlineTable()+" AS o ");
         sQ.append(" WHERE f.objID=o.objID GROUP BY rmin,rmax,cmin,cmax ) AS q ");
         sQ.append(" WHERE m.objID=q.objID");
+        System.out.println("OverlayOptions:getOutlines()---->aql:"+sQ.toString());
         ResultSet rs = null;
         ExQuery exQuery = new ExQuery();
         
