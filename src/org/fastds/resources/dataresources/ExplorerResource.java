@@ -76,7 +76,7 @@ public class ExplorerResource {
 		/*
 		 * 对接收到的参数进行处理
 		 */
-		if(id != null)
+		if(qid != null )
 			this.id = Utilities.ParseId(qid);
 		if(sid != null)
 		{
