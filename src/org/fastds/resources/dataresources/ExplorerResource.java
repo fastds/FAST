@@ -264,7 +264,7 @@ public class ExplorerResource {
         if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
-        else if (id != null && specID != null) pmtsFromPhoto(id);
+        else if (id != null && specID == null) pmtsFromPhoto(id);
         else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid);
     }
 
