@@ -735,4 +735,8 @@ public class Functions {
 		return 0L;
 		
 	}
+	public static String fIAUFromEq(double ra,double dec)
+	{
+		return null;
+	}
 }

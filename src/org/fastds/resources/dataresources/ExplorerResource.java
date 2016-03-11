@@ -20,6 +20,7 @@ import org.fastds.model.FitsImg;
 import org.fastds.model.GalaxyZoo;
 import org.fastds.model.Globals;
 import org.fastds.model.ImagingControl;
+import org.fastds.model.Matches;
 import org.fastds.model.MetaDataControl;
 import org.fastds.model.Neighbors;
 import org.fastds.model.ObjectExplorer;
@@ -216,7 +217,7 @@ public class ExplorerResource {
 		
 		request.setAttribute("fitsImg", fitsImg);
 		request.setAttribute("master", master);
-		return new Viewable("/tools/plate.jsp", null);
+		return new Viewable("/tools/FitsImg.jsp", null);
 	}
 	@GET
 	@Path("galaxyZoo")
@@ -228,8 +229,21 @@ public class ExplorerResource {
 		
 		request.setAttribute("galaxyZoo", galaxyZoo);
 		request.setAttribute("master", master);
-		return new Viewable("/tools/plate.jsp", null);
+		return new Viewable("/tools/galaxyzoo.jsp", null);
 	}
+	@GET
+	@Path("matches")
+	public Viewable getMatches(@QueryParam("id") String id) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Matches matches = new Matches(master);
+		matches.setObjID(id);
+		matches.executeQueries();
+		request.setAttribute("matches", matches);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/Matches.jsp", null);
+	}
+	
+	
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))
             objectInfo.id = Utilities.ParseId(objectInfo.objID);

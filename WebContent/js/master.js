@@ -36,7 +36,7 @@ function setPlfib(sid) {
     w.focus();
 }
 function loadSummary(id) {
-    parent._top.document.location = "summary.aspx?id=" + id;
+    parent._top.document.location = "summary?id=" + id;
 }
 function showNotes() {
     var s = "../chart/book.aspx";

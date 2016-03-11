@@ -3,6 +3,8 @@ package org.fastds.explorehelpers;
 
 import org.fastds.model.View;
 
+import com.google.common.base.Function;
+
 import edu.gzu.image.Functions;
 
 public class ExplorerQueries {
@@ -134,14 +136,28 @@ public class ExplorerQueries {
     	aql.append("scienceprimary desc, distanceArcMin asc");
     	return aql.toString();
     }
-    ///Matches Queries
-    public static  String matches1 = "SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid, dbo.fPhotoModeN(p.mode) as mode"
-                                   +" FROM Photoobjall p WHERE p.objid=@objID";
-            
-
-    public static String matches2  = " SELECT t.objid, t.thingid, p.mode, dbo.fPhotoModeN(p.mode) as '(mode description)'"
-                                    +"FROM thingindex t join photoobjall p on t.objid = p.objid "
-                                    +"WHERE t.objid=@objID and p.mode != 1 order by p.mode";
+    ///Matches Queries   注意函数内容
+    public static String getMatches1(String objID)
+    {
+//    public static  String matches1 = "SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid, dbo.fPhotoModeN(p.mode) as mode"
+//                                   +" FROM Photoobjall p WHERE p.objid=@objID";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT dbo.fIAUFromEq(p.ra,p.dec) AS 'IAU name', p.objid, p.thingid, dbo.fPhotoModeN(p.mode) AS mode");
+    	aql.append(" FROM PhotoObjAll p WHERE p.objID="+objID);
+    	
+    	return aql.toString();
+    }
+    public static String getMatches2(String objID)
+    {
+//    	public static String matches2  = " SELECT t.objid, t.thingid, p.mode, dbo.fPhotoModeN(p.mode) as '(mode description)'"
+//    		+"FROM thingindex t join photoobjall p on t.objid = p.objid "
+//    		+"WHERE t.objid=@objID and p.mode != 1 order by p.mode";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT t.objID, t.thingID, p.mode, dbo.fPhotoModeN(p.mode) AS '(mode description)' ");
+    	aql.append(" FROM thingIndex t join PhotOobjAll p on t.objID = p.objID ");
+    	aql.append(" WHERE t.objID="+objID+" and p.mode != 1 ORDER BY p.mode ");
+    	return aql.toString();
+    }
     ///Neighbors
     public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
             
@@ -645,7 +661,7 @@ public class ExplorerQueries {
     	aql = aql.append(" s.specObjID,");
     	aql = aql.append(" p.objID AS objID ");
     	aql = aql.append(" FROM ("+photoTag+") AS p ");
-    	aql = aql.append(" left outer join SpecObjAll AS s ON s.bestObjID=p.objID AND s.scienceprimary=1");
+    	aql = aql.append(" left outer join SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1");
     	aql = aql.append(" WHERE p.objID="+id);
     	return aql.toString();
     }
