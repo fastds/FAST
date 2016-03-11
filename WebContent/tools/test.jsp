@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="edu.gzu.utils.Utilities" %>
+<%@ page import="org.fastds.model.*" %>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -131,13 +134,702 @@
 		</div>
      
    <div id="content">
-   <!-- 
-       <asp:contentplaceholder id="OEContent" runat="server" /> -->
+   <%--
+       <asp:contentplaceholder id="OEContent" runat="server" />
        <%@ include file="MetaDataControl.jsp" %>
  		<%@ include file="ImagingControl.jsp" %>
  		<%@ include file="CrossIDControl.jsp" %>
  		<%@ include file="SpectralControl.jsp" %>
- 		<%@ include file="ApogeeControl.jsp" %>
+ 		<%@ include file="ApogeeControl.jsp" %>  --%>
+ 		<c:choose>
+		<c:when test="${not empty master.objID}">
+			<div id="metadata">
+			    <table class="content">
+			        <tr>
+			            <td colspan="2">
+			                <h1 id="sdssname">
+			                <%= Utilities.SDSSname(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>
+			                </h1>
+			                <h2 id="othernames">&nbsp;<input type="button" onclick=" findOtherNames(${ra}, ${dec});" value="Look up common name" /></h2>
+			            </td>
+			        </tr>
+			        <tr>
+			            <td>
+			                <table width="620">
+			                    <tr>
+			                        <td align="center" class="h" colspan="2">Type</td>
+			                        <td align="center" class="h" colspan="2">SDSS Object ID</td>
+			                    </tr>
+			                    <tr>
+			                        <td class="t" align="center" colspan="2"><b>${metaDataCtrl.otype}</b></td>
+			                        <td class="t" align="center" colspan="2">${master.id}</td>
+			                    </tr>
+			                    <tr>
+			                        <td class="h" align="center" colspan="2">RA, Dec</td>
+			                        <td class="h" align="center" colspan="2">Galactic Coordinates (<i>l</i>, <i>b</i>)</td>
+			                    </tr>
+			                    <tr>
+			                        <td align="center" class="h">Decimal</td>
+			                        <td align="center" class="h">Sexagesimal</td>
+			                        <td align="center" class="h"><i>l</i></td>
+			                        <td align="center" class="h"><i>b</i></td>
+			                    </tr>
+			                    <tr>
+			                        <td align="center" class="t">
+			                            <script type="text/javascript" language="javascript">
+			                                var thera = new Number(<%=((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa() %>);
+			                                var thedec = new Number(<%=((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec()%>);
+			                                document.write(thera.toFixed(5) + ', ' + thedec.toFixed(5));
+			                            </script>
+			                        </td>
+			                        <td align="center" class="t">
+			                            <span class="large"><%= Utilities.hmsC(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa()) + ", " + Utilities.dmsC(((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec()) %></span>
+			                        </td>
+			                        <td align="center" class="t">
+			                            <script type="text/javascript" language="javascript">
+			                                var L = new Number(<%=Utilities.ra2glon(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>);
+			                                document.write(L.toFixed(5));
+			                            </script>
+			                        </td>
+			                        <td align="center" class="t">
+			                            <script type="text/javascript" language="javascript">
+			                                var B = new Number(<%=Utilities.dec2glat(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>);
+			                                document.write(B.toFixed(5));
+			                            </script>
+			                        </td>
+			                    </tr>
+			                 </table>
+			              </td>
+			        </tr>
+			    </table>
+			</div> <!-- end of metadata div -->
+		</c:when>
+		<c:otherwise>
+			<table cellpadding=2 cellspacing=2 border=0 width=625>
+	            <%--<tr><td class='nodatafound'>Object is out of SDSS footprint</td></tr>--%>  
+	            <c:choose>
+	            	<c:when test="${empty master.apid and empty master.specObjID }">
+	            		<tr><td class='nodatafound'>The object corresponding to the id specified does not exist in the database.<br> Please try another object.</td></tr>
+	            	</c:when>
+	            	<c:when test="${not empty master.apid or not empty master.specObjID }">
+	            		<tr><td class='nodatafound'>There is no image corresponding to the specified id in the SDSS imaging data.</td></tr>
+	            	</c:when>
+	            </c:choose>
+		    </table>
+		</c:otherwise>
+	</c:choose><!-- Metadata finished -->
+	<c:if test="${not empty imagingCtrl.objID}">
+			<div id="imaging">
+			<h3>Imaging</h3>            
+			
+			<c:if test="${imagingCtrl.clean == 0}">
+				<div class="warning">
+			                <table><tr><td>
+			                    <b>WARNING:</b> 
+			                    This object's photometry may be unreliable. See the photometric 
+			                    <em>flags</em> below.
+			                </td></tr></table>
+			   </div>
+			</c:if>
+			
+			<table>
+			    <tr>
+			        <td>
+			            <table cellpadding=2 cellspacing=2 border=0 width=420>
+			                <tr align='left' >
+			                    <td  valign='top' class='h'>
+			                        <span title="SDSS flags" >
+			                            <a href='${imagingCtrl.flagsLink}'>Flags <img src=../../images/offsite_black.png /></a>
+			                        </span>
+			                    </td>
+			                    <td valign='top' class='t'>
+			                        ${imagingCtrl.flag }
+			                    </td>
+			                </tr>
+			            </table>
+			         </td>
+			     </tr>
+			</table>
+			
+			<table>
+			    <tr>
+			        <td style="vertical-align:top">
+			             <c:set var="link" value="javascript:showNavi(' + ${imagingCtrl.ra} + ',' + ${imagingCtrl.dec} + ',' + 0.2 + ');"></c:set>
+			             <a href="${imagingCtrl.link}">
+			                 <img alt="" src="${imagingCtrl.globals.wSGetJpegUrl + '?ra=' + imagingCtrl.ra + '&dec=' + imagingCtrl.dec + '&scale=0.2&width=200&height=200&opt=G' }" border="0" width="200" height="200" />
+			             </a>
+			         </td>
+			        <td >
+			            <table cellpadding=2 cellspacing=2 border=0 width=420>
+			                <tr><td align='middle' class='h'><span></span></td></tr>
+			                <tr><td nowrap align='middle' class='t'><b>Magnitudes</b></td></tr>
+			            </table>
+			            <table cellpadding=2 cellspacing=2 border=0 width=420>
+			                <tr>
+					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("u") %>">u</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("g") %>">g</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("r") %>">r</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("i") %>">i</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("z") %>">z</span></td>
+			                </tr>
+			                <tr>
+			                	<td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.u}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.g}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.r}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.i}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.z}" pattern="#.##"></fmt:formatNumber></td>
+			               </tr>
+			            </table>
+			            <table cellpadding=2 cellspacing=2 border=0 width=420>
+			                <tr><td align='middle' class='h'><span></span></td></tr>
+			                <tr><td nowrap align='middle' class='t'><b>Magnitude uncertainties</b></td></tr>
+			            </table>
+			            <table cellpadding=2 cellspacing=2 border=0 width=420>
+			                <tr>
+			                	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_u") %>">err_u</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_g") %>">err_g</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_r") %>">err_r</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_i") %>">err_i</span></td>
+					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_z") %>">err_z</span></td>
+			                </tr>
+			                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_u }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_g }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_r }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_i }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_z }" pattern="#.##"></fmt:formatNumber></tr>
+			              </table>       
+			          </td>
+			        </tr>
+			        <tr>
+			          <td colspan="2">
+			            <table cellpadding=2 cellspacing=2 border=0 width=625>
+			               <tr><td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd}" >Image MJD</span></td>
+			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mode}" >mode</span></td>
+			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nDetect }" >Other observations</span></td>
+			                   <td align='middle' class='h'><span title="./unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
+			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nChild }" >nChild</span></td>
+			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.extinction_r }" >extinction_r</span></td>
+			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.petrodRad_r }" >PetroRad_r (arcsec)</span></td>
+			               </tr>
+			               <tr><td nowrap align='middle' class='t'>${imagingCtrl.mjdNum }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.mode }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.otherObs }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.parentID }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.nchild }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.extinction_r }</td>
+			                   <td nowrap align='middle' class='t'>${imagingCtrl.petrorad_r }</td>
+			               </tr>
+			            </table>
+			            <table cellpadding=2 cellspacing=2 border=0 width=625>
+			                <tr>
+			                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd }" >Mjd-Date</span></td>
+			                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.z }" >photoZ (KD-tree method)</span></td>
+			                    <%--
+			                    <td align='middle' class='h'><span title="unit=<%=columnUnit.Get('z') %>" >photoZ (RF method)</span></td>
+			                    --%>
+			                    <td align='middle' class='h'><span>Galaxy Zoo 1 morphology</span></td>
+			                </tr>
+			                <tr>
+			                    <td nowrap align='middle' class='t'>${imagingCtrl.mjdDate }</td>
+			                    <td nowrap align='middle' class='t'>${imagingCtrl.photoZ_KD }</td>
+			                    <%--<td nowrap align='middle' class='t'><%=photoZ_RF %></td>--%>
+			                    <td nowrap align='middle' class='t'>${imagingCtrl.galaxyZoo_Morph }</td>
+			                </tr>
+			            </table>                            
+			          </td>
+			        </tr>
+			     </table>
+			   </div>   
+			  <%--  <!-- end of imaging div  -->--%>
+		</c:if><!-- ImagingControl finished -->
+		<c:if test="${not empty crossIDCtrl.objID}">
+		<h3 class="sectionlabel" id="crossidtop">Cross-identifications
+		    <a id="crossid_is_shown" href="javascript:showSection('crossid');javascript:showLink('crossid_is_hidden');javascript:hideLink('crossid_is_shown');" class="showinglink">
+		      Show
+		    </a>
+		    <a id="crossid_is_hidden" href="javascript:hideSection('crossid');javascript:showLink('crossid_is_shown');javascript:hideLink('crossid_is_hidden');" class="hidinglink">
+		       Hide
+		    </a>
+		</h3>
+
+	<div id="crossid"> 
+	<table class="content">
+	    <tr>
+	        <td>
+	        <c:choose>
+	        	<c:when test="${crossIDCtrl.isUSNO }">
+		        	<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>Proper motion (mas/yr)</span></td>
+		                    <td align='middle' class='h'><span>PM angle (deg E)</span></td>
+		                </tr>
+		                <tr>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.usno}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.properMotion}</td>
+		                    <td nowrap align='middle' class='t'><fmt:formatNumber value="${crossIDCtrl.angle}" pattern="#.##" ></fmt:formatNumber></td>
+		                </tr>
+		            </table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		 <table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in USNO</td></tr>
+	           		 </table>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="${crossIDCtrl.isFIRST }">
+	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>Peak flux (mJy)</span></td>
+		                    <td align='middle' class='h'><span>Major axis (arcsec)</span></td>
+		                    <td align='middle' class='h'><span>Minor axis (arcsec)</span></td>
+		                </tr>
+		                <tr>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.first}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.peakflux}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.major}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.minor}</td>
+		                </tr>
+	            	</table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in FIRST</td></tr>
+	           		</table>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="${crossIDCtrl.isROSAT }">
+	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>cps</span></td>
+		                    <td align='middle' class='h'><span>hr1</span></td>
+		                    <td align='middle' class='h'><span>hr2</span></td>
+		                    <td align='middle' class='h'><span>ext</span></td>
+		                </tr>
+		                <tr>
+		                     <td nowrap align='middle' class='t'>${crossIDCtrl.rosat}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.cps}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr1}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr2}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.ext}</td>
+		                </tr>
+	            	</table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in ROSAT</td></tr>
+	           	 </table>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="crossIDCtrl.isRC3">
+	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>Hubble type</span></td>
+		                    <td align='middle' class='h'><span>21 cm magnitude</span></td>
+		                    <td align='middle' class='h'><span>Neutral Hydrogen Index</span></td>
+		                </tr>
+		                <tr>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.rc3}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hubletype}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.magnitude}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hydrogenIndex}</td>
+		                </tr>
+	           		</table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in RC3</td></tr>
+	           		</table>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="crossIDCtrl.is2MASS">
+	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>J</span></td>
+		                    <td align='middle' class='h'><span>H</span></td>
+		                    <td align='middle' class='h'><span>K_s</span></td>
+		                    <td align='middle' class='h'><span>phQual</span></td>
+		                </tr>
+		                <tr>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.twomass}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.j}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.h}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.k}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.phQual}</td>
+		                </tr>
+	           		</table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in 2MASS</td></tr>
+	            	</table>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="crossIDCtrl.isWISE">
+	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
+		                <tr>
+		                    <td align='middle' class='h'><span>Catalog</span></td>
+		                    <td align='middle' class='h'><span>w1mag</span></td>
+		                    <td align='middle' class='h'><span>w2mag</span></td>
+		                    <td align='middle' class='h'><span>w3mag</span></td>
+		                    <td align='middle' class='h'><span>w4mag</span></td>
+		                    <td align='middle' class='h'><span>Full WISE data</span></td>
+		                </tr>
+		                <tr>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wise}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag1}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag2}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag3}</td>
+		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag4}</td>
+		                    <td nowrap align='middle' class='t'><a href=".\DisplayResults.aspx?cmd=${crossIDCtrl.linkQuery}&name=wise">Link</a></td>                   
+		                </tr>
+	           		</table>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+	                  <tr><td class='nodatafound'>No data found for this object in WISE</td></tr>
+	            	</table>
+	        	</c:otherwise>
+	        </c:choose>
+	        </td>
+		    </tr>
+		</table>
+		</div>  	
+		</c:if><!-- CrossIDControl finished -->
+<c:if test="${not empty spectralCtrl.specID }">
+	<div id="spectro">
+	   <h3>Optical Spectra</h3>
+	    <div class="infobox">
+	        <table width="100%">
+	            <tr>
+	                <td width="60%">
+	                  <p><b> SpecObjID = ${spectralCtrl.specObjID}</b></p>                
+	                </td>
+	                <td width="40%">
+	                    <c:set var="spectrumlink" value="${spectralCtrl.globals.dasUrl+'spectrumDetail?plateid='+spectralCtrl.plate+'&mjd=' +spectralCtrl.mjd+'fiber'+spectralCtrl.fiberid}"></c:set>
+	                    <p><b>
+	                      <a class='content' href="${spectrumlink }"  target='_blank'>
+	                          Interactive spectrum<img src='../../images/new_window_black.png' alt=' (new window)' />
+	                      </a>
+	                    </b></p>
+	                </td>
+	            </tr>
+	        </table>
+	   </div>
+	   <table class="content">
+	        <tr>
+	            <c:set var="instrumentLink" value="${spectralCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
+		   	      <td>             
+			            <a href="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }">
+			                <img alt="" src="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }" width="316" height="253" border="0" align="left" />
+			            </a>
+	              </td>
+	              <td>                     
+	                 <table cellpadding=2 cellspacing=2 border=0 width=300>
+	                   
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Spectrograph</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.instrument }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>class</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.objclass }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Redshift (z)</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.redshift_z.ToString("F3") }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Redshift error</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.redshift_err.ToString("F5") }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Redshift flags</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.redshift_flags }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>survey</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.survey }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>programname</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.programname }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>primary</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.primary }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Other spec</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.otherspec }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>sourcetype</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.sourcetype }</td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>Velocity dispersion (km/s)</span></td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.veldisp}" pattern="#.##"></fmt:formatNumber></td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>veldisp_error</span></td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.veldisp_err}" pattern="#.###"></fmt:formatNumber></td>
+	                   </tr>
+	                   <tr align='left' >
+	                       <td  valign='top' class='h'><span>targeting_flags</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.targeting_flags }</td>
+	                   </tr>
+	                     <tr align='left' >
+	                       <td  valign='top' class='h'><span>plate</span></td>
+	                       <td valign='top' class='t'>${spectralCtrl.plate }</td>
+	                   </tr>
+	                  <tr align='left' >
+	                      <td  valign='top' class='h'><span>mjd</span></td>
+	                      <td valign='top' class='t'>${spectralCtrl.mjd }</td>
+	                  </tr>
+	                  <tr align='left' >
+	                      <td  valign='top' class='h'><span>fiberid</span></td>
+	                      <td valign='top' class='t'>${spectralCtrl.fiberid }</td>
+	                  </tr>
+	                 </table>
+		   	      </td>            
+	        </tr>   
+	    </table> 
+	</div>  <!-- end of spectro div -->
+
+</c:if><!-- SpectralControl finished -->
+  <c:if test="${not empty requestScope.master.apid}">
+		 <div id="irspec">
+        <h3>Infrared Spectra
+          <span class="target">Targeted star: ${requestScope.apogeeCtrl.apogee_id}</span>
+        </h3>
+        <c:choose>
+        	<c:when test="${requestScope.apogeeCtrl.isData == true }">
+        		<table width="800">
+		          <tr>
+		            <td class="h">Instrument</td>
+		            <td class="t"><b>APOGEE</b></td>
+		          </tr>
+		          <tr>
+		            <td class="h">APOGEE ID</td>
+		            <td class="t">${requestScope.apogeeCtrl.apogeeCtrl.apstar_id}</td>
+		          </tr>
+		        </table>
+
+		        <table width="800">
+		          <tr>
+		            <td align="center" class="h" colspan="2" width="50%">Galactic Coordinates</td>
+		            <td align="center" class="h" colspan="2" width="50%">RA,dec</td>
+		          </tr>
+		          <tr>
+		            <td align="center" class="h">Longitude (L)</td>
+		            <td align="center" class="h">Latitude (B)</td>
+		            <td align="center" class="h">Decimal</td>
+		            <td align="center" class="h">Sexagesimal</td>
+		          </tr>
+		          <tr>
+		            <td align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.glon}" pattern="#.#####"></fmt:formatNumber></td>                        
+		            <td align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.glat}" pattern="#.#####"></fmt:formatNumber></td>                     
+		            <td align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.ra}" pattern="#.#####"></fmt:formatNumber>, <fmt:formatNumber value="${requestScope.apogeeCtrl.dec}" pattern="#.#####"></fmt:formatNumber></td>
+		            <td align="center" class="t">
+		            <span class="large">
+		            	<%=Utilities.hmsC(((ApogeeControl)request.getAttribute("apogeeCtrl")).getRa()) + ", " + Utilities.dmsC(((ApogeeControl)request.getAttribute("apogeeCtrl")).getDec())%>
+		            </span>
+		            </td>
+		          </tr>
+		        </table>
+            
+		        <table>
+		          <tr>
+		            <td colspan="2">
+		              <a href="${requestScope.apogeeCtrl.apogeeSpecImage }"><img src="${requestScope.apogeeCtrl.apogeeSpecImage }" width="780" height="195" alt="APOGEE infrared spectrum of ${requestScope.apogeeCtrl.apogee_id}" /></a>
+		            </td>
+		          </tr>
+		          <tr>
+		            <td class="irspeclink">
+		              <a class="content" href="${requestScope.apogeeCtrl.spectrumLink }" target="_blank">Interactive spectrum<img src="../../images/new_window_black.png" alt=" (new window)" /></a>
+		            </td>
+		            <td class="irspeclink" align="right">
+		              <a class="content" href="${requestScope.apogeeCtrl.fitsLink }" target="_blank">Download FITS<img src="../../images/new_window_black.png" alt=" (new window)" /></a>
+		            </td>
+		          </tr>
+		       	 </table>
+        	</c:when>
+        	<c:otherwise>
+        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+                  <tr><td class='nodatafound'>No Spectrum data found for this object</td></tr>
+            	</table> 
+        	</c:otherwise>
+        </c:choose>
+        
+        
+        <h3>Targeting Information</h3>
+        <c:choose>
+        	<c:when test="${requestScope.apogeeCtrl.isData }">
+        		<table cellpadding="2" cellspacing="2" border="0" width="800">
+		          <tr>
+		            <td align="middle" class="h"><span>2MASS j</span></td>
+		            <td align="middle" class="h"><span>2MASS h</span></td>
+		            <td align="middle" class="h"><span>2MASS k</span></td>
+		            <td align="middle" class="h"><span>j_err</span></td>
+		            <td align="middle" class="h"><span>h_err</span></td>
+		            <td align="middle" class="h"><span>k_err</span></td>
+		          </tr>
+		          <tr>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.j }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.h }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.k }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.j_err }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.h_err }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.k_err }</td>
+		          </tr>
+		        </table>
+
+		        <table cellpadding="2" cellspacing="2" border="0" width="800">
+		          <tr>
+		            <td align="middle" class="h"><span>4.5 micron magnitude</span></td>
+		            <td align="middle" class="h"><span>4.5 micron magnitude error</span></td>
+		            <td align="middle" class="h"><span>4.5 micron magnitude source</span></td>
+		          </tr>
+		          <tr>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.mag_4_5 }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.mag_4_5_err }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.src_4_5 }</td>
+		          </tr>
+		        </table>
+
+		        <table cellpadding="2" cellspacing="2" width="800">
+		          <tr align="left">
+		            <td valign="top" class="h">APOGEE target flags 1</td>
+		            <td valign="top" class="b">${requestScope.apogeeCtrl.apogeeTarget1N }</td>
+		          </tr>
+		        </table>
+
+		        <table cellpadding="2" cellspacing="2" width="800">
+		          <tr align="left">
+		            <td valign="top" class="h">APOGEE target flags 2</td>
+		            <td valign="top" class="b">${requestScope.apogeeCtrl.apogeeTarget2N }</td>
+		          </tr>
+		        </table>
+        	</c:when>
+        	<c:otherwise>
+        		<table cellpadding=2 cellspacing=2 border=0 width=625>
+                  <tr><td class='nodatafound'>No Targeting data found for this object</td></tr>
+            	</table>
+        	</c:otherwise>
+        </c:choose>
+
+        
+        <h3>Stellar Parameters</h3>
+        <c:choose>
+         	<c:when test="${requestScope.apogeeCtrl.isData }">
+         		<table cellpadding="2" cellspacing="2" border="0" width="800">
+		          <tr>
+		            <td align="middle" class="h"><span>Avg v<sub>helio</sub> (km/s)</span></td>
+		            <td align="middle" class="h"><span>Scatter in v<sub>helio</sub> (km/s)</span></td>
+		            <td align="middle" class="h"><span>Best-fit temperature (K)</span></td>
+		            <td align="middle" class="h"><span>Temp error</span></td>
+		          </tr>
+		          <tr>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.vhelio_avg }</td>
+		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.vscatter }</td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff}" pattern="#."></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff_err}" pattern="#.#"></fmt:formatNumber></td>
+		          </tr>
+		        </table>
+                
+		        <table cellpadding="2" cellspacing="2" border="0" width="800">  
+		          <tr>
+		            <td align="middle" class="h"><span>Surface Gravity log<sub>10</sub>(g)</span></td>
+		            <td align="middle" class="h"><span>log(g) error</span></td>
+		            <td align="middle" class="h"><span>Metallicity [Fe/H]</span></td>
+		            <td align="middle" class="h"><span>Metal error</span></td>
+		            <td align="middle" class="h"><span>[&alpha;/Fe]</span></td>
+		            <td align="middle" class="h"><span>[&alpha;/Fe] error</span></td>
+		          </tr>
+		          <tr>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg}" pattern="#.##"></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg_err}" pattern="#.###"></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h}" pattern="#.#"></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h_err}" pattern="#.###"></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m}" pattern="#.##"></fmt:formatNumber></td>
+		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m_err}" pattern="#.###"></fmt:formatNumber></td>
+		          </tr>
+		        </table>
+                
+		        <table cellpadding="2" cellspacing="2" width="800">
+		          <tr align="left">
+		            <td valign="top" class="h">Star flags</td>
+		            <td valign="top" class="b">${requestScope.apogeeCtrl.apogeeStarFlagN }</td>
+		          </tr>
+		        </table>
+
+		        <table cellpadding="2" cellspacing="2" width="800">
+		          <tr align="left">
+		            <td valign="top" class="h">Processing flags (ASPCAP)</td>
+		            <td valign="top" class="b">${requestScope.apogeeCtrl.apogeeAspcapFlagN }</td>
+		          </tr>
+		        </table>
+         	</c:when>
+         	<c:otherwise>
+         		<table cellpadding=2 cellspacing=2 border=0 width=625>
+                  <tr><td class='nodatafound'>No Stellar Parameters found for this object</td></tr>
+           		</table>
+         	</c:otherwise> 
+         </c:choose>
+		
+        <h3 class="sectionlabel">
+          Visits (click to see visit spectrum)
+          <a id="visits_are_shown" href="javascript:showSection('visits');javascript:showLink('visits_are_hidden');javascript:hideLink('visits_are_shown');" class="showinglink">
+            Show
+          </a>
+          <a id="visits_are_hidden" href="javascript:hideSection('visits');javascript:showLink('visits_are_shown');javascript:hideLink('visits_are_hidden');" class="hidinglink">
+            Hide
+          </a>
+        </h3>
+
+        <div id="visits">
+          <table cellpadding="2" cellspacing="2" border="0" width="800">
+            <tr>
+              <td align="middle" class="h"><span>visit_id</span></td>
+              <td align="middle" class="h"><span>plate</span></td>
+              <td align="middle" class="h"><span>mjd</span></td>
+              <td align="middle" class="h"><span>fiberid</span></td>
+              <td align="middle" class="h"><span>date</span></td>
+              <td align="middle" class="h"><span>time (UTC)</span></td>
+              <td align="middle" class="h"><span>vrel</span></td>
+            </tr>
+            
+            <c:set var="cellClass" value="t"></c:set>
+			<c:forEach var="v" items="${requestScope.apogeeCtrl.visits }">
+				<tr>
+	              <td nowrap align="middle" class="${cellClass }">
+	                <a href="${apogeeCtrl.globals.apogeeSpectrumLink }?plateid=${v.plate}&mjd=${v.mjd}&fiber=${v.fiberid}" class="content" target="_blank">
+	                  ${v.visit_id}&nbsp;<img src="../../images/new_window_black.png" alt=" (new window)" />
+	                </a>
+	              </td>
+	              <td nowrap align="middle" class="${cellClass}">${v.plate }</td>
+	              <td nowrap align="middle" class="${cellClass}">${v.mjd}</td>
+	              <td nowrap align="middle" class="${cellClass}">${v.fiberid }</td>
+	              <td nowrap align="middle" class="${cellClass}">${v.dateobs.substring(0,10)}</td>
+	              <td nowrap align="middle" class="${cellClass}">${v.dateobs.substring(11,12)}</td>
+	              <td nowrap align="middle" class="${cellClass}">${v.vrel}</td>  
+	            </tr>
+	            <c:set var="cellClass" value="${cellClass == 't'? 'b' : 't'}"></c:set> <!--  Alternating row colors --> 
+			</c:forEach>
+          </table>                          
+        </div>  <!-- end of visits div -->
+      </div>  <!-- end of irspec div -->
+ </c:if><!-- master.apid not empty   finished -->
    </div>              
     </div>
 </form>

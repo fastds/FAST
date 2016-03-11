@@ -132,7 +132,7 @@
    <div id="content">
    <!-- 
        <asp:contentplaceholder id="OEContent" runat="server" /> -->
-		       <c:if test="${not empty imagingCtrl.objID}">
+		  <c:if test="${not empty imagingCtrl.objID}">
 			<div id="imaging">
 			<h3>Imaging</h3>            
 			

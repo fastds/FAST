@@ -131,14 +131,14 @@
    <!-- 
        <asp:contentplaceholder id="OEContent" runat="server" /> -->
        <c:if test="${not empty crossIDCtrl.objID}">
-	<h3 class="sectionlabel" id="crossidtop">Cross-identifications
-	    <a id="crossid_is_shown" href="javascript:showSection('crossid');javascript:showLink('crossid_is_hidden');javascript:hideLink('crossid_is_shown');" class="showinglink">
-	      Show
-	    </a>
-	    <a id="crossid_is_hidden" href="javascript:hideSection('crossid');javascript:showLink('crossid_is_shown');javascript:hideLink('crossid_is_hidden');" class="hidinglink">
-	       Hide
-	    </a>
-	</h3>
+		<h3 class="sectionlabel" id="crossidtop">Cross-identifications
+		    <a id="crossid_is_shown" href="javascript:showSection('crossid');javascript:showLink('crossid_is_hidden');javascript:hideLink('crossid_is_shown');" class="showinglink">
+		      Show
+		    </a>
+		    <a id="crossid_is_hidden" href="javascript:hideSection('crossid');javascript:showLink('crossid_is_shown');javascript:hideLink('crossid_is_hidden');" class="hidinglink">
+		       Hide
+		    </a>
+		</h3>
 
 	<div id="crossid"> 
 	<table class="content">
