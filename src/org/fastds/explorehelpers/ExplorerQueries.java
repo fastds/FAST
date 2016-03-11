@@ -661,10 +661,10 @@ public class ExplorerQueries {
     	aql = aql.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
     	aql = aql.append(" p.fieldID,");
     	aql = aql.append(" s.specObjID,");
-    	aql = aql.append(" p.objID AS objID ");
-    	aql = aql.append(" FROM ("+photoTag+") AS p ");
+    	aql = aql.append(" p.objID ");
+    	aql = aql.append(" FROM ("+photoTag+") AS p ,");
     	aql = aql.append(" SpecObjAll AS s WHERE s.bestObjID=p.objID AND s.sciencePrimary=1");
-    	aql = aql.append(" WHERE p.objID="+id);
+    	aql = aql.append(" AND p.objID="+id);
     	return aql.toString();
     }
 
