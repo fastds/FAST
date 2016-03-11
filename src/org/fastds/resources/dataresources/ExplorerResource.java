@@ -100,11 +100,11 @@ public class ExplorerResource {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-		if(ra != null) qra = Utilities.parseRA(ra); // need to parse J2000
-        if(dec != null) qdec = Utilities.parseDec(dec); // need to parse J2000
-        if(plate != null) this.plate = Short.parseShort(plate);
-        if(mjd != null) this.mjd = Integer.parseInt(mjd);
-        if(fiber != null) this.fiber = Short.parseShort(fiber);
+		if(ra != null && !ra.isEmpty()) qra = Utilities.parseRA(ra); // need to parse J2000
+        if(dec != null && !dec.isEmpty()) qdec = Utilities.parseDec(dec); // need to parse J2000
+        if(plate != null && !plate.isEmpty()) this.plate = Short.parseShort(plate);
+        if(mjd != null && !mjd.isEmpty()) this.mjd = Integer.parseInt(mjd);
+        if(fiber != null && !fiber.isEmpty()) this.fiber = Short.parseShort(fiber);
         
         //This is imp function to get all different ids.(获取所有不同的ID)
         getObjPmts();
