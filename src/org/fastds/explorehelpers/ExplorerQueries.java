@@ -650,7 +650,9 @@ public class ExplorerQueries {
     	+" cast(p.objID as binary(8)) as objID "
     	+"  FROM PhotoTag p "
     	+"left outer join SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
-    	+" WHERE p.objID=dbo.fObjID(@objid)"; old */
+    	+" WHERE p.objID=dbo.fObjID(@objid)"; 
+    	左外连接变成了内连接，以后修改
+    	old */
     public static String getPmtsFromPhoto(long objID)
     {
     	StringBuilder aql = new StringBuilder();
@@ -661,7 +663,7 @@ public class ExplorerQueries {
     	aql = aql.append(" s.specObjID,");
     	aql = aql.append(" p.objID AS objID ");
     	aql = aql.append(" FROM ("+photoTag+") AS p ");
-    	aql = aql.append(" left outer join SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1");
+    	aql = aql.append(" SpecObjAll AS s WHERE s.bestObjID=p.objID AND s.sciencePrimary=1");
     	aql = aql.append(" WHERE p.objID="+id);
     	return aql.toString();
     }
