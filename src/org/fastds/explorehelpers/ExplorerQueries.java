@@ -638,13 +638,15 @@ public class ExplorerQueries {
     public static String getPmtsFromPhoto(long objID)
     {
     	StringBuilder aql = new StringBuilder();
+    	String photoTag = View.getPhotoTag();
+    	long id = Functions.fObjID(objID);
     	aql = aql.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
-    	aql = aql.append(" cast(p.fieldID AS binary(8)) AS fieldID,");
-    	aql = aql.append(" cast(s.specobjid AS binary(8)) AS specObjID,");
-    	aql = aql.append(" cast(p.objID AS binary(8)) AS objID ");
-    	aql = aql.append(" FROM PhotoTag p ");
-    	aql = aql.append(" left outer join SpecObjAll s ON s.bestobjID=p.objID AND s.scienceprimary=1");
-    	aql = aql.append(" WHERE p.objID=dbo.fObjID("+objID+")");
+    	aql = aql.append(" p.fieldID,");
+    	aql = aql.append(" s.specObjID,");
+    	aql = aql.append(" p.objID AS objID ");
+    	aql = aql.append(" FROM ("+photoTag+") AS p ");
+    	aql = aql.append(" left outer join SpecObjAll AS s ON s.bestObjID=p.objID AND s.scienceprimary=1");
+    	aql = aql.append(" WHERE p.objID="+id);
     	return aql.toString();
     }
 

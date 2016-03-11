@@ -396,7 +396,7 @@ public class ExplorerResource {
         {
             apogeeFromEq(objectInfo.ra, objectInfo.dec);
         }
-        catch(Exception e) { }
+        catch(Exception e) { e.printStackTrace();}
     }
 
     private void parseApogeeID(String idstring)

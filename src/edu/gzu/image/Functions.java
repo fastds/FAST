@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fastds.dao.ExQuery;
+import org.fastds.model.View;
 import org.junit.Test;
 
 import edu.gzu.domain.Obj;
@@ -677,5 +678,61 @@ public class Functions {
 			}
 		}
 		return out;
+	}
+	public static long fObjID(long objID)
+	{
+//		-------------------------------------------------------------------------------
+//		--/H Match an objID to a PhotoObj and set/unset the first field bit.
+//		--
+//		--/T Given an objID this function determines whether there is a
+//		--/T PhotoObj with a matching (skyversion, run, rerun, camcol, field, 
+//		--/T obj) and returns the objID with the first field bit set properly
+//		--/T to correspond to that PhotoObj.  It returns 0 if there is
+//		--/T no corresponding PhotoObj.  It does not matter whether the
+//		--/T first field bit is set or unset in the input objID.
+//		-------------------------------------------------------------------------------
+//		RETURNS BIGINT
+//		AS BEGIN
+//		    DECLARE @firstfieldbit bigint;
+//		    SET @firstfieldbit = 0x0000000010000000;
+//		    SET @objID = @objID & ~@firstfieldbit;
+//		    IF (select count_big(*) from PhotoTag WITH (nolock) where objID = @objID) > 0
+//		        RETURN @objID
+//		    ELSE
+//		    BEGIN
+//		        SET @objID = @objID + @firstfieldbit;
+//		        IF (select count_big(*) from PhotoTag WITH (nolock) where objID = @objID) > 0
+//		            RETURN @objID
+//		    END
+//		    RETURN cast(0 as bigint)
+//		END
+		long firstfieldbit = 0x0000000010000000;
+		objID = objID & ~firstfieldbit;
+		ResultSet rs = null;
+		StringBuilder aql = new StringBuilder();
+		aql.append("SELECT count(*) FROM ( "+View.getPhotoTag()+" ) ");
+		aql.append("WHERE objID="+objID);
+		ExQuery ex = new ExQuery();
+		
+		try {
+			rs = ex.aqlQuery(aql.toString());
+			if(!rs.isAfterLast())
+				return objID;
+			else 
+			{
+				objID = objID + firstfieldbit;
+				aql = null;
+				aql = new StringBuilder();
+				aql.append("SELECT count(*) FROM ( "+View.getPhotoTag()+" ) ");
+				aql.append("WHERE objID="+objID);
+				rs = ex.aqlQuery(aql.toString());
+				if(!rs.isAfterLast())
+					return objID;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0L;
+		
 	}
 }
