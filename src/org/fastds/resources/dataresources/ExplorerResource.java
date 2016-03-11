@@ -390,9 +390,9 @@ public class ExplorerResource {
         objectInfo.rerun = photoTag.getRerun();
         objectInfo.camcol = photoTag.getCamcol();
         objectInfo.field = photoTag.getField();
-        objectInfo.fieldID = photoTag.getFieldID() == 0 ? null : Utilities.longToHex(photoTag.getFieldID());
-        objectInfo.objID = photoTag.getObjID() == 0 ? null : Utilities.longToHex(photoTag.getObjID());
-        objectInfo.specObjID = photoTag.getSpecObjID() == 0 ? null : Utilities.longToHex(photoTag.getSpecObjID());
+        objectInfo.fieldID = photoTag.getFieldID() == null ? null : Utilities.longToHex(photoTag.getFieldID());
+        objectInfo.objID = photoTag.getObjID() == null ? null : Utilities.longToHex(photoTag.getObjID());
+        objectInfo.specObjID = photoTag.getSpecObjID() == null ? null : Utilities.longToHex(photoTag.getSpecObjID());
         
         // get the plateID and fiberID from the specObj, if it exists
         if (objectInfo.specObjID != null && !ZERO_ID.equals(objectInfo.specObjID))
