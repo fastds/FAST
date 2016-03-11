@@ -86,7 +86,7 @@ public class ExplorerResource {
 				sidstring = (sid.isEmpty()) ? sid : Utilities.ParseId(sid).toString();
 		}
 		if(spec != null)
-			sidstring = (sid.isEmpty()) ? sid : Utilities.ParseId(sid).toString();
+			sidstring = (spec.isEmpty()) ? spec : Utilities.ParseId(spec).toString();
 		try {
 				if(qapid !=null )
 				{
