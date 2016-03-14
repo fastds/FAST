@@ -39,6 +39,7 @@ public class SpectralControl {
     protected void load(ObjectExplorer master)
     {
 //        globals = (Globals)Application[Globals.PROPERTY_NAME]; old
+    	this.master = master;
         try
         {
             //objID = Request.QueryString["id"];
