@@ -143,7 +143,7 @@ public class PhotoObjAll {
 	public void setType(int type) {
 		this.type = type;
 	}
-	public String getTypeName(int type)
+	public static String getTypeName(int type)
 	{
 		switch(type)
 		{

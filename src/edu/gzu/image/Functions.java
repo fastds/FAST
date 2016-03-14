@@ -566,7 +566,20 @@ public class Functions {
 	}
 	public static String fPhotoModeN(int value)
 	{
-		return "SELECT name FROM PhotoMode WHERE value="+ value;
+		String aql = "SELECT name FROM PhotoMode WHERE value="+ value;
+		String name = null;
+		ExQuery eq = new ExQuery();
+		ResultSet rs = null;
+		try {
+			rs = eq.aqlQuery(aql);
+			if(!rs.isAfterLast())
+			{
+				name = rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return name;
 	}
 	public static String fPhotoFlagsN(long value)
 	{

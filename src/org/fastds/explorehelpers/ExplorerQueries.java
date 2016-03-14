@@ -354,11 +354,11 @@ public class ExplorerQueries {
 //    public static String getObjParamaters = "SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, cast(p.mode as int) as mode," 
 //                                            +"dbo.fPhotoTypeN(p.type) as otype, p.mjd"
 //                                            +"FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
-//                                            +"WHERE p.objID= @objID";
+//                                            +"WHERE p.objID= @objID";  注意otype
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append("SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, cast(p.mode as int) AS mode,");
-    	aql = aql.append("dbo.fPhotoTypeN(p.type) AS otype, p.mjd");
-    	aql = aql.append("FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1");
+    	aql = aql.append("p.type AS otype, p.mjd");
+    	aql = aql.append("FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestObjID=p.objID AND s.sciencePrimary=1");
     	aql = aql.append("WHERE p.objID="+objID);
     	return aql.toString();
     }
@@ -387,27 +387,28 @@ public class ExplorerQueries {
          +"left outer join zooSpec zz on pt.objid=zz.objid" 
          +"left outer join field f on f.fieldID=pt.fieldID "
          +"left outer join photoobjall pa with (nolock)on  pa.objid = pt.objid" 
-         +"WHERE pt.objID= @objID";  old*/
-         public static String getImagingQuery(String objID)
+         +"WHERE pt.objID= @objID";  old    注意dbo.fPhotoFlagsN(pt.flags) 转换otype。。dbo.fPhotoModeN(po.mode)*/
+//        po.petroRad_r  phz.zerr 连接方式等等 
+    	public static String getImagingQuery(String objID)
          {
         	 StringBuilder aql = new StringBuilder();
         	 aql = aql.append(" SELECT  ");
-        	 aql = aql.append(" dbo.fPhotoFlagsN(pt.flags) AS 'flags',pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
-        	 aql = aql.append(" cast(pt.fieldID as binary(8)) AS fieldID, cast(pt.objID as binary(8)) AS objID,");
-        	 aql = aql.append(" pa.clean,  dbo.fPhotoTypeN(pa.type) AS otype, ");
+        	 aql = aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
+        	 aql = aql.append(" pt.fieldID, pt.objID, ");
+        	 aql = aql.append(" pa.clean, pa.type AS otype, ");
         	 aql = aql.append(" pa.u AS u, pa.g  AS g, pa.r AS r, pa.i AS i, pa.z AS z,");
         	 aql = aql.append(" pa.err_u AS err_u,  pa.err_g  AS err_g,  pa.err_r  AS err_r, pa.err_i  AS err_i, pa.err_z AS err_z,");
-        	 aql = aql.append(" dbo.fPhotoModeN(po.mode) AS mode,po.mjd AS 'mjdNum',  (po.nDetect-1) AS 'Other observations', po.parentID, po.nChild, str(po.extinction_r,7,2) AS extinction_r,");
-        	 aql = aql.append(" str(po.petroRad_r,9,2)+' &plusmn; '+str(po.petroRadErr_r,10,3) AS 'petrorad_r',");
-        	 aql = aql.append(" (str(phz.z,7,3)+' &plusmn; '+str(phz.zerr,8,4))AS 'photoZ_KD',");
-        	 aql = aql.append(" case (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) when 1 then 'Spiral' when 10 then 'Elliptical' when 100 then 'Uncertain' else '-' end AS 'GalaxyZoo_Morph'");
-        	 aql = aql.append(" FROM PhotoTag pt  ");
-        	 aql = aql.append(" LEFT OUTER JOIN PhotoObj po on po.objid = pt.objid");
-        	 aql = aql.append(" LEFT OUTER JOIN Photoz phz on pt.objid=phz.objid ");
-        	 aql = aql.append(" LEFT OUTER JOIN zooSpec zz on pt.objid=zz.objid");
-        	 aql = aql.append(" LEFT OUTER JOIN field f on f.fieldID=pt.fieldID ");
-        	 aql = aql.append(" LEFT OUTER JOIN PhotoObjAll pa with (nolock)on  pa.objid = pt.objid");
-        	 aql = aql.append(" WHERE pt.objID= @objID");
+        	 aql = aql.append(" po.mode AS mode, po.mjd AS 'mjdNum',  (po.nDetect-1) AS 'Other observations', po.parentID, po.nChild, po.extinction_r,");
+        	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r ,");
+        	 aql = aql.append(" phz.z, phz.zErr,");
+        	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS 'GalaxyZoo_Morph'");
+        	 aql = aql.append(" FROM PhotoTag AS pt  ");
+        	 aql = aql.append(" JOIN PhotoObj AS po on po.objID = pt.objID");
+        	 aql = aql.append(" JOIN Photoz AS phz on pt.objID=phz.objID ");
+        	 aql = aql.append(" JOIN zooSpec AS zz on pt.objID=zz.objID");
+        	 aql = aql.append(" JOIN field AS f on f.fieldID=pt.fieldID ");
+        	 aql = aql.append(" JOIN PhotoObjAll AS pa ON  pa.objID = pt.objID");
+        	 aql = aql.append(" WHERE pt.objID="+objID);
         	 return aql.toString();
          }
 
@@ -574,7 +575,7 @@ public class ExplorerQueries {
 //          
     	StringBuilder aql = new StringBuilder();
     	String subselect = Functions.fGetNearestApogeeStarEq(qra, qdec, searchRadius);
-    	aql.append(" SELECT top 1 p.apstar_id");
+    	aql.append(" SELECT p.apstar_id");
     	aql.append(" FROM apogeeStar AS p, "+subselect+" AS n");
     	aql.append(" WHERE p.apstar_id=n.apstar_id");
     	return aql.toString();
@@ -676,7 +677,7 @@ public class ExplorerQueries {
          old */
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append("SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql = aql.append(" FROM SpecObjAll s JOIN PlateX q ON s.plateID=q.plateID ");
+    	aql = aql.append(" FROM SpecObjAll AS s JOIN PlateX AS q ON s.plateID=q.plateID ");
     	aql = aql.append(" WHERE specObjID="+specObjID);
     	
     	return aql.toString();
