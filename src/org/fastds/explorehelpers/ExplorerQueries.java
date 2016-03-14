@@ -675,7 +675,7 @@ public class ExplorerQueries {
     	+"WHERE specObjID=@specID"  ;
          old */
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append("SELECT cast(s.plateID AS binary(8)) AS plateID, s.mjd, s.fiberID, q.plate");
+    	aql = aql.append("SELECT s.plateID , s.mjd, s.fiberID, q.plate");
     	aql = aql.append(" FROM SpecObjAll s JOIN PlateX q ON s.plateID=q.plateID ");
     	aql = aql.append(" WHERE specObjID="+specObjID);
     	

@@ -400,10 +400,13 @@ public class ExplorerResource {
             long specID = Long.parseLong(objectInfo.specObjID.substring(2),16);
             Map<String,Object> attrs = explorerService.findAttrsFormSpecObjAllAndPlateX(specID);
             
-            objectInfo.plateID = (Long)attrs.get("plateID") == 0 ? null : Utilities.longToHex((Long)attrs.get("plateID"));
-            objectInfo.mjd = (Integer)attrs.get("mjd");
-            objectInfo.fiberID = (Short)attrs.get("fiberID");
-            objectInfo.plate = (Short)attrs.get("fiberID");
+            if(attrs.size()>0)
+            {
+            	objectInfo.plateID = (Long)attrs.get("plateID") == 0 ? null : Utilities.longToHex((Long)attrs.get("plateID"));
+            	objectInfo.mjd = (Integer)attrs.get("mjd");
+            	objectInfo.fiberID = (Short)attrs.get("fiberID");
+            	objectInfo.plate = (Short)attrs.get("fiberID");
+            }
         }
 
         try
