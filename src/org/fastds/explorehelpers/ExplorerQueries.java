@@ -356,10 +356,10 @@ public class ExplorerQueries {
 //                                            +"FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
 //                                            +"WHERE p.objID= @objID";  注意otype
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append("SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, cast(p.mode as int) AS mode,");
-    	aql = aql.append("p.type AS otype, p.mjd");
-    	aql = aql.append("FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestObjID=p.objID AND s.sciencePrimary=1");
-    	aql = aql.append("WHERE p.objID="+objID);
+    	aql = aql.append(" SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, p.mode, ");
+    	aql = aql.append(" p.type AS otype, p.mjd ");
+    	aql = aql.append(" FROM PhotoObjAll AS p JOIN SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1 ");
+    	aql = aql.append(" WHERE p.objID="+objID);
     	return aql.toString();
     }
 
