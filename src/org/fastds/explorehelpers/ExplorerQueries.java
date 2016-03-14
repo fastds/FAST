@@ -359,7 +359,7 @@ public class ExplorerQueries {
     	aql = aql.append(" SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, p.mode, ");
     	aql = aql.append(" p.type AS otype, p.mjd ");
     	aql = aql.append(" FROM PhotoObjAll AS p JOIN SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1 ");
-    	aql = aql.append(" WHERE p.objID="+Long.parseLong(objID,16));
+    	aql = aql.append(" WHERE p.objID="+Long.parseLong(objID.substring(2),16));
     	return aql.toString();
     }
 
@@ -470,7 +470,7 @@ public class ExplorerQueries {
     	aql = aql.append(" peak, rms , ");
     	aql = aql.append(" major as 'Major axis (arcsec)', ");
     	aql = aql.append(" minor as 'Minor axis (arcsec)' ");
-    	aql = aql.append(" FROM FIRST WHERE objID="+Long.parseLong(objID, 16));
+    	aql = aql.append(" FROM FIRST WHERE objID="+Long.parseLong(objID.substring(2), 16));
 		return aql.toString();
 	}
 
