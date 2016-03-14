@@ -16,7 +16,8 @@ public class MetaDataControl {
     protected String survey;
     protected Integer imageMJD = null;
 
-    protected ObjectExplorer master;
+    protected ObjectExplorer master = null;
+    private ExplorerService explorerService = new ExplorerService();
   
     public MetaDataControl(ObjectExplorer master)
     {
@@ -25,11 +26,10 @@ public class MetaDataControl {
     protected void load(ObjectExplorer master)
     {
 //        globals = (Globals)Application[Globals.PROPERTY_NAME];   old 
-
+    	this.master = master;
         if (master.objID != null && !master.objID.equals(""))
-        executeQuery();      
+        	executeQuery();      
     }
-    ExplorerService explorerService = new ExplorerService();
     private void executeQuery()
     {
         Map<String,Object> params = null;
