@@ -643,7 +643,7 @@ public class ExplorerDao {
 			{
 				String usno = rs.getString("Catalog");
 				String properMotion = new DecimalFormat("###.##").format(rs.getFloat(2))+" &plusmn; "+ new DecimalFormat("####.###").format(rs.getFloat(3));
-				float angle = rs.getFloat("PM angle (deg E)");
+				float angle = rs.getFloat("PM_angle_(deg_E)");
 				
 				attrs.put("usno", usno);
 				attrs.put("properMotion", properMotion);
@@ -678,8 +678,8 @@ public class ExplorerDao {
 			{
 				String first = rs.getString("Catalog");
 				String peakflux = new DecimalFormat("#####.##").format(rs.getDouble(2))+" &plusmn; "+new DecimalFormat("#####.##").format(rs.getDouble(3));
-				double major = rs.getDouble("Major axis (arcsec)");
-				double minor = rs.getDouble("Minor axis (arcsec)");///float?double?
+				double major = rs.getDouble("Major_axis_(arcsec)");
+				double minor = rs.getDouble("Minor_axis_(arcsec)");///float?double?
 				
 				attrs.put("first", first);
 				attrs.put("peakflux", peakflux);
@@ -793,12 +793,12 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String wise = rs.getString(0);
-				float wmag1 = rs.getFloat(1);
-				float wmag2 = rs.getFloat(2);
-				float wmag3 = rs.getFloat(3);
-				float wmag4 = rs.getFloat(4);
-				String wiselink = rs.getString(5);
+				String wise = rs.getString(1);
+				float wmag1 = rs.getFloat(2);
+				float wmag2 = rs.getFloat(3);
+				float wmag3 = rs.getFloat(4);
+				float wmag4 = rs.getFloat(5);
+				String wiselink = rs.getString(6);
 				
 				attrs.put("wise", wise);
 				attrs.put("wmag1", wmag1);
