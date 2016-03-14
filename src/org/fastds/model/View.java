@@ -110,4 +110,8 @@ public class View {
 		  这一列推迟到获取结果集时处理*/
 		return aql.toString();
 	}
+
+	public static String getPhotoObj() {
+		return "SELECT * FORM PhotoObjAll WHERE mode=1 OR mode=2";
+	}
 }

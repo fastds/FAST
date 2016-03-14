@@ -642,7 +642,7 @@ public class ExplorerDao {
 			if (!rs.isAfterLast())
 			{
 				String usno = rs.getString("Catalog");
-				String properMotion = rs.getString("Proper motion (mas/yr)");
+				String properMotion = new DecimalFormat("###.##").format(rs.getFloat(2))+" &plusmn; "+ new DecimalFormat("####.###").format(rs.getFloat(3));
 				float angle = rs.getFloat("PM angle (deg E)");
 				
 				attrs.put("usno", usno);
@@ -677,9 +677,9 @@ public class ExplorerDao {
 			if (!rs.isAfterLast())
 			{
 				String first = rs.getString("Catalog");
-				String peakflux = rs.getString("Peak flux (mJy)");
-				float major = rs.getFloat("Major axis (arcsec)");
-				float minor = rs.getFloat("Minor axis (arcsec)");
+				String peakflux = new DecimalFormat("#####.##").format(rs.getDouble(2))+" &plusmn; "+new DecimalFormat("#####.##").format(rs.getDouble(3));
+				double major = rs.getDouble("Major axis (arcsec)");
+				double minor = rs.getDouble("Minor axis (arcsec)");///float?double?
 				
 				attrs.put("first", first);
 				attrs.put("peakflux", peakflux);
