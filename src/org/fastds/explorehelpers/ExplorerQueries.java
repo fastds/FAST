@@ -651,7 +651,7 @@ public class ExplorerQueries {
     	+"  FROM PhotoTag p "
     	+"left outer join SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
     	+" WHERE p.objID=dbo.fObjID(@objid)"; 
-    	左外连接变成了内连接，以后修改
+    	左外连接变成笛卡尔积，以后修改
     	old */
     public static String getPmtsFromPhoto(long objID)
     {
@@ -663,7 +663,7 @@ public class ExplorerQueries {
     	aql = aql.append(" s.specObjID,");
     	aql = aql.append(" p.objID ");
     	aql = aql.append(" FROM ("+photoTag+") AS p ,");
-    	aql = aql.append(" SpecObjAll AS s WHERE s.bestObjID=p.objID AND s.sciencePrimary=1");
+    	aql = aql.append(" SpecObjAll AS s WHERE s.sciencePrimary=1");
     	aql = aql.append(" AND p.objID="+id);
     	return aql.toString();
     }

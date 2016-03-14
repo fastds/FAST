@@ -75,21 +75,21 @@ public class ObjectExplorer {
 
         
         // id is the decimal representation; objID is the hex representation.
-        hrefs.Summary  = "summary.aspx?"+allID;
-        hrefs.PhotoObj = "DisplayResults.aspx?name=PhotoObj&"+allID;
-        hrefs.PhotoTag = "DisplayResults.aspx?name=PhotoTag&" + allID;
-        hrefs.Field    = "DisplayResults.aspx?name=Field&" + allID;
-        hrefs.Frame    = "DisplayResults.aspx?name=Frame&" + allID;
+        hrefs.Summary  = "summary?"+allID;
+        hrefs.PhotoObj = "DisplayResults?name=PhotoObj&"+allID;
+        hrefs.PhotoTag = "DisplayResults?name=PhotoTag&" + allID;
+        hrefs.Field    = "DisplayResults?name=Field&" + allID;
+        hrefs.Frame    = "DisplayResults?name=Frame&" + allID;
 
 
         if (globals.getReleaseNumber() >= 8) 
         {
-            hrefs.Galaxyzoo = "galaxyzoo.aspx?" + allID;
+            hrefs.Galaxyzoo = "galaxyzoo?" + allID;
         }            
 
        if (globals.getReleaseNumber() > 4)
         {
-            hrefs.PhotoZ = "DisplayResults.aspx?&name=photoZ&" + allID;
+            hrefs.PhotoZ = "DisplayResults?&name=photoZ&" + allID;
            // hrefs.PhotozRF = "DisplayResults.aspx?&name=photozRF&" + allID;
         } 
 

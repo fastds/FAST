@@ -726,8 +726,10 @@ public class Functions {
 				aql.append("SELECT count(*) FROM ( "+View.getPhotoTag()+" ) ");
 				aql.append("WHERE objID="+objID);
 				rs = ex.aqlQuery(aql.toString());
-				if(!rs.isAfterLast())
+				if(rs.getBigDecimal(1).longValue()>0)
+				{
 					return objID;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
