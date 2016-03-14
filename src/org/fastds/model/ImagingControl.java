@@ -92,13 +92,16 @@ public class ImagingControl {
         
         Map<String,Object> attrs = new HashMap<String,Object>();
         attrs = explorerService.findImaging(objID);
-        if((Integer)attrs.get("mjdNum") != -99999)
+        if(attrs != null && attrs.size() > 0)
         {
-        	mjdDate = DateFormat.getDateInstance().format(HelperFunctions.ConvertFromJulian(mjdNum).getTime().getTime()).format("MM/dd/yyyy");
+        	
+        	if((Integer)attrs.get("mjdNum") != -99999)
+        	{
+        		mjdDate = DateFormat.getDateInstance().format(HelperFunctions.ConvertFromJulian(mjdNum).getTime().getTime()).format("MM/dd/yyyy");
 //      old  	mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).toString("MM/dd/yyyy");  
-        }
-       /*
-        * int otherObs = rs.getInt("Other observations") == 0 ? -99999 : rs.getInt("Other observations");
+        	}
+        	/*
+        	 * int otherObs = rs.getInt("Other observations") == 0 ? -99999 : rs.getInt("Other observations");
                  long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
                  short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
                  String extinction_r = rs.getString("extinction_r") == null ? " - " : rs.getString("extinction_r");
@@ -109,14 +112,15 @@ public class ImagingControl {
 
                  //photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
                  String galaxyZoo_Morph = rs.getString("photoZ_KD") == null ? " - " : rs.getString("galaxyZoo_Morph");
-        */
-        otherObs = (Integer)attrs.get("otherObjs");
-        nchild = (Integer)attrs.get("parentID");
-        nchild = (Short)attrs.get("nchild");
-        extinction_r = (String)attrs.get("extinction_r");
-        petrorad_r = (String)attrs.get("petrorad_r");
-        photoZ_KD = (String)attrs.get("photoZ_KD");
-        galaxyZoo_Morph = (String)attrs.get("galaxyZoo_Morph");
+        	 */
+        	otherObs = (Integer)attrs.get("otherObjs");
+        	nchild = (Integer)attrs.get("parentID");
+        	nchild = (Short)attrs.get("nchild");
+        	extinction_r = (String)attrs.get("extinction_r");
+        	petrorad_r = (String)attrs.get("petrorad_r");
+        	photoZ_KD = (String)attrs.get("photoZ_KD");
+        	galaxyZoo_Morph = (String)attrs.get("galaxyZoo_Morph");
+        }
     }
 
     //protected String u_unit, g_unit, r_unit, i_unit, z_unit, 
