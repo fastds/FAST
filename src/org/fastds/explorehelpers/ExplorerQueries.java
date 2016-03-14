@@ -355,11 +355,12 @@ public class ExplorerQueries {
 //                                            +"dbo.fPhotoTypeN(p.type) as otype, p.mjd"
 //                                            +"FROM PhotoObjAll p LEFT OUTER JOIN SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
 //                                            +"WHERE p.objID= @objID";  注意otype
+    	objID = (objID!=null && objID.startsWith("0x"))? Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append(" SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, p.mode, ");
     	aql = aql.append(" p.type AS otype, p.mjd ");
     	aql = aql.append(" FROM PhotoObjAll AS p JOIN SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1 ");
-    	aql = aql.append(" WHERE p.objID="+Long.parseLong(objID.substring(2),16));
+    	aql = aql.append(" WHERE p.objID="+ objID);
     	return aql.toString();
     }
 
@@ -462,6 +463,7 @@ public class ExplorerQueries {
     }
     public static String FIRST(String objID) {
     	StringBuilder aql = new StringBuilder();
+    	objID = (objID!=null && objID.startsWith("0x"))? Long.parseLong(objID.substring(2),16)+"":objID;
 //    	aql = aql.append(" SELECT 'FIRST' as Catalog, ");
 //    	aql = aql.append(" str(peak,8,2)+' &plusmn; '+str(rms,8,2) as 'Peak flux (mJy)', ");
 //    	aql = aql.append(" major as 'Major axis (arcsec)', ");
@@ -470,7 +472,7 @@ public class ExplorerQueries {
     	aql = aql.append(" peak, rms , ");
     	aql = aql.append(" major as 'Major axis (arcsec)', ");
     	aql = aql.append(" minor as 'Minor axis (arcsec)' ");
-    	aql = aql.append(" FROM FIRST WHERE objID="+Long.parseLong(objID.substring(2), 16));
+    	aql = aql.append(" FROM FIRST WHERE objID="+objID);
 		return aql.toString();
 	}
 
