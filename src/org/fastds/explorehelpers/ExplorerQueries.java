@@ -392,7 +392,7 @@ public class ExplorerQueries {
 //        po.petroRad_r  phz.zerr 连接方式等等 
     	public static String getImagingQuery(String objID)
          {
-    		 objID = objID!=null && objID.startsWith("0x")?objID.substring(2):objID;
+    		 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
         	 aql = aql.append(" SELECT  ");
         	 aql = aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
@@ -497,7 +497,7 @@ public class ExplorerQueries {
                    //cmd = cmd.Replace("@wiselink", wiseLinkCrossID);
     public static String WISE(String id)
     {
-    	id = id !=null && id.startsWith("0x")?id.substring(2):id;
+    	id = id !=null && id.startsWith("0x")?Long.parseLong(id.substring(2),16)+"":id;
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append(" SELECT 'WISE' AS Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' AS 'Full_WISE_data' ");
     	aql = aql.append(" FROM WISE_xmatch AS x JOIN WISE_allsky AS w ON x.wise_cntr=w.cntr WHERE x.sdss_objid="+id);
