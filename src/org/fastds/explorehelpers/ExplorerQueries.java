@@ -676,12 +676,9 @@ public class ExplorerQueries {
     	 *第一步：先从PhotoObjAll中选择出符合要求的属性
     	 */
     	aqlFromPhotoObjAll.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
-    	aqlFromPhotoObjAll.append(" p.fieldID,");
-    	aqlFromPhotoObjAll.append(" s.specObjID,");
-    	aqlFromPhotoObjAll.append(" p.objID ");
-    	aqlFromPhotoObjAll.append(" FROM ("+photoTag+") AS p ,");
-    	aqlFromPhotoObjAll.append(" SpecObjAll AS s WHERE ");
-    	aqlFromPhotoObjAll.append(" AND p.objID="+id +" AND s.bestObjID=p.objID");
+    	aqlFromPhotoObjAll.append(" p.fieldID, p.objID ");
+    	aqlFromPhotoObjAll.append(" FROM ("+photoTag+") AS p ");
+    	aqlFromPhotoObjAll.append(" WHERE p.objID="+id);
     	/*
     	 * 第二步：从SpecObjAll中选择出符合要求的属性
     	 */
