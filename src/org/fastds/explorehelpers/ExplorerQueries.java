@@ -653,28 +653,47 @@ public class ExplorerQueries {
     	  return null;
       }
 
-  /*  public static String getpmtsFromPhoto = " SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field,"
+      /**
+       * public static String getpmtsFromPhoto = " SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field,"
     	+" cast(p.fieldID as binary(8)) as fieldID,"
     	+" cast(s.specobjid as binary(8)) as specObjID,"
     	+" cast(p.objID as binary(8)) as objID "
     	+"  FROM PhotoTag p "
     	+"left outer join SpecObjAll s ON s.bestobjid=p.objid AND s.scienceprimary=1"
     	+" WHERE p.objID=dbo.fObjID(@objid)"; 
-    	左外连接变成笛卡尔积，以后修改
-    	old */
-    public static String getPmtsFromPhoto(long objID)
+    	
+    	左外连接变成內連接，以后修改
+       * 这个语句中存在左外连接，由于SciDB本身的局限性，分为两个步骤来实现
+       * 做外连接
+       */
+    public static String[] getPmtsFromPhoto(long objID)
     {
-    	StringBuilder aql = new StringBuilder();
+    	StringBuilder aqlFromPhotoObjAll = new StringBuilder();
+    	StringBuilder aqlFromSpecObjAll = new StringBuilder();
     	String photoTag = View.getPhotoTag();
     	long id = Functions.fObjID(objID);
-    	aql = aql.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
-    	aql = aql.append(" p.fieldID,");
-    	aql = aql.append(" s.specObjID,");
-    	aql = aql.append(" p.objID ");
-    	aql = aql.append(" FROM ("+photoTag+") AS p ,");
-    	aql = aql.append(" SpecObjAll AS s WHERE s.sciencePrimary=1");
-    	aql = aql.append(" AND p.objID="+id);
-    	return aql.toString();
+    	/*
+    	 *第一步：先从PhotoObjAll中选择出符合要求的属性
+    	 */
+    	aqlFromPhotoObjAll.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
+    	aqlFromPhotoObjAll.append(" p.fieldID,");
+    	aqlFromPhotoObjAll.append(" s.specObjID,");
+    	aqlFromPhotoObjAll.append(" p.objID ");
+    	aqlFromPhotoObjAll.append(" FROM ("+photoTag+") AS p ,");
+    	aqlFromPhotoObjAll.append(" SpecObjAll AS s WHERE ");
+    	aqlFromPhotoObjAll.append(" AND p.objID="+id +" AND s.bestObjID=p.objID");
+    	/*
+    	 * 第二步：从SpecObjAll中选择出符合要求的属性
+    	 */
+    	aqlFromSpecObjAll.append(" SELECT specObjID ");
+    	aqlFromSpecObjAll.append(" FROM SpecObjAll ");
+    	aqlFromSpecObjAll.append(" WHERE sciencePrimary=1 AND bestObjID="+id);
+    	/*
+    	 * 第三步：将这两个语句都返回给上一层，由上一层来进行结果拼接
+    	 * [0]:aqlFromPhotoObjAll
+    	 * [1]:aqlFromSpecObjAll
+    	 */
+    	return new String[]{aqlFromPhotoObjAll.toString(),aqlFromSpecObjAll.toString()};
     }
 
     public static String getPlateFiberFromSpecObj(long specObjID)
@@ -685,8 +704,8 @@ public class ExplorerQueries {
          old */
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append("SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql = aql.append(" FROM SpecObjAll AS s JOIN PlateX AS q ON s.plateID=q.plateID ");
-    	aql = aql.append(" WHERE specObjID="+specObjID);
+    	aql = aql.append(" FROM SpecObjAll AS s, PlateX AS q WHERE s.plateID=q.plateID ");
+    	aql = aql.append(" AND specObjID="+specObjID);
     	
     	return aql.toString();
     }

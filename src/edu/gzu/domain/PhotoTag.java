@@ -1,15 +1,15 @@
 package edu.gzu.domain;
 
 public class PhotoTag {
-	private Double ra ;
-	private Double dec;
-	private Integer run;
-	private Short rerun;
-	private Short camcol;
-	private Short field;
-	private Long fieldID;
-	private Long specObjID;
-	private Long objID;
+	private Double ra = null;
+	private Double dec = null;
+	private Integer run= null;
+	private Short rerun = null;
+	private Short camcol = null;
+	private Short field = null;
+	private Long fieldID = null;
+	private Long specObjID = null;
+	private Long objID = null;
 	
 	public Double getRa() {
 		return ra;

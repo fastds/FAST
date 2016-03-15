@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,33 +63,46 @@ public class ExplorerDao {
 	}
 
 	public PhotoTag getPhotoTag(long id) {
-		String aql = ExplorerQueries.getPmtsFromPhoto(id);
-		System.out.println("ExplorerDao.getPhotoTag-->aql:"+aql);
+		String[] aqls = ExplorerQueries.getPmtsFromPhoto(id);
+		System.out.println("ExplorerDao.getPhotoTag-->aql:"+Arrays.toString(aqls));
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		PhotoTag photoTag = new PhotoTag(); //
 		try {
-			rs = exQuery.aqlQuery(aql.toString());
+			/*
+			 * 执行对PhotoObjAll的查询，并将结果赋值
+			 */
+			rs = exQuery.aqlQuery(aqls[0].toString());
+			if(!rs.isAfterLast())
+			{
+				double ra = rs.getDouble("ra");
+				double dec = rs.getDouble("dec");
+				int run = rs.getShort("run");
+				short rerun = rs.getShort("rerun");
+				short camcol = rs.getByte("camcol");
+				short field = rs.getShort("field");
+				long fieldID = rs.getLong("fieldID");
+				long objID = rs.getLong("objID");
+				photoTag.setRa(ra);
+				photoTag.setDec(dec);
+				photoTag.setRun(run);
+				photoTag.setRerun(rerun);
+				photoTag.setCamcol(camcol);
+				photoTag.setField(field);
+				photoTag.setFieldID(fieldID);
+				photoTag.setObjID(objID);
+			}
+			rs = null;
+			/*
+			 * 执行对SpecObjAll的查询，并将结果赋值
+			 */
+			rs = exQuery.aqlQuery(aqls[1].toString());
+			if(!rs.isAfterLast())
+			{
+				long specObjID = rs.getLong("specObjID");
+				photoTag.setSpecObjID(specObjID);
+			}
 			
-			double ra = rs.getDouble("ra");
-			double dec = rs.getDouble("dec");
-			int run = rs.getShort("run");
-			short rerun = rs.getShort("rerun");
-			short camcol = rs.getByte("camcol");
-			short field = rs.getShort("field");
-			long fieldID = rs.getLong("fieldID");
-			long specObjID = rs.getLong("specObjID");
-			long objID = rs.getLong("objID");
-			
-			photoTag.setRa(ra);
-			photoTag.setDec(dec);
-			photoTag.setRun(run);
-			photoTag.setRerun(rerun);
-			photoTag.setCamcol(camcol);
-			photoTag.setField(field);
-			photoTag.setFieldID(fieldID);
-			photoTag.setSpecObjID(specObjID);
-			photoTag.setObjID(objID);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

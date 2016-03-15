@@ -607,6 +607,7 @@
 	</div>  <!-- end of spectro div -->
 
 </c:if><!-- SpectralControl finished -->
+<!-- apogee 隱藏 -->
   <c:if test="${not empty requestScope.master.apid}">
 		 <div id="irspec">
         <h3>Infrared Spectra
