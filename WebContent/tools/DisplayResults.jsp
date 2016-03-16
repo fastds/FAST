@@ -28,7 +28,7 @@
      <h2><a href="${displayResults.url }/help/browser/browser.aspx?cmd=description+${displayResults.name}+U" target="_top" class="content">${displayResults.name}</a></h2>
     <p />   
     <!--    put the option for Plate Objects -->
-    <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((DisplayResults)request.getAttribute("displayResults")).getDs(), 300))%>
+    <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((DisplayResults)request.getAttribute("displayResults")).getDs(), 300)%>
     </div>
  </div>    
 </body>
