@@ -398,19 +398,12 @@ public class ExplorerQueries {
         	 aql = aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
         	 aql = aql.append(" pt.fieldID, pt.objID, ");
         	 aql = aql.append(" pa.clean, pa.type AS otype, ");
-        	 aql = aql.append(" pa.u AS u, pa.g  AS g, pa.r AS r, pa.i AS i, pa.z AS z,");
-        	 aql = aql.append(" pa.err_u AS err_u,  pa.err_g  AS err_g,  pa.err_r  AS err_r, pa.err_i  AS err_i, pa.err_z AS err_z,");
-        	 aql = aql.append(" po.mode AS mode, po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
-        	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r ,");
-        	 aql = aql.append(" phz.z, phz.zErr,");
+        	 aql = aql.append(" pa.u , pa.g , pa.r , pa.i AS i, pa.z , pa.err_u ,  pa.err_g ,  pa.err_r , pa.err_i , pa.err_z , ");
+        	 aql = aql.append(" po.mode , po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
+        	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r , phz.z, phz.zErr, ");
         	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph ");
-        	 aql = aql.append(" FROM ("+View.getPhotoTag()+") AS pt  ");
-        	 aql = aql.append(" JOIN ("+View.getPhotoObj()+") AS po on po.objID = pt.objID");
-        	 aql = aql.append(" JOIN Photoz AS phz on pt.objID=phz.objID ");
-        	 aql = aql.append(" JOIN zooSpec AS zz on pt.objID=zz.objID");
-        	 aql = aql.append(" JOIN Field AS f on f.fieldID=pt.fieldID ");
-        	 aql = aql.append(" JOIN PhotoObjAll AS pa ON  pa.objID = pt.objID");
-        	 aql = aql.append(" WHERE pt.objID="+objID);
+        	 aql = aql.append(" FROM ("+View.getPhotoTag()+") AS pt, ("+View.getPhotoObj()+") AS po,  Photoz AS phz, zooSpec AS zz, Field AS f, PhotoObjAll AS pa ");
+        	 aql = aql.append(" WHERE  po.objID = pt.objID AND pt.objID=phz.objID AND  pt.objID=zz.objID AND  f.fieldID=pt.fieldID AND pa.objID = pt.objID AND pt.objID="+objID);
         	 return aql.toString();
          }
 
