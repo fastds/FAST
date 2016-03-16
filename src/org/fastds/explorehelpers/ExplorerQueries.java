@@ -502,7 +502,7 @@ public class ExplorerQueries {
     {
     	id = id !=null && id.startsWith("0x")?Long.parseLong(id.substring(2),16)+"":id;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'WISE' AS Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' AS 'Full_WISE_data' ");
+    	aql = aql.append(" SELECT 'WISE' AS Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' AS Full_WISE_data ");
     	aql = aql.append(" FROM WISE_xmatch AS x JOIN WISE_allsky AS w ON x.wise_cntr=w.cntr WHERE x.sdss_objid="+id);
     	return aql.toString();
     }
@@ -511,12 +511,12 @@ public class ExplorerQueries {
 //   old  public static String TWOMASS =" SELECT '2MASS' as Catalog, j as 'J', h as 'H', k as 'K_s', phQual FROM TwoMASS WHERE objID=@objID";
     public static String TWOMASS(String objID) {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT '2MASS' AS Catalog, j AS 'J', h AS 'H', k AS 'K_s', phQual FROM TwoMASS WHERE objID="+objID);
+    	aql = aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
 		return aql.toString();
 	}
     public static String wiseLinkCrossID(String objID) {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append("SELECT * FROM wise_xmatch as x join wise_allsky as a on x.wise_cntr=a.cntr ");
+    	aql = aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
     	aql = aql.append(" WHERE x.sdss_objid="+objID);
     	
 		return aql.toString();
