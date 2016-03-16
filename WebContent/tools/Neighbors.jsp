@@ -151,10 +151,10 @@
 			    <tr><td>
 			
 			    <h3>This Object</h3>
-			    <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Neighbors)request.getAttribute("Neighbors")).getDs_neighbor1(), 200, "PhotoObj");        
+			    <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Neighbors)request.getAttribute("Neighbors")).getDs_neighbor1(), 200, "PhotoObj")       
 			    %>
 			    <h3>Neighboring objects within 0.5 arcminutes</h3>
-			    <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Neighbors)request.getAttribute("Neighbors")).getDs_neighbor2(), 500, "Neighbors");           
+			    <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Neighbors)request.getAttribute("Neighbors")).getDs_neighbor2(), 500, "Neighbors")           
 			    %>
 			</td></tr></table>
 			</div>
