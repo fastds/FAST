@@ -84,7 +84,7 @@ public class ObjectExplorer {
 
         if (globals.getReleaseNumber() >= 8) 
         {
-            hrefs.Galaxyzoo = "galaxyzoo?" + allID;
+            hrefs.Galaxyzoo = "GalaxyZoo?" + allID;
         }            
 
        if (globals.getReleaseNumber() > 4)
@@ -93,8 +93,8 @@ public class ObjectExplorer {
            // hrefs.PhotozRF = "DisplayResults.aspx?&name=photozRF&" + allID;
         } 
 
-        hrefs.Matches = "matches.aspx?"+allID;
-        hrefs.Neighbors = "neighbors.aspx?"+allID;
+        hrefs.Matches = "matches?"+allID;
+        hrefs.Neighbors = "neighbors?"+allID;
         hrefs.Chart    = "javascript:gotochart(" + ra + "," + dec + ");";
         hrefs.Navigate = "javascript:gotonavi(" + ra + "," + dec + ");";
         hrefs.SaveBook = "javascript:saveBook(\"" + objID + "\");";
@@ -106,7 +106,7 @@ public class ObjectExplorer {
                 if (run == 206)  run = 200006;
         } 
 
-        hrefs.FITS = "fitsimg.aspx?"+allID;//id=" + id + "&fieldID=" + fieldID + "&spec=" + specID + "&apid=" + apid;
+        hrefs.FITS = "FitsImg?"+allID;//id=" + id + "&fieldID=" + fieldID + "&spec=" + specID + "&apid=" + apid;
         
         hrefs.NED = "http://nedwww.ipac.caltech.edu/cgi-bin/nph-objsearch?search_type=Near+Position+Search"
                   + "&in_csys=Equatorial&in_equinox=J2000.0&obj_sort=Distance+to+search+center"
@@ -138,22 +138,22 @@ public class ObjectExplorer {
                                 + "&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1";
 
         hrefs.Print = "framePrint();";
-        hrefs.AllSpec = "allSpec.aspx?"+allID;
+        hrefs.AllSpec = "AllSpec?"+allID;
 
         if (specID != null)
         {
-            hrefs.SpecObj = "DisplayResults.aspx?name=SpecObj&" + allID;
-            hrefs.sppLines = "DisplayResults.aspx?name=sppLines&" + allID;
-            hrefs.sppParams = "DisplayResults.aspx?name=sppParams&" + allID;
-            hrefs.galSpecLine = "DisplayResults.aspx?name=galSpecLine&" + allID;
-            hrefs.galSpecIndx = "DisplayResults.aspx?name=galSpecIndx&" + allID;
-            hrefs.galSpecInfo = "DisplayResults.aspx?name=galSpecInfo&" + allID;
+            hrefs.SpecObj = "DisplayResults?name=SpecObj&" + allID;
+            hrefs.sppLines = "DisplayResults?name=sppLines&" + allID;
+            hrefs.sppParams = "DisplayResults?name=sppParams&" + allID;
+            hrefs.galSpecLine = "DisplayResults?name=galSpecLine&" + allID;
+            hrefs.galSpecIndx = "DisplayResults?name=galSpecIndx&" + allID;
+            hrefs.galSpecInfo = "DisplayResults?name=galSpecInfo&" + allID;
 
-            hrefs.Plate = "plate.aspx?&name=Plate&plateID=" + plateID;
+            hrefs.Plate = "Plate?&name=Plate&plateID=" + plateID;
 
             hrefs.Spectrum = "../../get/SpecByID.ashx?ID=" + specID;
 
-            hrefs.SpecFITS = "fitsspec.aspx?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
+            hrefs.SpecFITS = "FitsSpec.aspx?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
                 
            if (globals.getReleaseNumber() >= 8)
             {  
@@ -174,8 +174,8 @@ public class ObjectExplorer {
          }            
          if (apid != null && !apid.isEmpty())
          {
-             hrefs.apogeeStar = "DisplayResults.aspx?name=apogeeStar&" + allID;
-             hrefs.aspcapStar = "DisplayResults.aspx?name=aspcapStar&" + allID;
+             hrefs.apogeeStar = "DisplayResults?name=apogeeStar&" + allID;
+             hrefs.aspcapStar = "DisplayResults?name=aspcapStar&" + allID;
          }
     }
 
@@ -444,7 +444,7 @@ public class ObjectExplorer {
 			            // think something else if possible for this
 			            if (target.equals("AllSpectra") && k == 1)
 			            {
-			                String u = "<a class='content' target='_top' href='Summary.aspx?sid=";
+			                String u = "<a class='content' target='_top' href='Summary?sid=";
 //      old                      res.append(u + rs.GetValue(k) + "'>" + rs.GetValue(k) + "</a></td>");
 			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
 								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");
@@ -469,7 +469,7 @@ public class ObjectExplorer {
 
 			            else if (target.equals("Neighbors") && k == 1)
 			            {
-			                String u = "<a class='content' target='_top' href='Summary.aspx?id=";
+			                String u = "<a class='content' target='_top' href='Summary?id=";
 //                  old          res.append(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
 			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
 								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");

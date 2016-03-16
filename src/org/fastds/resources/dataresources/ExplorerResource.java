@@ -67,7 +67,7 @@ public class ExplorerResource {
     
     
 	@GET
-	@Path("summary")
+	@Path("Summary")
 	public Viewable summary(@QueryParam("ra") String ra
 		,@QueryParam("dec") String dec,@QueryParam("id") String qid
 		,@QueryParam("sid") String sid,@QueryParam("spec") String spec
@@ -138,8 +138,8 @@ public class ExplorerResource {
 	}
 	
 	@GET
-	@Path("allSpec")
-	public Viewable allSpec(@QueryParam("id") String id) {
+	@Path("AllSpec")
+	public Viewable getAllSpec(@QueryParam("id") String id) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		AllSpec allSpec = new AllSpec(master);
 		allSpec.setObjID(id);
@@ -149,8 +149,8 @@ public class ExplorerResource {
 		return new Viewable("/tools/AllSpec.jsp", null);
 	}
 	@GET
-	@Path("displayResults")
-	public Viewable displayResults(@QueryParam("id") String id
+	@Path("DisplayResults")
+	public Viewable getDisplayResults(@QueryParam("id") String id
 			,@QueryParam("apid") String apid,@QueryParam("spec") String spec
 			,@QueryParam("field") String field,@QueryParam("cmd") String cmd
 			,@QueryParam("name") String name,@QueryParam("url") String url) {
@@ -183,7 +183,7 @@ public class ExplorerResource {
 	}
 	
 	@GET
-	@Path("neighbors")
+	@Path("Neighbors")
 	public Viewable getNeighbors(@QueryParam("id") String id) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		Neighbors neighbors = new Neighbors(master);
@@ -195,7 +195,7 @@ public class ExplorerResource {
 		return new Viewable("/tools/Neighbors.jsp", null);
 	}
 	@GET
-	@Path("plate")
+	@Path("Plate")
 	public Viewable getPlate(@QueryParam("plateID") String plateID) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		Plate plate = new Plate(master);
@@ -207,7 +207,7 @@ public class ExplorerResource {
 		return new Viewable("/tools/plate.jsp", null);
 	}
 	@GET
-	@Path("fitsImg")
+	@Path("FitsImg")
 	public Viewable getFitsImg(@QueryParam("field") String fieldID) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		FitsImg fitsImg = new FitsImg();
@@ -220,7 +220,7 @@ public class ExplorerResource {
 		return new Viewable("/tools/FitsImg.jsp", null);
 	}
 	@GET
-	@Path("galaxyZoo")
+	@Path("GalaxyZoo")
 	public Viewable getGalaxyZoo(@QueryParam("id") String id) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		GalaxyZoo galaxyZoo = new GalaxyZoo(master);
@@ -232,7 +232,7 @@ public class ExplorerResource {
 		return new Viewable("/tools/galaxyzoo.jsp", null);
 	}
 	@GET
-	@Path("matches")
+	@Path("Matches")
 	public Viewable getMatches(@QueryParam("id") String id) {
 		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
 		Matches matches = new Matches(master);
