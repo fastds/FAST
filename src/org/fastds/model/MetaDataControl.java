@@ -37,7 +37,7 @@ public class MetaDataControl {
         if(params !=null && params.size()!=0)
         {
         	ra = (Double)params.get("ra");
-            dec = (Double)params.get("ra");
+            dec = (Double)params.get("dec");
             specObjId = (Long)params.get("specObjID") == 0 ? -999999 : (Long)(params.get("specObjID"));                       
             clean = (Integer)params.get("clean");
             survey = params.get("survey") == null ? null:(String)params.get("survey");
