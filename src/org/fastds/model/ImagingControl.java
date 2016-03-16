@@ -132,7 +132,7 @@ public class ImagingControl {
     protected void getUnit(){
         columnUnit = explorerService.findUnit();
     }
-
+    
     protected String getUnit(String tablename, String columname) {
         String unit = "";
         unit = explorerService.findUnit(tablename,columname);
