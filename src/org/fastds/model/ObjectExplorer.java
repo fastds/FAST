@@ -356,8 +356,8 @@ public class ObjectExplorer {
 			{
 			        for (int k = 1; k <= meta.getColumnCount(); k++)
 			        {	
-//			        	System.out.println("Label:::"+meta.getColumnLabel(k));
-//			        	System.out.println("Name:::"+meta.getColumnName(k));
+			        	System.out.println("Label:::"+meta.getColumnLabel(k));
+			        	System.out.println("Name:::"+meta.getColumnName(k));
 			            res.append("<tr align='left' >");
 			            res.append("<td  valign='top' class='h'>");
 			            res.append("<span ");
