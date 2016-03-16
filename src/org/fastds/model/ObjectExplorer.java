@@ -366,11 +366,11 @@ public class ObjectExplorer {
 
 			            res.append("<td valign='top' class='" + c + "'>");
 			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
-							res.append(ds.getBoolean(meta.getColumnName(k)));
+							res.append(ds.getBoolean(k));
 						} else if ("int".startsWith(meta.getColumnTypeName(k))) {
-							res.append(ds.getBigDecimal(meta.getColumnName(k)));
+							res.append(ds.getBigDecimal(k));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-							String str = ds.getString(meta.getColumnName(k));
+							String str = ds.getString(k);
 							if(str.contains("<"))
 								str = str.replace("<", "&lt;");
 							if(str.contains(">"))
@@ -380,9 +380,9 @@ public class ObjectExplorer {
 							
 						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 							
-							res.append(ds.getTime(meta.getColumnName(k)));
+							res.append(ds.getTime(k));
 						} else {
-							res.append(ds.getDouble(meta.getColumnName(k)));
+							res.append(ds.getDouble(k));
 						}
 			            res.append("</td>");
 			            res.append("</tr>");
