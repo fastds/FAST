@@ -434,8 +434,8 @@ public class ExplorerQueries {
          public static String getSpectroQuery(String objID, String specID) {
         	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
-        	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr as redshift_err ");
-        	 aql = aql.append(" , dbo.fSpecZWarningN(zWarning) AS 'redshift_flags',s.survey, s.programname, s.scienceprimary as primary,");
+        	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr AS redshift_err ");
+        	 aql = aql.append(" , dbo.fSpecZWarningN(zWarning) AS 'redshift_flags',s.survey, s.programname, s.scienceprimary AS primary,");
         	 aql = aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
         	 aql = aql.append(" ,s.survey ");
         	 aql = aql.append(" WHEN 'sdss' THEN (SELECT(dbo.fPrimtargetN(s.legacy_target1)+' '+dbo.fPrimTargetN(s.legacy_target2)+' '+dbo.fSpecialTarget1N(s.special_target1)))");
@@ -446,7 +446,7 @@ public class ExplorerQueries {
         	 aql = aql.append(" END ");
         	 aql = aql.append(" AS targeting_flags ");
         	 aql = aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
-        	 aql = aql.append(" JOIN (SELECT bestobjid, count(*) AS nspec FROM SpecObjAll WHERE bestobjid="+objID);
+        	 aql = aql.append(" JOIN (SELECT bestobjid, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
         	 aql = aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
         	 
      		return aql.toString();
@@ -483,8 +483,8 @@ public class ExplorerQueries {
     public static String ROSAT(String objID) {
     	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'ROSAT' AS Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE objID="+objID);
-		return null;
+    	aql = aql.append(" SELECT 'ROSAT' AS Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE OBJID="+objID);
+		return aql.toString();
 	}
 //    public static String RC3 = " SELECT 'RC3' as Catalog, hubble as 'Hubble type', str(m21,5,2)+' &plusmn; '+str(m21err,6,3) as '21 cm magnitude'," 
 //    	+" hi as 'Neutral Hydrogen Index' FROM RC3 WHERE objID=@objID";
