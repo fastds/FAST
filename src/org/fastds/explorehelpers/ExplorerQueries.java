@@ -432,10 +432,11 @@ public class ExplorerQueries {
     	+" group by bestobjid) x on s.bestobjid=x.bestobjid  WHERE p.plateID=s.plateID and  s.specObjID=@specID";  old  */
             //iQuery += " --WHEN 'apogee' THEN (SELECT apogee_target1,apogee_target2 ) ";
          public static String getSpectroQuery(String objID, String specID) {
+        	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
-        	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS 'objclass', z AS 'redshift_z', zerr as 'redshift_err' ");
-        	 aql = aql.append(" , dbo.fSpecZWarningN(zWarning) AS 'redshift_flags',s.survey, s.programname, s.scienceprimary as 'primary',");
-        	 aql = aql.append(" (x.nspec-1) AS 'otherspec',s.sourcetype, velDisp AS 'veldisp', velDispErr AS 'veldisp_err' ");
+        	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr as redshift_err ");
+        	 aql = aql.append(" , dbo.fSpecZWarningN(zWarning) AS 'redshift_flags',s.survey, s.programname, s.scienceprimary as primary,");
+        	 aql = aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
         	 aql = aql.append(" ,s.survey ");
         	 aql = aql.append(" WHEN 'sdss' THEN (SELECT(dbo.fPrimtargetN(s.legacy_target1)+' '+dbo.fPrimTargetN(s.legacy_target2)+' '+dbo.fSpecialTarget1N(s.special_target1)))");
         	 aql = aql.append(" WHEN 'boss' THEN (SELECT str(boss_target1)+','+str(ancillary_target1)+','+str(ancillary_target2))");
@@ -443,7 +444,7 @@ public class ExplorerQueries {
         	 aql = aql.append(" WHEN 'segue2' THEN (SELECT dbo.fSEGUE2target1N(segue2_target1)+','+ dbo.fSEGUE2target2N(segue2_target2) )");
         	 aql = aql.append(" ELSE ' No Data ' ");
         	 aql = aql.append(" END ");
-        	 aql = aql.append(" AS 'targeting_flags' ");
+        	 aql = aql.append(" AS targeting_flags ");
         	 aql = aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
         	 aql = aql.append(" JOIN (SELECT bestobjid, count(*) AS nspec FROM SpecObjAll WHERE bestobjid="+objID);
         	 aql = aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
@@ -451,7 +452,7 @@ public class ExplorerQueries {
      		return aql.toString();
      	}
          
-   // cross_id    未完成
+   // cross_id    
     public static String USNO(String objID)
     {
     	/*public static String USNO = " SELECT 'USNO' as Catalog, str(10*propermotion,6,2)+' &plusmn; '+str(sqrt(power(muraerr,2)+power(mudecerr,2)),8,3) as 'Proper motion (mas/yr)',"
@@ -460,7 +461,7 @@ public class ExplorerQueries {
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append(" SELECT 'USNO' AS Catalog," );
     	aql = aql.append(" 10*PROPERMOTION, sqrt(pow(MURAERR,2)+pow(MUDECERR,2)) , ");
-    	aql = aql.append(" ANGLE AS PM_angle_(deg_E) FROM USNO WHERE objID="+objID);
+    	aql = aql.append(" ANGLE AS PM_angle_deg_E FROM USNO WHERE OBJID="+objID);
     	return aql.toString();
     }
     public static String FIRST(String objID) {
@@ -472,8 +473,8 @@ public class ExplorerQueries {
 //    	aql = aql.append(" minor as 'Minor axis (arcsec)' ");
     	aql = aql.append(" SELECT 'FIRST' AS Catalog, ");
     	aql = aql.append(" peak, rms , ");
-    	aql = aql.append(" major AS Major_axis_(arcsec), ");
-    	aql = aql.append(" minor AS Minor_axis_(arcsec) ");
+    	aql = aql.append(" major AS Major_axis_arcsec, ");
+    	aql = aql.append(" minor AS Minor_axis_arcsec ");
     	aql = aql.append(" FROM FIRST WHERE objID="+objID);
 		return aql.toString();
 	}
