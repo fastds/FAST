@@ -408,7 +408,7 @@ public class ExplorerQueries {
         	 aql = aql.append(" JOIN ("+View.getPhotoObj()+") AS po on po.objID = pt.objID");
         	 aql = aql.append(" JOIN Photoz AS phz on pt.objID=phz.objID ");
         	 aql = aql.append(" JOIN zooSpec AS zz on pt.objID=zz.objID");
-        	 aql = aql.append(" JOIN field AS f on f.fieldID=pt.fieldID ");
+        	 aql = aql.append(" JOIN Field AS f on f.fieldID=pt.fieldID ");
         	 aql = aql.append(" JOIN PhotoObjAll AS pa ON  pa.objID = pt.objID");
         	 aql = aql.append(" WHERE pt.objID="+objID);
         	 return aql.toString();
