@@ -717,7 +717,7 @@ public class ExplorerQueries {
 		return aql.toString();
 	}
 
-    public static String getSpec= "SELECT specobjid,survey FROM specobjall WHERE specobjid= @specID";
+    public static String getSpec= "SELECT specObjID,survey FROM specObjAll WHERE specObjID= @specID";
        
 
     public static String getApogee(String apid) {
