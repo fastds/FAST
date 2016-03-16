@@ -266,11 +266,11 @@
 			            </table>
 			            <table cellpadding=2 cellspacing=2 border=0 width=420>
 			                <tr>
-					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("u") %>">u</span></td>
-					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("g") %>">g</span></td>
-					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("r") %>">r</span></td>
-					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("i") %>">i</span></td>
-					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("z") %>">z</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("u") %>">u</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("g") %>">g</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("r") %>">r</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("i") %>">i</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("z") %>">z</span></td>
 			                </tr>
 			                <tr>
 			                	<td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.u}" pattern="#.##"></fmt:formatNumber></td>
