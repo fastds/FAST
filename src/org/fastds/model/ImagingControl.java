@@ -8,7 +8,7 @@ import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.service.ExplorerService;
 
 public class ImagingControl {
-//	protected Globals globals;   old
+	protected Globals globals;   
     protected ObjectExplorer master;        
 
     //--- phototag
@@ -129,7 +129,11 @@ public class ImagingControl {
 
     protected Map<String,String> columnUnit = new HashMap<String,String>();
 
-    protected void getUnit(){
+    public Globals getGlobals() {
+		return globals;
+	}
+
+	protected void getUnit(){
         columnUnit = explorerService.findUnit();
     }
     
@@ -275,7 +279,7 @@ public class ImagingControl {
 	public String getFlagsLink() {
 		return flagsLink;
 	}
-
+	
 	public ExplorerService getExplorerService() {
 		return explorerService;
 	}
