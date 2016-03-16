@@ -256,84 +256,84 @@
 			        <td style="vertical-align:top">
 			             <c:set var="link" value="javascript:showNavi(' + ${imagingCtrl.ra} + ',' + ${imagingCtrl.dec} + ',' + 0.2 + ');"></c:set>
 			             <a href="${pageScope.link}">
-			                 <img alt="" src="${imagingCtrl.globals.jpegUrl + '?ra=' + imagingCtrl.ra + '&dec=' + imagingCtrl.dec + '&scale=0.2&width=200&height=200&opt=G' }" border="0" width="200" height="200" />
+			                 <img alt="" src="${imagingCtrl.globals.jpegUrl}?ra=${imagingCtrl.ra }&dec=${imagingCtrl.dec }&scale=0.2&width=200&height=200&opt=G" border="0" width="200" height="200" />
 			             </a>
 			         </td>
 			        <td >
 			            <table cellpadding=2 cellspacing=2 border=0 width=420>
-			                <tr><td align='middle' class='h'><span></span></td></tr>
-			                <tr><td nowrap align='middle' class='t'><b>Magnitudes</b></td></tr>
+			                <tr><td align='center' class='h'><span></span></td></tr>
+			                <tr><td nowrap align='center' class='t'><b>Magnitudes</b></td></tr>
 			            </table>
 			            <table cellpadding=2 cellspacing=2 border=0 width=420>
 			                <tr>
-					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("u") %>">u</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("g") %>">g</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("r") %>">r</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("i") %>">i</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("z") %>">z</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("u") %>">u</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("g") %>">g</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("r") %>">r</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("i") %>">i</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((Map)request.getAttribute("imagingCtrl")).get("z") %>">z</span></td>
 			                </tr>
 			                <tr>
-			                	<td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.u}" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.g}" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.r}" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.i}" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.z}" pattern="#.##"></fmt:formatNumber></td>
+			                	<td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.u}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.g}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.r}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.i}" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.z}" pattern="#.##"></fmt:formatNumber></td>
 			               </tr>
 			            </table>
 			            <table cellpadding=2 cellspacing=2 border=0 width=420>
-			                <tr><td align='middle' class='h'><span></span></td></tr>
-			                <tr><td nowrap align='middle' class='t'><b>Magnitude uncertainties</b></td></tr>
+			                <tr><td align='center' class='h'><span></span></td></tr>
+			                <tr><td nowrap align='center' class='t'><b>Magnitude uncertainties</b></td></tr>
 			            </table>
 			            <table cellpadding=2 cellspacing=2 border=0 width=420>
 			                <tr>
-			                	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_u") %>">err_u</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_g") %>">err_g</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_r") %>">err_r</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_i") %>">err_i</span></td>
-					        	<td align='middle' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_z") %>">err_z</span></td>
+			                	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_u") %>">err_u</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_g") %>">err_g</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_r") %>">err_r</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_i") %>">err_i</span></td>
+					        	<td align='center' class='h'><span title="unit=<%=((ImagingControl)request.getAttribute("imagingCtrl")).getColumnUnit().get("err_z") %>">err_z</span></td>
 			                </tr>
-			                <tr><td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_u }" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_g }" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_r }" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_i }" pattern="#.##"></fmt:formatNumber></td>
-			                    <td nowrap align='middle' class='t'> <fmt:formatNumber value="${imagingCtrl.err_z }" pattern="#.##"></fmt:formatNumber></tr>
+			                <tr><td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.err_u }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.err_g }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.err_r }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.err_i }" pattern="#.##"></fmt:formatNumber></td>
+			                    <td nowrap align='center' class='t'> <fmt:formatNumber value="${imagingCtrl.err_z }" pattern="#.##"></fmt:formatNumber></tr>
 			              </table>       
 			          </td>
 			        </tr>
 			        <tr>
 			          <td colspan="2">
 			            <table cellpadding=2 cellspacing=2 border=0 width=625>
-			               <tr><td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd}" >Image MJD</span></td>
-			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mode}" >mode</span></td>
-			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nDetect }" >Other observations</span></td>
-			                   <td align='middle' class='h'><span title="./unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
-			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.nChild }" >nChild</span></td>
-			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.extinction_r }" >extinction_r</span></td>
-			                   <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.petrodRad_r }" >PetroRad_r (arcsec)</span></td>
+			               <tr><td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd}" >Image MJD</span></td>
+			                   <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.mode}" >mode</span></td>
+			                   <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.nDetect }" >Other observations</span></td>
+			                   <td align='center' class='h'><span title="./unit=${imagingCtrl.columnUnit.parentID }" >parentID</span></td>
+			                   <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.nChild }" >nChild</span></td>
+			                   <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.extinction_r }" >extinction_r</span></td>
+			                   <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.petrodRad_r }" >PetroRad_r (arcsec)</span></td>
 			               </tr>
-			               <tr><td nowrap align='middle' class='t'>${imagingCtrl.mjdNum }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.mode }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.otherObs }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.parentID }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.nchild }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.extinction_r }</td>
-			                   <td nowrap align='middle' class='t'>${imagingCtrl.petrorad_r }</td>
+			               <tr><td nowrap align='center' class='t'>${imagingCtrl.mjdNum }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.mode }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.otherObs }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.parentID }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.nchild }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.extinction_r }</td>
+			                   <td nowrap align='center' class='t'>${imagingCtrl.petrorad_r }</td>
 			               </tr>
 			            </table>
 			            <table cellpadding=2 cellspacing=2 border=0 width=625>
 			                <tr>
-			                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd }" >Mjd-Date</span></td>
-			                    <td align='middle' class='h'><span title="unit=${imagingCtrl.columnUnit.z }" >photoZ (KD-tree method)</span></td>
+			                    <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.mjd }" >Mjd-Date</span></td>
+			                    <td align='center' class='h'><span title="unit=${imagingCtrl.columnUnit.z }" >photoZ (KD-tree method)</span></td>
 			                    <%--
-			                    <td align='middle' class='h'><span title="unit=<%=columnUnit.Get('z') %>" >photoZ (RF method)</span></td>
+			                    <td align='center' class='h'><span title="unit=<%=columnUnit.Get('z') %>" >photoZ (RF method)</span></td>
 			                    --%>
-			                    <td align='middle' class='h'><span>Galaxy Zoo 1 morphology</span></td>
+			                    <td align='center' class='h'><span>Galaxy Zoo 1 morphology</span></td>
 			                </tr>
 			                <tr>
-			                    <td nowrap align='middle' class='t'>${imagingCtrl.mjdDate }</td>
-			                    <td nowrap align='middle' class='t'>${imagingCtrl.photoZ_KD }</td>
-			                    <%--<td nowrap align='middle' class='t'><%=photoZ_RF %></td>--%>
-			                    <td nowrap align='middle' class='t'>${imagingCtrl.galaxyZoo_Morph }</td>
+			                    <td nowrap align='center' class='t'>${imagingCtrl.mjdDate }</td>
+			                    <td nowrap align='center' class='t'>${imagingCtrl.photoZ_KD }</td>
+			                    <%--<td nowrap align='center' class='t'><%=photoZ_RF %></td>--%>
+			                    <td nowrap align='center' class='t'>${imagingCtrl.galaxyZoo_Morph }</td>
 			                </tr>
 			            </table>                            
 			          </td>
@@ -360,14 +360,14 @@
 	        	<c:when test="${crossIDCtrl.isUSNO }">
 		        	<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Proper motion (mas/yr)</span></td>
-		                    <td align='middle' class='h'><span>PM angle (deg E)</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Proper motion (mas/yr)</span></td>
+		                    <td align='center' class='h'><span>PM angle (deg E)</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.usno}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.properMotion}</td>
-		                    <td nowrap align='middle' class='t'><fmt:formatNumber value="${crossIDCtrl.angle}" pattern="#.##" ></fmt:formatNumber></td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.usno}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.properMotion}</td>
+		                    <td nowrap align='center' class='t'><fmt:formatNumber value="${crossIDCtrl.angle}" pattern="#.##" ></fmt:formatNumber></td>
 		                </tr>
 		            </table>
 	        	</c:when>
@@ -381,16 +381,16 @@
 	        	<c:when test="${crossIDCtrl.isFIRST }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Peak flux (mJy)</span></td>
-		                    <td align='middle' class='h'><span>Major axis (arcsec)</span></td>
-		                    <td align='middle' class='h'><span>Minor axis (arcsec)</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Peak flux (mJy)</span></td>
+		                    <td align='center' class='h'><span>Major axis (arcsec)</span></td>
+		                    <td align='center' class='h'><span>Minor axis (arcsec)</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.first}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.peakflux}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.major}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.minor}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.first}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.peakflux}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.major}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.minor}</td>
 		                </tr>
 	            	</table>
 	        	</c:when>
@@ -404,18 +404,18 @@
 	        	<c:when test="${crossIDCtrl.isROSAT }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>cps</span></td>
-		                    <td align='middle' class='h'><span>hr1</span></td>
-		                    <td align='middle' class='h'><span>hr2</span></td>
-		                    <td align='middle' class='h'><span>ext</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>cps</span></td>
+		                    <td align='center' class='h'><span>hr1</span></td>
+		                    <td align='center' class='h'><span>hr2</span></td>
+		                    <td align='center' class='h'><span>ext</span></td>
 		                </tr>
 		                <tr>
-		                     <td nowrap align='middle' class='t'>${crossIDCtrl.rosat}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.cps}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr1}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr2}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.ext}</td>
+		                     <td nowrap align='center' class='t'>${crossIDCtrl.rosat}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.cps}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hr1}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hr2}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.ext}</td>
 		                </tr>
 	            	</table>
 	        	</c:when>
@@ -429,16 +429,16 @@
 	        	<c:when test="crossIDCtrl.isRC3">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Hubble type</span></td>
-		                    <td align='middle' class='h'><span>21 cm magnitude</span></td>
-		                    <td align='middle' class='h'><span>Neutral Hydrogen Index</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Hubble type</span></td>
+		                    <td align='center' class='h'><span>21 cm magnitude</span></td>
+		                    <td align='center' class='h'><span>Neutral Hydrogen Index</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.rc3}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hubletype}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.magnitude}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hydrogenIndex}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.rc3}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hubletype}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.magnitude}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hydrogenIndex}</td>
 		                </tr>
 	           		</table>
 	        	</c:when>
@@ -452,18 +452,18 @@
 	        	<c:when test="crossIDCtrl.is2MASS">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>J</span></td>
-		                    <td align='middle' class='h'><span>H</span></td>
-		                    <td align='middle' class='h'><span>K_s</span></td>
-		                    <td align='middle' class='h'><span>phQual</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>J</span></td>
+		                    <td align='center' class='h'><span>H</span></td>
+		                    <td align='center' class='h'><span>K_s</span></td>
+		                    <td align='center' class='h'><span>phQual</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.twomass}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.j}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.h}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.k}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.phQual}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.twomass}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.j}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.h}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.k}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.phQual}</td>
 		                </tr>
 	           		</table>
 	        	</c:when>
@@ -477,20 +477,20 @@
 	        	<c:when test="crossIDCtrl.isWISE">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>w1mag</span></td>
-		                    <td align='middle' class='h'><span>w2mag</span></td>
-		                    <td align='middle' class='h'><span>w3mag</span></td>
-		                    <td align='middle' class='h'><span>w4mag</span></td>
-		                    <td align='middle' class='h'><span>Full WISE data</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>w1mag</span></td>
+		                    <td align='center' class='h'><span>w2mag</span></td>
+		                    <td align='center' class='h'><span>w3mag</span></td>
+		                    <td align='center' class='h'><span>w4mag</span></td>
+		                    <td align='center' class='h'><span>Full WISE data</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wise}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag1}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag2}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag3}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag4}</td>
-		                    <td nowrap align='middle' class='t'><a href=".\DisplayResults.aspx?cmd=${crossIDCtrl.linkQuery}&name=wise">Link</a></td>                   
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wise}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag1}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag2}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag3}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag4}</td>
+		                    <td nowrap align='center' class='t'><a href=".\DisplayResults.aspx?cmd=${crossIDCtrl.linkQuery}&name=wise">Link</a></td>                   
 		                </tr>
 	           		</table>
 	        	</c:when>
@@ -678,33 +678,33 @@
         	<c:when test="${requestScope.apogeeCtrl.isData }">
         		<table cellpadding="2" cellspacing="2" border="0" width="800">
 		          <tr>
-		            <td align="middle" class="h"><span>2MASS j</span></td>
-		            <td align="middle" class="h"><span>2MASS h</span></td>
-		            <td align="middle" class="h"><span>2MASS k</span></td>
-		            <td align="middle" class="h"><span>j_err</span></td>
-		            <td align="middle" class="h"><span>h_err</span></td>
-		            <td align="middle" class="h"><span>k_err</span></td>
+		            <td align="center" class="h"><span>2MASS j</span></td>
+		            <td align="center" class="h"><span>2MASS h</span></td>
+		            <td align="center" class="h"><span>2MASS k</span></td>
+		            <td align="center" class="h"><span>j_err</span></td>
+		            <td align="center" class="h"><span>h_err</span></td>
+		            <td align="center" class="h"><span>k_err</span></td>
 		          </tr>
 		          <tr>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.j }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.h }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.k }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.j_err }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.h_err }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.k_err }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.j }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.h }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.k }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.j_err }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.h_err }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.k_err }</td>
 		          </tr>
 		        </table>
 
 		        <table cellpadding="2" cellspacing="2" border="0" width="800">
 		          <tr>
-		            <td align="middle" class="h"><span>4.5 micron magnitude</span></td>
-		            <td align="middle" class="h"><span>4.5 micron magnitude error</span></td>
-		            <td align="middle" class="h"><span>4.5 micron magnitude source</span></td>
+		            <td align="center" class="h"><span>4.5 micron magnitude</span></td>
+		            <td align="center" class="h"><span>4.5 micron magnitude error</span></td>
+		            <td align="center" class="h"><span>4.5 micron magnitude source</span></td>
 		          </tr>
 		          <tr>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.mag_4_5 }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.mag_4_5_err }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.src_4_5 }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.mag_4_5 }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.mag_4_5_err }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.src_4_5 }</td>
 		          </tr>
 		        </table>
 
@@ -735,35 +735,35 @@
          	<c:when test="${requestScope.apogeeCtrl.isData }">
          		<table cellpadding="2" cellspacing="2" border="0" width="800">
 		          <tr>
-		            <td align="middle" class="h"><span>Avg v<sub>helio</sub> (km/s)</span></td>
-		            <td align="middle" class="h"><span>Scatter in v<sub>helio</sub> (km/s)</span></td>
-		            <td align="middle" class="h"><span>Best-fit temperature (K)</span></td>
-		            <td align="middle" class="h"><span>Temp error</span></td>
+		            <td align="center" class="h"><span>Avg v<sub>helio</sub> (km/s)</span></td>
+		            <td align="center" class="h"><span>Scatter in v<sub>helio</sub> (km/s)</span></td>
+		            <td align="center" class="h"><span>Best-fit temperature (K)</span></td>
+		            <td align="center" class="h"><span>Temp error</span></td>
 		          </tr>
 		          <tr>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.vhelio_avg }</td>
-		            <td nowrap align="middle" class="t">${requestScope.apogeeCtrl.vscatter }</td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff}" pattern="#."></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff_err}" pattern="#.#"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.vhelio_avg }</td>
+		            <td nowrap align="center" class="t">${requestScope.apogeeCtrl.vscatter }</td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff}" pattern="#."></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.teff_err}" pattern="#.#"></fmt:formatNumber></td>
 		          </tr>
 		        </table>
                 
 		        <table cellpadding="2" cellspacing="2" border="0" width="800">  
 		          <tr>
-		            <td align="middle" class="h"><span>Surface Gravity log<sub>10</sub>(g)</span></td>
-		            <td align="middle" class="h"><span>log(g) error</span></td>
-		            <td align="middle" class="h"><span>Metallicity [Fe/H]</span></td>
-		            <td align="middle" class="h"><span>Metal error</span></td>
-		            <td align="middle" class="h"><span>[&alpha;/Fe]</span></td>
-		            <td align="middle" class="h"><span>[&alpha;/Fe] error</span></td>
+		            <td align="center" class="h"><span>Surface Gravity log<sub>10</sub>(g)</span></td>
+		            <td align="center" class="h"><span>log(g) error</span></td>
+		            <td align="center" class="h"><span>Metallicity [Fe/H]</span></td>
+		            <td align="center" class="h"><span>Metal error</span></td>
+		            <td align="center" class="h"><span>[&alpha;/Fe]</span></td>
+		            <td align="center" class="h"><span>[&alpha;/Fe] error</span></td>
 		          </tr>
 		          <tr>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg}" pattern="#.##"></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg_err}" pattern="#.###"></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h}" pattern="#.#"></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h_err}" pattern="#.###"></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m}" pattern="#.##"></fmt:formatNumber></td>
-		            <td nowrap align="middle" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m_err}" pattern="#.###"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg}" pattern="#.##"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.logg_err}" pattern="#.###"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h}" pattern="#.#"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_m_h_err}" pattern="#.###"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m}" pattern="#.##"></fmt:formatNumber></td>
+		            <td nowrap align="center" class="t"><fmt:formatNumber value="${requestScope.apogeeCtrl.param_alpha_m_err}" pattern="#.###"></fmt:formatNumber></td>
 		          </tr>
 		        </table>
                 
@@ -801,29 +801,29 @@
         <div id="visits">
           <table cellpadding="2" cellspacing="2" border="0" width="800">
             <tr>
-              <td align="middle" class="h"><span>visit_id</span></td>
-              <td align="middle" class="h"><span>plate</span></td>
-              <td align="middle" class="h"><span>mjd</span></td>
-              <td align="middle" class="h"><span>fiberid</span></td>
-              <td align="middle" class="h"><span>date</span></td>
-              <td align="middle" class="h"><span>time (UTC)</span></td>
-              <td align="middle" class="h"><span>vrel</span></td>
+              <td align="center" class="h"><span>visit_id</span></td>
+              <td align="center" class="h"><span>plate</span></td>
+              <td align="center" class="h"><span>mjd</span></td>
+              <td align="center" class="h"><span>fiberid</span></td>
+              <td align="center" class="h"><span>date</span></td>
+              <td align="center" class="h"><span>time (UTC)</span></td>
+              <td align="center" class="h"><span>vrel</span></td>
             </tr>
             
             <c:set var="cellClass" value="t"></c:set>
 			<c:forEach var="v" items="${requestScope.apogeeCtrl.visits }">
 				<tr>
-	              <td nowrap align="middle" class="${cellClass }">
+	              <td nowrap align="center" class="${cellClass }">
 	                <a href="${apogeeCtrl.globals.apogeeSpectrumLink }?plateid=${v.plate}&mjd=${v.mjd}&fiber=${v.fiberid}" class="content" target="_blank">
 	                  ${v.visit_id}&nbsp;<img src="../../images/new_window_black.png" alt=" (new window)" />
 	                </a>
 	              </td>
-	              <td nowrap align="middle" class="${cellClass}">${v.plate }</td>
-	              <td nowrap align="middle" class="${cellClass}">${v.mjd}</td>
-	              <td nowrap align="middle" class="${cellClass}">${v.fiberid }</td>
-	              <td nowrap align="middle" class="${cellClass}">${v.dateobs.substring(0,10)}</td>
-	              <td nowrap align="middle" class="${cellClass}">${v.dateobs.substring(11,12)}</td>
-	              <td nowrap align="middle" class="${cellClass}">${v.vrel}</td>  
+	              <td nowrap align="center" class="${cellClass}">${v.plate }</td>
+	              <td nowrap align="center" class="${cellClass}">${v.mjd}</td>
+	              <td nowrap align="center" class="${cellClass}">${v.fiberid }</td>
+	              <td nowrap align="center" class="${cellClass}">${v.dateobs.substring(0,10)}</td>
+	              <td nowrap align="center" class="${cellClass}">${v.dateobs.substring(11,12)}</td>
+	              <td nowrap align="center" class="${cellClass}">${v.vrel}</td>  
 	            </tr>
 	            <c:set var="cellClass" value="${cellClass == 't'? 'b' : 't'}"></c:set> <!--  Alternating row colors --> 
 			</c:forEach>
