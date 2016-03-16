@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -358,9 +359,13 @@ public class ExplorerDao {
                  String temp = Functions.fPhotoModeN(rs.getByte("mode"));
                  String mode = temp == null ? " - " : temp;
                  int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 :(int) rs.getInt("mjdNum");
-                 /*if(mjdNum != -99999)
-                     mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).toString("MM/dd/yyyy");  old */
-                 int otherObs = rs.getInt("Other observations") == 0 ? -99999 : rs.getInt("Other observations");
+                 String mjdDate = null;
+                 /*
+                  
+                 if(mjdNum != -99999)
+                	 mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;* old
+                  */
+                 int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other observations");
                  long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
                  short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
                  String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
@@ -413,7 +418,8 @@ public class ExplorerDao {
                  
                  attrs.put("mode", mode);
                  attrs.put("mjdNum", mjdNum);
-                 attrs.put("Other observations", otherObs);
+                 attrs.put("mjdDate", mjdDate);
+                 attrs.put("Other_observations", otherObs);
                  attrs.put("parentID", parentID);
                  attrs.put("nChild", nchild);
                  attrs.put("extinction_r", extinction_r);

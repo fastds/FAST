@@ -1,6 +1,7 @@
 package org.fastds.model;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,29 +98,43 @@ public class ImagingControl {
         	
         	if((Integer)attrs.get("mjdNum") != -99999)
         	{
-        		mjdDate = DateFormat.getDateInstance().format(HelperFunctions.ConvertFromJulian(mjdNum).getTime().getTime()).format("MM/dd/yyyy");
+        		mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
 //      old  	mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).toString("MM/dd/yyyy");  
         	}
-        	/*
-        	 * int otherObs = rs.getInt("Other observations") == 0 ? -99999 : rs.getInt("Other observations");
-                 long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
-                 short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
-                 String extinction_r = rs.getString("extinction_r") == null ? " - " : rs.getString("extinction_r");
-                 String petrorad_r = rs.getString("petrorad_r") == null ? " - " : rs.getString("petrorad_r");
+        	this.flag = (String)attrs.get("flag");
+        	this.ra = (Double) attrs.get("ra");
+        	this.dec = (Double) attrs.get("dec");
+        	this.run = (Integer) attrs.get("run");
+        	this.rerun = (Integer) attrs.get("rerun");
+        	this.camcol = (Integer) attrs.get("camcol");
+        	this.field = (Long) attrs.get("field");
+        	this.fieldID = (String) attrs.get("fieldID");
+        	this.objID = (String) attrs.get("objID");
+        	this.clean = (Integer) attrs.get("clean");
+        	this.otype = (String) attrs.get("otype");
 
-                 ////--- PhotoZ, photoZRF
-                 String photoZ_KD = rs.getString("photoZ_KD") == null ? " - " : rs.getString("photoZ_KD");
-
-                 //photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
-                 String galaxyZoo_Morph = rs.getString("photoZ_KD") == null ? " - " : rs.getString("galaxyZoo_Morph");
-        	 */
-        	otherObs = (Integer)attrs.get("otherObjs");
-        	nchild = (Integer)attrs.get("parentID");
-        	nchild = (Short)attrs.get("nchild");
-        	extinction_r = (String)attrs.get("extinction_r");
-        	petrorad_r = (String)attrs.get("petrorad_r");
-        	photoZ_KD = (String)attrs.get("photoZ_KD");
-        	galaxyZoo_Morph = (String)attrs.get("galaxyZoo_Morph");
+        	this.u = (Double) attrs.get("u");
+        	this.g = (Double) attrs.get("g");
+        	this.r = (Double) attrs.get("r");
+        	this.i = (Double) attrs.get("i");
+        	this.z = (Double) attrs.get("z");
+            
+        	this.err_u = (Double) attrs.get("err_u");
+        	this.err_g = (Double) attrs.get("err_g");
+        	this.err_r = (Double) attrs.get("err_r");
+        	this.err_i = (Double) attrs.get("err_i");
+        	this.err_z = (Double) attrs.get("err_z");
+            
+        	this.mode = (String) attrs.get("mode");
+        	this.mjdNum = (Integer) attrs.get("mjdNum");
+        	this.mjdDate = (String) attrs.get("mjdDate" );
+        	this.otherObs = (Integer)attrs.get("otherObjs");
+        	this.parentID = (Long)attrs.get("parentID");
+        	this.nchild = (Short)attrs.get("nchild");
+        	this.extinction_r = (String)attrs.get("extinction_r");
+        	this.petrorad_r = (String)attrs.get("petrorad_r");
+        	this.photoZ_KD = (String)attrs.get("photoZ_KD");
+        	this.galaxyZoo_Morph = (String)attrs.get("galaxyZoo_Morph");
         }
     }
 
