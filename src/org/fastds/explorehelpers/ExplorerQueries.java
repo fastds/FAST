@@ -162,9 +162,9 @@ public class ExplorerQueries {
     public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
             
 
-    public static String neighbors2  = " SELECT n.neighborObjID as objID,str(t.ra,10,5) as ra, str(t.dec,10,5) as dec, str(n.distance,5,3) as 'distance (arcmin)',"
-                            +"dbo.fPhotoTypeN(n.neighborType) as type, neighborMode as mode, dbo.fPhotoModeN(n.neighborMode) as '(mode description)'"
-                            +"FROM Neighbors n, photoobjall t WHERE n.neighborObjid=t.objid and n.objID=@objID order by n.distance asc ";
+    public static String neighbors2  = " SELECT n.neighborObjID AS objID,str(t.ra,10,5) AS ra, str(t.dec,10,5) AS dec, str(n.distance,5,3) AS distance_arcmin,"
+                            +"dbo.fPhotoTypeN(n.neighborType) AS type, neighborMode AS mode, dbo.fPhotoModeN(n.neighborMode) AS mode_description "
+                            +"FROM Neighbors n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID=@objID ORDER BY n.distance ASC ";
             
     /// Fits Parameters Queries
             

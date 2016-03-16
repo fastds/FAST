@@ -452,9 +452,9 @@ public class ObjectExplorer {
 			                String u = "<a class='content' target='_top' href='Summary?sid=";
 //      old                      res.append(u + rs.GetValue(k) + "'>" + rs.GetValue(k) + "</a></td>");
 			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
-								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");
-							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
-								res.append(u + rs.getBigDecimal(meta.getColumnLabel(k))+ "'>" + rs.getBigDecimal(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getBoolean(k)+ "'>" + rs.getBoolean(k) + "</a></td>");
+							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBigDecimal(k)+ "'>" + rs.getBigDecimal(k) + "</a></td>");
 							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
 								if(str.contains("<"))
@@ -466,9 +466,9 @@ public class ObjectExplorer {
 								
 							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 								
-								res.append(u + rs.getTime(meta.getColumnLabel(k))+ "'>" + rs.getTime(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getTime(k)+ "'>" + rs.getTime(k) + "</a></td>");
 							} else {
-								res.append(u + rs.getDouble(meta.getColumnLabel(k))+ "'>" + rs.getDouble(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getLong(k)+ "'>" + rs.getLong(k) + "</a></td>");
 							}
 			            }
 
@@ -477,9 +477,9 @@ public class ObjectExplorer {
 			                String u = "<a class='content' target='_top' href='Summary?id=";
 //                  old          res.append(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
 			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
-								res.append(u + rs.getBoolean(meta.getColumnLabel(k))+ "'>" + rs.getBoolean(meta.getColumnLabel(k)) + "</a></td>");
-							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
-								res.append(u + rs.getBigDecimal(meta.getColumnLabel(k))+ "'>" + rs.getBigDecimal(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getBoolean(k)+ "'>" + rs.getBoolean(k) + "</a></td>");
+							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
+								res.append(u + rs.getBigDecimal(k)+ "'>" + rs.getBigDecimal(k) + "</a></td>");
 							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
 								if(str.contains("<"))
@@ -491,9 +491,9 @@ public class ObjectExplorer {
 								
 							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 								
-								res.append(u + rs.getTime(meta.getColumnLabel(k))+ "'>" + rs.getTime(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getTime(k)+ "'>" + rs.getTime(k) + "</a></td>");
 							} else {
-								res.append(u + rs.getDouble(meta.getColumnLabel(k))+ "'>" + rs.getDouble(meta.getColumnLabel(k)) + "</a></td>");
+								res.append(u + rs.getLong(k)+ "'>" + rs.getLong(k) + "</a></td>");
 							}
 			            }
 
@@ -501,11 +501,11 @@ public class ObjectExplorer {
 			            {
 //                            res.append(reader.GetValue(k));
 			            	if ("bool".endsWith(meta.getColumnTypeName(k))) {
-								res.append(rs.getBoolean(meta.getColumnLabel(k)));
-							} else if ("int64".endsWith(meta.getColumnTypeName(k))) {
-								res.append(rs.getBigDecimal(meta.getColumnLabel(k)));
+								res.append(rs.getBoolean(k));
+							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
+								res.append(rs.getBigDecimal(k));
 							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-								String str = rs.getString(meta.getColumnTypeName(k));
+								String str = rs.getString(k);
 								if(str.contains("<"))
 									str = str.replace("<", "&lt;");
 								if(str.contains(">"))
@@ -515,9 +515,9 @@ public class ObjectExplorer {
 								
 							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 								
-								res.append(rs.getTime(meta.getColumnLabel(k)));
+								res.append(rs.getTime(k));
 							} else {
-								res.append(rs.getDouble(meta.getColumnLabel(k)));
+								res.append(rs.getLong(k));
 							}
 			            }
 			            res.append("</td>");

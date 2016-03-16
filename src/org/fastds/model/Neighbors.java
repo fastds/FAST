@@ -27,10 +27,10 @@ public class Neighbors {
 //    }  old  在请求处理部分完成
     
     public void executeQuery() {
-        String cmd = ExplorerQueries.neighbors1.replace("@objId", objID);
+        String cmd = ExplorerQueries.neighbors1.replace("@objID", objID);
         ds_neighbor1 = explorerService.runCmd(cmd);
 
-        cmd = ExplorerQueries.neighbors2.replace("@objId", objID);
+        cmd = ExplorerQueries.neighbors2.replace("@objID", objID);
         ds_neighbor2 = explorerService.runCmd(cmd);
 
     }
