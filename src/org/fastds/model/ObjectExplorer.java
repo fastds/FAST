@@ -356,8 +356,8 @@ public class ObjectExplorer {
 			{
 			        for (int k = 1; k <= meta.getColumnCount(); k++)
 			        {	
-			        	System.out.println("Label:::"+meta.getColumnLabel(k));
-			        	System.out.println("Name:::"+meta.getColumnName(k));
+//			        	System.out.println("Label:::"+meta.getColumnLabel(k));
+//			        	System.out.println("Name:::"+meta.getColumnName(k));
 			            res.append("<tr align='left' >");
 			            res.append("<td  valign='top' class='h'>");
 			            res.append("<span ");
@@ -370,7 +370,7 @@ public class ObjectExplorer {
 			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
 							res.append(ds.getBoolean(k));
 						} else if ("int".startsWith(meta.getColumnTypeName(k))) {
-							res.append(ds.getBigDecimal(k));
+							res.append(ds.getLong(k));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 							String str = ds.getString(k);
 							if(str.contains("<"))
