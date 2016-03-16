@@ -796,7 +796,7 @@ public class ExplorerQueries {
     	StringBuilder aql =new StringBuilder();
     	aql = aql.append(" SELECT name, unit,tablename FROM DBColumns ");
     	aql = aql.append(" WHERE tablename='PhotoObjAll' ");
-    	aql = aql.append(" AND (name='u' OR 'g' OR name='r' OR name='i' OR name='z' OR name='err_u' OR name='err_g' OR name='err_r' OR name='err_i' OR name='err_z' ");
+    	aql = aql.append(" AND (name='u' OR name='g' OR name='r' OR name='i' OR name='z' OR name='err_u' OR name='err_g' OR name='err_r' OR name='err_i' OR name='err_z' ");
     	aql = aql.append(" OR name='mjd' OR name='mode' OR name='nDetect' OR name='parentID' OR name='nChild' OR name='extinction_r' OR name='petroRad_r')");
     	aql = aql.append(" ORDER BY name");
     	return aql.toString();
