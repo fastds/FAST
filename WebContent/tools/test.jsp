@@ -256,7 +256,7 @@
 			        <td style="vertical-align:top">
 			             <c:set var="link" value="javascript:showNavi(' + ${imagingCtrl.ra} + ',' + ${imagingCtrl.dec} + ',' + 0.2 + ');"></c:set>
 			             <a href="${pageScope.link}">
-			                 <img alt="" src="${imagingCtrl.globals.wSGetJpegUrl + '?ra=' + imagingCtrl.ra + '&dec=' + imagingCtrl.dec + '&scale=0.2&width=200&height=200&opt=G' }" border="0" width="200" height="200" />
+			                 <img alt="" src="${imagingCtrl.globals.jpegUrl + '?ra=' + imagingCtrl.ra + '&dec=' + imagingCtrl.dec + '&scale=0.2&width=200&height=200&opt=G' }" border="0" width="200" height="200" />
 			             </a>
 			         </td>
 			        <td >

@@ -254,7 +254,7 @@ public class Globals {
           return wsBaseUrl + getRelease() + "/"; 
     }
 
-    public String getWSGetJpegUrl()
+    public String getJpegUrl()//getWSGetJpegUrl
     {
           return getWSBaseUrl() + "ImgCutout/getjpeg.aspx"; 
     }
@@ -338,7 +338,7 @@ public class Globals {
     {
           return apogeeFitsLink; 
     }
-
+    
     public Globals()
     {
 // old       Object appSettings = System.Web.Configuration.WebConfigurationManager.AppSettings;
