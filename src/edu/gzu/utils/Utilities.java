@@ -384,7 +384,7 @@ public class Utilities {
         double qq = 60.0 * (deg - dd);
         double mm = Math.floor(qq);
         double ss = Math.floor(600.0 * (qq - mm)) / 10.0;
-        return (sign + pad(dd) + pad(mm) + pad(Double.parseDouble(new DecimalFormat("#.00").format(ss))));
+        return (sign + pad(dd) + pad(mm) + pad(Double.parseDouble(new DecimalFormat("#.0").format(ss))));
     }
 
     public static String hmsC(double deg)
