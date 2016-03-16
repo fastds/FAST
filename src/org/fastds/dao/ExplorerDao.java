@@ -908,7 +908,7 @@ public class ExplorerDao {
 				attrs.put("survey", survey);
 				attrs.put("mode", mode);
 				attrs.put("otype", photypeQual);
-				attrs.put("imageMJD", imageMJD);
+				attrs.put("mjd", imageMJD);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

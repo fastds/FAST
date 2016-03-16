@@ -42,7 +42,7 @@ public class MetaDataControl {
             clean = (Integer)params.get("clean");
             survey = params.get("survey") == null ? null:(String)params.get("survey");
             mode = (Integer)params.get("mode");
-            otype = params.get("otype") ==null ? null : (String)params.get("survey");
+            otype = params.get("otype") ==null ? null : (String)params.get("otype");
             imageMJD = (Integer)params.get("mjd");
         }
     }
