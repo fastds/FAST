@@ -369,7 +369,10 @@ public class ObjectExplorer {
 			            res.append("<td valign='top' class='" + c + "'>");
 			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
 							res.append(ds.getBoolean(k));
-						} else if ("int".startsWith(meta.getColumnTypeName(k))) {
+						} else if ("int64".endsWith(meta.getColumnTypeName(k))
+								|| "int32".endsWith(meta.getColumnTypeName(k))
+								|| "int16".endsWith(meta.getColumnTypeName(k))
+								|| "int8".endsWith(meta.getColumnTypeName(k))) {
 							res.append(ds.getLong(k));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 							String str = ds.getString(k);
