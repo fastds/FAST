@@ -400,11 +400,11 @@ public class ExplorerQueries {
         	 aql = aql.append(" pa.clean, pa.type AS otype, ");
         	 aql = aql.append(" pa.u AS u, pa.g  AS g, pa.r AS r, pa.i AS i, pa.z AS z,");
         	 aql = aql.append(" pa.err_u AS err_u,  pa.err_g  AS err_g,  pa.err_r  AS err_r, pa.err_i  AS err_i, pa.err_z AS err_z,");
-        	 aql = aql.append(" po.mode AS mode, po.mjd AS 'mjdNum',  (po.nDetect-1) AS 'Other observations', po.parentID, po.nChild, po.extinction_r,");
+        	 aql = aql.append(" po.mode AS mode, po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
         	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r ,");
         	 aql = aql.append(" phz.z, phz.zErr,");
-        	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS 'GalaxyZoo_Morph'");
-        	 aql = aql.append(" FROM PhotoTag AS pt  ");
+        	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph ");
+        	 aql = aql.append(" FROM ("+View.getPhotoTag()+") AS pt  ");
         	 aql = aql.append(" JOIN ("+View.getPhotoObj()+") AS po on po.objID = pt.objID");
         	 aql = aql.append(" JOIN Photoz AS phz on pt.objID=phz.objID ");
         	 aql = aql.append(" JOIN zooSpec AS zz on pt.objID=zz.objID");

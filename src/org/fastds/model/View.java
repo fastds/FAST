@@ -112,6 +112,6 @@ public class View {
 	}
 
 	public static String getPhotoObj() {
-		return "SELECT * FORM PhotoObjAll WHERE mode=1 OR mode=2";
+		return "SELECT * FROM PhotoObjAll WHERE mode=1 OR mode=2";
 	}
 }
