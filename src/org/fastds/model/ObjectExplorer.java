@@ -93,8 +93,8 @@ public class ObjectExplorer {
            // hrefs.PhotozRF = "DisplayResults.aspx?&name=photozRF&" + allID;
         } 
 
-        hrefs.Matches = "matches?"+allID;
-        hrefs.Neighbors = "neighbors?"+allID;
+        hrefs.Matches = "Matches?"+allID;
+        hrefs.Neighbors = "Neighbors?"+allID;
         hrefs.Chart    = "javascript:gotochart(" + ra + "," + dec + ");";
         hrefs.Navigate = "javascript:gotonavi(" + ra + "," + dec + ");";
         hrefs.SaveBook = "javascript:saveBook(\"" + objID + "\");";
@@ -153,23 +153,23 @@ public class ObjectExplorer {
 
             hrefs.Spectrum = "../../get/SpecByID.ashx?ID=" + specID;
 
-            hrefs.SpecFITS = "FitsSpec.aspx?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
+            hrefs.SpecFITS = "FitsSpec?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
                 
            if (globals.getReleaseNumber() >= 8)
             {  
-                hrefs.theParameters = "parameters.aspx?"+allID;
-                hrefs.stellarMassStarformingPort = "DisplayResults.aspx?name=stellarMassStarFormingPort&" + allID;
-                hrefs.stellarMassPassivePort = "DisplayResults.aspx?name=stellarMassPassivePort&" + allID;
-                hrefs.emissionLinesPort = "DisplayResults.aspx?name=emissionlinesPort&" + allID;
-                hrefs.stellarMassPCAWiscBC03 = "DisplayResults.aspx?name=stellarMassPCAWiscBC03&" + allID;
-                hrefs.stellarMassPCAWiscM11 = "DisplayResults.aspx?name=stellarMassPCAWiscM11&" + allID;
+                hrefs.theParameters = "Parameters?"+allID;
+                hrefs.stellarMassStarformingPort = "DisplayResults?name=stellarMassStarFormingPort&" + allID;
+                hrefs.stellarMassPassivePort = "DisplayResults?name=stellarMassPassivePort&" + allID;
+                hrefs.emissionLinesPort = "DisplayResults?name=emissionlinesPort&" + allID;
+                hrefs.stellarMassPCAWiscBC03 = "DisplayResults?name=stellarMassPCAWiscBC03&" + allID;
+                hrefs.stellarMassPCAWiscM11 = "DisplayResults?name=stellarMassPCAWiscM11&" + allID;
             }  
             if (globals.getReleaseNumber() >= 10)
             {
-                hrefs.stellarMassFSPSGranEarlyDust = "DisplayResults.aspx?name=stellarMassFSPSGranEarlyDust&" + allID;
-                hrefs.stellarMassFSPSGranEarlyNoDust = "DisplayResults.aspx?name=stellarMassFSPSGranEarlyNoDust&" + allID;
-                hrefs.stellarMassFSPSGranWideDust = "DisplayResults.aspx?name=stellarMassFSPSGranWideDust&" + allID;
-                hrefs.stellarMassFSPSGranWideNoDust = "DisplayResults.aspx?name=stellarMassFSPSGranWideNoDust&" + allID;
+                hrefs.stellarMassFSPSGranEarlyDust = "DisplayResults?name=stellarMassFSPSGranEarlyDust&" + allID;
+                hrefs.stellarMassFSPSGranEarlyNoDust = "DisplayResults?name=stellarMassFSPSGranEarlyNoDust&" + allID;
+                hrefs.stellarMassFSPSGranWideDust = "DisplayResults?name=stellarMassFSPSGranWideDust&" + allID;
+                hrefs.stellarMassFSPSGranWideNoDust = "DisplayResults?name=stellarMassFSPSGranWideNoDust&" + allID;
              }
          }            
          if (apid != null && !apid.isEmpty())
