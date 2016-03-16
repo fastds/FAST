@@ -362,15 +362,15 @@ public class ObjectExplorer {
 			            if (unit != "")
 			                res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
 			            res.append("></span>");
-			            res.append(meta.getColumnLabel(k) + "</td>");
+			            res.append(meta.getColumnName(k) + "</td>");
 
 			            res.append("<td valign='top' class='" + c + "'>");
 			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
-							res.append(ds.getBoolean(meta.getColumnLabel(k)));
+							res.append(ds.getBoolean(meta.getColumnName(k)));
 						} else if ("int".startsWith(meta.getColumnTypeName(k))) {
-							res.append(ds.getBigDecimal(meta.getColumnLabel(k)));
+							res.append(ds.getBigDecimal(meta.getColumnName(k)));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-							String str = ds.getString(meta.getColumnTypeName(k));
+							String str = ds.getString(meta.getColumnName(k));
 							if(str.contains("<"))
 								str = str.replace("<", "&lt;");
 							if(str.contains(">"))
@@ -380,9 +380,9 @@ public class ObjectExplorer {
 							
 						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 							
-							res.append(ds.getTime(meta.getColumnLabel(k)));
+							res.append(ds.getTime(meta.getColumnName(k)));
 						} else {
-							res.append(ds.getDouble(meta.getColumnLabel(k)));
+							res.append(ds.getDouble(meta.getColumnName(k)));
 						}
 			            res.append("</td>");
 			            res.append("</tr>");
