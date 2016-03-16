@@ -774,10 +774,10 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String rc3 = rs.getString(0);
-				String hubletype = rs.getString(1);
-				String magnitude = rs.getString(2);
-				float hydrogenIndex = rs.getFloat(3);
+				String rc3 = rs.getString(1);
+				String hubletype = rs.getString(2);
+				String magnitude = new DecimalFormat("##.##").format(rs.getFloat(3))+" &plusmn; "+new DecimalFormat("##.###").format(rs.getFloat(4));
+				Float hydrogenIndex = rs.getFloat(5);
 				
 				attrs.put("rc3", rc3);
 				attrs.put("hubletype", hubletype);

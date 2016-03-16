@@ -456,10 +456,11 @@ public class ExplorerQueries {
     {
     	/*public static String USNO = " SELECT 'USNO' as Catalog, str(10*propermotion,6,2)+' &plusmn; '+str(sqrt(power(muraerr,2)+power(mudecerr,2)),8,3) as 'Proper motion (mas/yr)',"
     	+" angle as 'PM angle (deg E)' FROM USNO WHERE objID=@objID";*/
+    	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'USNO' as Catalog," );
+    	aql = aql.append(" SELECT 'USNO' AS Catalog," );
     	aql = aql.append(" 10*PROPERMOTION, sqrt(pow(MURAERR,2)+pow(MUDECERR,2)) , ");
-    	aql = aql.append(" ANGLE as 'PM_angle_(deg_E)' FROM USNO WHERE objID="+objID);
+    	aql = aql.append(" ANGLE AS PM_angle_(deg_E) FROM USNO WHERE objID="+objID);
     	return aql.toString();
     }
     public static String FIRST(String objID) {
@@ -469,16 +470,17 @@ public class ExplorerQueries {
 //    	aql = aql.append(" str(peak,8,2)+' &plusmn; '+str(rms,8,2) as 'Peak flux (mJy)', ");
 //    	aql = aql.append(" major as 'Major axis (arcsec)', ");
 //    	aql = aql.append(" minor as 'Minor axis (arcsec)' ");
-    	aql = aql.append(" SELECT 'FIRST' as Catalog, ");
+    	aql = aql.append(" SELECT 'FIRST' AS Catalog, ");
     	aql = aql.append(" peak, rms , ");
-    	aql = aql.append(" major as 'Major_axis_(arcsec)', ");
-    	aql = aql.append(" minor as 'Minor_axis_(arcsec)' ");
+    	aql = aql.append(" major AS Major_axis_(arcsec), ");
+    	aql = aql.append(" minor AS Minor_axis_(arcsec) ");
     	aql = aql.append(" FROM FIRST WHERE objID="+objID);
 		return aql.toString();
 	}
 
 //    public static String ROSAT = " SELECT 'ROSAT' as Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE objID=@objID";         
     public static String ROSAT(String objID) {
+    	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
     	aql = aql.append(" SELECT 'ROSAT' AS Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE objID="+objID);
 		return null;
@@ -486,10 +488,11 @@ public class ExplorerQueries {
 //    public static String RC3 = " SELECT 'RC3' as Catalog, hubble as 'Hubble type', str(m21,5,2)+' &plusmn; '+str(m21err,6,3) as '21 cm magnitude'," 
 //    	+" hi as 'Neutral Hydrogen Index' FROM RC3 WHERE objID=@objID";
     public static String RC3(String objID) {
+    	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'RC3' AS Catalog, hubble AS 'Hubble type',");
-    	aql = aql.append(" str(m21,5,2)+' &plusmn; '+str(m21err,6,3) AS '21 cm magnitude',");
-    	aql = aql.append(" hi AS 'Neutral Hydrogen Index' FROM RC3 WHERE objID="+objID);
+    	aql = aql.append(" SELECT 'RC3' AS Catalog, HUBBLE AS Hubble_type,");
+    	aql = aql.append(" M21, M21ERR, HI AS Neutral_Hydrogen_Index ");
+    	aql = aql.append(" FROM RC3 WHERE objID="+objID);
 		return aql.toString();
 	}
     /*public static String WISE = " SELECT 'WISE' as Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' as 'Full WISE data'" 
