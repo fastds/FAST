@@ -15,8 +15,8 @@ public class DisplayResults {
      protected String fieldID = null;
 
 
-     protected ObjectExplorer master;
-     protected ResultSet ds;
+     protected ObjectExplorer master = null;
+     protected ResultSet ds = null;
      private ExplorerService explorerService = new ExplorerService();
     
      public DisplayResults(ObjectExplorer master)

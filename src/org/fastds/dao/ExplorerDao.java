@@ -1104,6 +1104,7 @@ public class ExplorerDao {
 	}
 
 	public ResultSet getResultSetFromCmd(String cmd) {
+		System.out.println("ExplorerDao.getResultSetFromCmd-->aql:"+cmd);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		try {
