@@ -397,7 +397,6 @@ public class ObjectExplorer {
 			    res.append("<tr> <td class='nodatafound'>No data found for this object </td></tr>");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         res.append("</table>");
@@ -422,10 +421,10 @@ public class ObjectExplorer {
         res.append("<tr>");
 
         try {
-        meta = rs.getMetaData();
-        int colCount =  meta.getColumnCount();
-			if (!rs.isAfterLast())
+			if (rs!=null && !rs.isAfterLast())
 			{
+				meta = rs.getMetaData();
+				int colCount =  meta.getColumnCount();
 			    for (int k = 1; k <= colCount; k++)
 			    {
 			    	res.append("<td align='middle' class='h'>");
