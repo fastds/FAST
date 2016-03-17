@@ -110,15 +110,14 @@ public class DisplayResults {
 
 	public void getQuery() {
 		
-		objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2), 16)+"" : objID;
 		if("PhotoObj".equals(name))
 			cmd = ExplorerQueries.PhotoObjQuery.replace("@objID", objID);
 		else if("PhotoTag".equals(name))
 			cmd = ExplorerQueries.PhotoTagQuery.replace("@objID", objID);
 		else if("photoZ".equals(name))
-			cmd = ExplorerQueries.PhotoZ.replace("@objID", objID);
+			cmd = ExplorerQueries.PhotoZ.replace("@objID", objID.startsWith("0x")? Long.parseLong(objID.substring(2), 16)+"" : objID);
 		else if("Field".equals(name))
-			cmd = ExplorerQueries.FieldQuery.replace("@fieldID", fieldID);
+			cmd = ExplorerQueries.FieldQuery.replace("@fieldID", fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"" : fieldID);
 		else if("Frame".equals(name))
 			 cmd = ExplorerQueries.FrameQuery.replace("@fieldID", fieldID);
 		else if("SpecObj".equals(name))
