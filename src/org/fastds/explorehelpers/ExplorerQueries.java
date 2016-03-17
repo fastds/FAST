@@ -159,13 +159,27 @@ public class ExplorerQueries {
     	return aql.toString();
     }
     ///Neighbors
-    public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
-            
+    public static String getNeighbors1(String objID)
+    {
+//    public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
+    	StringBuilder aql = new StringBuilder();
+    	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
+    	aql.append(" SELECT p.ra, p.dec, p.objID, p.thingID FROM PhotoObjAll p WHERE p.objID=");
+    	return aql.toString();
+    }
 
-    public static String neighbors2  = " SELECT n.neighborObjID AS objID,str(t.ra,10,5) AS ra, str(t.dec,10,5) AS dec, str(n.distance,5,3) AS distance_arcmin,"
-                            +"dbo.fPhotoTypeN(n.neighborType) AS type, neighborMode AS mode, dbo.fPhotoModeN(n.neighborMode) AS mode_description "
-                            +"FROM Neighbors n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID=@objID ORDER BY n.distance ASC ";
-            
+    public static String getNeighbors2(String objID)
+    {
+//    public static String neighbors2  = " SELECT n.neighborObjID AS objID,str(t.ra,10,5) AS ra, str(t.dec,10,5) AS dec, str(n.distance,5,3) AS distance_arcmin,"
+//                            +"dbo.fPhotoTypeN(n.neighborType) AS type, neighborMode AS mode, dbo.fPhotoModeN(n.neighborMode) AS mode_description "
+//                            +"FROM Neighbors n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID=@objID ORDER BY n.distance ASC ";
+    	StringBuilder aql = new StringBuilder();
+    	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
+    	aql.append(" SELECT n.neighborObjID AS objID, t.ra, t.dec , n.distance AS distance_arcmin, ");
+    	aql.append(" n.neighborType AS type, neighborMode AS mode, n.neighborMode AS mode_description ");
+    	aql.append(" FROM Neighbors AS n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID="+objID+" ORDER BY n.distance ASC ");
+    	return aql.toString();
+    }
     /// Fits Parameters Queries
             
     public static String getFitsParametersSppParams(String specID)
