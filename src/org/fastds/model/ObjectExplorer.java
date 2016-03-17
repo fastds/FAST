@@ -351,9 +351,9 @@ public class ObjectExplorer {
         res.append(">\n");
         ResultSetMetaData meta = null;
         try {
-        	meta = ds.getMetaData();
-			if (!ds.isAfterLast())
+			if (ds!=null && !ds.isAfterLast())
 			{
+				meta = ds.getMetaData();
 			        for (int k = 1; k <= meta.getColumnCount(); k++)
 			        {	
 			        	System.out.println("Label:::"+meta.getColumnLabel(k));
