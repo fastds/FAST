@@ -110,46 +110,50 @@ public class DisplayResults {
 
 	public void getQuery() {
 		
+		String objIDLong = objID.startsWith("0x")? Long.parseLong(objID.substring(2), 16)+"" : objID;
+		String fieldIDLong = fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"" : fieldID;
+		String specIDLong = specID.startsWith("0x")? Long.parseLong(specID.substring(2), 16)+"" : specID;
+		
 		if("PhotoObj".equals(name))
-			cmd = ExplorerQueries.PhotoObjQuery.replace("@objID", objID);
+			cmd = ExplorerQueries.PhotoObjQuery.replace("@objID", objIDLong);
 		else if("PhotoTag".equals(name))
-			cmd = ExplorerQueries.PhotoTagQuery.replace("@objID", objID);
+			cmd = ExplorerQueries.PhotoTagQuery.replace("@objID", objIDLong);
 		else if("photoZ".equals(name))
-			cmd = ExplorerQueries.PhotoZ.replace("@objID", objID.startsWith("0x")? Long.parseLong(objID.substring(2), 16)+"" : objID);
+			cmd = ExplorerQueries.PhotoZ.replace("@objID", objIDLong);
 		else if("Field".equals(name))
-			cmd = ExplorerQueries.FieldQuery.replace("@fieldID", fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"" : fieldID);
+			cmd = ExplorerQueries.FieldQuery.replace("@fieldID", fieldIDLong);
 		else if("Frame".equals(name))
-			 cmd = ExplorerQueries.FrameQuery.replace("@fieldID", fieldID);
+			 cmd = ExplorerQueries.FrameQuery.replace("@fieldID", fieldIDLong);
 		else if("SpecObj".equals(name))
-			cmd = ExplorerQueries.SpecObjQuery.replace("@specID", specID); 
+			cmd = ExplorerQueries.SpecObjQuery.replace("@specID", specIDLong); 
 		else if("sppLines".equals(name))
-			cmd = ExplorerQueries.sppLinesQuery.replace("@specID", specID);
+			cmd = ExplorerQueries.sppLinesQuery.replace("@specID", specIDLong);
          else if( "sppParams".equals(name))
-                 cmd = ExplorerQueries.sppParamsQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.sppParamsQuery.replace("@specID", specIDLong); 
          else if( "galSpecLine".equals(name))
-                 cmd = ExplorerQueries.galSpecLineQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.galSpecLineQuery.replace("@specID", specIDLong); 
          else if( "galSpecIndx".equals(name))
-                 cmd = ExplorerQueries.galSpecIndexQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.galSpecIndexQuery.replace("@specID", specIDLong); 
          else if( "galSpecInfo".equals(name))
-                 cmd = ExplorerQueries.galSpecInfoQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.galSpecInfoQuery.replace("@specID", specIDLong); 
          else if( "stellarMassStarFormingPort".equals(name))
-                 cmd = ExplorerQueries.stellarMassStarformingPortQuery.replace("@specID", specID);   
+                 cmd = ExplorerQueries.stellarMassStarformingPortQuery.replace("@specID", specIDLong);   
          else if( "stellarMassPassivePort".equals(name))
-                 cmd = ExplorerQueries.stellarMassPassivePortQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassPassivePortQuery.replace("@specID", specIDLong); 
          else if( "emissionlinesPort".equals(name))
-                 cmd = ExplorerQueries.emissionLinesPortQuery.replace("@specID", specID); 
+                 cmd = ExplorerQueries.emissionLinesPortQuery.replace("@specID", specIDLong); 
          else if( "stellarMassPCAWiscBC03".equals(name))
-                 cmd = ExplorerQueries.stellarMassPCAWiscBC03Query.replace("@specID",specID); 
+                 cmd = ExplorerQueries.stellarMassPCAWiscBC03Query.replace("@specID",specIDLong); 
          else if( "stellarMassPCAWiscM11".equals(name))
-                 cmd = ExplorerQueries.stellarMassPCAWiscM11Query.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassPCAWiscM11Query.replace("@specID", specIDLong); 
          else if( "stellarMassFSPSGranEarlyDust".equals(name))
-                 cmd = ExplorerQueries.stellarMassFSPSGranEarlyDust.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassFSPSGranEarlyDust.replace("@specID", specIDLong); 
          else if( "stellarMassFSPSGranEarlyNoDust".equals(name))
-                 cmd = ExplorerQueries.stellarMassFSPSGranEarlyNoDust.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassFSPSGranEarlyNoDust.replace("@specID", specIDLong); 
          else if( "stellarMassFSPSGranWideDust".equals(name))
-                 cmd = ExplorerQueries.stellarMassFSPSGranWideDust.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassFSPSGranWideDust.replace("@specID", specIDLong); 
          else if( "stellarMassFSPSGranWideNoDust".equals(name))
-                 cmd = ExplorerQueries.stellarMassFSPSGranWideNoDust.replace("@specID", specID); 
+                 cmd = ExplorerQueries.stellarMassFSPSGranWideNoDust.replace("@specID", specIDLong); 
          
          else if( "apogeeStar".equals(name))
                  cmd= ExplorerQueries.apogeeStar.replace("@apid", apid); 
