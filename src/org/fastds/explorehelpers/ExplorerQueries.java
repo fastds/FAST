@@ -88,7 +88,7 @@ public class ExplorerQueries {
         //+HttpUtility.UrlEncode("'" + apogeeID + "'");      
 
     //PhotoZ
-    public static String PhotoZ = "SELECT * FROM Photoz WHERE objid=@objID";
+    public static String PhotoZ = "SELECT * FROM Photoz WHERE objID=@objID";
             //String c1 = "SELECT * FROM Photoz2 WHERE objid=" + objid;       
 
     //PhotzRF

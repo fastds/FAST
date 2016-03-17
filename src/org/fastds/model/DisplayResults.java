@@ -109,7 +109,7 @@ public class DisplayResults {
 	}
 
 	public void getQuery() {
-		
+		objID = objID.startsWith("0x")? Long.parseLong(objID, 16)+"" : objID;
 		if("PhotoObj".equals(name))
 			cmd = ExplorerQueries.PhotoObjQuery.replace("@objID", objID);
 		else if("PhotoTag".equals(name))
