@@ -674,15 +674,14 @@ public class Functions {
 				try {
 					rs = eq.aqlQuery(aql);
 					String name = null;
-					while(!rs.isAfterLast())
+					if(!rs.isAfterLast())
 					{
 						name = rs.getString("name");
 						if(name != null)
 						{
-							out += " ";
+							out += name+" ";
 							break;
 						}
-						rs.next();
 					}
 							
 				} catch (SQLException e) {
@@ -753,5 +752,295 @@ public class Functions {
 	public static String fIAUFromEq(double ra,double dec)
 	{
 		return null;
+	}
+	/**
+	 * ---------------------------------------------------
+	 * --/H Returns the expanded PrimTarget corresponding to the flag value as a string
+	 *	---------------------------------------------------
+	 *	--/T the photo and spectro primTarget flags can be shown with Select * from PrimTarget 
+	 *	--/T <br>
+	 *	--/T Sample call to show the target flags of some photoObjects is
+	 *	--/T <samp> 
+	 *	--/T <br> select top 10 objId, dbo.fPriTargetN(secTarget) as priTarget
+	 *	--/T <br> from photoObj 
+	 *	--/T </samp> 
+	 *	--/T <br> see also fPrimTarget, fSecTargetN
+	 *	-------------------------------------------------------------
+	 * @param value
+	 */
+	public static String fPrimTargetN(int value) {
+		/*
+		 * RETURNS varchar(1000)
+			BEGIN
+			    DECLARE @bit int, @mask bigint, @out varchar(2000);
+			    SET @bit=32;
+			    SET @out ='';
+			    WHILE (@bit>0)
+				BEGIN
+				    SET @bit = @bit-1;
+				    SET @mask = power(cast(2 as bigint),@bit);
+				    SET @out = @out + (CASE 
+					WHEN (@mask & @value)=0 THEN '' 
+					ELSE coalesce((select name from PrimTarget where value=@mask),'')+' '
+				    	END);
+				END
+			    RETURN @out;
+			END
+		 */
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from PrimTarget where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+		
+	}
+	/*
+	 * ---------------------------------------------------
+	 * 	--/H Returns the expanded SpecialTarget1 corresponding to the flag value as a string
+	 * 	---------------------------------------------------
+	 * 	--/T The spectro specialTarget1 flags can be shown with Select * from SpecialTarget1 
+	 * 	--/T <br>
+	 * 	--/T Sample call to show the special target flags of some spec objects is
+	 * 	--/T <samp> 
+	 * 	--/T <br> select top 10 specObjId, dbo.fSpecialTarget1N(specialTarget1) as specialTarget1
+	 * 	--/T <br> from specObj 
+	 * 	--/T </samp> 
+	 * 	--/T <br> see also fSpecialTarget1, fSecTargetN
+	 * 	-------------------------------------------------------------
+	 */
+	public static String fSpecialTarget1N(Long value) {
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from SpecialTarget1 where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+		
+	}
+	/**
+	 * ---------------------------------------------------
+	 * 	--/H Returns the expanded Segue1Target1 corresponding to the flag value as a string
+	 * 	---------------------------------------------------
+	 * 	--/T The spectro Segue1Target1 flags can be shown with Select * from Segue1Target1 
+	 * 	--/T <br>
+	 * 	--/T Sample call to show the Segue1 target flags of some spec objects is
+	 * 	--/T <samp> 
+	 * 	--/T <br> select top 10 specObjId, dbo.fSegue1Target1N(Segue1Target1) as Segue1Target1
+	 * 	--/T <br> from specObj 
+	 * 	--/T </samp> 
+	 * 	--/T <br> see also fSegue1Target1, fSecTargetN
+	 * 	-------------------------------------------------------------
+	 * @param value
+	 */
+	public static String fSegue1Target1N(int value) {
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from Segue1Target1 where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+	}
+	public static String fSegue1Target2N(int value) {
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from Segue1Target2 where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+	}
+	/**
+	 * ---------------------------------------------------
+	 * 	--/H Returns the expanded Segue2Target1 corresponding to the flag value as a string
+	 * 	---------------------------------------------------
+	 * 	--/T The spectro Segue2Target1 flags can be shown with Select * from Segue2Target1 
+	 * 	--/T <br>
+	 * 	--/T Sample call to show the SEGUE-2 target flags of some spec objects is
+	 * 	--/T <samp> 
+	 * 	--/T <br> select top 10 specObjId, dbo.fSegue2Target1N(Segue2Target1) as segue2Target1
+	 * 	--/T <br> from specObj 
+	 * 	--/T </samp> 
+	 * 	--/T <br> see also fSegue2Target1, fSecTargetN
+	 * 	-------------------------------------------------------------
+	 */
+	public static String fSegue2Target1N(int value) {
+		
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from Segue2Target1 where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+	}
+	public static String fSegue2Target2N(int value) {
+		int bit = 32;
+		long mask;
+		String out = "";
+		while(bit > 0)
+		{
+			bit --;
+			mask = (long) Math.pow(2L, bit);
+			if((mask & value) == 0)
+				out += "";
+			else
+			{
+				ExQuery eq = new ExQuery();
+				String aql = "select name from Segue2Target2 where value="+mask;
+				ResultSet rs = null;
+				try {
+					rs = eq.aqlQuery(aql);
+					String name = null;
+					if(!rs.isAfterLast())
+					{
+						name = rs.getString("name");
+						if(name != null)
+						{
+							out += name + " ";
+						}
+					}
+							
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+					
+		}
+		return out;
+		
 	}
 }

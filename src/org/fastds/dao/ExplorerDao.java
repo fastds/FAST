@@ -962,6 +962,16 @@ public class ExplorerDao {
 				float redshift_err = rs.getInt("redshift_err");
 				String redshift_flags = rs.getString("redshift_flags");
 				String survey = rs.getString("survey");
+				long legacy_target1 = rs.getLong("legacy_target1");
+				long legacy_target2 = rs.getLong("legacy_target2");
+				long special_target1 = rs.getLong("special_target1");
+				long boss_target1 = rs.getLong("boss_target1");
+				long ancillary_target1 = rs.getLong("ancillary_target1");
+				long ancillary_target2 = rs.getLong("ancillary_target2");
+				long segue1_target1 = rs.getLong("segue1_target1");
+				long segue1_target2 = rs.getLong("segue1_target2");
+				long segue2_target1 = rs.getLong("segue2_target1");
+				long segue2_target2 = rs.getLong("segue2_target2");
 				String programname = rs.getString("programname");
 				short primary = rs.getShort("primary");
 				int otherspec = rs.getInt("otherspec");
@@ -969,7 +979,18 @@ public class ExplorerDao {
 				float veldisp = rs.getInt("veldisp");
 				float veldisp_err = rs.getInt("veldisp_err");
 				String targeting_flags = rs.getString("targeting_flags");
-				
+				//--------------------------------
+				if("sdss".equals(survey))
+					survey = Functions.fPrimTargetN((int)legacy_target1)+" "+Functions.fPrimTargetN((int)legacy_target2)+ " "+Functions.fSpecialTarget1N(special_target1);
+				else if("boss".equals(survey))
+					survey = boss_target1+","+ancillary_target1+","+ancillary_target2;
+				else if("segue1".equals(survey))
+					survey = Functions.fSegue1Target1N((int)segue1_target1)+","+Functions.fSegue1Target2N((int)segue1_target2);
+				else if("segue2".equals(survey))
+					survey = Functions.fSegue2Target1N((int)segue2_target1)+","+Functions.fSegue2Target2N((int)segue2_target2);
+				else
+					survey = " No Data ";
+				//--------------------------------
 				attrs.put("plate", plate);
 				attrs.put("mjd", mjd);
 				attrs.put("fiberid", fiberid);

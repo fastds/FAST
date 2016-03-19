@@ -442,18 +442,12 @@ public class ExplorerQueries {
         	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
         	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr AS redshift_err ");
-        	 aql = aql.append(" , dbo.fSpecZWarningN(zWarning) AS 'redshift_flags',s.survey, s.programname, s.scienceprimary AS primary,");
+        	 aql = aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.scienceprimary AS primary,");
         	 aql = aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
-        	 aql = aql.append(" ,s.survey ");
-        	 aql = aql.append(" WHEN 'sdss' THEN (SELECT(dbo.fPrimtargetN(s.legacy_target1)+' '+dbo.fPrimTargetN(s.legacy_target2)+' '+dbo.fSpecialTarget1N(s.special_target1)))");
-        	 aql = aql.append(" WHEN 'boss' THEN (SELECT str(boss_target1)+','+str(ancillary_target1)+','+str(ancillary_target2))");
-        	 aql = aql.append(" WHEN 'segue1' THEN (SELECT dbo.fSEGUE1target1N(segue1_target1)+','+dbo.fSEGUE1target2N(segue1_target2))");
-        	 aql = aql.append(" WHEN 'segue2' THEN (SELECT dbo.fSEGUE2target1N(segue2_target1)+','+ dbo.fSEGUE2target2N(segue2_target2) )");
-        	 aql = aql.append(" ELSE ' No Data ' ");
-        	 aql = aql.append(" END ");
-        	 aql = aql.append(" AS targeting_flags ");
+        	 aql = aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
+        	 aql = aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
         	 aql = aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
-        	 aql = aql.append(" JOIN (SELECT bestobjid, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
+        	 aql = aql.append(" JOIN (SELECT bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
         	 aql = aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
         	 
      		return aql.toString();
@@ -774,6 +768,7 @@ public class ExplorerQueries {
     	+"   dbo.fGetUrlFitsField(@fieldID)";
     public static String getFitsimg(String fieldID)
     {
+    	fieldID = fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"":fieldID;
     	StringBuilder aql = new StringBuilder();
     	aql.append("SELECT ");
     	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'u'),");

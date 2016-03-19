@@ -79,7 +79,6 @@ public class ExplorerService {
 	}
 
 	public Map<String, Object> findAttrsFromRC3(String objID) {
-		// TODO Auto-generated method stub
 		return dao.getAttrsFromRC3(objID);
 	}
 
@@ -88,7 +87,6 @@ public class ExplorerService {
 	}
 
 	public Map<String, Object> findAttrsFromTWOMASS(String objID) {
-		// TODO Auto-generated method stub
 		return dao.getAttrsFromTWOMASS(objID);
 	}
 
@@ -102,12 +100,10 @@ public class ExplorerService {
 	}
 
 	public Map<String, Object> findApogeeByID(String apid) {
-		// TODO Auto-generated method stub
 		return dao.getApogeeByID(apid);
 	}
 
 	public Map<String, Object> findApogeeByID2(String apid) {
-		// TODO Auto-generated method stub
 		return dao.getApogeeByID2(apid);
 	}
 
@@ -117,17 +113,14 @@ public class ExplorerService {
 	}
 
 	public ResultSet findAllSpec1RS(String objID) {
-		// TODO Auto-generated method stub
 		return dao.getAllSpec1RS(objID);
 	}
 
 	public ResultSet findAllSpec2RS(String objID) {
-		// TODO Auto-generated method stub
 		return dao.getAllSpec2RS(objID);
 	}
 
 	public ResultSet runCmd(String cmd) {
-		
 		return dao.getResultSetFromCmd(cmd);
 	}
 
