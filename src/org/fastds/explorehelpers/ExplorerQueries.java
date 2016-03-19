@@ -412,7 +412,7 @@ public class ExplorerQueries {
         	 aql = aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
         	 aql = aql.append(" pt.fieldID, pt.objID, ");
         	 aql = aql.append(" pa.clean, pa.type AS otype, ");
-        	 aql = aql.append(" pa.u , pa.g , pa.r , pa.i AS i, pa.z , pa.err_u ,  pa.err_g ,  pa.err_r , pa.err_i , pa.err_z , ");
+        	 aql = aql.append(" pa.u , pa.g , pa.r , pa.i , pa.z , pa.err_u ,  pa.err_g ,  pa.err_r , pa.err_i , pa.err_z , ");
         	 aql = aql.append(" po.mode , po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
         	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r , phz.z, phz.zErr, ");
         	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph ");
