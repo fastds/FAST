@@ -90,7 +90,7 @@ public class ExplorerResource {
 		try {
 				if(qapid !=null )
 				{
-					String s;
+					String s = null;
 					s = URLEncoder.encode(apid,"UTF-8");
 		            if (qapid != null & !"".equals(qapid))
 		            {
