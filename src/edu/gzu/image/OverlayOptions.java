@@ -206,7 +206,7 @@ public class OverlayOptions
         	rs = exQuery.aqlQuery(sQ.toString());
             Long fieldid;
             StringBuilder span;
-            double rmin, rmax, cmin, cmax;
+            int rmin, rmax, cmin, cmax;
             Coord fc=null;
             
             while (!rs.isAfterLast())							// read the next record in the dataset
@@ -221,10 +221,10 @@ public class OverlayOptions
 //                fc = (Coord)cTable[fieldid];
             	
             	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
-            	rmin = rs.getDouble("rmin");
-            	rmax = rs.getDouble("rmax");
-	            cmin = rs.getDouble("cmin");
-	            cmax = rs.getDouble("cmax");
+            	rmin = rs.getInt("rmin");
+            	rmax = rs.getInt("rmax");
+	            cmin = rs.getInt("cmin");
+	            cmax = rs.getInt("cmax");
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
                 fc =  cTable.get(fieldid);
                 System.out.println("drawBoundingBox--:"+drawBoundingBox);
