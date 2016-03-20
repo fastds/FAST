@@ -204,7 +204,7 @@ public class OverlayOptions
         try
         {
         	rs = exQuery.aqlQuery(sQ.toString());
-            String fieldid;
+            Long fieldid;
             StringBuilder span;
             double rmin, rmax, cmin, cmax;
             Coord fc=null;
@@ -220,7 +220,7 @@ public class OverlayOptions
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
             	
-            	fieldid = ""+(rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
+            	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
             	rmin = rs.getDouble("rmin");
             	rmax = rs.getDouble("rmax");
 	            cmin = rs.getDouble("cmin");
