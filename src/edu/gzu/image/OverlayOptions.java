@@ -206,10 +206,10 @@ public class OverlayOptions
         	rs = exQuery.aqlQuery(sQ.toString());
             Long fieldid;
             StringBuilder span = null;
-            int rmin, rmax, cmin, cmax;
+            double rmin, rmax, cmin, cmax;
             Coord fc=null;
-            
-            while (!rs.isAfterLast())							// read the next record in the dataset
+            System.out.println("rs:===="+rs);
+            while (!rs.isAfterLast())		// read the next record in the dataset
             {
 //                fieldid = Convert.ToString(reader[0]);
 //                rmin = Convert.ToDouble(reader[1]) * SdssConstants.getOutlinePix();
@@ -223,10 +223,10 @@ public class OverlayOptions
             	System.out.println("drawBoundingBox--:"+drawBoundingBox);
             	System.out.println("drawOutline--:"+drawOutline);
             	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
-            	rmin = rs.getInt("rmin");
-            	rmax = rs.getInt("rmax");
-	            cmin = rs.getInt("cmin");
-	            cmax = rs.getInt("cmax");
+            	rmin = (double)rs.getInt("rmin");
+            	rmax = (double)rs.getInt("rmax");
+	            cmin = (double)rs.getInt("cmin");
+	            cmax = (double)rs.getInt("cmax");
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
                 fc =  cTable.get(fieldid);
 	            if (drawBoundingBox)
@@ -242,7 +242,7 @@ public class OverlayOptions
         }
         catch (Exception e)
         {
-        	System.out.println(e.getMessage());
+        	e.printStackTrace();
 //            showException("getOutlines()", sQ.toString(), e);
         }
     }
