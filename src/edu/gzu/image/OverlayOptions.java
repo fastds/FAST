@@ -205,7 +205,7 @@ public class OverlayOptions
         {
         	rs = exQuery.aqlQuery(sQ.toString());
             Long fieldid;
-            StringBuilder span;
+            StringBuilder span = null;
             int rmin, rmax, cmin, cmax;
             Coord fc=null;
             
@@ -220,6 +220,8 @@ public class OverlayOptions
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
             	
+            	System.out.println("drawBoundingBox--:"+drawBoundingBox);
+            	System.out.println("drawOutline--:"+drawOutline);
             	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
             	rmin = rs.getInt("rmin");
             	rmax = rs.getInt("rmax");
@@ -227,8 +229,6 @@ public class OverlayOptions
 	            cmax = rs.getInt("cmax");
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
                 fc =  cTable.get(fieldid);
-                System.out.println("drawBoundingBox--:"+drawBoundingBox);
-                System.out.println("drawOutline--:"+drawOutline);
 	            if (drawBoundingBox)
                 {
                     canvas.drawBoundingBox(fc, cmin, cmax, rmin, rmax);
