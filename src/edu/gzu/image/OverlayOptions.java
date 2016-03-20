@@ -190,13 +190,13 @@ public class OverlayOptions
 //        sQ.append(" ON m.objid=q.objid");
         String subAql = Functions.fGetObjectsEqStr(SdssConstants.pflag, ra, dec, radius, zoom);
         StringBuilder sQ = new StringBuilder();
-        sQ.append(" SELECT q.objid AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
-        sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS m, ");
+        sQ.append(" SELECT q.objID AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
+        sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
         sQ.append(" (SELECT min(f.objID) AS objID ");
         sQ.append(" FROM ("+subAql+") AS f, ");
         sQ.append(" "+SdssConstants.getOutlineTable()+" AS o ");
-        sQ.append(" WHERE f.objID=o.objID GROUP BY rmin,rmax,cmin,cmax ) AS q ");
-        sQ.append(" WHERE m.objID=q.objID");
+        sQ.append(" WHERE f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
+        sQ.append(" ON m.objID=q.objID");
         System.out.println("OverlayOptions:getOutlines()---->aql:"+sQ.toString());
         ResultSet rs = null;
         ExQuery exQuery = new ExQuery();
