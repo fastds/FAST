@@ -227,7 +227,8 @@ public class OverlayOptions
 	            cmax = rs.getDouble("cmax");
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
                 fc =  cTable.get(fieldid);
-                
+                System.out.println("drawBoundingBox--:"+drawBoundingBox);
+                System.out.println("drawOutline--:"+drawOutline);
 	            if (drawBoundingBox)
                 {
                     canvas.drawBoundingBox(fc, cmin, cmax, rmin, rmax);
