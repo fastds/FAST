@@ -208,7 +208,6 @@ public class OverlayOptions
             StringBuilder span = null;
             double rmin, rmax, cmin, cmax;
             Coord fc=null;
-            System.out.println("rs:===="+rs);
             while (!rs.isAfterLast())		// read the next record in the dataset
             {
 //                fieldid = Convert.ToString(reader[0]);
@@ -220,8 +219,6 @@ public class OverlayOptions
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
             	
-            	System.out.println("drawBoundingBox--:"+drawBoundingBox);
-            	System.out.println("drawOutline--:"+drawOutline);
             	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
             	rmin = (double)rs.getInt("rmin");
             	rmax = (double)rs.getInt("rmax");
