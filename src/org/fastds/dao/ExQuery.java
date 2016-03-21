@@ -76,7 +76,7 @@ public class ExQuery {
 	public void test()
 	{
 		try {
-			aqlQuery("SELECT q.objID AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutlinetest AS m JOIN  (SELECT min(f.objID) AS objID  FROM AtlasOutlinetest AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 12094627905536 AND 13194139533311 AND pow(0.9209378372080361-cx,2)+pow(-0.38936036482073366-cy,2)+pow(-0.016492613657328997-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID");
+			aqlQuery("SELECT q.objID AS fieldID, m.span  FROM AtlasOutline AS m JOIN  (SELECT min(f.objID) AS objID  FROM AtlasOutline AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 12094627905536 AND 13194139533311 AND pow(0.9209378372080361-cx,2)+pow(-0.38936036482073366-cy,2)+pow(-0.016492613657328997-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
