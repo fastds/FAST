@@ -75,7 +75,7 @@ public class ObjectExplorer {
 
         
         // id is the decimal representation; objID is the hex representation.
-        hrefs.Summary  = "summary?"+allID;
+        hrefs.Summary  = "Summary?"+allID;
         hrefs.PhotoObj = "DisplayResults?name=PhotoObj&"+allID;
         hrefs.PhotoTag = "DisplayResults?name=PhotoTag&" + allID;
         hrefs.Field    = "DisplayResults?name=Field&" + allID;
