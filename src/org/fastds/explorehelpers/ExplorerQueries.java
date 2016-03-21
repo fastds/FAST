@@ -378,7 +378,8 @@ public class ExplorerQueries {
     	return aql.toString();
     }
 
-    /* // Imaing Query
+    /* 
+     * // Imaing Query
     public static  String getImagingQuery= " SELECT   "         
 //        --phototag
          +"dbo.fPhotoFlagsN(pt.flags) as 'flags',pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field," 
@@ -392,33 +393,43 @@ public class ExplorerQueries {
         +"str(po.petroRad_r,9,2)+' &plusmn; '+str(po.petroRadErr_r,10,3) as 'petrorad_r',"
 //        --- photz,photozRF,zoospec 
         +"(str(phz.z,7,3)+' &plusmn; '+str(phz.zerr,8,4))as 'photoZ_KD'," 
-//        ---(str(phzrf.z,7,3)+' &plusmn; '+str(phzrf.zerr,8,4)) as 'photoZ_RF', 
        +" case (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) when 1 then 'Spiral' when 10 then 'Elliptical' when 100 then 'Uncertain' else '-' end as 'GalaxyZoo_Morph'" 
 //        --all joins
         +"FROM PhotoTag pt  "
          +"left outer join PhotoObj po on po.objid = pt.objid"
          +"left outer join Photoz phz on pt.objid=phz.objid "
-//         ---left outer join PhotozRF phzrf on pt.objid=phzrf.objid 
          +"left outer join zooSpec zz on pt.objid=zz.objid" 
          +"left outer join field f on f.fieldID=pt.fieldID "
          +"left outer join photoobjall pa with (nolock)on  pa.objid = pt.objid" 
          +"WHERE pt.objID= @objID";  old    注意dbo.fPhotoFlagsN(pt.flags) 转换otype。。dbo.fPhotoModeN(po.mode)*/
 //        po.petroRad_r  phz.zerr 连接方式等等 
-    	public static String getImagingQuery(String objID)
+    	public static String[] getImagingQuery(String objID)
          {
     		 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
-        	 StringBuilder aql = new StringBuilder();
-        	 aql = aql.append(" SELECT  ");
-        	 aql = aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
-        	 aql = aql.append(" pt.fieldID, pt.objID, ");
-        	 aql = aql.append(" pa.clean, pa.type AS otype, ");
-        	 aql = aql.append(" pa.u , pa.g , pa.r , pa.i , pa.z , pa.err_u ,  pa.err_g ,  pa.err_r , pa.err_i , pa.err_z , ");
-        	 aql = aql.append(" po.mode , po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
-        	 aql = aql.append(" po.petroRad_r, po.petroRadErr_r , phz.z, phz.zErr, ");
-        	 aql = aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph ");
-        	 aql = aql.append(" FROM ("+View.getPhotoTag()+") AS pt, ("+View.getPhotoObj()+") AS po,  Photoz AS phz, zooSpec AS zz, Field AS f, PhotoObjAll AS pa ");
-        	 aql = aql.append(" WHERE  po.objID = pt.objID AND pt.objID=phz.objID AND  pt.objID=zz.objID AND  f.fieldID=pt.fieldID AND pa.objID = pt.objID AND pt.objID="+objID);
-        	 return aql.toString();
+        	 StringBuilder aqlOne = new StringBuilder();
+        	 StringBuilder aqlTwo = new StringBuilder();
+        	 StringBuilder aqlThree = new StringBuilder();
+        	 StringBuilder aqlFour = new StringBuilder();
+//  原来的      	 aql.append(" SELECT  ");
+//        	 aql.append(" pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field,");
+//        	 aql.append(" pt.fieldID, pt.objID, ");
+//        	 aql.append(" pa.clean, pa.type AS otype, ");
+//        	 aql.append(" pa.u , pa.g , pa.r , pa.i , pa.z , pa.err_u ,  pa.err_g ,  pa.err_r , pa.err_i , pa.err_z , ");
+//        	 aql.append(" po.mode , po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r,");
+//        	 aql.append(" po.petroRad_r, po.petroRadErr_r , phz.z, phz.zErr, ");
+//        	 aql.append(" (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph ");
+//        	 aql.append(" FROM ("+View.getPhotoTag()+") AS pt, ("+View.getPhotoObj()+") AS po,  Photoz AS phz, zooSpec AS zz, Field AS f, PhotoObjAll AS pa ");
+//        	 aql.append(" WHERE  po.objID = pt.objID AND pt.objID=phz.objID AND  pt.objID=zz.objID AND  f.fieldID=pt.fieldID AND pa.objID = pt.objID AND pt.objID="+objID);
+        	 aqlOne.append(" SELECT   flags,ra, dec, run, rerun, camcol, field, fieldID, objID, clean, type AS otype,  u , g , r , i , z , err_u ,  err_g ,  err_r , err_i , err_z ");
+        	 aqlOne.append(" FROM PhotoObjAll WHERE objID="+objID);
+        	 
+        	 aqlTwo.append(" SELECT mode , mjd AS mjdNum,  (nDetect-1) AS Other_observations, parentID, nChild, extinction_r, petroRad_r, petroRadErr_r ");
+        	 aqlTwo.append(" FROM PhotoObjAll WHERE mode=1 OR mode=2 AND objID="+objID);
+        	 
+        	 aqlThree.append(" SELECT z,zErr FROM Photoz WHERE objID="+objID);
+        	 
+        	 aqlFour.append(" SELECT (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph  FROM zooSpec WHERE objID="+objID);
+        	 return new String[]{aqlOne.toString(), aqlTwo.toString(), aqlThree.toString(), aqlFour.toString()};
          }
 
     /// Spectral parameters
@@ -441,14 +452,14 @@ public class ExplorerQueries {
          public static String getSpectroQuery(String objID, String specID) {
         	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
-        	 aql = aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr AS redshift_err ");
-        	 aql = aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.scienceprimary AS primary,");
-        	 aql = aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
-        	 aql = aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
-        	 aql = aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
-        	 aql = aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
-        	 aql = aql.append(" JOIN (SELECT bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
-        	 aql = aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
+        	 aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr AS redshift_err ");
+        	 aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.scienceprimary AS primary,");
+        	 aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
+        	 aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
+        	 aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
+        	 aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
+        	 aql.append(" JOIN (SELECT bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
+        	 aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
         	 
      		return aql.toString();
      	}
@@ -460,23 +471,23 @@ public class ExplorerQueries {
     	+" angle as 'PM angle (deg E)' FROM USNO WHERE objID=@objID";*/
     	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'USNO' AS Catalog," );
-    	aql = aql.append(" 10*PROPERMOTION, sqrt(pow(MURAERR,2)+pow(MUDECERR,2)) , ");
-    	aql = aql.append(" ANGLE AS PM_angle_deg_E FROM USNO WHERE OBJID="+objID);
+    	aql.append(" SELECT 'USNO' AS Catalog," );
+    	aql.append(" 10*PROPERMOTION, sqrt(pow(MURAERR,2)+pow(MUDECERR,2)) , ");
+    	aql.append(" ANGLE AS PM_angle_deg_E FROM USNO WHERE OBJID="+objID);
     	return aql.toString();
     }
     public static String FIRST(String objID) {
     	StringBuilder aql = new StringBuilder();
     	objID = (objID!=null && objID.startsWith("0x"))? Long.parseLong(objID.substring(2),16)+"":objID;
-//    	aql = aql.append(" SELECT 'FIRST' as Catalog, ");
-//    	aql = aql.append(" str(peak,8,2)+' &plusmn; '+str(rms,8,2) as 'Peak flux (mJy)', ");
-//    	aql = aql.append(" major as 'Major axis (arcsec)', ");
-//    	aql = aql.append(" minor as 'Minor axis (arcsec)' ");
-    	aql = aql.append(" SELECT 'FIRST' AS Catalog, ");
-    	aql = aql.append(" peak, rms , ");
-    	aql = aql.append(" major AS Major_axis_arcsec, ");
-    	aql = aql.append(" minor AS Minor_axis_arcsec ");
-    	aql = aql.append(" FROM FIRST WHERE objID="+objID);
+//    	aql.append(" SELECT 'FIRST' as Catalog, ");
+//    	aql.append(" str(peak,8,2)+' &plusmn; '+str(rms,8,2) as 'Peak flux (mJy)', ");
+//    	aql.append(" major as 'Major axis (arcsec)', ");
+//    	aql.append(" minor as 'Minor axis (arcsec)' ");
+    	aql.append(" SELECT 'FIRST' AS Catalog, ");
+    	aql.append(" peak, rms , ");
+    	aql.append(" major AS Major_axis_arcsec, ");
+    	aql.append(" minor AS Minor_axis_arcsec ");
+    	aql.append(" FROM FIRST WHERE objID="+objID);
 		return aql.toString();
 	}
 
@@ -484,7 +495,7 @@ public class ExplorerQueries {
     public static String ROSAT(String objID) {
     	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'ROSAT' AS Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE OBJID="+objID);
+    	aql.append(" SELECT 'ROSAT' AS Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE OBJID="+objID);
 		return aql.toString();
 	}
 //    public static String RC3 = " SELECT 'RC3' as Catalog, hubble as 'Hubble type', str(m21,5,2)+' &plusmn; '+str(m21err,6,3) as '21 cm magnitude'," 
@@ -492,9 +503,9 @@ public class ExplorerQueries {
     public static String RC3(String objID) {
     	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'RC3' AS Catalog, HUBBLE AS Hubble_type,");
-    	aql = aql.append(" M21, M21ERR, HI AS Neutral_Hydrogen_Index ");
-    	aql = aql.append(" FROM RC3 WHERE objID="+objID);
+    	aql.append(" SELECT 'RC3' AS Catalog, HUBBLE AS Hubble_type,");
+    	aql.append(" M21, M21ERR, HI AS Neutral_Hydrogen_Index ");
+    	aql.append(" FROM RC3 WHERE objID="+objID);
 		return aql.toString();
 	}
     /*public static String WISE = " SELECT 'WISE' as Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' as 'Full WISE data'" 
@@ -504,8 +515,8 @@ public class ExplorerQueries {
     {
     	id = id !=null && id.startsWith("0x")?Long.parseLong(id.substring(2),16)+"":id;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT 'WISE' AS Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' AS Full_WISE_data ");
-    	aql = aql.append(" FROM WISE_xmatch AS x JOIN WISE_allsky AS w ON x.wise_cntr=w.cntr WHERE x.sdss_objid="+id);
+    	aql.append(" SELECT 'WISE' AS Catalog,w.w1mag,w.w2mag,w.w3mag,w.w4mag,'link' AS Full_WISE_data ");
+    	aql.append(" FROM WISE_xmatch AS x JOIN WISE_allsky AS w ON x.wise_cntr=w.cntr WHERE x.sdss_objid="+id);
     	return aql.toString();
     }
            
@@ -513,13 +524,13 @@ public class ExplorerQueries {
 //   old  public static String TWOMASS =" SELECT '2MASS' as Catalog, j as 'J', h as 'H', k as 'K_s', phQual FROM TwoMASS WHERE objID=@objID";
     public static String TWOMASS(String objID) {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
+    	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
 		return aql.toString();
 	}
     public static String wiseLinkCrossID(String objID) {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
-    	aql = aql.append(" WHERE x.sdss_objid="+objID);
+    	aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
+    	aql.append(" WHERE x.sdss_objid="+objID);
     	
 		return aql.toString();
 	}
@@ -536,13 +547,13 @@ public class ExplorerQueries {
     public static String getApogeeBaseQuery()
     {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT a.ra, a.dec, a.apstar_id, a.apogee_id, a.glon, a.glat, a.location_id, a.commiss, a.vhelio_avg, a.vscatter, b.teff, ");
-    	aql = aql.append(" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m, b.param_alpha_m_err, c.j, c.h, c.k, c.j_err, c.h_err,   c.k_err,");
-    	aql = aql.append(" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5");
-    	aql = aql.append(" when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,");
-    	aql = aql.append(" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N,");
-    	aql = aql.append(" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  ");
-    	aql = aql.append(" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ");
+    	aql.append(" SELECT a.ra, a.dec, a.apstar_id, a.apogee_id, a.glon, a.glat, a.location_id, a.commiss, a.vhelio_avg, a.vscatter, b.teff, ");
+    	aql.append(" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m, b.param_alpha_m_err, c.j, c.h, c.k, c.j_err, c.h_err,   c.k_err,");
+    	aql.append(" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5");
+    	aql.append(" when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,");
+    	aql.append(" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N,");
+    	aql.append(" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  ");
+    	aql.append(" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ");
     	return aql.toString();
     }
 
@@ -550,9 +561,9 @@ public class ExplorerQueries {
     public static String apogeevisitsBaseQuery(String id)
     {
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT visit_id, plate,  mjd, fiberid, dateobs, vrel");
-    	aql = aql.append(" FROM apogeeVisit ");
-    	aql = aql.append(" WHERE apogee_id='"+id+"' ORDER BY dateobs");
+    	aql.append(" SELECT visit_id, plate,  mjd, fiberid, dateobs, vrel");
+    	aql.append(" FROM apogeeVisit ");
+    	aql.append(" WHERE apogee_id='"+id+"' ORDER BY dateobs");
     	return aql.toString();
     }
 

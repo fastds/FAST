@@ -264,8 +264,8 @@ public class ExplorerDao {
 	}
 
 	public Map<String, Object> getImaging(String objID) {
-		String aql = ExplorerQueries.getImagingQuery(objID);
-		System.out.println("ExplorerDao.getImaging-->aql:"+aql);
+		String[] aqls = ExplorerQueries.getImagingQuery(objID);
+		System.out.println("ExplorerDao.getImaging-->aql:"+Arrays.toString(aqls));
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -284,48 +284,36 @@ public class ExplorerDao {
                     objID = reader["objID"] is DBNull ? null : Functions.BytesToHex((byte[])reader["objID"]);
                     clean = reader["clean"] is DBNull ? -99999 : (int)reader["clean"]; ;
                     otype = reader["clean"] is DBNull ? "" :(String)reader["otype"];
-
                     ////--- magnitudes
                     u = reader["u"] is DBNull ? -999.99 : (float)reader["u"];
                     g = reader["u"] is DBNull ? -999.99 : (float)reader["g"];
                     r = reader["u"] is DBNull ? -999.99 : (float)reader["r"];
                     i = reader["u"] is DBNull ? -999.99 : (float)reader["i"];
                     z = reader["u"] is DBNull ? -999.99 : (float)reader["z"];
-
                     ////--- mag errors
                     err_u = reader["err_u"] is DBNull ? -999.99 : (float)reader["err_u"];
                     err_g = reader["err_g"] is DBNull ? -999.99 : (float)reader["err_g"];
                     err_r = reader["err_r"] is DBNull ? -999.99 : (float)reader["err_r"];
                     err_i = reader["err_i"] is DBNull ? -999.99 : (float)reader["err_i"];
                     err_z = reader["err_z"] is DBNull ? -999.99 : (float)reader["err_z"];
-
                     ////--- PhotoObj
                     mode = reader["mode"] is DBNull ? " - " : (String)reader["mode"];
-
                     mjdNum = reader["mjdNum"] is DBNull ? -99999 :(int) reader["mjdNum"];
                     if(mjdNum != -99999)
                         mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).ToString("MM/dd/yyyy");
-
                     otherObs = reader["Other observations"] is DBNull ? -99999 : (int)reader["Other observations"];
-
                     parentID = reader["parentID"] is DBNull ? -99999 : (long)reader["parentID"];
-
                     nchild = reader["nChild"] is DBNull ? -99999 : (short)reader["nChild"];
-
                     extinction_r = reader["extinction_r"] is DBNull ? " - " : (String)reader["extinction_r"];
-
                     petrorad_r = reader["petrorad_r"] is DBNull ? " - " : (String)reader["petrorad_r"];
-
                     ////--- PhotoZ, photoZRF
                     photoZ_KD = reader["photoZ_KD"] is DBNull ? " - " : (String)reader["photoZ_KD"];
-
                     //photoZ_RF = reader["photoZ_KD"] is DBNull ? " - " : (String)reader["photoZ_RF"];
-
                     galaxyZoo_Morph = reader["photoZ_KD"] is DBNull ? " - " : (String)reader["galaxyZoo_Morph"];
                 }
 		 * */
 		 try {
-			rs = exQuery.aqlQuery(aql.toString());
+			rs = exQuery.aqlQuery(aqls[0]);
 			if(!rs.isAfterLast())
 			{
 				//photoObjall
@@ -340,57 +328,18 @@ public class ExplorerDao {
                  String objIDFromDatabase = rs.getLong("objID") == 0 ? null : Utilities.longToHex((rs.getLong("objID")));
                  int clean = rs.getInt("clean") == 0 ? -99999 : rs.getInt("clean"); ;
                  String otype = PhotoObjAll.getTypeName(rs.getInt("otype")) == null ? "" :rs.getInt("otype")+"";
-
                  //--- magnitudes
                  float u = (float) (rs.getFloat("u") == 0 ? -999.99 : rs.getFloat("u"));
                  float g = (float) (rs.getFloat("g") == 0 ? -999.99 : rs.getFloat("g"));
                  float r = (float) (rs.getFloat("r") == 0 ? -999.99 : rs.getFloat("r"));
                  float i = (float) (rs.getFloat("i") == 0 ? -999.99 : rs.getFloat("i"));
                  float z = (float) (rs.getFloat("z") == 0 ? -999.99 : rs.getFloat("z"));
-                 
                  ////--- mag errors
-                 float err_u = (float) (rs.getFloat("err_ur") == 0 ? -999.99 : rs.getFloat("err_u"));
+                 float err_u = (float) (rs.getFloat("err_u") == 0 ? -999.99 : rs.getFloat("err_u"));
                  float err_g = (float) (rs.getFloat("err_g") == 0 ? -999.99 : rs.getFloat("err_g"));
                  float err_r = (float) (rs.getFloat("err_r") == 0 ? -999.99 : rs.getFloat("err_r"));
                  float err_i = (float) (rs.getFloat("err_i") == 0 ? -999.99 : rs.getFloat("err_i"));
-                 float  err_z = (float) (rs.getFloat("err_z") == 0 ? -999.99 : rs.getFloat("err_z"));
-
-                 ////--- PhotoObj
-                 String temp = Functions.fPhotoModeN(rs.getByte("mode"));
-                 String mode = temp == null ? " - " : temp;
-                 int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 :(int) rs.getInt("mjdNum");
-                 String mjdDate = null;
-                 /*
-                  
-                 if(mjdNum != -99999)
-                	 mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;* old
-                  */
-                 int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other observations");
-                 long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
-                 short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
-                 String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
-                 extinction_r = extinction_r == null ? " - " : extinction_r;
-                 
-                 String petrorad_r = new DecimalFormat("######.##").format(rs.getFloat("petroRad_r"))+" &plusmn; "+ new DecimalFormat("######.###").format(rs.getFloat("petroRadErr_r"));
-                 petrorad_r =  petrorad_r == null ? " - " : petrorad_r;
-
-                 ////--- PhotoZ, photoZRF
-                 String photoZ_KD = new DecimalFormat("###.###").format(rs.getFloat("z"))+" &plusmn; "+ new DecimalFormat("###.####").format(rs.getFloat("zErr"));
-                 photoZ_KD = photoZ_KD == null ? " - " : photoZ_KD;
-
-                 //photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
-                 int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;
-                 String galaxyZoo_Morph = null;
-                 if(galaxyZoo_Morph_Int == 1)
-                	 galaxyZoo_Morph = "Spiral";
-                 else if(galaxyZoo_Morph_Int ==10)
-                	 galaxyZoo_Morph = "Elliptical";
-                 else if(galaxyZoo_Morph_Int ==100)
-                	 galaxyZoo_Morph = "Uncertain";
-                 else 
-                	 galaxyZoo_Morph = " - ";
-                 galaxyZoo_Morph = galaxyZoo_Morph == null ? " - " : galaxyZoo_Morph;
-                 
+                 float err_z = (float) (rs.getFloat("err_z") == 0 ? -999.99 : rs.getFloat("err_z"));
                  
                  attrs.put("flag", flag);
                  attrs.put("ra", ra);
@@ -415,18 +364,92 @@ public class ExplorerDao {
                  attrs.put("err_r", err_r);
                  attrs.put("err_i", err_i);
                  attrs.put("err_z", err_z);
-                 
-                 attrs.put("mode", mode);
-                 attrs.put("mjdNum", mjdNum);
-                 attrs.put("mjdDate", mjdDate);
-                 attrs.put("Other_observations", otherObs);
-                 attrs.put("parentID", parentID);
-                 attrs.put("nChild", nchild);
-                 attrs.put("extinction_r", extinction_r);
-                 attrs.put("petrorad_r", petrorad_r);
-                 attrs.put("photoZ_KD", photoZ_KD);
-                 attrs.put("galaxyZoo_Morph", galaxyZoo_Morph);
 			}
+			else
+				{	return attrs;	}
+			
+			rs = null;
+			rs = exQuery.aqlQuery(aqls[1]);
+			if(!rs.isAfterLast())
+			{
+				////--- PhotoObj
+                String temp = Functions.fPhotoModeN(rs.getByte("mode"));
+                String mode = temp == null ? " - " : temp;
+                int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 :(int) rs.getInt("mjdNum");
+                String mjdDate = null;
+                /*
+                 
+                if(mjdNum != -99999)
+               	 mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;* old
+                 */
+                int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other observations");
+                long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
+                short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
+                String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
+                extinction_r = extinction_r == null ? " - " : extinction_r;
+                
+                String petrorad_r = new DecimalFormat("######.##").format(rs.getFloat("petroRad_r"))+" &plusmn; "+ new DecimalFormat("######.###").format(rs.getFloat("petroRadErr_r"));
+                petrorad_r =  petrorad_r == null ? " - " : petrorad_r;
+                attrs.put("mode", mode);
+                attrs.put("mjdNum", mjdNum);
+                attrs.put("mjdDate", mjdDate);
+                attrs.put("Other_observations", otherObs);
+                attrs.put("parentID", parentID);
+                attrs.put("nChild", nchild);
+                attrs.put("extinction_r", extinction_r);
+                attrs.put("petrorad_r", petrorad_r);
+			}
+			else
+			{
+				attrs.put("mode", " - ");
+                attrs.put("mjdNum", -99999);
+                attrs.put("mjdDate", null);
+                attrs.put("Other_observations", -99999);
+                attrs.put("parentID", -99999);
+                attrs.put("nChild", -99999);
+                attrs.put("extinction_r", " - ");
+                attrs.put("petrorad_r", " - ");
+			}
+			
+			
+			rs = null;
+			rs = exQuery.aqlQuery(aqls[2]);
+			if(!rs.isAfterLast())
+			{
+				////--- PhotoZ, photoZRF
+                String photoZ_KD = new DecimalFormat("###.###").format(rs.getFloat("z"))+" &plusmn; "+ new DecimalFormat("###.####").format(rs.getFloat("zErr"));
+                
+                attrs.put("photoZ_KD", photoZ_KD);
+			}
+			else
+			{
+				attrs.put("photoZ_KD", " - ");
+			}
+			
+			rs = null;
+			rs = exQuery.aqlQuery(aqls[3]);
+			if(!rs.isAfterLast())
+			{
+				//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
+                int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;
+                String galaxyZoo_Morph = null;
+                if(galaxyZoo_Morph_Int == 1)
+               	 galaxyZoo_Morph = "Spiral";
+                else if(galaxyZoo_Morph_Int ==10)
+               	 galaxyZoo_Morph = "Elliptical";
+                else if(galaxyZoo_Morph_Int ==100)
+               	 galaxyZoo_Morph = "Uncertain";
+                else 
+               	 galaxyZoo_Morph = " - ";
+                
+                attrs.put("galaxyZoo_Morph", galaxyZoo_Morph);
+			}
+			else
+			{
+				attrs.put("galaxyZoo_Morph", " - ");
+			}
+
+                
 		 } catch (SQLException e) {
 			e.printStackTrace();
 		 }
