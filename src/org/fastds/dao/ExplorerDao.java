@@ -3,17 +3,12 @@ package org.fastds.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.fastds.explorehelpers.ExplorerQueries;
-import org.fastds.explorehelpers.ObjectInfo;
 import org.fastds.model.ApogeeVisit;
-import org.fastds.model.HelperFunctions;
-import org.w3c.dom.Attr;
 
 
 import edu.gzu.domain.PhotoObjAll;
@@ -525,6 +520,7 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			while (!rs.isAfterLast())
 			{
+				obj = new ApogeeVisit();
 				obj.setVisit_id(rs.getString("visit_id"));  //??????
 				obj.setPlate(rs.getString("plate"));
 				obj.setMjd(rs.getLong("mjd"));
