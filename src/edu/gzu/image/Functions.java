@@ -608,7 +608,7 @@ public class Functions {
 			else
 			{
 				ExQuery eq = new ExQuery();
-				String aql = "select name from PhotoFlags where value="+mask;
+				String aql = "select name from PhotoFlag where value="+mask;
 				ResultSet rs = null;
 				try {
 					rs = eq.aqlQuery(aql);

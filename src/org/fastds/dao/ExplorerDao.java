@@ -403,7 +403,7 @@ public class ExplorerDao {
 			{
 				attrs.put("mode", " - ");
                 attrs.put("mjdNum", -99999);
-                attrs.put("mjdDate", null);
+                attrs.put("mjdDate", "");
                 attrs.put("Other_observations", -99999);
                 attrs.put("parentID", -99999);
                 attrs.put("nChild", -99999);

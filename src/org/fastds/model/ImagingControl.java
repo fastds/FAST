@@ -98,7 +98,7 @@ public class ImagingControl {
         	
         	if((Integer)attrs.get("mjdNum") != -99999)
         	{
-        		mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
+        		this.mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
 //      old  	mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).toString("MM/dd/yyyy");  
         	}
         	this.flag = (String)attrs.get("flag");
@@ -127,7 +127,7 @@ public class ImagingControl {
             
         	this.mode = (String) attrs.get("mode");
         	this.mjdNum = (Integer) attrs.get("mjdNum");
-        	this.mjdDate = (String) attrs.get("mjdDate" );
+//        	this.mjdDate = (String) attrs.get("mjdDate" );
         	this.otherObs = (Integer)attrs.get("otherObjs");
         	this.parentID = (Long)attrs.get("parentID");
         	this.nchild = (Short)attrs.get("nchild");
