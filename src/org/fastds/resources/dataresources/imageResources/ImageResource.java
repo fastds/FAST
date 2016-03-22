@@ -294,10 +294,8 @@ public class ImageResource {
 			url.append(key + "=" + val + "&");
 		}
 		byte[] buffer = service.getSpecObjById(id);
-		if (buffer == null) {
-		}
 		Map<String, String> errors = new HashMap<String, String>();
-		if (buffer.length <= 0) {
+		if (buffer == null || buffer.length <= 0) {
 			errors.put("noimage", "Image not Found!");
 		}
 		if (errors.size() > 0) {

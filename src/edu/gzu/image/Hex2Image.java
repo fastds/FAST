@@ -61,7 +61,7 @@ public class Hex2Image {
        {
     	   if(hexStr==null||hexStr.trim().isEmpty())
     		   return null;
-    	   hexStr = hexStr.toUpperCase();
+    	   hexStr = hexStr.startsWith("0x")? hexStr.substring(2).toUpperCase():hexStr.toUpperCase();
            byte[] bytes = hexStr.getBytes();
            byte[] dest = new byte[bytes.length/2];
            System.out.println(bytes.length);
