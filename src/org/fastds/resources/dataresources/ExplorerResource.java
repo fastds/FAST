@@ -133,8 +133,7 @@ public class ExplorerResource {
 			e.printStackTrace();
 		}
         
-//		return new Viewable("/tools/summary.jsp", null); 原来的
-		return new Viewable("/tools/test.jsp", null);//测试用
+		return new Viewable("/tools/Summary.jsp", null); 
 	}
 	
 	@GET
