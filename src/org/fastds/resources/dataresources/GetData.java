@@ -29,15 +29,18 @@ import javax.ws.rs.core.MediaType;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.fastds.dao.ExQuery;
 import org.fastds.dbutil.VerifyCode;
+import org.fastds.model.DBColumns;
 import org.fastds.model.ResultOfQuery;
 import org.fastds.model.User;
 import org.fastds.service.JsonService;
+import org.fastds.service.UserQueryService;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 import edu.gzu.utils.PageQueryImpl;
 
 @Path("/v1")
 public class GetData {
+	private UserQueryService service = new UserQueryService();
 	private ExQuery eq;
 	@Context
 	HttpServletRequest request;
@@ -552,5 +555,26 @@ public class GetData {
 			return new Viewable("/querypage", null);
 		}
 		return new Viewable("/querypage", null);
+	}
+	@GET
+	@Path("schema")
+	public Viewable getSchema(@QueryParam("name") String name) {
+		List<String> arrays = service.getArrays();
+		String notFound = null;
+		DBColumns cols = null ;
+		if(name !=null && !name.isEmpty())
+		{
+			cols = service.getColumnsByArrayName(name);
+		}
+		if(cols.getAttrNames()==null || cols.getAttrNames().size()==0)
+		{
+			notFound = "Array "+name+" does not exist!";
+		}
+		if(notFound != null)
+			request.setAttribute("error", notFound);
+		request.setAttribute("arrays", arrays);
+		request.setAttribute("cols", cols);
+		
+		return new Viewable("/Browser.jsp", null);
 	}
 }

@@ -1,8 +1,10 @@
 package org.fastds.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.fastds.dao.UserQueryDao;
+import org.fastds.model.DBColumns;
 import org.fastds.model.User;
 import org.fastds.model.UserQuery;
 
@@ -25,6 +27,14 @@ public class UserQueryService {
 
 	public void delete(UserQuery userQuery) {
 		dao.delete(userQuery.getQueryId());
+	}
+
+	public List<String> getArrays() {
+		return dao.getArrays();
+	}
+
+	public DBColumns getColumnsByArrayName(String name) {
+		return dao.getColumnsByArrayName(name);
 	}
 
 

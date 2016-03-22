@@ -29,6 +29,9 @@
 							<li>
 								<a href="<c:url value='help.html'/>" target="_blank">API</a>
 							</li>
+							<li>
+								<a href="<c:url value='/v1/schema'/>" target="_blank">Schema</a>
+							</li>
 							
 						</ul>
 				  </li>

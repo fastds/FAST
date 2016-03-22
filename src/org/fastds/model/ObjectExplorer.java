@@ -151,7 +151,7 @@ public class ObjectExplorer {
 
             hrefs.Plate = "Plate?&name=Plate&plateID=" + plateID;
 
-            hrefs.Spectrum = "../../get/SpecByID.ashx?ID=" + specID;
+            hrefs.Spectrum = "/v1/image/SpecById/" + specID;
 
             hrefs.SpecFITS = "FitsSpec?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
                 

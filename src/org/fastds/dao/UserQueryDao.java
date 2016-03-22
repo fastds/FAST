@@ -1,11 +1,14 @@
 package org.fastds.dao;
 
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.fastds.dbutil.HibernateUtil;
 import org.fastds.dbutil.UUIDUtil;
+import org.fastds.model.DBColumns;
 import org.fastds.model.UserQuery;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -65,6 +68,46 @@ public class UserQueryDao {
 		session.beginTransaction();
 		session.delete(userQuery);
 		session.getTransaction().commit();
+	}
+	public List<String> getArrays() {
+		StringBuilder aql = new StringBuilder();
+		aql.append("select name from list()");
+		ExQuery ex = new ExQuery();
+		List<String> names = new ArrayList<String>();
+		try {
+			ResultSet rs = ex.aqlQuery(aql.toString());
+			while(!rs.isAfterLast())
+			{
+				names.add(rs.getString("name"));
+				rs.next();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return names;
+	}
+	public DBColumns getColumnsByArrayName(String name) {
+		DBColumns cols = new DBColumns(name);
+		StringBuilder aql = new StringBuilder();
+		aql.append("select name,description from DBColumns where tablename="+name);
+		List<String> names = new ArrayList<String>();
+		List<String> descriptions = new ArrayList<String>();
+		ExQuery ex = new ExQuery();
+		try {
+			ResultSet rs = ex.aqlQuery(aql.toString());
+			while(!rs.isAfterLast())
+			{
+				names.add(rs.getString("name"));
+				descriptions.add(rs.getString("description"));
+				rs.next();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		cols.setAttrNames(names);
+		cols.setDescriptions(descriptions);
+		return cols;
 	}
 	
 }
