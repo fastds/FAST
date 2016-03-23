@@ -3,9 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.DBColumns"  %>
 <%@ page import="java.util.*"  %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Schema Browser</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -82,7 +87,6 @@ individual enumerated fields."
          		</p>
          	</c:otherwise>
          </c:choose>
-			        	
         </div><!--/span9-->
       </div><!-- row -->
         
