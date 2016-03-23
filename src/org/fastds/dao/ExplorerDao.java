@@ -319,7 +319,7 @@ public class ExplorerDao {
                  double dec = rs.getFloat("dec");
                  int run = rs.getShort("run") == 0 ? -9999 : rs.getShort("run");
                  int rerun = rs.getShort("rerun") == 0 ? -9999 : rs.getShort("rerun");
-                 int camcol = (byte) (rs.getByte("camcol") == 0 ? -9999 : rs.getByte("camcol"));
+                 int camcol =  rs.getByte("camcol") == 0 ? -9999 : rs.getByte("camcol");
                  long field = rs.getLong("field") == 0 ? -9999 : rs.getLong("field");
                  String fieldID = rs.getLong("fieldID") == 0 ? " " : Utilities.longToHex(rs.getLong("field"));
                  String objIDFromDatabase = rs.getLong("objID") == 0 ? null : Utilities.longToHex((rs.getLong("objID")));
