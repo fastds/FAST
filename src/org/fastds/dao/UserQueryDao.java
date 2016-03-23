@@ -91,6 +91,7 @@ public class UserQueryDao {
 		DBColumns cols = new DBColumns(name);
 		StringBuilder aql = new StringBuilder();
 		aql.append("select name,description from DBColumns where tablename='"+name+"'");
+		System.out.println("UserQueryDao.getColumnsByArrayName()->aql:"+aql.toString());
 		List<String> names = new ArrayList<String>();
 		List<String> descriptions = new ArrayList<String>();
 		ExQuery ex = new ExQuery();
