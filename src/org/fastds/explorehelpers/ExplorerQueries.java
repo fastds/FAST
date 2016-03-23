@@ -716,9 +716,9 @@ public class ExplorerQueries {
     	+"WHERE specObjID=@specID"  ;
          old */
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append("SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql = aql.append(" FROM SpecObjAll AS s, PlateX AS q WHERE s.plateID=q.plateID ");
-    	aql = aql.append(" AND specObjID="+specObjID);
+    	aql = aql.append(" SELECT s.plateID , s.mjd, s.fiberID, q.plate");
+    	aql = aql.append(" FROM SpecObjAll AS s JOIN PlateX AS q ");
+    	aql = aql.append(" ON s.plateID=q.plateID WHERE specObjID="+specObjID);
     	
     	return aql.toString();
     }
