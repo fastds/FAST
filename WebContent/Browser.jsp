@@ -35,8 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <div class="col-md-9">
          <c:choose>
          	<c:when test="${requestScope.cols ne null }">
-         		<div class="table-responsive col-md-9">
-				   <table class="table">
+				   <table class="table table-striped">
 				      <caption>${cols.arrayName}</caption>
 				      <thead>
 				         <tr>
@@ -64,7 +63,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        
 				      </tbody>
 				   </table>
-				</div>  	
          	</c:when>
          	<c:otherwise>
          		<h2>Schema Browser</h2>
