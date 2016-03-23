@@ -566,14 +566,19 @@ public class GetData {
 		{
 			cols = service.getColumnsByArrayName(name);
 		}
-		if(cols.getAttrNames()==null || cols.getAttrNames().size()==0)
+		if(cols!=null)
 		{
-			notFound = "Array "+name+" does not exist!";
+			if((cols.getAttrNames()==null || cols.getAttrNames().size()==0))
+			{
+				notFound = "Array "+name+" does not exist!";
+			}
 		}
+		
 		if(notFound != null)
 			request.setAttribute("error", notFound);
+		if(cols != null)
+			request.setAttribute("cols", cols);
 		request.setAttribute("arrays", arrays);
-		request.setAttribute("cols", cols);
 		
 		return new Viewable("/Browser.jsp", null);
 	}
