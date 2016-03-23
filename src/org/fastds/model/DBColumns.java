@@ -3,12 +3,12 @@ package org.fastds.model;
 import java.util.List;
 
 public class DBColumns {
-	String tablename ;
+	String arrayName ;
 	List<String> attrNames ;
 	List<String> descriptions;
-	public DBColumns(String tablename)
+	public DBColumns(String arrayName)
 	{
-		this.tablename = tablename;
+		this.arrayName = arrayName;
 	}
 	public List<String> getAttrNames() {
 		return attrNames;
@@ -22,8 +22,8 @@ public class DBColumns {
 	public void setDescriptions(List<String> descriptions) {
 		this.descriptions = descriptions;
 	}
-	public String getTablename() {
-		return tablename;
+	public String getArrayName() {
+		return arrayName;
 	}
 	
 	

@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          	<c:when test="${requestScope.cols ne null }">
          		<div class="table-responsive">
 				   <table class="table">
-				      <caption>${cols.arrayname}</caption>
+				      <caption>${cols.arrayName}</caption>
 				      <thead>
 				         <tr>
 				            <th>name</th>
