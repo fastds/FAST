@@ -23,17 +23,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="reverse">
 <div class="container">
 	<jsp:include page="top.jsp"></jsp:include>
-     <div class="row">
-     <div class=" col-md-3">
-     	<div class="well">
-          	<h4><p>Arrays</p></h4>
-			<ul class="nav nav-pills nav-stacked">
-			   <c:forEach items="${arrays }" var="name">
-			   	<li><a href="<c:url value='/v1/schema?name=${name}'/>">${name}</a></li>
-			   </c:forEach>
-			</ul>
-        </div><!--/well span3-->
-     </div>
+     <div class="row-fluid">
+     <div class="col-md-12">
+	     <div class="well col-md-3">
+	          	<h4><p>Arrays</p></h4>
+				<ul class="nav nav-pills nav-stacked">
+				   <c:forEach items="${arrays }" var="name">
+				   	<li><a href="<c:url value='/v1/schema?name=${name}'/>">${name}</a></li>
+				   </c:forEach>
+				</ul>
+	     </div><!--/well span3-->
         
          <div class="col-md-9">
          <c:choose>
@@ -91,6 +90,7 @@ individual enumerated fields."
          	</c:otherwise>
          </c:choose>
         </div><!--/span9-->
+        </div>
       </div><!-- row -->
         
 </div><!-- container -->
