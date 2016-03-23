@@ -372,7 +372,7 @@ public class ExplorerDao {
 				////--- PhotoObj
                 String temp = Functions.fPhotoModeN(rs.getByte("mode"));
                 String mode = temp == null ? " - " : temp;
-                int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 :(int) rs.getInt("mjdNum");
+                int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 : rs.getInt("mjdNum");
                 String mjdDate = null;
                  
                 if(mjdNum != -99999)
