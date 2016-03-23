@@ -90,7 +90,7 @@ public class UserQueryDao {
 	public DBColumns getColumnsByArrayName(String name) {
 		DBColumns cols = new DBColumns(name);
 		StringBuilder aql = new StringBuilder();
-		aql.append("select name,description from DBColumns where tablename="+name);
+		aql.append("select name,description from DBColumns where tablename='"+name+"'");
 		List<String> names = new ArrayList<String>();
 		List<String> descriptions = new ArrayList<String>();
 		ExQuery ex = new ExQuery();

@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
 	<jsp:include page="top.jsp"></jsp:include>
      <div class="row">
-        <div class="well span3">
+        <div class="well col-md-3">
           	<h4><p>Arrays</p></h4>
 			<ul class="nav nav-pills nav-stacked">
 			   <c:forEach items="${arrays }" var="name">
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   </c:forEach>
 			</ul>
         </div><!--/well span3-->
-         <div class="span9">
+         <div class="col-md-9">
          <c:choose>
          	<c:when test="${requestScope.cols ne null }">
          		<div class="table-responsive">
