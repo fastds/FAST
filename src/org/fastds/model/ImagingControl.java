@@ -105,17 +105,17 @@ public class ImagingControl {
         	this.clean = (Integer) attrs.get("clean");
         	this.otype = (String) attrs.get("otype");
 
-        	this.u = (Double) attrs.get("u");
-        	this.g = (Double) attrs.get("g");
-        	this.r = (Double) attrs.get("r");
-        	this.i = (Double) attrs.get("i");
-        	this.z = (Double) attrs.get("z");
+        	this.u = ((Float) attrs.get("u")).doubleValue();
+        	this.g = ((Float) attrs.get("g")).doubleValue();
+        	this.r = ((Float) attrs.get("r")).doubleValue();
+        	this.i = ((Float) attrs.get("i")).doubleValue();
+        	this.z = ((Float) attrs.get("z")).doubleValue();
             
-        	this.err_u = (Double) attrs.get("err_u");
-        	this.err_g = (Double) attrs.get("err_g");
-        	this.err_r = (Double) attrs.get("err_r");
-        	this.err_i = (Double) attrs.get("err_i");
-        	this.err_z = (Double) attrs.get("err_z");
+        	this.err_u = ((Float) attrs.get("err_u")).doubleValue();
+        	this.err_g = ((Float) attrs.get("err_g")).doubleValue();
+        	this.err_r = ((Float) attrs.get("err_r")).doubleValue();
+        	this.err_i = ((Float) attrs.get("err_i")).doubleValue();
+        	this.err_z = ((Float) attrs.get("err_z")).doubleValue();
             
         	this.mode = (String) attrs.get("mode");
         	this.mjdNum = (Integer) attrs.get("mjdNum");
