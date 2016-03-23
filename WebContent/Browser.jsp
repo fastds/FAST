@@ -8,13 +8,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Schema Browser</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="js/jquery.min.js"></script>
-   	<script src="js/bootstrap.min.js"></script>
-	<script src="js/site.js"></script>
- 	<link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/site.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+ 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/site.js"></script>
 </head>
 <body class="reverse">
 <div class="container">
@@ -89,8 +88,6 @@ individual enumerated fields."
 			        	
         </div><!--/span9-->
       </div><!-- row -->
-        
-       
         
 </div><!-- container -->
 </body>

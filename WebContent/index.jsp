@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE html>
 <html lang="en" class="ie6 ielt7 ielt8 ielt9">
-	<head>
+<head>
 	<base href="<%=basePath%>">
 		<meta charset="utf-8">
 		<title>FASTDB</title>
