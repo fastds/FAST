@@ -23,9 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="reverse">
 <div class="container">
 	<jsp:include page="top.jsp"></jsp:include>
-     <div class="row-fluid">
-     <div class="col-md-12">
-	     <div class="well col-md-3">
+     <div class="row">
+	     <div class="col-md-3">
 	          	<h4><p>Arrays</p></h4>
 				<ul class="nav nav-pills nav-stacked">
 				   <c:forEach items="${arrays }" var="name">
@@ -33,11 +32,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   </c:forEach>
 				</ul>
 	     </div><!--/well span3-->
-        
          <div class="col-md-9">
          <c:choose>
          	<c:when test="${requestScope.cols ne null }">
-         		<div class="table-responsive">
+         		<div class="table-responsive col-md-9">
 				   <table class="table">
 				      <caption>${cols.arrayName}</caption>
 				      <thead>
@@ -90,9 +88,7 @@ individual enumerated fields."
          	</c:otherwise>
          </c:choose>
         </div><!--/span9-->
-        </div>
       </div><!-- row -->
-        
 </div><!-- container -->
 </body>
 </html>
