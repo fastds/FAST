@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <c:choose>
          	<c:when test="${requestScope.cols ne null }">
 				   <table class="table table-striped">
-				      <caption>${cols.arrayName}</caption>
+				      <caption><h4>${cols.arrayName}</h4></caption>
 				      <thead>
 				         <tr>
 				            <th>name</th>

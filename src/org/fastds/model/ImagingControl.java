@@ -1,11 +1,9 @@
 package org.fastds.model;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.service.ExplorerService;
 
 public class ImagingControl {
@@ -95,12 +93,6 @@ public class ImagingControl {
         attrs = explorerService.findImaging(objID);
         if(attrs != null && attrs.size() > 0)
         {
-        	
-        	if((Integer)attrs.get("mjdNum") != -99999)
-        	{
-        		this.mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
-//      old  	mjdDate = HelperFunctions.ConvertFromJulian(mjdNum).toString("MM/dd/yyyy");  
-        	}
         	this.flag = (String)attrs.get("flag");
         	this.ra = (Double) attrs.get("ra");
         	this.dec = (Double) attrs.get("dec");
@@ -127,7 +119,7 @@ public class ImagingControl {
             
         	this.mode = (String) attrs.get("mode");
         	this.mjdNum = (Integer) attrs.get("mjdNum");
-//        	this.mjdDate = (String) attrs.get("mjdDate" );
+        	this.mjdDate = (String) attrs.get("mjdDate" );
         	this.otherObs = (Integer)attrs.get("otherObjs");
         	this.parentID = (Long)attrs.get("parentID");
         	this.nchild = (Short)attrs.get("nchild");
