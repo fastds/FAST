@@ -19,17 +19,14 @@
 <div class="container">
 	<jsp:include page="top.jsp"></jsp:include>
      <div class="row">
-        <div class="span3">
-          <div class="well">
+        <div class="well span3">
           	<h4><p>Arrays</p></h4>
 			<ul class="nav nav-pills nav-stacked">
 			   <c:forEach items="${arrays }" var="name">
 			   	<li><a href="<c:url value='/v1/schema?name=${name}'/>">${name}</a></li>
 			   </c:forEach>
 			</ul>
-          	
-          </div><!--/.well -->
-        </div><!--/span3-->
+        </div><!--/well span3-->
          <div class="span9">
          <c:choose>
          	<c:when test="${requestScope.cols ne null }">
