@@ -317,8 +317,8 @@ public class ExplorerDao {
 				 String flag =  Functions.fPhotoFlagsN(rs.getLong("flags"));
                  double ra =  rs.getFloat("ra");
                  double dec = rs.getFloat("dec");
-                 short run = rs.getShort("run") == 0 ? -9999 : rs.getShort("run");
-                 short rerun = rs.getShort("rerun") == 0 ? -9999 : rs.getShort("rerun");
+                 int run = rs.getShort("run") == 0 ? -9999 : rs.getShort("run");
+                 int rerun = rs.getShort("rerun") == 0 ? -9999 : rs.getShort("rerun");
                  byte camcol = (byte) (rs.getByte("camcol") == 0 ? -9999 : rs.getByte("camcol"));
                  short field = rs.getShort("field") == 0 ? -9999 : rs.getShort("field");
                  String fieldID = rs.getLong("fieldID") == 0 ? " " : Utilities.longToHex(rs.getLong("field"));
