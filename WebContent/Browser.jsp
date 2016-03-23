@@ -14,7 +14,7 @@
    <script src="js/bootstrap.min.js"></script>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 </head>
-<body>
+<body class="reverse">
 <div class="container">
 	<jsp:include page="top.jsp"></jsp:include>
      <div class="row">
