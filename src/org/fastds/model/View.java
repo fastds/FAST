@@ -114,4 +114,8 @@ public class View {
 	public static String getPhotoObj() {
 		return "SELECT * FROM PhotoObjAll WHERE mode=1 OR mode=2";
 	}
+	public static String getPhotoFlags()
+	{
+	    return "SELECT name,value,description FROM DataConstants WHERE field='PhotoFlags' AND name != ''";
+	}
 }

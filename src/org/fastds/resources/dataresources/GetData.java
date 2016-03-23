@@ -558,7 +558,7 @@ public class GetData {
 	}
 	@GET
 	@Path("schema")
-	public Viewable getSchema(@QueryParam("name") String name) {
+	public Viewable getSchema(@QueryParam("name") final String name) {
 		List<String> arrays = service.getArrays();
 		String notFound = null;
 		DBColumns cols = null ;
