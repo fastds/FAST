@@ -262,7 +262,6 @@ public class ExplorerDao {
 
 	public Map<String, Object> getImaging(String objID) {
 		String[] aqls = ExplorerQueries.getImagingQuery(objID);
-		System.out.println("ExplorerDao.getImaging-->aql:"+Arrays.toString(aqls));
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
 		Map<String,Object> attrs = new HashMap<String,Object>();
@@ -311,6 +310,7 @@ public class ExplorerDao {
 		 * */
 		 try {
 			rs = exQuery.aqlQuery(aqls[0]);
+			System.out.println("ExplorerDao.getImaging()->aql[0]:"+aqls[0].toString());
 			if(!rs.isAfterLast())
 			{
 				//photoObjall
@@ -367,6 +367,7 @@ public class ExplorerDao {
 			
 			rs = null;
 			rs = exQuery.aqlQuery(aqls[1]);
+			System.out.println("ExplorerDao.getImaging()->aql[1]:"+aqls[1].toString());
 			if(!rs.isAfterLast())
 			{
 				////--- PhotoObj
@@ -411,6 +412,7 @@ public class ExplorerDao {
 			
 			rs = null;
 			rs = exQuery.aqlQuery(aqls[2]);
+			System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
 			if(!rs.isAfterLast())
 			{
 				////--- PhotoZ, photoZRF
@@ -425,6 +427,7 @@ public class ExplorerDao {
 			
 			rs = null;
 			rs = exQuery.aqlQuery(aqls[3]);
+			System.out.println("ExplorerDao.getImaging()->aql[3]:"+aqls[3].toString());
 			if(!rs.isAfterLast())
 			{
 				//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
