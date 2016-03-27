@@ -118,4 +118,8 @@ public class View {
 	{
 	    return "SELECT name,value,description FROM DataConstants WHERE field='PhotoFlags' AND name != ''";
 	}
+
+	public static String getPrimTarget() {
+		return "SELECT name,value,description FROM DataConstants WHERE field='PrimTarget' AND name != ''";
+	}
 }

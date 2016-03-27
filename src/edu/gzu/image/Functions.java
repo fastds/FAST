@@ -801,7 +801,7 @@ public class Functions {
 			else
 			{
 				ExQuery eq = new ExQuery();
-				String aql = "select name from PrimTarget where value="+mask;
+				String aql = "select name from ("+View.getPrimTarget()+") where value='"+Utilities.longToHex(mask)+"'";
 				ResultSet rs = null;
 				try {
 					rs = eq.aqlQuery(aql);
