@@ -693,7 +693,8 @@ public class ExplorerQueries {
     	 */
     	aqlFromPhotoObjAll.append(" SELECT p.ra, p.dec, p.run, p.rerun, p.camcol, p.field, ");
     	aqlFromPhotoObjAll.append(" p.fieldID, p.objID ");
-    	aqlFromPhotoObjAll.append(" FROM ("+photoTag+") AS p ");
+//    	aqlFromPhotoObjAll.append(" FROM ("+photoTag+") AS p ");old
+    	aqlFromPhotoObjAll.append(" FROM PhotoObjAll AS p ");
     	aqlFromPhotoObjAll.append(" WHERE p.objID="+id);
     	/*
     	 * 第二步：从SpecObjAll中选择出符合要求的属性
@@ -717,9 +718,9 @@ public class ExplorerQueries {
          old */
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll) AS s,  ");
+    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll) AS s JOIN ");
     	aql.append("(SELECT plate,plateID FROM PlateX) AS q");
-    	aql.append(" WHERE s.plateID=q.plateID AND specObjID="+specObjID);
+    	aql.append(" ON s.plateID=q.plateID AND specObjID="+specObjID);
     	
     	return aql.toString();
     }
