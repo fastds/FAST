@@ -373,14 +373,14 @@ public class ExplorerDao {
 				////--- PhotoObj
                 String temp = Functions.fPhotoModeN(rs.getByte("mode"));
                 String mode = temp == null ? " - " : temp;
-                int mjdNum = rs.getInt("mjdNum") == 0 ? -99999 : rs.getInt("mjdNum");
+                int mjdNum =(int) ( rs.getLong("mjdNum") == 0 ? -99999 : rs.getLong("mjdNum"));
                 String mjdDate = null;
                  
                 if(mjdNum != -99999)
                	 	mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
                 else
                 	mjdDate = "";
-                int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other_observations");
+                int otherObs = (int) (rs.getLong("Other_observations") == 0 ? -99999 : rs.getLong("Other_observations"));
                 long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
                 short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
                 String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
