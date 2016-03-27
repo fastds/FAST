@@ -16,6 +16,7 @@ import edu.gzu.image.sphericalhtm.Pair;
 import edu.gzu.image.sphericalhtm.Trixel;
 import edu.gzu.image.sphericallib.Cartesian;
 import edu.gzu.image.sphericallib.Region;
+import edu.gzu.utils.Utilities;
 
 public class Functions {
 	/*
@@ -608,7 +609,8 @@ public class Functions {
 			else
 			{
 				ExQuery eq = new ExQuery();
-				String aql = "select name from ("+View.getPhotoFlags()+") where value="+mask;
+				String aql = "select name from ("+View.getPhotoFlags()+") where value='"+Utilities.longToHex(mask)+"'";
+				
 				ResultSet rs = null;
 				try {
 					rs = eq.aqlQuery(aql);
