@@ -1,6 +1,5 @@
 package org.fastds.model;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
