@@ -121,7 +121,7 @@ public class ImagingControl {
         	this.mjdDate = (String) attrs.get("mjdDate" );
         	this.otherObs = (Integer)attrs.get("Other_observations");
         	this.parentID = (Long)attrs.get("parentID");
-        	this.nchild = (Short)attrs.get("nchild");
+        	this.nchild = (Short)attrs.get("nChild");
         	this.extinction_r = (String)attrs.get("extinction_r");
         	this.petrorad_r = (String)attrs.get("petrorad_r");
         	this.photoZ_KD = (String)attrs.get("photoZ_KD");
