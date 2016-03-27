@@ -380,7 +380,7 @@ public class ExplorerDao {
                	 	mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
                 else
                 	mjdDate = "";
-                int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other observations");
+                int otherObs = rs.getInt("Other_observations") == 0 ? -99999 : rs.getInt("Other_observations");
                 long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
                 short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
                 String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
