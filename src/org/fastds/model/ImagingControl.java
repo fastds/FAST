@@ -119,7 +119,7 @@ public class ImagingControl {
         	this.mode = (String) attrs.get("mode");
         	this.mjdNum = (Integer) attrs.get("mjdNum");
         	this.mjdDate = (String) attrs.get("mjdDate" );
-        	this.otherObs = (Integer)attrs.get("otherObjs");
+        	this.otherObs = (Integer)attrs.get("Other_observations");
         	this.parentID = (Long)attrs.get("parentID");
         	this.nchild = (Short)attrs.get("nchild");
         	this.extinction_r = (String)attrs.get("extinction_r");
