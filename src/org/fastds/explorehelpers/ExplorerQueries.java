@@ -718,7 +718,7 @@ public class ExplorerQueries {
          old */
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll WHERE specObjID="+specObjID+") AS s ");
+    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll WHERE specObjID="+specObjID+") AS s, ");
     	aql.append("(SELECT plate,plateID FROM PlateX) AS q");
     	aql.append(" WHERE s.plateID=q.plateID ");
     	
