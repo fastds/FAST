@@ -469,9 +469,9 @@ public class ExplorerDao {
 	           String colName = rs.getString("name") == null ? "":rs.getString("name");
 	           String colUnit = rs.getString("unit") == null ? "" : rs.getString("unit");
 	           
-	           attrs.put("name", colName);
-	           attrs.put("unit", colUnit);
-	          
+	           attrs.put(colName, colUnit);
+	           
+	           rs.next();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
