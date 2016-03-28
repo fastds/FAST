@@ -132,7 +132,7 @@ public class ExplorerResource {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
+        System.out.println("执行完毕");
 		return new Viewable("/tools/Summary.jsp", null); 
 	}
 	
