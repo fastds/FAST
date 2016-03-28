@@ -148,14 +148,14 @@
 	        	<c:when test="${crossIDCtrl.USNO }">
 		        	<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Proper motion (mas/yr)</span></td>
-		                    <td align='middle' class='h'><span>PM angle (deg E)</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Proper motion (mas/yr)</span></td>
+		                    <td align='center' class='h'><span>PM angle (deg E)</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.usno}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.properMotion}</td>
-		                    <td nowrap align='middle' class='t'><fmt:formatNumber value="${crossIDCtrl.angle}" pattern="#.##" ></fmt:formatNumber></td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.usno}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.properMotion}</td>
+		                    <td nowrap align='center' class='t'><fmt:formatNumber value="${crossIDCtrl.angle}" pattern="#.##" ></fmt:formatNumber></td>
 		                </tr>
 		            </table>
 	        	</c:when>
@@ -169,16 +169,16 @@
 	        	<c:when test="${crossIDCtrl.FIRST }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Peak flux (mJy)</span></td>
-		                    <td align='middle' class='h'><span>Major axis (arcsec)</span></td>
-		                    <td align='middle' class='h'><span>Minor axis (arcsec)</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Peak flux (mJy)</span></td>
+		                    <td align='center' class='h'><span>Major axis (arcsec)</span></td>
+		                    <td align='center' class='h'><span>Minor axis (arcsec)</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.first}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.peakflux}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.major}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.minor}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.first}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.peakflux}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.major}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.minor}</td>
 		                </tr>
 	            	</table>
 	        	</c:when>
@@ -192,18 +192,18 @@
 	        	<c:when test="${crossIDCtrl.ROSAT }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>cps</span></td>
-		                    <td align='middle' class='h'><span>hr1</span></td>
-		                    <td align='middle' class='h'><span>hr2</span></td>
-		                    <td align='middle' class='h'><span>ext</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>cps</span></td>
+		                    <td align='center' class='h'><span>hr1</span></td>
+		                    <td align='center' class='h'><span>hr2</span></td>
+		                    <td align='center' class='h'><span>ext</span></td>
 		                </tr>
 		                <tr>
-		                     <td nowrap align='middle' class='t'>${crossIDCtrl.rosat}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.cps}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr1}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hr2}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.ext}</td>
+		                     <td nowrap align='center' class='t'>${crossIDCtrl.rosat}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.cps}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hr1}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hr2}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.ext}</td>
 		                </tr>
 	            	</table>
 	        	</c:when>
@@ -217,16 +217,16 @@
 	        	<c:when test="crossIDCtrl.RC3">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>Hubble type</span></td>
-		                    <td align='middle' class='h'><span>21 cm magnitude</span></td>
-		                    <td align='middle' class='h'><span>Neutral Hydrogen Index</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>Hubble type</span></td>
+		                    <td align='center' class='h'><span>21 cm magnitude</span></td>
+		                    <td align='center' class='h'><span>Neutral Hydrogen Index</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.rc3}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hubletype}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.magnitude}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.hydrogenIndex}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.rc3}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hubletype}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.magnitude}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.hydrogenIndex}</td>
 		                </tr>
 	           		</table>
 	        	</c:when>
@@ -240,18 +240,18 @@
 	        	<c:when test="crossIDCtrl.2MASS">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>J</span></td>
-		                    <td align='middle' class='h'><span>H</span></td>
-		                    <td align='middle' class='h'><span>K_s</span></td>
-		                    <td align='middle' class='h'><span>phQual</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>J</span></td>
+		                    <td align='center' class='h'><span>H</span></td>
+		                    <td align='center' class='h'><span>K_s</span></td>
+		                    <td align='center' class='h'><span>phQual</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.twomass}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.j}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.h}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.k}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.phQual}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.twomass}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.j}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.h}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.k}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.phQual}</td>
 		                </tr>
 	           		</table>
 	        	</c:when>
@@ -265,20 +265,20 @@
 	        	<c:when test="crossIDCtrl.WISE">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
-		                    <td align='middle' class='h'><span>Catalog</span></td>
-		                    <td align='middle' class='h'><span>w1mag</span></td>
-		                    <td align='middle' class='h'><span>w2mag</span></td>
-		                    <td align='middle' class='h'><span>w3mag</span></td>
-		                    <td align='middle' class='h'><span>w4mag</span></td>
-		                    <td align='middle' class='h'><span>Full WISE data</span></td>
+		                    <td align='center' class='h'><span>Catalog</span></td>
+		                    <td align='center' class='h'><span>w1mag</span></td>
+		                    <td align='center' class='h'><span>w2mag</span></td>
+		                    <td align='center' class='h'><span>w3mag</span></td>
+		                    <td align='center' class='h'><span>w4mag</span></td>
+		                    <td align='center' class='h'><span>Full WISE data</span></td>
 		                </tr>
 		                <tr>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wise}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag1}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag2}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag3}</td>
-		                    <td nowrap align='middle' class='t'>${crossIDCtrl.wmag4}</td>
-		                    <td nowrap align='middle' class='t'><a href=".\DisplayResults.aspx?cmd=${crossIDCtrl.linkQuery}&name=wise">Link</a></td>                   
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wise}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag1}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag2}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag3}</td>
+		                    <td nowrap align='center' class='t'>${crossIDCtrl.wmag4}</td>
+		                    <td nowrap align='center' class='t'><a href=".\DisplayResults.aspx?cmd=${crossIDCtrl.linkQuery}&name=wise">Link</a></td>                   
 		                </tr>
 	           		</table>
 	        	</c:when>

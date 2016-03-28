@@ -240,7 +240,7 @@
 			                <tr align='left' >
 			                    <td  valign='top' class='h'>
 			                        <span title="SDSS flags" >
-			                            <a href='${imagingCtrl.flagsLink}'>Flags <img src=../../images/offsite_black.png /></a>
+			                            <a href='${imagingCtrl.flagsLink}'>Flags <img src="../images/offsite_black.png" /></a>
 			                        </span>
 			                    </td>
 			                    <td valign='top' class='t'>
@@ -519,7 +519,7 @@
 	                    <c:set var="spectrumlink" value="${spectralCtrl.globals.dasUrl+'spectrumDetail?plateid='+spectralCtrl.plate+'&mjd=' +spectralCtrl.mjd+'fiber'+spectralCtrl.fiberid}"></c:set>
 	                    <p><b>
 	                      <a class='content' href="${spectrumlink }"  target='_blank'>
-	                          Interactive spectrum<img src='../../images/new_window_black.png' alt=' (new window)' />
+	                          Interactive spectrum<img src='/../images/new_window_black.png' alt=' (new window)' />
 	                      </a>
 	                    </b></p>
 	                </td>
@@ -530,8 +530,8 @@
 	        <tr>
 	            <c:set var="instrumentLink" value="${spectralCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
 		   	      <td>             
-			            <a href="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }">
-			                <img alt="" src="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }" width="316" height="253" border="0" align="left" />
+			            <a href="<c:url value='/v1/image/SpecById/${ spectralCtrl.specObjID }'/>">
+			                <img alt="" src="<c:url value='/v1/image/SpecById/${ spectralCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
 			            </a>
 	              </td>
 	              <td>                     
