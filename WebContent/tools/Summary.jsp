@@ -146,12 +146,13 @@
 			<div id="metadata">
 			    <table class="content">
 			        <tr>
-			            <td colspan="4">
+			            <td colspan="2">
 			                <h1 id="sdssname">
 			                <%= Utilities.SDSSname(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>
 			                </h1>
 			                <h2 id="othernames">&nbsp;<input type="button" onclick=" findOtherNames(${ra}, ${dec});" value="Look up common name" /></h2>
 			            </td>
+			            <td colspan="2"></td>
 			        </tr>
 			        <tr>
 			            <td>
