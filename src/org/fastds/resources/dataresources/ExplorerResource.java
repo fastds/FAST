@@ -127,11 +127,11 @@ public class ExplorerResource {
         request.setAttribute("crossIDCtrl", crossIDCtrl);
         request.setAttribute("specCtrl", specCtrl);
         
-        try {
-			apogeeCtrl = new ApogeeControl(master);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//        try {    does not exist in DR9
+//			apogeeCtrl = new ApogeeControl(master);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return new Viewable("/tools/Summary.jsp", null); 
 	}
 	

@@ -607,14 +607,14 @@
 	</div>  <!-- end of spectro div -->
 
 </c:if><!-- SpectralControl finished -->
-<!-- apogee 隱藏 -->
+<!-- apogee 隱藏 --><%--
   <c:if test="${not empty requestScope.master.apid}">
 		 <div id="irspec">
         <h3>Infrared Spectra
           <span class="target">Targeted star: ${requestScope.apogeeCtrl.apogee_id}</span>
         </h3>
         <c:choose>
-        	<c:when test="${requestScope.apogeeCtrl.isData == true }">
+        	<c:when test="${requestScope.apogeeCtrl.data}">
         		<table width="800">
 		          <tr>
 		            <td class="h">Instrument</td>
@@ -675,7 +675,7 @@
         
         <h3>Targeting Information</h3>
         <c:choose>
-        	<c:when test="${requestScope.apogeeCtrl.isData }">
+        	<c:when test="${requestScope.apogeeCtrl.data }">
         		<table cellpadding="2" cellspacing="2" border="0" width="800">
 		          <tr>
 		            <td align="center" class="h"><span>2MASS j</span></td>
@@ -732,7 +732,7 @@
         
         <h3>Stellar Parameters</h3>
         <c:choose>
-         	<c:when test="${requestScope.apogeeCtrl.isData }">
+         	<c:when test="${requestScope.apogeeCtrl.data }">
          		<table cellpadding="2" cellspacing="2" border="0" width="800">
 		          <tr>
 		            <td align="center" class="h"><span>Avg v<sub>helio</sub> (km/s)</span></td>
@@ -830,7 +830,7 @@
           </table>                          
         </div>  <!-- end of visits div -->
       </div>  <!-- end of irspec div -->
- </c:if><!-- master.apid not empty   finished -->
+ </c:if><!-- master.apid not empty   finished --> --%>
    </div>              
     </div>
 </form>
