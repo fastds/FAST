@@ -3,7 +3,6 @@ package org.fastds.explorehelpers;
 
 import org.fastds.model.View;
 
-import com.google.common.base.Function;
 
 import edu.gzu.image.Functions;
 
@@ -521,7 +520,6 @@ public class ExplorerQueries {
     }
            
     
-//   old  public static String TWOMASS =" SELECT '2MASS' as Catalog, j as 'J', h as 'H', k as 'K_s', phQual FROM TwoMASS WHERE objID=@objID";
     public static String TWOMASS(String objID) {
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
@@ -557,7 +555,6 @@ public class ExplorerQueries {
     	return aql.toString();
     }
 
-//    public static String APOGEEVISITS_BASE_QUERY="SELECT visit_id, plate,  mjd, fiberid, dateobs, vrel FROM apogeeVisit WHERE apogee_id = @id order by dateobs";
     public static String apogeevisitsBaseQuery(String id)
     {
     	StringBuilder aql = new StringBuilder();
@@ -568,7 +565,6 @@ public class ExplorerQueries {
     }
 
     // Summary.jsp
-
     public static String getObjIDFromPlatefiberMjd(String mjd, String plate,String fiber)
     {
 //    public static String getObjIDFromPlatefiberMjd= " SELECT cast(p.objID as binary(8)) as objID,cast(s.specObjID as binary(8)) as specObjID"
@@ -686,7 +682,6 @@ public class ExplorerQueries {
     {
     	StringBuilder aqlFromPhotoObjAll = new StringBuilder();
     	StringBuilder aqlFromSpecObjAll = new StringBuilder();
-    	String photoTag = View.getPhotoTag();
     	long id = Functions.fObjID(objID);
     	/*
     	 *第一步：先从PhotoObjAll中选择出符合要求的属性

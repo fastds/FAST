@@ -58,7 +58,6 @@ public class SpectralControl {
     private void executeQuery()
     {
 
-        String aql = ExplorerQueries.getSpectroQuery(objID,master.specID.toString());
         Map<String,Object> attrs = null;
         attrs = explorerService.findAttrsFromSpecObjAllAndPlateX(objID,master.specID.toString());
         /*if (reader.HasRows)
