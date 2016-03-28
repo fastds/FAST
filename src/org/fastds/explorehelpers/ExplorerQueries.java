@@ -316,10 +316,17 @@ public class ExplorerQueries {
                          +"str(p_cs_debiased,5,3) 'Spiral probability (debiased)'"
                          +"FROM zooSpec WHERE objid=@objID";
 
-    public static String zooSpec2  = " SELECT str(p_cw,5,3) as 'Clockwise spiral probability', str(p_acw,5,3) as 'Anticlockwise spiral probability',"
-                        +"str(p_edge,5,3) as 'Edge-on spiral probablity', str(p_mg,5,3) as 'Merger system probability'"
-                        +"FROM zooSpec WHERE objid=@objID";                
-
+   public static String getZooSpec2(String objID)
+   {
+//    public static String zooSpec2  = " SELECT str(p_cw,5,3) as 'Clockwise spiral probability', str(p_acw,5,3) as 'Anticlockwise spiral probability',"
+//                        +"str(p_edge,5,3) as 'Edge-on spiral probablity', str(p_mg,5,3) as 'Merger system probability'"
+//                        +"FROM zooSpec WHERE objid=@objID";                
+	   StringBuilder aql = new StringBuilder();
+	   aql.append(" SELECT p_cw as Clockwise_spiral_probability, p_acw as Anticlockwise_spiral_probability,");
+	   aql.append(" p_edge as 'Edgeon_spiral_probablity, p_mg as Merger_system_probability'");
+	   aql.append(" FROM zooSpec WHERE objID="+objID);
+	   return aql.toString();
+   }
     public static  String zooNoSpec  = "SELECT  * FROM  zooNoSpec WHERE objid =@objID";
             
     public static String galaxyZoo3 = "SELECT objid,nvote,p_el,p_cs  FROM zooNoSpec WHERE objid=@objID";            

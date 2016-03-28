@@ -35,7 +35,7 @@ public class GalaxyZoo {
          ResultSet ds = explorerService.runCmd(cmd);
          show.put("showZooSpec", master.showHTable(ds, 600, "PhotoObj"));
          
-         cmd = ExplorerQueries.zooSpec2.replace("@objID", objID);
+         cmd = ExplorerQueries.getZooSpec2(objID);
          ds =explorerService.runCmd(cmd);
          show.put("showZooSpec2",master.showHTable(ds, 600, "PhotoObj"));
          
