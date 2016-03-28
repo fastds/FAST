@@ -502,7 +502,6 @@ public class ExplorerQueries {
 		return aql.toString();
 	}
 
-//    public static String ROSAT = " SELECT 'ROSAT' as Catalog, cps, hr1, hr2, ext FROM ROSAT WHERE objID=@objID";         
     public static String ROSAT(String objID) {
     	objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();

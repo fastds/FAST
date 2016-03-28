@@ -371,8 +371,8 @@ public class ExplorerDao {
 			 
 		 
 				rs = null;
-				rs = exQuery.aqlQuery(aqls[1]);
 				System.out.println("ExplorerDao.getImaging()->aql[1]:"+aqls[1].toString());
+				rs = exQuery.aqlQuery(aqls[1]);
 				if(!rs.isAfterLast())
 				{
 					////--- PhotoObj
@@ -419,8 +419,8 @@ public class ExplorerDao {
 			try{
 				
 				rs = null;
-				rs = exQuery.aqlQuery(aqls[2]);
 				System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
+				rs = exQuery.aqlQuery(aqls[2]);
 				if(!rs.isAfterLast())
 				{
 					////--- PhotoZ, photoZRF
@@ -438,8 +438,8 @@ public class ExplorerDao {
 			try{
 				
 				rs = null;
-				rs = exQuery.aqlQuery(aqls[3]);
 				System.out.println("ExplorerDao.getImaging()->aql[3]:"+aqls[3].toString());
+				rs = exQuery.aqlQuery(aqls[3]);
 				if(!rs.isAfterLast())
 				{
 					//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
