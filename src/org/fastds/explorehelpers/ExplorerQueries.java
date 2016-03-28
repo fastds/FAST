@@ -435,7 +435,7 @@ public class ExplorerQueries {
         	 aqlOne.append(" FROM PhotoObjAll WHERE objID="+objID);
         	 
         	 aqlTwo.append(" SELECT mode , mjd AS mjdNum,  (nDetect-1) AS Other_observations, parentID, nChild, extinction_r, petroRad_r, petroRadErr_r ");
-        	 aqlTwo.append(" FROM PhotoObjAll WHERE mode=1 OR mode=2 AND objID="+objID);
+        	 aqlTwo.append(" FROM PhotoObjAll WHERE (mode=1 OR mode=2) AND objID="+objID);
         	 
         	 aqlThree.append(" SELECT z,zErr FROM Photoz WHERE objID="+objID);
         	 

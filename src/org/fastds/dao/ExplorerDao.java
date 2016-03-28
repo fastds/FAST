@@ -364,52 +364,60 @@ public class ExplorerDao {
 			}
 			else
 				{	return attrs;	}
-			
-			rs = null;
-			rs = exQuery.aqlQuery(aqls[1]);
-			System.out.println("ExplorerDao.getImaging()->aql[1]:"+aqls[1].toString());
-			if(!rs.isAfterLast())
-			{
-				////--- PhotoObj
-                String temp = Functions.fPhotoModeN(rs.getByte("mode"));
-                String mode = temp == null ? " - " : temp;
-                int mjdNum =(int) ( rs.getLong("mjdNum") == 0 ? -99999 : rs.getLong("mjdNum"));
-                String mjdDate = null;
-                 
-                if(mjdNum != -99999)
-               	 	mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
-                else
-                	mjdDate = "";
-                int otherObs = (int) (rs.getLong("Other_observations") == 0 ? -99999 : rs.getLong("Other_observations"));
-                long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
-                short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
-                String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
-                extinction_r = extinction_r == null ? " - " : extinction_r;
-                
-                String petrorad_r = new DecimalFormat("######.##").format(rs.getFloat("petroRad_r"))+" &plusmn; "+ new DecimalFormat("######.###").format(rs.getFloat("petroRadErr_r"));
-                petrorad_r =  petrorad_r == null ? " - " : petrorad_r;
-                attrs.put("mode", mode);
-                attrs.put("mjdNum", mjdNum);
-                attrs.put("mjdDate", mjdDate);
-                attrs.put("Other_observations", otherObs);
-                attrs.put("parentID", parentID);
-                attrs.put("nChild", nchild);
-                attrs.put("extinction_r", extinction_r);
-                attrs.put("petrorad_r", petrorad_r);
-			}
-			else
-			{
-				attrs.put("mode", " - ");
-                attrs.put("mjdNum", -99999);
-                attrs.put("mjdDate", "");
-                attrs.put("Other_observations", -99999);
-                attrs.put("parentID", -99999);
-                attrs.put("nChild", -99999);
-                attrs.put("extinction_r", " - ");
-                attrs.put("petrorad_r", " - ");
-			}
-			
-			
+		 } catch (SQLException e) {
+				e.printStackTrace();
+			 }
+		 try{
+			 
+		 
+				rs = null;
+				rs = exQuery.aqlQuery(aqls[1]);
+				System.out.println("ExplorerDao.getImaging()->aql[1]:"+aqls[1].toString());
+				if(!rs.isAfterLast())
+				{
+					////--- PhotoObj
+	                String temp = Functions.fPhotoModeN(rs.getByte("mode"));
+	                String mode = temp == null ? " - " : temp;
+	                int mjdNum =(int) ( rs.getLong("mjdNum") == 0 ? -99999 : rs.getLong("mjdNum"));
+	                String mjdDate = null;
+	                 
+	                if(mjdNum != -99999)
+	               	 	mjdDate = new SimpleDateFormat("MM/dd/yyyy").format(HelperFunctions.ConvertFromJulian(mjdNum).getTime()) ;
+	                else
+	                	mjdDate = "";
+	                int otherObs = (int) (rs.getLong("Other_observations") == 0 ? -99999 : rs.getLong("Other_observations"));
+	                long parentID = rs.getLong("parentID") == 0 ? -99999 : rs.getLong("parentID");
+	                short nchild = (short) (rs.getShort("nChild") == 0 ? -99999 : rs.getShort("nChild"));
+	                String extinction_r = new DecimalFormat("####.##").format(rs.getFloat("extinction_r")) ;
+	                extinction_r = extinction_r == null ? " - " : extinction_r;
+	                
+	                String petrorad_r = new DecimalFormat("######.##").format(rs.getFloat("petroRad_r"))+" &plusmn; "+ new DecimalFormat("######.###").format(rs.getFloat("petroRadErr_r"));
+	                petrorad_r =  petrorad_r == null ? " - " : petrorad_r;
+	                attrs.put("mode", mode);
+	                attrs.put("mjdNum", mjdNum);
+	                attrs.put("mjdDate", mjdDate);
+	                attrs.put("Other_observations", otherObs);
+	                attrs.put("parentID", parentID);
+	                attrs.put("nChild", nchild);
+	                attrs.put("extinction_r", extinction_r);
+	                attrs.put("petrorad_r", petrorad_r);
+				}
+				else
+				{
+					attrs.put("mode", " - ");
+	                attrs.put("mjdNum", -99999);
+	                attrs.put("mjdDate", "");
+	                attrs.put("Other_observations", -99999);
+	                attrs.put("parentID", -99999);
+	                attrs.put("nChild", -99999);
+	                attrs.put("extinction_r", " - ");
+	                attrs.put("petrorad_r", " - ");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			 }
+			try{
+				
 			rs = null;
 			rs = exQuery.aqlQuery(aqls[2]);
 			System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
@@ -450,9 +458,9 @@ public class ExplorerDao {
 			}
 
                 
-		 } catch (SQLException e) {
-			e.printStackTrace();
-		 }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			 }
 		return attrs;
 	}
 
