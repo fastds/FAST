@@ -1,10 +1,15 @@
 package org.fastds.explorehelpers;
 
 
-import org.fastds.model.View;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.fastds.model.View;
+import org.fastds.service.ExplorerService;
 
 import edu.gzu.image.Functions;
+import edu.gzu.utils.Utilities;
 
 public class ExplorerQueries {
 	 ///Left Side panel of the Explore Page
@@ -118,7 +123,8 @@ public class ExplorerQueries {
     	return aql.toString();
     }
     
-    public static String AllSpec2(String objID)
+
+	public static String AllSpec2(String objID)
     {
 //    public static String AllSpec2  = "SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber, str(t.ra,10,5) as ra, str(t.dec,10,5) as dec," 
 //                        +"str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec,  s.sciencePrimary," 
@@ -309,9 +315,13 @@ public class ExplorerQueries {
     	return aql.toString();
     }
     //GalaxyZooQueries
-    public static  String zooSpec ="SELECT * FROM zooSpec WHERE objid=@objID";
-        
-
+    public static String getZooSpec(String objID)
+    {
+    	StringBuilder aql = new StringBuilder();
+    	aql.append("SELECT * FROM zooSpec WHERE objid="+objID);
+    	return aql.toString();
+    }
+    
     public static String zooSpec1 = "SELECT objid,nvote as 'Votes',str(p_el_debiased,5,3) 'Elliptical proabability (debiased)',"
                          +"str(p_cs_debiased,5,3) 'Spiral probability (debiased)'"
                          +"FROM zooSpec WHERE objid=@objID";

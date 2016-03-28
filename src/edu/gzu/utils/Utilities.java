@@ -1,6 +1,13 @@
 package edu.gzu.utils;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 
@@ -406,5 +413,66 @@ public class Utilities {
         double ss = Math.floor(6000.0 * (qq - mm)) / 100.0;
         return (sign + pad(dd) + ":" + pad(mm) + ":" + pad(Double.parseDouble(new DecimalFormat("#.00").format(ss))));
     }
+    /**
+     * Map<0,>:储存属性名称集合
+     * Map<1..n,List<>>:储存1-n各个行所有属性值集
+     * @param rs 结果集
+     * @return 返回一个Map
+     */
+	public static Map<Integer, List<Object>> resultSet2Map(ResultSet rs) {
+		ResultSetMetaData meta = null;
+		Map<Integer, List<Object>> res = new HashMap<Integer,List<Object>>();
+		List<Object> values = null;
+		int num = 0;
+		try {
+			if (rs!=null && !rs.isAfterLast())
+			{
+				meta = rs.getMetaData();
+				int colCount =  meta.getColumnCount();
+				/*把属性名存储如Map<0,List<>>中*/
+			    for (int k = 1; k <= colCount; k++)
+			    {
+			    	values = new ArrayList<Object>();
+			    	values.add(meta.getCatalogName(k));
+			    }
+			    res.put(num++,values);
+			    values.clear();
+			    while (!rs.isAfterLast())
+			    {
+
+			        for (int k = 1; k <= colCount; k++)
+			        {
+
+			            // think something else if possible for this
+		                if ("bool".endsWith(meta.getColumnTypeName(k))) {
+		                	values.add(rs.getBoolean(k));
+						} else if ("double".endsWith(meta.getColumnTypeName(k))) {
+							values.add(rs.getBigDecimal(k));
+						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+							String str = rs.getString(k);
+							if(str.contains("<"))
+								str = str.replace("<", "&lt;");
+							if(str.contains(">"))
+								str = str.replace(">","&gt;");
+							values.add(str);
+							
+						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+							values.add(rs.getTime(k));
+						} else {
+							values.add(rs.getLong(k));
+						}
+			        }
+			        res.put(num++,values);
+				    values.clear();
+			    }
+			}
+			else {
+			    return res;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 }

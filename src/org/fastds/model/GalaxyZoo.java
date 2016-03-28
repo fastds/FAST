@@ -2,10 +2,13 @@ package org.fastds.model;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.service.ExplorerService;
+
+import edu.gzu.utils.Utilities;
 
 public class GalaxyZoo {
 	protected String objID;
@@ -26,48 +29,91 @@ public class GalaxyZoo {
 //        objID = Request.QueryString["id"];
         this.master = master;
     }
+//    public void executeQuery()
+//    {
+//    	 String explore = "DisplayResults?id=" + objID + "&cmd=";
+//         Map<Integer, List<Object>> cmd =ExplorerQueries.getZooSpec(objID);
+//         
+//         zooSpec = explore+cmd+"&name=zooSpec&id="+objID;
+//         ResultSet ds = explorerService.runCmd(cmd);
+//         show.put("showZooSpec", master.showHTable(ds, 600, "PhotoObj"));
+//         
+//         cmd = ExplorerQueries.getZooSpec2(objID);
+//         ds =explorerService.runCmd(cmd);
+//         show.put("showZooSpec2",master.showHTable(ds, 600, "PhotoObj"));
+//         
+//         // No spec
+//         cmd = ExplorerQueries.zooNoSpec.replace("@objID", objID);
+//         zooNoSpec = explore+cmd+"&name=zooNoSpec&id="+objID;
+//         
+//         ds = explorerService.runCmd(cmd);
+//         show.put("showZooNoSpec", master.showHTable(ds, 600, "PhotoObj"));
+//         
+//         // confidence
+//         cmd = ExplorerQueries.zooConfidence.replace("@objID", objID);
+//         zooConfidence = explore+cmd+"&name=zooConfidence";
+//         cmd = ExplorerQueries.zooConfidence2.replace("@objID", objID);
+//         ds = explorerService.runCmd(cmd);
+//         show.put("showZooConfidence2", master.showHTable(ds, 600, "PhotoObj"));  
+//
+//         //zooMirrorBias
+//         cmd = ExplorerQueries.zooMirrorBias.replace("@objID", objID);
+//         zooMirrorBias = explore+cmd+"&name=zooMirrorBias";
+//         
+//         cmd = ExplorerQueries.zooMirrorBias2.replace("@objID", objID);
+//         ds = explorerService.runCmd(cmd);  
+//         show.put("showZooMirrorBias2", master.showHTable(ds, 600, "PhotoObj"));
+//
+//         //zooMonochromeBias
+//         cmd = ExplorerQueries.zooMonochromeBias.replace("@objID", objID);
+//         zooMonochromeBias =  explore+cmd+"&name=zooMonochromeBias";
+//         
+//         cmd = ExplorerQueries.zooMonochromeBias2.replace("@objID", objID);
+//         ds=explorerService.runCmd(cmd);    //  ????源码中这句话是注释掉的
+//         show.put("showZooMonochromeBias2", master.showHTable(ds, 600, "PhotoObj"));
+//    }
+//    
     public void executeQuery()
     {
     	 String explore = "DisplayResults?id=" + objID + "&cmd=";
-         String cmd =ExplorerQueries.zooSpec.replace("@objID",objID);
-         
+         String cmd =ExplorerQueries.getZooSpec(objID);
          zooSpec = explore+cmd+"&name=zooSpec&id="+objID;
-         ResultSet ds = explorerService.runCmd(cmd);
-         show.put("showZooSpec", master.showHTable(ds, 600, "PhotoObj"));
+         show.put("showZooSpec", master.showHTable(
+        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));
          
          cmd = ExplorerQueries.getZooSpec2(objID);
-         ds =explorerService.runCmd(cmd);
-         show.put("showZooSpec2",master.showHTable(ds, 600, "PhotoObj"));
+         show.put("showZooSpec2",master.showHTable(
+        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));
          
          // No spec
          cmd = ExplorerQueries.zooNoSpec.replace("@objID", objID);
          zooNoSpec = explore+cmd+"&name=zooNoSpec&id="+objID;
-         
-         ds = explorerService.runCmd(cmd);
-         show.put("showZooNoSpec", master.showHTable(ds, 600, "PhotoObj"));
+         show.put("showZooNoSpec", master.showHTable(
+        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));
          
          // confidence
          cmd = ExplorerQueries.zooConfidence.replace("@objID", objID);
          zooConfidence = explore+cmd+"&name=zooConfidence";
          cmd = ExplorerQueries.zooConfidence2.replace("@objID", objID);
-         ds = explorerService.runCmd(cmd);
-         show.put("showZooConfidence2", master.showHTable(ds, 600, "PhotoObj"));  
+         show.put("showZooConfidence2", master.showHTable(
+        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));  
 
          //zooMirrorBias
          cmd = ExplorerQueries.zooMirrorBias.replace("@objID", objID);
          zooMirrorBias = explore+cmd+"&name=zooMirrorBias";
          
          cmd = ExplorerQueries.zooMirrorBias2.replace("@objID", objID);
-         ds = explorerService.runCmd(cmd);  
-         show.put("showZooMirrorBias2", master.showHTable(ds, 600, "PhotoObj"));
+         show.put("showZooMirrorBias2", master.showHTable(
+        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));
 
          //zooMonochromeBias
          cmd = ExplorerQueries.zooMonochromeBias.replace("@objID", objID);
          zooMonochromeBias =  explore+cmd+"&name=zooMonochromeBias";
          
          cmd = ExplorerQueries.zooMonochromeBias2.replace("@objID", objID);
-         ds=explorerService.runCmd(cmd);    //  ????源码中这句话是注释掉的
-         show.put("showZooMonochromeBias2", master.showHTable(ds, 600, "PhotoObj"));
+//         ds=explorerService.runCmd(cmd);    //  ????源码中这句话是注释掉的
+//         show.put("showZooMonochromeBias2", master.showHTable(   解开注释?
+//        		 Utilities.resultSet2Map(explorerService.runCmd(cmd)), 600, "PhotoObj"));
     }
     
 	public Map<String, String> getShow() {
