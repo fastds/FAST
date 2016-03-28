@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.AllSpec" %>
 <%@ page import="org.fastds.model.ObjectExplorer" %>
+<%@ page import="edu.gzu.utils.Utilities" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -154,10 +155,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <p class="content">The table below shows all spectra that were measured for this object.</p>        
 		       <h3>All Spectra of this Object</h3>
 		
-			<%=((ObjectExplorer)request.getAttribute("master")).showHTable(((AllSpec)request.getAttribute("allSpec")).getDs_spec1(), 720,"AllSpectra")%>
+			<%=((ObjectExplorer)request.getAttribute("master")).showHTable(Utilities.resultSet2Map(((AllSpec)request.getAttribute("allSpec"))).getDs_spec1()), 720,"AllSpectra")%>
 			    <h3>Flux-Matched Spectra of this Object</h3>
 			
-			<%=((ObjectExplorer)request.getAttribute("master")).showHTable(((AllSpec)request.getAttribute("allSpec")).getDs_spec2(), 720,"AllSpectra")%>
+			<%=((ObjectExplorer)request.getAttribute("master")).showHTable(Utilities.resultSet2Map(((AllSpec)request.getAttribute("allSpec")).getDs_spec2()), 720,"AllSpectra")%>
 			</td></tr>
 		</table>
 		</div>

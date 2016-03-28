@@ -1,15 +1,10 @@
 package org.fastds.explorehelpers;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.fastds.model.View;
-import org.fastds.service.ExplorerService;
 
 import edu.gzu.image.Functions;
-import edu.gzu.utils.Utilities;
 
 public class ExplorerQueries {
 	 ///Left Side panel of the Explore Page

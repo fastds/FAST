@@ -177,7 +177,6 @@
 			                    <tr>
 			                        <td align="center" class="t">
 			                            <script type="text/javascript">
-			                            alert("${metaDataCtrl.ra}");
 			                                var thera = new Number("${metaDataCtrl.ra}");
 			                                var thedec = new Number("${metaDataCtrl.dec}");
 			                                document.write(thera.toFixed(5) + ', ' + thedec.toFixed(5));
