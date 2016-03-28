@@ -111,10 +111,10 @@ public class ExplorerQueries {
 //                        +"WHERE t.objid=@objID  and s.bestobjid=t.objid  order by scienceprimary desc, plate, MJD, fiber";
     	StringBuilder aql = new StringBuilder();
     	aql.append("SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber,");
-    	aql.append("str(t.ra,10,5) as ra, str(t.dec,10,5) as dec, str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec, s.sciencePrimary,");
+    	aql.append(" t.ra, t.dec, s.ra as specRa, s.dec as specDec, s.sciencePrimary,");
     	aql.append("str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class ");
-    	aql.append("FROM SpecObjAll s, photoobjall t");
-    	aql.append("WHERE t.objid="+objID+" and s.bestobjid=t.objid  order by scienceprimary desc, plate, MJD, fiber");
+    	aql.append("FROM SpecObjAll AS s, PhotoObjAll AS t");
+    	aql.append("WHERE t.objID="+objID+" and s.bestObjID=t.objID  ORDER BY sciencePrimary desc, plate, MJD, fiber");
     	return aql.toString();
     }
     
@@ -125,14 +125,14 @@ public class ExplorerQueries {
 //                        +"str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class" 
 //                        +"FROM SpecObjAll s, photoobjall t" 
 //                        +"WHERE t.objid=@objID  and s.fluxobjid=t.objid order by  plate, MJD, fiber," 
-//                        +"scienceprimary desc, distanceArcMin asc";                
+//                        +"scienceprimary desc, distanceArcMin asc";     
     	StringBuilder aql = new StringBuilder();
     	aql.append("SELECT s.specObjID, s.plate as plate, s.mjd as MJD, s.fiberID as fiber, str(t.ra,10,5) as ra, str(t.dec,10,5) as dec,");
-    	aql.append("str(s.ra,10,5) as specRa, str(s.dec,10,5) as specDec,  s.sciencePrimary,");
+    	aql.append("s.ra as specRa, s.dec as specDec,  s.sciencePrimary,");
     	aql.append("str(dbo.fDistanceArcMinEq(t.ra,t.dec,s.ra,s.dec),10,8) as distanceArcMin, s.class as class");
-    	aql.append("FROM SpecObjAll s, photoobjall t" );
-    	aql.append("WHERE t.objid="+objID+"  and s.fluxobjid=t.objid order by  plate, MJD, fiber,");
-    	aql.append("scienceprimary desc, distanceArcMin asc");
+    	aql.append("FROM SpecObjAll AS s, PhotoObjAll AS t" );
+    	aql.append("WHERE t.objID="+objID+"  and s.fluxObjID=t.objID ORDER BY  plate, MJD, fiber,");
+    	aql.append("sciencePrimary desc, distanceArcMin asc");
     	return aql.toString();
     }
     ///Matches Queries   注意函数内容
@@ -655,14 +655,14 @@ public class ExplorerQueries {
 //    	+" WHERE s.specObjID= @sid";
     	  
     	  StringBuilder aql = new StringBuilder();
-    	  aql = aql.append(" SELECT p.ra, p.dec,");
-    	  aql = aql.append(" cast(p.fieldID as binary(8)) AS fieldID,");
-    	  aql = aql.append(" cast(s.specObjID as binary(8)) AS specObjID,");
-    	  aql = aql.append(" cast(p.objID as binary(8)) AS objID,");
-    	  aql = aql.append(" cast(s.plateID as binary(8)) AS plateID, s.mjd, s.fiberID, q.plate");
-    	  aql = aql.append(" FROM SpecObjAll s JOIN PhotoTag p ON s.bestobjID=p.objid JOIN PlateX q ON s.plateID=q.plateID");
-    	  aql = aql.append(" WHERE s.specObjID="+sid);
-    	  return null;
+    	  aql.append(" SELECT p.ra, p.dec,");
+    	  aql.append(" cast(p.fieldID as binary(8)) AS fieldID,");
+    	  aql.append(" cast(s.specObjID as binary(8)) AS specObjID,");
+    	  aql.append(" cast(p.objID as binary(8)) AS objID,");
+    	  aql.append(" cast(s.plateID as binary(8)) AS plateID, s.mjd, s.fiberID, q.plate");
+    	  aql.append(" FROM SpecObjAll s JOIN PhotoTag p ON s.bestobjID=p.objid JOIN PlateX q ON s.plateID=q.plateID");
+    	  aql.append(" WHERE s.specObjID="+sid);
+    	  return aql.toString();
       }
 
       /**

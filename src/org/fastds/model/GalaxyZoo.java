@@ -28,7 +28,7 @@ public class GalaxyZoo {
     }
     public void executeQuery()
     {
-    	 String explore = "DisplayResults.aspx?id=" + objID + "&cmd=";
+    	 String explore = "DisplayResults?id=" + objID + "&cmd=";
          String cmd =ExplorerQueries.zooSpec.replace("@objID",objID);
          
          zooSpec = explore+cmd+"&name=zooSpec&id="+objID;

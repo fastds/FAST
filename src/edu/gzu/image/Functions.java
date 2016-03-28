@@ -755,6 +755,10 @@ public class Functions {
 	{
 		return null;
 	}
+	public static String fHMSbase(double ra,double dec)
+	{
+		return null;
+	}
 	/**
 	 * ---------------------------------------------------
 	 * --/H Returns the expanded PrimTarget corresponding to the flag value as a string
