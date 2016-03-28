@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </form>
 <script language="JavaScript" type="text/javascript" src="../js/wz_tooltip.js"></script>
 
-<iframe id="test" name='test' width ="0" height="0" scrolling="no"  src="blank.html"/>
+<iframe id="test" name='test' width ="0" height="0" scrolling="no"  src="/tools/blank.html"/>
  	
 </body>
 </html>

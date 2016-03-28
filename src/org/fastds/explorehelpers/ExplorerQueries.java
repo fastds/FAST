@@ -470,7 +470,7 @@ public class ExplorerQueries {
         	 aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
         	 aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
         	 aql.append(" JOIN (SELECT bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
-        	 aql.append(" GROUP BY bestObjID) x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
+        	 aql.append(" GROUP BY bestObjID) AS x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
         	 
      		return aql.toString();
      	}
