@@ -379,7 +379,7 @@
 	        	</c:otherwise>
 	        </c:choose>
 	        <c:choose>
-	        	<c:when test="${crossIDCtrl.isFIRST }">
+	        	<c:when test="${crossIDCtrl.FIRST }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
 		                    <td align='center' class='h'><span>Catalog</span></td>
@@ -402,7 +402,7 @@
 	        	</c:otherwise>
 	        </c:choose>
 	        <c:choose>
-	        	<c:when test="${crossIDCtrl.isROSAT }">
+	        	<c:when test="${crossIDCtrl.ROSAT }">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
 		                    <td align='center' class='h'><span>Catalog</span></td>
@@ -475,7 +475,7 @@
 	        	</c:otherwise>
 	        </c:choose>
 	        <c:choose>
-	        	<c:when test="crossIDCtrl.isWISE">
+	        	<c:when test="${crossIDCtrl.WISE}">
 	        		<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
 		                    <td align='center' class='h'><span>Catalog</span></td>
