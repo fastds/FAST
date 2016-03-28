@@ -63,7 +63,7 @@ public class ImagingControl {
     
     public void load(ObjectExplorer master)
     {
-//        globals = (Globals)Application[Globals.PROPERTY_NAME];         old     
+        globals = master.globals;   
 //        master  = (ObjectExplorer)Page.Master;   old 
 
         try
@@ -76,7 +76,7 @@ public class ImagingControl {
             objID = null;
         }
 //        sdssUrl = globals.SdssUrl;     old
-        flagsLink = sdssUrl + "algorithms/photo_flags_recommend.php";
+        flagsLink = sdssUrl + "/algorithms/photo_flags_recommend.php";
 
         if (objID != null && !objID.equals(""))
         {

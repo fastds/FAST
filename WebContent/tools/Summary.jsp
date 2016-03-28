@@ -256,7 +256,7 @@
 			        <td style="vertical-align:top">
 			             <c:set var="link" value="javascript:showNavi(' + ${imagingCtrl.ra} + ',' + ${imagingCtrl.dec} + ',' + 0.2 + ');"></c:set>
 			             <a href="${pageScope.link}">
-			                 <img alt="" src="${imagingCtrl.globals.jpegUrl}?ra=${imagingCtrl.ra }&dec=${imagingCtrl.dec }&scale=0.2&width=200&height=200&opt=G" border="0" width="200" height="200" />
+			                 <img alt="" src="<c:url value='/v1/image/Jpeg?ra=${imagingCtrl.ra }&dec=${imagingCtrl.dec }&scale=0.2&width=200&height=200&opt=G'/>" border="0" width="200" height="200" />
 			             </a>
 			         </td>
 			        <td >
@@ -518,7 +518,7 @@
 	                    <c:set var="spectrumlink" value="${spectralCtrl.globals.dasUrl+'spectrumDetail?plateid='+spectralCtrl.plate+'&mjd=' +spectralCtrl.mjd+'fiber'+spectralCtrl.fiberid}"></c:set>
 	                    <p><b>
 	                      <a class='content' href="${spectrumlink }"  target='_blank'>
-	                          Interactive spectrum<img src='/../images/new_window_black.png' alt=' (new window)' />
+	                          Interactive spectrum<img src='../images/new_window_black.png' alt=' (new window)' />
 	                      </a>
 	                    </b></p>
 	                </td>
