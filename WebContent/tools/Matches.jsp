@@ -141,12 +141,12 @@
 		 astronomical object is assigned a thingID, and each time that "thing" is observed (detected 
 		 in SDSS imaging), it assigned a separate objID.</p>
 		 <p class="content">Information about each astronomical "thing" is stored in the 
-		 <a href="../../help/browser/browser.aspx?cmd=description+thingIndex+U" class='content'>thingIndex</a> 
+		 <a href="<c:url value='/v1/schema?name=thingIndex'/>?" class='content'>thingIndex</a> 
 		 table; thingIndex is a thin coupling table designed only to connect repeat observations. 
 		 Information about each individual observation (detection) is in the 
-		 <a href="../../help/browser/browser.aspx?cmd=description+photoObjAll+U" class='content'>photoObjAll</a> table. (Note that 
-		 <a href="../../help/browser/browser.aspx?cmd=description+photoObj+U" class='content'>photoObj</a> contains only the primary [mode=1] and secondary [mode=2] observations of each "thing.") 
-		 The <a href="../../help/browser/browser.aspx?cmd=description+detectionIndex+U" class='content'>detectionIndex</a> table connects each objID to the thingID it corresponds with.</p>
+		 <a href="<c:url value='/v1/schema?name=PhotoObjAll'/>" class='content'>photoObjAll</a> table. (Note that 
+		 <a href="<c:url value='/v1/schema?name=PhotoObj'/>" class='content'>photoObj</a> contains only the primary [mode=1] and secondary [mode=2] observations of each "thing.") 
+		 The <a href="<c:url value='/v1/schema?name=detectionIndex'/>" class='content'>detectionIndex</a> table connects each objID to the thingID it corresponds with.</p>
 		
 		 <h3>This detected object and its associated "Thing" (Primary observation)</h3>
 		 </td></tr>
