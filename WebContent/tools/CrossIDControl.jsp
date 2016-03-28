@@ -145,7 +145,7 @@
 	    <tr>
 	        <td>
 	        <c:choose>
-	        	<c:when test="${crossIDCtrl.isUSNO }">
+	        	<c:when test="${crossIDCtrl.USNO }">
 		        	<table cellpadding=2 cellspacing=2 border=0 width=620>
 		                <tr>
 		                    <td align='middle' class='h'><span>Catalog</span></td>
