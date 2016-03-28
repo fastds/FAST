@@ -418,49 +418,53 @@ public class ExplorerDao {
 			 }
 			try{
 				
-			rs = null;
-			rs = exQuery.aqlQuery(aqls[2]);
-			System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
-			if(!rs.isAfterLast())
-			{
-				////--- PhotoZ, photoZRF
-                String photoZ_KD = new DecimalFormat("###.###").format(rs.getFloat("z"))+" &plusmn; "+ new DecimalFormat("###.####").format(rs.getFloat("zErr"));
-                
-                attrs.put("photoZ_KD", photoZ_KD);
-			}
-			else
-			{
-				attrs.put("photoZ_KD", " - ");
-			}
-			
-			rs = null;
-			rs = exQuery.aqlQuery(aqls[3]);
-			System.out.println("ExplorerDao.getImaging()->aql[3]:"+aqls[3].toString());
-			if(!rs.isAfterLast())
-			{
-				//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
-                int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;
-                String galaxyZoo_Morph = null;
-                if(galaxyZoo_Morph_Int == 1)
-               	 galaxyZoo_Morph = "Spiral";
-                else if(galaxyZoo_Morph_Int ==10)
-               	 galaxyZoo_Morph = "Elliptical";
-                else if(galaxyZoo_Morph_Int ==100)
-               	 galaxyZoo_Morph = "Uncertain";
-                else 
-               	 galaxyZoo_Morph = " - ";
-                
-                attrs.put("galaxyZoo_Morph", galaxyZoo_Morph);
-			}
-			else
-			{
-				attrs.put("galaxyZoo_Morph", " - ");
-			}
-
-                
+				rs = null;
+				rs = exQuery.aqlQuery(aqls[2]);
+				System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
+				if(!rs.isAfterLast())
+				{
+					////--- PhotoZ, photoZRF
+	                String photoZ_KD = new DecimalFormat("###.###").format(rs.getFloat("z"))+" &plusmn; "+ new DecimalFormat("###.####").format(rs.getFloat("zErr"));
+	                
+	                attrs.put("photoZ_KD", photoZ_KD);
+				}
+				else
+				{
+					attrs.put("photoZ_KD", " - ");
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			 }
+			try{
+				
+				rs = null;
+				rs = exQuery.aqlQuery(aqls[3]);
+				System.out.println("ExplorerDao.getImaging()->aql[3]:"+aqls[3].toString());
+				if(!rs.isAfterLast())
+				{
+					//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
+	                int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;
+	                String galaxyZoo_Morph = null;
+	                if(galaxyZoo_Morph_Int == 1)
+	               	 galaxyZoo_Morph = "Spiral";
+	                else if(galaxyZoo_Morph_Int ==10)
+	               	 galaxyZoo_Morph = "Elliptical";
+	                else if(galaxyZoo_Morph_Int ==100)
+	               	 galaxyZoo_Morph = "Uncertain";
+	                else 
+	               	 galaxyZoo_Morph = " - ";
+	                
+	                attrs.put("galaxyZoo_Morph", galaxyZoo_Morph);
+				}
+				else
+				{
+					attrs.put("galaxyZoo_Morph", " - ");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			 }
+                
+			
 		return attrs;
 	}
 
