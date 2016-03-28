@@ -146,7 +146,7 @@
 			<div id="metadata">
 			    <table class="content">
 			        <tr>
-			            <td colspan="2">
+			            <td colspan="4">
 			                <h1 id="sdssname">
 			                <%= Utilities.SDSSname(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>
 			                </h1>
