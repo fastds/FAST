@@ -148,8 +148,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    separate specObjID. We then select the best spectrum and assign it as <em>sciencePrimary</em>.</p>
 		
 		    <p class="content">Information about each spectroscopic observation is stored in the 
-		    <a href="../../help/browser/browser.aspx?cmd=description+SpecObjAll+U" class='content'>specObjAll</a> table. 
-		    The <a href="../../help/browser/browser.aspx?cmd=description+SpecObj+U" class='content'>specObj</a> view 
+		    <a href="../v1/schema?name=SpecObjAll" class='content'>specObjAll</a> table. 
+		    The <a href="../v1/schema?name=SpecObj" class='content'>specObj</a> view 
 		    contains only data for spectra assigned as sciencePrimary.</p>
 		
 		    <p class="content">The table below shows all spectra that were measured for this object.</p>        
