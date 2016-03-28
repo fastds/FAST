@@ -133,7 +133,7 @@ public class ExplorerResource {
 			e.printStackTrace();
 		}
         System.out.println("执行完毕");
-		return new Viewable("/tools/Summary.jsp", null); 
+		return new Viewable("/tools/test.jsp", null); 
 	}
 	
 	@GET
