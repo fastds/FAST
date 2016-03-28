@@ -421,7 +421,7 @@ public class ExplorerDao {
 				rs = null;
 				System.out.println("ExplorerDao.getImaging()->aql[2]:"+aqls[2].toString());
 				rs = exQuery.aqlQuery(aqls[2]);
-				if(!rs.isAfterLast())
+				if(rs!=null && !rs.isAfterLast())
 				{
 					////--- PhotoZ, photoZRF
 	                String photoZ_KD = new DecimalFormat("###.###").format(rs.getFloat("z"))+" &plusmn; "+ new DecimalFormat("###.####").format(rs.getFloat("zErr"));
@@ -440,7 +440,7 @@ public class ExplorerDao {
 				rs = null;
 				System.out.println("ExplorerDao.getImaging()->aql[3]:"+aqls[3].toString());
 				rs = exQuery.aqlQuery(aqls[3]);
-				if(!rs.isAfterLast())
+				if(rs!=null && !rs.isAfterLast())
 				{
 					//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
 	                int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;

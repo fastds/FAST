@@ -439,7 +439,7 @@ public class ExplorerQueries {
         	 
         	 aqlThree.append(" SELECT z,zErr FROM Photoz WHERE objID="+objID);
         	 
-        	 aqlFour.append(" SELECT (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph  FROM zooSpec WHERE objID="+objID);
+        	 aqlFour.append(" SELECT (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph  FROM zooSpec AS zz WHERE objID="+objID);
         	 return new String[]{aqlOne.toString(), aqlTwo.toString(), aqlThree.toString(), aqlFour.toString()};
          }
 
