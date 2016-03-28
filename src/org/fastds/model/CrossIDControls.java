@@ -159,7 +159,7 @@ public float getJ() {
 	public boolean isWISE() {
 		return isWISE;
 	}
-	public boolean isIs2MASS() {
+	public boolean isTwoMASS() {
 		return is2MASS;
 	}
 public String getProperMotion() {
