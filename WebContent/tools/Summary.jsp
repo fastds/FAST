@@ -150,9 +150,8 @@
 			                <h1 id="sdssname">
 			                <%= Utilities.SDSSname(((MetaDataControl)request.getAttribute("metaDataCtrl")).getRa(), ((MetaDataControl)request.getAttribute("metaDataCtrl")).getDec())%>
 			                </h1>
-			                <h2 id="othernames">&nbsp;<input type="button" onclick=" findOtherNames(${ra}, ${dec});" value="Look up common name" /></h2>
+			                <h2 id="othernames">&nbsp;<input type="button" onclick=" findOtherNames(${master.ra}, ${master.dec});" value="Look up common name" /></h2>
 			            </td>
-			            <td colspan="2"></td>
 			        </tr>
 			        <tr>
 			            <td>
@@ -178,6 +177,7 @@
 			                    <tr>
 			                        <td align="center" class="t">
 			                            <script type="text/javascript">
+			                            alert("${metaDataCtrl.ra}");
 			                                var thera = new Number("${metaDataCtrl.ra}");
 			                                var thedec = new Number("${metaDataCtrl.dec}");
 			                                document.write(thera.toFixed(5) + ', ' + thedec.toFixed(5));
