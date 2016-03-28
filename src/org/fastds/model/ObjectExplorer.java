@@ -90,7 +90,6 @@ public class ObjectExplorer {
        if (globals.getReleaseNumber() > 4)
         {
             hrefs.PhotoZ = "DisplayResults?&name=photoZ&" + allID;
-           // hrefs.PhotozRF = "DisplayResults.aspx?&name=photozRF&" + allID;
         } 
 
         hrefs.Matches = "Matches?"+allID;
