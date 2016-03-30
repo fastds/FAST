@@ -463,14 +463,15 @@ public class ExplorerQueries {
          public static String getSpectroQuery(String objID, String specID) {
         	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
-        	 aql.append(" SELECT s.plate,s.mjd,fiberid ,s.instrument ,class AS objclass, z AS redshift_z, zerr AS redshift_err ");
-        	 aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.scienceprimary AS primary,");
-        	 aql.append(" (x.nspec-1) AS otherspec,s.sourcetype, velDisp AS veldisp, velDispErr AS veldisp_err ");
+        	 aql.append(" SELECT s.plate,s.mjd,fiberID ,s.instrument ,class AS objClass, z AS redshift_z, zErr AS redshift_err ");
+        	 aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.sciencePrimary AS primary,");
+        	 aql.append(" (x.nspec-1) AS otherspec,s.sourceType, velDisp AS veldisp, velDispErr AS veldisp_err ");
         	 aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
         	 aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
-        	 aql.append(" FROM  PlateX AS p ,SpecObjAll AS s ");
-        	 aql.append(" JOIN (SELECT bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID);
-        	 aql.append(" GROUP BY bestObjID) AS x on s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID and  s.specObjID="+specID);
+        	 aql.append(" FROM PlateX AS p JOIN ");
+        	 aql.append(" ((SELECT * FROM SpecObjAll WHERE specObjID="+specID+") AS s ");
+        	 aql.append(" JOIN (SELECT min(bestObjID) AS bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID+") AS x ");
+        	 aql.append(" ON s.bestObjID=x.bestObjID  WHERE AND p.plateID=s.plateID)");
         	 
      		return aql.toString();
      	}
@@ -724,9 +725,9 @@ public class ExplorerQueries {
          old */
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT s.plateID , s.mjd, s.fiberID, q.plate");
-    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll WHERE specObjID="+specObjID+") AS s, ");
+    	aql.append(" FROM (SELECT plateID, mjd, fiberID,specObjID FROM SpecObjAll WHERE specObjID="+specObjID+") AS s JOIN ");
     	aql.append("(SELECT plate,plateID FROM PlateX) AS q");
-    	aql.append(" WHERE s.plateID=q.plateID ");
+    	aql.append(" ON s.plateID=q.plateID ");
     	
     	return aql.toString();
     }
