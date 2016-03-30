@@ -366,6 +366,7 @@ public class ExplorerDao {
 				{	return attrs;	}
 		 } catch (SQLException e) {
 				e.printStackTrace();
+				return attrs;
 			 }
 		 try{
 			 
@@ -414,6 +415,14 @@ public class ExplorerDao {
 	                attrs.put("petrorad_r", " - ");
 				}
 			} catch (SQLException e) {
+				attrs.put("mode", " - ");
+                attrs.put("mjdNum", -99999);
+                attrs.put("mjdDate", "");
+                attrs.put("Other_observations", -99999);
+                attrs.put("parentID", -99999);
+                attrs.put("nChild", -99999);
+                attrs.put("extinction_r", " - ");
+                attrs.put("petrorad_r", " - ");
 				e.printStackTrace();
 			 }
 			try{
@@ -433,6 +442,7 @@ public class ExplorerDao {
 					attrs.put("photoZ_KD", " - ");
 				}
 			} catch (SQLException e) {
+				attrs.put("photoZ_KD", " - ");
 				e.printStackTrace();
 			 }
 			try{
@@ -461,6 +471,7 @@ public class ExplorerDao {
 					attrs.put("galaxyZoo_Morph", " - ");
 				}
 			} catch (SQLException e) {
+				attrs.put("galaxyZoo_Morph", " - ");
 				e.printStackTrace();
 			 }
                 
