@@ -719,7 +719,8 @@ public class ExplorerQueries {
 
     public static String getPlateFiberFromSpecObj(long specObjID)
     {
-    	/*public static String getPlateFiberFromSpecObj = "SELECT cast(s.plateID as binary(8)) as plateID, s.mjd, s.fiberID, q.plate" 
+    	/*
+    	public static String getPlateFiberFromSpecObj = "SELECT cast(s.plateID as binary(8)) as plateID, s.mjd, s.fiberID, q.plate" 
     	+"FROM SpecObjAll s JOIN PlateX q ON s.plateID=q.plateID "
     	+"WHERE specObjID=@specID"  ;
          old */
