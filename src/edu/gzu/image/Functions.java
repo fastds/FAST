@@ -1049,4 +1049,262 @@ public class Functions {
 		return out;
 		
 	}
+	/**
+	 * -------------------------------------------------
+		--/H Get the URL to the FITS file of a corrected frame given the fieldID and band
+		-------------------------------------------------
+		--/T Combines the value of the DataServer URL from the
+		--/T SiteConstants table and builds up the whole URL
+		--/T from the fieldId (and a u, g, r, i or z filter)
+		--/T <br><samp> select dbo.fGetUrlFitsCFrame(568688299343872,'r')</samp>
+		-------------------------------------------------
+	 * @param fieldID
+	 * @param filter
+	 */
+	public static String fGetUrlFitsCFrame(String fieldID, String filter) {
+		/*
+		 * DECLARE @link varchar(256), @run varchar(8), @rerun varchar(8),
+		@camcol varchar(8), @field varchar(8), @run6 varchar(10),
+		@dbType varchar(32), @release varchar(8);
+	SET @link = (select value from SiteConstants where name='DataServerURL');
+	SET @release = (select value from SiteConstants where name='Release');
+	SET @dbType = (select value from SiteConstants where name='DB Type');
+	--SET @link = @link + 'imaging/';
+	SET @link = @link + 'sas/dr' + @release + '/boss/photoObj/frames/';
+	SELECT  @run = cast(run as varchar(8)), @rerun=cast(rerun as varchar(8)), 
+		@camcol=cast(camcol as varchar(8)), @field=cast(field as varchar(8))
+	    FROM Field
+	    WHERE fieldId=@fieldId;
+	IF (@dbType LIKE 'Stripe 82%') AND @run IN ('106','206')
+	    BEGIN
+	    	-- kludge for coadd runs, which were changed for CAS since the
+	    	-- run numbers did not fit in 16 bits (smallint)
+	    	SET @run6 = substring(@run,1,1) + '000' + substring(@run,2,2);
+		SET @run = @run6;
+	    END
+	ELSE
+	    SET @run6   = substring('000000',1,6-len(@run)) + @run;
+	SET @field = substring('0000',1,4-len(@field)) + @field;
+	--RETURN 	 @link + @run + '/' + @rerun + '/corr/'+@camcol+'/fpC-'+@run6+'-'+@filter+@camcol+'-'+@field+'.fit.gz';
+	RETURN 	 @link + @rerun + '/' + @run + '/' +@camcol+'/frame-'+@filter+'-'+@run6+'-'+@camcol+'-'+@field+'.fits.bz2';
+		 */
+		String link = "select value from SiteConstants where name='DataServerURL'";
+	    String release = "9";
+	    String dbType = "DR9 FASTDB";
+	    String run = null;
+	    String rerun = null;
+	    String camcol = null;
+	    String field = null;
+	    String run6 = null;
+	    link += "sas/dr9/boss/photoObj/frames/";
+	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
+	    ExQuery ex = new ExQuery();
+	    try {
+			ResultSet rs = ex.aqlQuery(aql);
+			
+			if(rs.isAfterLast())
+			{
+				run = rs.getLong("run")+"";
+				rerun = rs.getLong("rerun")+"";
+				camcol = rs.getLong("camcol")+"";
+				field = rs.getLong("field")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    run6 = "000000".substring(1, 6-run.length())+run;
+	    field = "0000".substring(1, 4-field.length())+field;
+		return link + rerun + "/" + run + "/" +camcol+"/frame-"+filter+'-'+run6+'-'+camcol+'-'+field+".fits.bz2";
+	}
+	/**
+	 * -------------------------------------------------
+		--/H Get the URL to the FITS file of a binned frame given FieldID and band.
+		-------------------------------------------------
+		--/T Combines the value of the DataServer URL from the
+		--/T SiteConstants table and builds up the whole URL
+		--/T from the fieldId (and a u, g, r, i or z filter)
+		--/T <br><samp> select dbo.fGetUrlFitsBin(568688299343872,'r')</samp>
+		-------------------------------------------------
+	 * @param field
+	 * @param filter
+	 */
+	public static String fGetUrlFitsBin(long fieldID,String filter)
+	{
+		String link = "select value from SiteConstants where name='DataServerURL'";
+	    String release = "9";
+	    String dbType = "DR9 FASTDB";
+	    String run = null;
+	    String rerun = null;
+	    String camcol = null;
+	    String field = null;
+	    String run6 = null;
+	    link += "sas/dr9/boss/photo/redux/";
+	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
+	    
+	    ExQuery ex = new ExQuery();
+	    try {
+			ResultSet rs = ex.aqlQuery(aql);
+			
+			if(rs.isAfterLast())
+			{
+				run = rs.getLong("run")+"";
+				rerun = rs.getLong("rerun")+"";
+				camcol = rs.getLong("camcol")+"";
+				field = rs.getLong("field")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    run6 = "000000".substring(1, 6-run.length())+run;
+	    field = "0000".substring(1, 4-field.length())+field;
+		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpBIN-"+run6+'-'+filter+camcol+'-'+field+".fits.bz2";
+	}
+	/**
+	 * -------------------------------------------------
+		--/H Get the URL to the FITS file of a frame mask given the fieldID and band
+		-------------------------------------------------
+		--/T Combines the value of the DataServer URL from the
+		--/T SiteConstants table and builds up the whole URL
+		--/T from the fieldId (and a u, g, r, i or z filter)
+		--/T <br><samp> select dbo.fGetUrlFitsMask(568688299343872,'r')</samp>
+		-------------------------------------------------
+	 * @param fieldID
+	 * @param filter
+	 * @return
+	 */
+	public static String fGetUrlFitsMask(long fieldID,String filter)
+	{
+		String link = "select value from SiteConstants where name='DataServerURL'";
+	    String release = "9";
+	    String dbType = "DR9 FASTDB";
+	    String run = null;
+	    String rerun = null;
+	    String camcol = null;
+	    String field = null;
+	    String run6 = null;
+	    link += "sas/dr9/boss/photo/redux/";
+	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
+	    
+	    ExQuery ex = new ExQuery();
+	    try {
+			ResultSet rs = ex.aqlQuery(aql);
+			
+			if(rs.isAfterLast())
+			{
+				run = rs.getLong("run")+"";
+				rerun = rs.getLong("rerun")+"";
+				camcol = rs.getLong("camcol")+"";
+				field = rs.getLong("field")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    run6 = "000000".substring(1, 6-run.length())+run;
+	    field = "0000".substring(1, 4-field.length())+field;
+		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpM-"+run6+'-'+filter+camcol+'-'+field+".fits.gz";
+	}
+	/**
+	 * -------------------------------------------------
+		--/H Get the URL to the FITS file of all atlas images in a field
+		-------------------------------------------------
+		--/T Combines the value of the DataServer URL from the
+		--/T SiteConstants table and builds up the whole URL
+		--/T from the fieldId  
+		--/T <br><samp> select dbo.fGetUrlFitsAtlas(568688299343872)</samp>
+		-------------------------------------------------
+	 */
+	public static String fGetUrlFitsAtlas(long fieldID,String filter)
+	{
+		String link = "select value from SiteConstants where name='DataServerURL'";
+	    String release = "9";
+	    String dbType = "DR9 FASTDB";
+	    String run = null;
+	    String rerun = null;
+	    String camcol = null;
+	    String field = null;
+	    String run6 = null;
+	    link += "sas/dr9/boss/photo/redux/";
+	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
+	    
+	    ExQuery ex = new ExQuery();
+	    try {
+			ResultSet rs = ex.aqlQuery(aql);
+			
+			if(rs.isAfterLast())
+			{
+				run = rs.getLong("run")+"";
+				rerun = rs.getLong("rerun")+"";
+				camcol = rs.getLong("camcol")+"";
+				field = rs.getLong("field")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    run6 = "000000".substring(1, 6-run.length())+run;
+	    field = "0000".substring(1, 4-field.length())+field;
+		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpAtlas-"+run6+'-'+filter+camcol+'-'+field+".fits";
+	}
+	/**
+	 * -------------------------------------------------
+		--/H Given a FieldID returns the URL to the FITS file of that field 
+		-------------------------------------------------
+		--/T Combines the value of the DataServer URL from the
+		--/T SiteConstants table and builds up the whole URL 
+		--/T <br><samp> select dbo.fGetUrlFitsField(568688299343872)</samp>
+		-------------------------------------------------
+	 * @param fieldID
+	 * @return
+	 */
+	public static String fGetUrlFitsField(long fieldID)
+	{
+		String link = "select value from SiteConstants where name='DataServerURL'";
+	    String release = "9";
+	    String dbType = "DR9 FASTDB";
+	    String run = null;
+	    String rerun = null;
+	    String camcol = null;
+	    String field = null;
+	    String run6 = null;
+	    String skyVersion = fSkyVersion(fieldID)+"";
+	    String stripe = null;
+	    link += "sas/dr9/boss/photoObj/";
+	    String aql = "SELECT f.run, f.rerun, s.stripe, f.camcol, f.field FROM Field AS f, Run AS s WHERE f.fieldID="+fieldID +" AND s.run=f.run";
+	    ExQuery ex = new ExQuery();
+	    try {
+			ResultSet rs = ex.aqlQuery(aql);
+			
+			if(rs.isAfterLast())
+			{
+				run = rs.getLong("run")+"";
+				rerun = rs.getLong("rerun")+"";
+				stripe = rs.getLong("stripe")+"";//??????type??
+				camcol = rs.getLong("camcol")+"";
+				field = rs.getLong("field")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    run6 = "000000".substring(1, 6-run.length())+run;
+	    link = link+rerun + "/";
+	    if ("0".equals(skyVersion))
+	     link = link + "inchunk_target/";
+	    else if ("1".equals(skyVersion))
+	     link = link + "inchunk_best/";
+	    else
+	     link = link + run + "/" + camcol + "/";
+	    field = "0000".substring(1,4-field.length()) + field;
+		if ("15".equals(skyVersion))
+	     link = link + rerun + "/calibChunks/";
+	    return  link+"photoObj-"+run6+"-"+camcol+"-"+field+".fits";
+	}
+	public static int fSkyVersion(long objID)
+	{
+//		RETURN ( cast( ((@ObjID / power(cast(2 as bigint),59)) & 0x0000000F) AS INT));
+		return (int)(objID/Math.pow(2, 59)) & 0x0000000F;
+	}
 }

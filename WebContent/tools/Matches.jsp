@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="org.fastds.model.ObjectExplorer" %>
 <%@ page import="org.fastds.model.Matches" %>
+<%@ page import="edu.gzu.utils.Utilities" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -151,9 +152,9 @@
 		 <h3>This detected object and its associated "Thing" (Primary observation)</h3>
 		 </td></tr>
 		 <tr><td>
-		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("master")).getDs_match1(), 400, "PhotoObj")%>
+		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(Utilities.resultSet2Map(((Matches)request.getAttribute("master")).getDs_match1()), 400, "PhotoObj")%>
 		 <h3>Other Observations of this "Thing"</h3>
-		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("master")).getDs_match2(), 400, "PhotoObj")%>
+		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(Utilities.resultSet2Map(((Matches)request.getAttribute("master")).getDs_match2()), 400, "PhotoObj")%>
 		 </td></tr></table>
 		 </div>
 

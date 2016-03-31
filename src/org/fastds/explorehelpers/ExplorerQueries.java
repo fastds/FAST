@@ -792,6 +792,7 @@ public class ExplorerQueries {
     	fieldID = fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"":fieldID;
     	StringBuilder aql = new StringBuilder();
     	aql.append("SELECT ");
+    	Functions.fGetUrlFitsCFrame(fieldID,"");
     	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'u'),");
     	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'g'),");
     	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'r'),");
