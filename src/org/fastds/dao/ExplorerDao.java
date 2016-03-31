@@ -708,9 +708,9 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String usno = rs.getString("Catalog");
-				String properMotion = new DecimalFormat("###.##").format(rs.getFloat(2))+" &plusmn; "+ new DecimalFormat("####.###").format(rs.getFloat(3));
-				float angle = rs.getFloat("PM_angle_deg_E");
+				String usno = rs.getString(2);
+				String properMotion = new DecimalFormat("###.##").format(rs.getFloat(3))+" &plusmn; "+ new DecimalFormat("####.###").format(rs.getFloat(4));
+				float angle = rs.getFloat(5);
 				
 				attrs.put("usno", usno);
 				attrs.put("properMotion", properMotion);
