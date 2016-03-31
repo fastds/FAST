@@ -710,7 +710,7 @@ public class ExplorerDao {
 			{
 				String usno = rs.getString(2);
 				String properMotion = new DecimalFormat("###.##").format(rs.getFloat(3))+" &plusmn; "+ new DecimalFormat("####.###").format(rs.getFloat(4));
-				float angle = rs.getFloat(5);
+				double angle = rs.getDouble(5);
 				
 				attrs.put("usno", usno);
 				attrs.put("properMotion", properMotion);
