@@ -181,7 +181,7 @@ private ExplorerService explorerService = new ExplorerService();
             isUSNO = true;
             usno = (String) attrs.get("usno");
             properMotion = (String) attrs.get("properMotion");
-            angle = (Float) attrs.get("angle");
+            angle = ((Double) attrs.get("angle")).floatValue();
          } 
          attrs.clear();
          

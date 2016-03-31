@@ -881,7 +881,7 @@ public class ExplorerDao {
 	}
 
 	public Map<String, Object> getAttrsFromTWOMASS(String objID) {
-		String aql = ExplorerQueries.WISE(objID);
+		String aql = ExplorerQueries.TWOMASS(objID);
 		System.out.println("ExplorerDao.getAttrsFromTWOMASS-->aql:"+aql);
 		ResultSet rs = null;
 		ExQuery exQuery = new ExQuery();
@@ -902,11 +902,11 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String twomass = rs.getString(0);
-				float j = rs.getFloat(1);
-				float h = rs.getFloat(2);
-				float k = rs.getFloat(3);
-				String phQual = rs.getString(4);
+				String twomass = rs.getString(2);
+				float j = rs.getFloat(3);
+				float h = rs.getFloat(4);
+				float k = rs.getFloat(5);
+				String phQual = rs.getString(6);
 				
 				attrs.put("twomass", twomass);
 				attrs.put("j", j);
