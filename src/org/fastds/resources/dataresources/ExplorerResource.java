@@ -403,7 +403,7 @@ public class ExplorerResource {
             	objectInfo.plateID = (Long)attrs.get("plateID") == 0 ? null : Utilities.longToHex((Long)attrs.get("plateID"));
             	objectInfo.mjd = (Integer)attrs.get("mjd");
             	objectInfo.fiberID = (Short)attrs.get("fiberID");
-            	objectInfo.plate = (Short)attrs.get("fiberID");
+            	objectInfo.plate = (Short)attrs.get("plate");
             }
         }
 
