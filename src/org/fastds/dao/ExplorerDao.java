@@ -821,10 +821,10 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String rc3 = rs.getString(1);
-				String hubletype = rs.getString(2);
-				String magnitude = new DecimalFormat("##.##").format(rs.getFloat(3))+" &plusmn; "+new DecimalFormat("##.###").format(rs.getFloat(4));
-				Float hydrogenIndex = rs.getFloat(5);
+				String rc3 = rs.getString("Catalog");
+				String hubletype = rs.getString("Hubble_type");
+				String magnitude = new DecimalFormat("##.##").format(rs.getFloat("M21"))+" &plusmn; "+new DecimalFormat("##.###").format(rs.getFloat("M21ERR"));
+				Float hydrogenIndex = rs.getFloat("Neutral_Hydrogen_Index");
 				
 				attrs.put("rc3", rc3);
 				attrs.put("hubletype", hubletype);
