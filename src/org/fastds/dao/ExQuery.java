@@ -76,12 +76,7 @@ public class ExQuery {
 	public void test()
 	{
 		try {
-//			aqlQuery("SELECT q.objID AS fieldID, m.span  FROM AtlasOutline AS m JOIN  (SELECT min(f.objID) AS objID  FROM AtlasOutline AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 12094627905536 AND 13194139533311 AND pow(0.9209378372080361-cx,2)+pow(-0.38936036482073366-cy,2)+pow(-0.016492613657328997-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID");
-			ResultSet rs = aqlQuery("SELECT   pt.flags,pt.ra, pt.dec, pt.run, pt.rerun, pt.camcol, pt.field, pt.fieldID, pt.objID,  pt.clean, pt.type AS otype,  pt.u , pt.g , pt.r , pt.i , pt.z , pt.err_u ,  pt.err_g ,  pt.err_r , pt.err_i , pt.err_z ,  po.mode , po.mjd AS mjdNum,  (po.nDetect-1) AS Other_observations, po.parentID, po.nChild, po.extinction_r, po.petroRad_r, po.petroRadErr_r , phz.z, phz.zErr,  (1*zz.spiral+10*zz.elliptical+100*zz.uncertain) AS GalaxyZoo_Morph"  
-+" FROM ( SELECT objID,clean,skyVersion,run,rerun,camcol,field,obj,mode,nChild,type,probPSF,insideMask,flags,flags_u,flags_g,flags_r,flags_i,flags_z,psfMag_u,psfMag_g,psfMag_r,psfMag_i,psfMag_z,psfMagErr_u,psfMagErr_g,psfMagErr_r,psfMagErr_i,psfMagErr_z,petroMag_u,petroMag_g,petroMag_r,petroMag_i,petroMag_z,petroMagErr_u,petroMagErr_g,petroMagErr_r,petroMagErr_i,petroMagErr_z,petroR50_r,petroR90_r,u ,g ,r ,i ,z ,err_u ,err_g ,err_r ,err_i ,err_z ,cModelMag_u,cModelMag_g,cModelMag_r,cModelMag_i,cModelMag_z,cModelMagErr_u,cModelMagErr_g,cModelMagErr_r,cModelMagErr_i,cModelMagErr_z,mRrCc_r,mRrCcErr_r,mRrCcPSF_r,fracDeV_u,fracDeV_g,fracDeV_r,fracDeV_i,fracDeV_z,psffwhm_u,psffwhm_g,psffwhm_r,psffwhm_i,psffwhm_z,resolveStatus,thingId,balkanId,nObserve,nDetect,calibStatus_u,calibStatus_g,calibStatus_r,calibStatus_i,calibStatus_z,ra,dec,cx,cy,cz,extinction_u,extinction_g,extinction_r,extinction_i,extinction_z,htmID,fieldID,specObjID"
-+" FROM PhotoObjAll ) AS pt, (SELECT * FROM PhotoObjAll WHERE mode=1 OR mode=2) AS po,  Photoz AS phz, zooSpec AS zz"
-	  +" WHERE  po.objID = pt.objID AND pt.objID=phz.objID AND  pt.objID=zz.objID AND pt.objID=1237645942905569462");
-			System.out.println(rs);
+			aqlQuery("SELECT q.objID AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutline AS m JOIN  (SELECT min(f.objID) AS objID  FROM AtlasOutline AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 12094627905536 AND 13194139533311 AND pow(0.9209378372080361-cx,2)+pow(-0.38936036482073366-cy,2)+pow(-0.016492613657328997-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
