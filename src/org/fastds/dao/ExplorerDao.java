@@ -81,7 +81,6 @@ public class ExplorerDao {
 				short field = rs.getShort("field");
 				long fieldID = rs.getLong("fieldID");
 				long objID = rs.getLong("objID");
-				long specObjID = rs.getLong("specObjID");
 				photoTag.setRa(ra);
 				photoTag.setDec(dec);
 				photoTag.setRun(run);
@@ -90,7 +89,6 @@ public class ExplorerDao {
 				photoTag.setField(field);
 				photoTag.setFieldID(fieldID);
 				photoTag.setObjID(objID);
-				photoTag.setSpecObjID(specObjID);
 			}
 			rs = null;
 			/*
