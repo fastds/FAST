@@ -192,8 +192,8 @@ private ExplorerService explorerService = new ExplorerService();
             isFIRST = true;
             first = (String) attrs.get("first");
             peakflux = (String) attrs.get("peakflux");
-            major = (Float) attrs.get("major");
-            minor = (Float) attrs.get("minor");
+            major = ((Double) attrs.get("major")).floatValue();
+            minor = ((Double) attrs.get("minor")).floatValue();
          }
          attrs.clear();
          
