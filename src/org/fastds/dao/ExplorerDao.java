@@ -743,10 +743,10 @@ public class ExplorerDao {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
 			{
-				String first = rs.getString("Catalog");
-				String peakflux = new DecimalFormat("#####.##").format(rs.getDouble(2))+" &plusmn; "+new DecimalFormat("#####.##").format(rs.getDouble(3));
-				double major = rs.getDouble("Major_axis_arcsec");
-				double minor = rs.getDouble("Minor_axis_arcsec");///float?double?
+				String first = rs.getString(2);
+				String peakflux = new DecimalFormat("#####.##").format(rs.getDouble(3))+" &plusmn; "+new DecimalFormat("#####.##").format(rs.getDouble(4));
+				double major = rs.getDouble(5);
+				double minor = rs.getDouble(6);
 				
 				attrs.put("first", first);
 				attrs.put("peakflux", peakflux);
