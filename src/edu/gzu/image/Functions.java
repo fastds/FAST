@@ -1091,11 +1091,11 @@ public class Functions {
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
-	    String run = null;
-	    String rerun = null;
-	    String camcol = null;
-	    String field = null;
-	    String run6 = null;
+	    String run = "";
+	    String rerun = "";
+	    String camcol = "";
+	    String field = "";
+	    String run6 = "";
 	    link += "sas/dr12/boss/photoObj/frames/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    ExQuery ex = new ExQuery();
@@ -1134,11 +1134,11 @@ public class Functions {
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
-	    String run = null;
-	    String rerun = null;
-	    String camcol = null;
-	    String field = null;
-	    String run6 = null;
+	    String run = "";
+	    String rerun = "";
+	    String camcol = "";
+	    String field = "";
+	    String run6 = "";
 	    link += "sas/dr9/boss/photo/redux/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    
@@ -1179,11 +1179,11 @@ public class Functions {
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
-	    String run = null;
-	    String rerun = null;
-	    String camcol = null;
-	    String field = null;
-	    String run6 = null;
+	    String run = "";
+	    String rerun = "";
+	    String camcol = "";
+	    String field = "";
+	    String run6 = "";
 	    link += "sas/dr9/boss/photo/redux/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    
@@ -1221,11 +1221,11 @@ public class Functions {
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
-	    String run = null;
-	    String rerun = null;
-	    String camcol = null;
-	    String field = null;
-	    String run6 = null;
+	    String run = "";
+	    String rerun = "";
+	    String camcol = "";
+	    String field = "";
+	    String run6 = "";
 	    link += "sas/dr9/boss/photo/redux/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    
@@ -1264,11 +1264,11 @@ public class Functions {
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
-	    String run = null;
-	    String rerun = null;
-	    String camcol = null;
-	    String field = null;
-	    String run6 = null;
+	    String run = "";
+	    String rerun = "";
+	    String camcol = "";
+	    String field = "";
+	    String run6 = "";
 	    String skyVersion = fSkyVersion(fieldID)+"";
 	    String stripe = null;
 	    link += "sas/dr9/boss/photoObj/";
