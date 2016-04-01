@@ -529,8 +529,8 @@
 	        <tr>
 	            <c:set var="instrumentLink" value="${specCtrl.globals.sdssUrlBase}instruments"></c:set>
 		   	      <td>             
-			            <a href="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>">
-			                <img alt="" src="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
+			            <a href="<c:url value='/v1/image/SpecById/${specCtrl.specObjID }'/>">
+			                <img alt="" src="<c:url value='/v1/image/SpecById/${specCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
 			            </a>
 	              </td>
 	              <td>                     
@@ -546,11 +546,11 @@
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift (z)</span></td>
-	                       <td valign='top' class='t'>${specCtrl.redshift_z.ToString("F3") }</td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_z}" pattern="#.###"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift error</span></td>
-	                       <td valign='top' class='t'>${specCtrl.redshift_err.ToString("F5") }</td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_err }" pattern="#.#####"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift flags</span></td>

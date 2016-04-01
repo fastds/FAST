@@ -140,7 +140,7 @@
 	                  <p><b> SpecObjID = ${spectralCtrl.specObjID}</b></p>                
 	                </td>
 	                <td width="40%">
-	                    <c:set var="spectrumlink" value="${spectralCtrl.globals.dasUrl+'spectrumDetail?plateid='+spectralCtrl.plate+'&mjd=' +spectralCtrl.mjd+'fiber'+spectralCtrl.fiberid}"></c:set>
+	                    <c:set var="spectrumlink" value="${specCtrl.globals.dasUrl}spectrumDetail?plateid=${specCtrl.plate}&mjd=${specCtrl.mjd}fiber${specCtrl.fiberid}"></c:set>
 	                    <p><b>
 	                      <a class='content' href="${spectrumlink }"  target='_blank'>
 	                          Interactive spectrum<img src='../../images/new_window_black.png' alt=' (new window)' />
@@ -152,9 +152,9 @@
 	   </div>
 	   <table class="content">
 	        <tr>
-	            <c:set var="instrumentLink" value="${spectralCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
+	            <c:set var="instrumentLink" value="${spectralCtrl.globals.sdssUrlBase}instruments"></c:set>
 		   	      <td>             
-			            <a href="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }">
+			            <a href="../../get/SpecByID.ashx?id=${spectralCtrl.specObjID }">
 			                <img alt="" src="../../get/SpecByID.ashx?id=${ spectralCtrl.specObjID }" width="316" height="253" border="0" align="left" />
 			            </a>
 	              </td>
