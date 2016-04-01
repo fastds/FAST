@@ -119,7 +119,6 @@ public class ExplorerResource {
         imagingCtrl = new ImagingControl(master);
         crossIDCtrl = new CrossIDControls(master);
         specCtrl = new SpectralControl(master);
-        
         //将上面的对象保存到request域
         request.setAttribute("master", master);
         request.setAttribute("metaDataCtrl", metaDataCtrl);

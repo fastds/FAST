@@ -504,18 +504,18 @@
 		    </tr>
 		</table>
 		</div>  	
-		</c:if><!-- CrossIDControl finished -->spectralCtrl.specID :${spectralCtrl.specID  }
-<c:if test="${not empty spectralCtrl.specID }">
+		</c:if><!-- CrossIDControl finished -->specCtrl.specID :${specCtrl.specID  }
+<c:if test="${not empty specCtrl.specID }">
 	<div id="spectro">
 	   <h3>Optical Spectra</h3>
 	    <div class="infobox">
 	        <table width="100%">
 	            <tr>
 	                <td width="60%">
-	                  <p><b> SpecObjID = ${spectralCtrl.specObjID}</b></p>                
+	                  <p><b> SpecObjID = ${specCtrl.specObjID}</b></p>                
 	                </td>
 	                <td width="40%">
-	                    <c:set var="spectrumlink" value="${spectralCtrl.globals.dasUrl+'spectrumDetail?plateid='+spectralCtrl.plate+'&mjd=' +spectralCtrl.mjd+'fiber'+spectralCtrl.fiberid}"></c:set>
+	                    <c:set var="spectrumlink" value="${specCtrl.globals.dasUrl+'spectrumDetail?plateid='+specCtrl.plate+'&mjd=' +specCtrl.mjd+'fiber'+specCtrl.fiberid}"></c:set>
 	                    <p><b>
 	                      <a class='content' href="${spectrumlink }"  target='_blank'>
 	                          Interactive spectrum<img src='../images/new_window_black.png' alt=' (new window)' />
@@ -527,10 +527,10 @@
 	   </div>
 	   <table class="content">
 	        <tr>
-	            <c:set var="instrumentLink" value="${spectralCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
+	            <c:set var="instrumentLink" value="${specCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
 		   	      <td>             
-			            <a href="<c:url value='/v1/image/SpecById/${ spectralCtrl.specObjID }'/>">
-			                <img alt="" src="<c:url value='/v1/image/SpecById/${ spectralCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
+			            <a href="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>">
+			                <img alt="" src="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
 			            </a>
 	              </td>
 	              <td>                     
@@ -538,67 +538,67 @@
 	                   
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Spectrograph</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.instrument }</td>
+	                       <td valign='top' class='t'>${specCtrl.instrument }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>class</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.objclass }</td>
+	                       <td valign='top' class='t'>${specCtrl.objclass }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift (z)</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.redshift_z.ToString("F3") }</td>
+	                       <td valign='top' class='t'>${specCtrl.redshift_z.ToString("F3") }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift error</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.redshift_err.ToString("F5") }</td>
+	                       <td valign='top' class='t'>${specCtrl.redshift_err.ToString("F5") }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift flags</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.redshift_flags }</td>
+	                       <td valign='top' class='t'>${specCtrl.redshift_flags }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>survey</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.survey }</td>
+	                       <td valign='top' class='t'>${specCtrl.survey }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>programname</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.programname }</td>
+	                       <td valign='top' class='t'>${specCtrl.programname }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>primary</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.primary }</td>
+	                       <td valign='top' class='t'>${specCtrl.primary }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Other spec</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.otherspec }</td>
+	                       <td valign='top' class='t'>${specCtrl.otherspec }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>sourcetype</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.sourcetype }</td>
+	                       <td valign='top' class='t'>${specCtrl.sourcetype }</td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Velocity dispersion (km/s)</span></td>
-	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.veldisp}" pattern="#.##"></fmt:formatNumber></td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${specCtrl.veldisp}" pattern="#.##"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>veldisp_error</span></td>
-	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.veldisp_err}" pattern="#.###"></fmt:formatNumber></td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${specCtrl.veldisp_err}" pattern="#.###"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>targeting_flags</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.targeting_flags }</td>
+	                       <td valign='top' class='t'>${specCtrl.targeting_flags }</td>
 	                   </tr>
 	                     <tr align='left' >
 	                       <td  valign='top' class='h'><span>plate</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.plate }</td>
+	                       <td valign='top' class='t'>${specCtrl.plate }</td>
 	                   </tr>
 	                  <tr align='left' >
 	                      <td  valign='top' class='h'><span>mjd</span></td>
-	                      <td valign='top' class='t'>${spectralCtrl.mjd }</td>
+	                      <td valign='top' class='t'>${specCtrl.mjd }</td>
 	                  </tr>
 	                  <tr align='left' >
 	                      <td  valign='top' class='h'><span>fiberid</span></td>
-	                      <td valign='top' class='t'>${spectralCtrl.fiberid }</td>
+	                      <td valign='top' class='t'>${specCtrl.fiberid }</td>
 	                  </tr>
 	                 </table>
 		   	      </td>            
