@@ -504,7 +504,7 @@
 		    </tr>
 		</table>
 		</div>  	
-		</c:if><!-- CrossIDControl finished -->specCtrl.specID :${specCtrl.specID  }
+		</c:if><!-- CrossIDControl finished -->
 <c:if test="${not empty specCtrl.specID }">
 	<div id="spectro">
 	   <h3>Optical Spectra</h3>
@@ -515,7 +515,7 @@
 	                  <p><b> SpecObjID = ${specCtrl.specObjID}</b></p>                
 	                </td>
 	                <td width="40%">
-	                    <c:set var="spectrumlink" value="${specCtrl.globals.dasUrl+'spectrumDetail?plateid='+specCtrl.plate+'&mjd=' +specCtrl.mjd+'fiber'+specCtrl.fiberid}"></c:set>
+	                    <c:set var="spectrumlink" value="${specCtrl.globals.dasUrl}spectrumDetail?plateid=${specCtrl.plate}&mjd=${specCtrl.mjd}fiber${specCtrl.fiberid}"></c:set>
 	                    <p><b>
 	                      <a class='content' href="${spectrumlink }"  target='_blank'>
 	                          Interactive spectrum<img src='../images/new_window_black.png' alt=' (new window)' />
