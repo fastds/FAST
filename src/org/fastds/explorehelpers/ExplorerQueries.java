@@ -534,11 +534,13 @@ public class ExplorerQueries {
     
     public static String TWOMASS(String objID) {
     	StringBuilder aql = new StringBuilder();
+    	objID = objID !=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
 		return aql.toString();
 	}
     public static String wiseLinkCrossID(String objID) {
     	StringBuilder aql = new StringBuilder();
+    	objID = objID !=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
     	aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
     	aql.append(" WHERE x.sdss_objid="+objID);
     	
