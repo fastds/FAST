@@ -171,11 +171,11 @@
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift (z)</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.redshift_z.ToString("F3") }</td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_z}" pattern="#.###"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift error</span></td>
-	                       <td valign='top' class='t'>${spectralCtrl.redshift_err.ToString("F5") }</td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_err }" pattern="#.#####"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift flags</span></td>

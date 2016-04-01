@@ -527,7 +527,7 @@
 	   </div>
 	   <table class="content">
 	        <tr>
-	            <c:set var="instrumentLink" value="${specCtrl.globals.sdssUrlBase+'instruments' }"></c:set>
+	            <c:set var="instrumentLink" value="${specCtrl.globals.sdssUrlBase}instruments"></c:set>
 		   	      <td>             
 			            <a href="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>">
 			                <img alt="" src="<c:url value='/v1/image/SpecById/${ specCtrl.specObjID }'/>" width="316" height="253" border="0" align="left" />
