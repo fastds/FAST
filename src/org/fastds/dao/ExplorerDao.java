@@ -1007,7 +1007,7 @@ public class ExplorerDao {
 				String objclass = rs.getString("objClass");
 				float redshift_z = rs.getFloat("redshift_z");
 				float redshift_err = rs.getFloat("redshift_err");
-				String redshift_flags = rs.getString("redshift_flags");
+				String redshift_flags = Functions.fSpecZWarningN(rs.getInt("redshift_flags"));
 				String survey = rs.getString("survey");
 				long legacy_target1 = rs.getLong("legacy_target1");
 				long legacy_target2 = rs.getLong("legacy_target2");
@@ -1025,18 +1025,18 @@ public class ExplorerDao {
 				String sourcetype = rs.getString("sourcetype");
 				float veldisp = rs.getFloat("veldisp");
 				float veldisp_err = rs.getFloat("veldisp_err");
-				String targeting_flags = rs.getString("targeting_flags");
+				String targeting_flags = null;
 				//--------------------------------
 				if("sdss".equals(survey))
-					survey = Functions.fPrimTargetN((int)legacy_target1)+" "+Functions.fPrimTargetN((int)legacy_target2)+ " "+Functions.fSpecialTarget1N(special_target1);
+					targeting_flags = Functions.fPrimTargetN((int)legacy_target1)+" "+Functions.fPrimTargetN((int)legacy_target2)+ " "+Functions.fSpecialTarget1N(special_target1);
 				else if("boss".equals(survey))
-					survey = boss_target1+","+ancillary_target1+","+ancillary_target2;
+					targeting_flags = boss_target1+","+ancillary_target1+","+ancillary_target2;
 				else if("segue1".equals(survey))
-					survey = Functions.fSegue1Target1N((int)segue1_target1)+","+Functions.fSegue1Target2N((int)segue1_target2);
+					targeting_flags = Functions.fSegue1Target1N((int)segue1_target1)+","+Functions.fSegue1Target2N((int)segue1_target2);
 				else if("segue2".equals(survey))
-					survey = Functions.fSegue2Target1N((int)segue2_target1)+","+Functions.fSegue2Target2N((int)segue2_target2);
+					targeting_flags = Functions.fSegue2Target1N((int)segue2_target1)+","+Functions.fSegue2Target2N((int)segue2_target2);
 				else
-					survey = " No Data ";
+					targeting_flags = " No Data ";
 				//--------------------------------
 				attrs.put("plate", plate);
 				attrs.put("mjd", mjd);
