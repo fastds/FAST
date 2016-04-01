@@ -1002,9 +1002,9 @@ public class ExplorerDao {
 			{
 				short plate = rs.getShort("plate");
 				int mjd = rs.getInt("mjd");
-				short fiberid = rs.getShort("fiberid");
+				short fiberid = rs.getShort("fiberID");
 				String instrument = rs.getString("instrument");
-				String objclass = rs.getString("objclass");
+				String objclass = rs.getString("objClass");
 				float redshift_z = rs.getInt("redshift_z");
 				float redshift_err = rs.getInt("redshift_err");
 				String redshift_flags = rs.getString("redshift_flags");
