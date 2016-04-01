@@ -607,7 +607,7 @@
 	</div>  <!-- end of spectro div -->
 
 </c:if><!-- SpectralControl finished -->
-<!-- apogee 隱藏 --><%--
+
   <c:if test="${not empty requestScope.master.apid}">
 		 <div id="irspec">
         <h3>Infrared Spectra
@@ -811,7 +811,7 @@
             </tr>
             
             <c:set var="cellClass" value="t"></c:set>
-			<c:forEach var="v" items="${requestScope.apogeeCtrl.visits }">
+			<c:forEach var="v" items="${apogeeCtrl.visits }">
 				<tr>
 	              <td nowrap align="center" class="${cellClass }">
 	                <a href="${apogeeCtrl.globals.apogeeSpectrumLink }?plateid=${v.plate}&mjd=${v.mjd}&fiber=${v.fiberid}" class="content" target="_blank">
@@ -830,7 +830,7 @@
           </table>                          
         </div>  <!-- end of visits div -->
       </div>  <!-- end of irspec div -->
- </c:if><!-- master.apid not empty   finished --> --%>
+ </c:if><!-- master.apid not empty   finished -->
    </div>              
     </div>
 </form>

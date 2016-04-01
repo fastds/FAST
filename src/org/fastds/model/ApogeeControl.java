@@ -1,5 +1,7 @@
 package org.fastds.model;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -181,7 +183,7 @@ public class ApogeeControl {
     }
     protected void load(ObjectExplorer master) throws Exception
     {
-        globals = new Globals();
+        globals = master.globals;
         
         if (master.apid != null && !master.apid.equals(""))
         {
@@ -214,9 +216,13 @@ public class ApogeeControl {
         String specApogeeLink = globals.getApogeeSpectrumLink() + "?apogee_id=" + apogee_id;
         String doWeNeedC = (commiss == 1) ? "C" : "";
 
-//    old    apogeeSpecImage = globals.getApogeeFitsLink() + "/stars/apo25m/" + location_id + "/plots/apStar" + doWeNeedC + "-r5-" + HttpUtility.UrlEncode(apogee_id) + ".jpg"; ;
-        spectrumLink = globals.getApogeeSpectrumLink() + "?locid=" + location_id + "&commiss=" + commiss + "&apogeeid=" + apogee_id;
-//   old     fitsLink = globals.getApogeeFitsLink() + "/stars/apo25m/"+location_id+"/apStar" + doWeNeedC + "-r5-" + HttpUtility.UrlEncode(apogee_id) + ".fits";
+        try {
+			this.apogeeSpecImage = globals.getApogeeFitsLink() + "/stars/apo25m/" + location_id + "/plots/apStar" + doWeNeedC + "-r5-" + URLEncoder.encode(apogee_id, "UTF-8") + ".jpg";
+			this.spectrumLink = globals.getApogeeSpectrumLink() + "?locid=" + location_id + "&commiss=" + commiss + "&apogeeid=" + apogee_id;
+			this.fitsLink = globals.getApogeeFitsLink() + "/stars/apo25m/"+location_id+"/apStar" + doWeNeedC + "-r5-" + URLEncoder.encode(apogee_id,"UTF-8") + ".fits";
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} 
     }
 
     protected void ReadVisitsFromDbReader() throws Exception
