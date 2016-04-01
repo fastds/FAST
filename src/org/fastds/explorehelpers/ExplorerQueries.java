@@ -156,6 +156,7 @@ public class ExplorerQueries {
     	aql.append(" SELECT t.objID, t.thingID, p.mode, dbo.fPhotoModeN(p.mode) AS '(mode description)' ");
     	aql.append(" FROM thingIndex t join PhotOobjAll p on t.objID = p.objID ");
     	aql.append(" WHERE t.objID="+objID+" and p.mode != 1 ORDER BY p.mode ");
+    	System.out.println("ExplorerQueries.gtMatches()->aql:"+aql.toString());
     	return aql.toString();
     }
     ///Neighbors

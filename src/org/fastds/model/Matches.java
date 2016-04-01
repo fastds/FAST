@@ -16,6 +16,7 @@ public class Matches {
     public Matches(ObjectExplorer master)
     {
     	this.master = master;
+    	this.globals = master.globals;
     }
 //    protected void load(ObjectExplorer master)
 //    {
