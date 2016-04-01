@@ -453,7 +453,7 @@ public class ExplorerDao {
 				if(rs!=null && !rs.isAfterLast())
 				{
 					//photoZ_RF = reader["photoZ_KD") == 0 ? " - " : (String)reader["photoZ_RF"];
-	                int galaxyZoo_Morph_Int = rs.getInt("GalaxyZoo_Morph") ;
+	                int galaxyZoo_Morph_Int = (int)rs.getLong("GalaxyZoo_Morph") ;
 	                String galaxyZoo_Morph = null;
 	                if(galaxyZoo_Morph_Int == 1)
 	               	 galaxyZoo_Morph = "Spiral";
