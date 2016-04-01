@@ -1022,7 +1022,7 @@ public class ExplorerDao {
 				String programname = rs.getString("programname");
 				short primary = rs.getShort("primary");
 				int otherspec = (int)rs.getLong("otherspec");
-				String sourcetype = rs.getString("sourcetype");
+				String sourcetype = rs.getString("sourceType");
 				float veldisp = rs.getFloat("veldisp");
 				float veldisp_err = rs.getFloat("veldisp_err");
 				String targeting_flags = null;
