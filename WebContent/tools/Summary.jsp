@@ -504,7 +504,7 @@
 		    </tr>
 		</table>
 		</div>  	
-		</c:if><!-- CrossIDControl finished -->
+		</c:if><!-- CrossIDControl finished -->spectralCtrl.specID :${spectralCtrl.specID  }
 <c:if test="${not empty spectralCtrl.specID }">
 	<div id="spectro">
 	   <h3>Optical Spectra</h3>
