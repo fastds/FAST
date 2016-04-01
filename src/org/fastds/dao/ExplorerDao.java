@@ -1005,8 +1005,8 @@ public class ExplorerDao {
 				short fiberid = rs.getShort("fiberID");
 				String instrument = rs.getString("instrument");
 				String objclass = rs.getString("objClass");
-				float redshift_z = rs.getInt("redshift_z");
-				float redshift_err = rs.getInt("redshift_err");
+				float redshift_z = rs.getFloat("redshift_z");
+				float redshift_err = rs.getFloat("redshift_err");
 				String redshift_flags = rs.getString("redshift_flags");
 				String survey = rs.getString("survey");
 				long legacy_target1 = rs.getLong("legacy_target1");
@@ -1023,8 +1023,8 @@ public class ExplorerDao {
 				short primary = rs.getShort("primary");
 				int otherspec = rs.getInt("otherspec");
 				String sourcetype = rs.getString("sourcetype");
-				float veldisp = rs.getInt("veldisp");
-				float veldisp_err = rs.getInt("veldisp_err");
+				float veldisp = rs.getFloat("veldisp");
+				float veldisp_err = rs.getFloat("veldisp_err");
 				String targeting_flags = rs.getString("targeting_flags");
 				//--------------------------------
 				if("sdss".equals(survey))
