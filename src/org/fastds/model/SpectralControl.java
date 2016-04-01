@@ -85,7 +85,7 @@ public class SpectralControl {
         	mjd = (Integer)attrs.get("mjd") == 0 ? -99999 : (Integer)attrs.get("mjd");
             fiberid = (Short)attrs.get("fiberid") == 0 ? -99999 : (Short)attrs.get("fiberid");
             instrument = attrs.get("instrument") == null ? "" : (String)attrs.get("instrument");
-            objclass = (Float)attrs.get("objclass") == null ? "" : (String)attrs.get("objclass");
+            objclass = (String)attrs.get("objclass") == null ? "" : (String)attrs.get("objclass");
             redshift_z = (Float)attrs.get("redshift_z") == 0 ? -999.99 : (Float)attrs.get("redshift_z");
             redshift_err = (Float)attrs.get("redshift_err") == 0 ? -999.99 : (Float)attrs.get("redshift_err");
             redshift_flags = attrs.get("redshift_flags") == null ? "" : (String)attrs.get("redshift_flags");
