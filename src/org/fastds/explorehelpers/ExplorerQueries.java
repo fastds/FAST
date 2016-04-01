@@ -469,7 +469,7 @@ public class ExplorerQueries {
         	 aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
         	 aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
         	 aql.append(" FROM PlateX AS p JOIN ");
-        	 aql.append(" (SELECT * FROM (SELECT * FROM (SELECT * FROM SpecObjAll WHERE specObjID="+specID+") AS s ");
+        	 aql.append(" (SELECT * FROM (SELECT * FROM SpecObjAll WHERE specObjID="+specID+") AS s ");
         	 aql.append(" JOIN (SELECT min(bestObjID) AS bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID+") AS x ");
         	 aql.append(" ON s.bestObjID=x.bestObjID) ON p.plateID=s.plateID)");
         	 
@@ -535,7 +535,7 @@ public class ExplorerQueries {
     public static String TWOMASS(String objID) {
     	StringBuilder aql = new StringBuilder();
     	objID = objID !=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
-    	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMASS WHERE objID="+objID);
+    	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TWOMASS WHERE objID="+objID);
 		return aql.toString();
 	}
     public static String wiseLinkCrossID(String objID) {
