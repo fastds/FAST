@@ -463,7 +463,7 @@ public class ExplorerQueries {
          public static String getSpectroQuery(String objID, String specID) {
         	 objID = objID!=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
         	 StringBuilder aql = new StringBuilder();
-        	 aql.append(" SELECT s.plate,s.mjd,fiberID ,s.instrument ,class AS objClass, z AS redshift_z, zErr AS redshift_err ");
+        	 aql.append("SELECT s.plate,s.mjd,fiberID ,s.instrument ,class AS objClass, z AS redshift_z, zErr AS redshift_err ");
         	 aql.append(" , zWarning AS redshift_flags,s.survey, s.programname, s.sciencePrimary AS primary,");
         	 aql.append(" (x.nspec-1) AS otherspec,s.sourceType, velDisp AS veldisp, velDispErr AS veldisp_err ");
         	 aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
