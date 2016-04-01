@@ -789,30 +789,28 @@ public class ExplorerQueries {
     	+"   dbo.fGetUrlFitsMask(@fieldID,'z'),"
     	+"   dbo.fGetUrlFitsAtlas(@fieldID),"
     	+"   dbo.fGetUrlFitsField(@fieldID)";
-    public static String getFitsimg(String fieldID)
+    public static String[] getFitsimg(String fieldID)
     {
     	fieldID = fieldID.startsWith("0x")? Long.parseLong(fieldID.substring(2), 16)+"":fieldID;
-    	StringBuilder aql = new StringBuilder();
-    	aql.append("SELECT ");
-    	Functions.fGetUrlFitsCFrame(fieldID,"");
-    	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'u'),");
-    	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'g'),");
-    	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'r'),");
-    	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'i'),");
-    	aql.append(" dbo.fGetUrlFitsCFrame("+fieldID+",'z'),");
-    	aql.append(" dbo.fGetUrlFitsBin("+fieldID+",'u'),");
-    	aql.append(" dbo.fGetUrlFitsBin("+fieldID+",'g'),");
-    	aql.append(" dbo.fGetUrlFitsBin("+fieldID+",'r'),");
-    	aql.append(" dbo.fGetUrlFitsBin("+fieldID+",'i'),");
-    	aql.append(" dbo.fGetUrlFitsBin("+fieldID+",'z'),");
-    	aql.append(" dbo.fGetUrlFitsMask("+fieldID+",'u'),");
-    	aql.append(" dbo.fGetUrlFitsMask("+fieldID+",'g'),");
-    	aql.append(" dbo.fGetUrlFitsMask("+fieldID+",'r'),");
-    	aql.append(" dbo.fGetUrlFitsMask("+fieldID+",'i'),");
-    	aql.append(" dbo.fGetUrlFitsMask("+fieldID+",'z'),");
-    	aql.append(" dbo.fGetUrlFitsAtlas("+fieldID+"),");
-    	aql.append(" dbo.fGetUrlFitsField("+fieldID+")");
-    	return aql.toString();
+    	String[] results = new String[17];
+    	results[0] = Functions.fGetUrlFitsCFrame(fieldID,"u");
+    	results[1] = Functions.fGetUrlFitsCFrame(fieldID,"g");
+    	results[2] = Functions.fGetUrlFitsCFrame(fieldID,"r");
+    	results[3] = Functions.fGetUrlFitsCFrame(fieldID,"i");
+    	results[4] = Functions.fGetUrlFitsCFrame(fieldID,"z");
+    	results[5] = Functions.fGetUrlFitsBin(Long.parseLong(fieldID),"u");
+    	results[6] = Functions.fGetUrlFitsBin(Long.parseLong(fieldID),"g");
+    	results[7] = Functions.fGetUrlFitsBin(Long.parseLong(fieldID),"r");
+    	results[8] = Functions.fGetUrlFitsBin(Long.parseLong(fieldID),"i");
+    	results[9] = Functions.fGetUrlFitsBin(Long.parseLong(fieldID),"z");
+    	results[10] = Functions.fGetUrlFitsMask(Long.parseLong(fieldID),"u");
+    	results[11] = Functions.fGetUrlFitsMask(Long.parseLong(fieldID),"g");
+    	results[12] = Functions.fGetUrlFitsMask(Long.parseLong(fieldID),"r");
+    	results[13] = Functions.fGetUrlFitsMask(Long.parseLong(fieldID),"i");
+    	results[14] = Functions.fGetUrlFitsMask(Long.parseLong(fieldID),"z");
+    	results[15] = Functions.fGetUrlFitsAtlas(Long.parseLong(fieldID));
+    	results[16] = Functions.fGetUrlFitsField(Long.parseLong(fieldID));
+    	return results;
     }
 
 

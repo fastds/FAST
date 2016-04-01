@@ -1088,7 +1088,7 @@ public class Functions {
 	--RETURN 	 @link + @run + '/' + @rerun + '/corr/'+@camcol+'/fpC-'+@run6+'-'+@filter+@camcol+'-'+@field+'.fit.gz';
 	RETURN 	 @link + @rerun + '/' + @run + '/' +@camcol+'/frame-'+@filter+'-'+@run6+'-'+@camcol+'-'+@field+'.fits.bz2';
 		 */
-		String link = "select value from SiteConstants where name='DataServerURL'";
+		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
 	    String run = null;
@@ -1096,7 +1096,7 @@ public class Functions {
 	    String camcol = null;
 	    String field = null;
 	    String run6 = null;
-	    link += "sas/dr9/boss/photoObj/frames/";
+	    link += "sas/dr12/boss/photoObj/frames/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    ExQuery ex = new ExQuery();
 	    try {
@@ -1131,7 +1131,7 @@ public class Functions {
 	 */
 	public static String fGetUrlFitsBin(long fieldID,String filter)
 	{
-		String link = "select value from SiteConstants where name='DataServerURL'";
+		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
 	    String run = null;
@@ -1176,7 +1176,7 @@ public class Functions {
 	 */
 	public static String fGetUrlFitsMask(long fieldID,String filter)
 	{
-		String link = "select value from SiteConstants where name='DataServerURL'";
+		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
 	    String run = null;
@@ -1216,9 +1216,9 @@ public class Functions {
 		--/T <br><samp> select dbo.fGetUrlFitsAtlas(568688299343872)</samp>
 		-------------------------------------------------
 	 */
-	public static String fGetUrlFitsAtlas(long fieldID,String filter)
+	public static String fGetUrlFitsAtlas(long fieldID)
 	{
-		String link = "select value from SiteConstants where name='DataServerURL'";
+		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
 	    String run = null;
@@ -1246,7 +1246,7 @@ public class Functions {
 	    
 	    run6 = "000000".substring(1, 6-run.length())+run;
 	    field = "0000".substring(1, 4-field.length())+field;
-		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpAtlas-"+run6+'-'+filter+camcol+'-'+field+".fits";
+		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpAtlas-"+run6+'-'+camcol+'-'+field+".fits";
 	}
 	/**
 	 * -------------------------------------------------
@@ -1261,7 +1261,7 @@ public class Functions {
 	 */
 	public static String fGetUrlFitsField(long fieldID)
 	{
-		String link = "select value from SiteConstants where name='DataServerURL'";
+		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
 	    String run = null;
