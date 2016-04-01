@@ -469,9 +469,9 @@ public class ExplorerQueries {
         	 aql.append(" ,s.survey, s.legacy_target1 ,s.legacy_target2 ,s.special_target1 ");
         	 aql.append(" ,boss_target1 , ancillary_target1 , ancillary_target2, segue1_target1, segue1_target2, segue2_target1, segue2_target2 ");
         	 aql.append(" FROM PlateX AS p JOIN ");
-        	 aql.append(" ((SELECT * FROM SpecObjAll WHERE specObjID="+specID+") AS s ");
+        	 aql.append(" (SELECT * FROM (SELECT * FROM (SELECT * FROM SpecObjAll WHERE specObjID="+specID+") AS s ");
         	 aql.append(" JOIN (SELECT min(bestObjID) AS bestObjID, count(*) AS nspec FROM SpecObjAll WHERE bestObjID="+objID+") AS x ");
-        	 aql.append(" ON s.bestObjID=x.bestObjID  WHERE p.plateID=s.plateID)");
+        	 aql.append(" ON s.bestObjID=x.bestObjID) ON p.plateID=s.plateID)");
         	 
      		return aql.toString();
      	}
