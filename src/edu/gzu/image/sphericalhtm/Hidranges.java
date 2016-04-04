@@ -255,7 +255,7 @@ public class Hidranges{
             }
             if ((sortedpairs.get(i-1).getHi() + 1L) >= sortedpairs.get(i).getLo())
             {
-                throw new RuntimeException("sorted pair is not disjoint from neighbor");
+//                throw new RuntimeException("sorted pair is not disjoint from neighbor");注释测试！！
             }
         }
         return true;
