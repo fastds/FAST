@@ -59,14 +59,13 @@ public class Neighbors {
 		    	values.add("objid");
 		    	values.add("thingid");
 			    res.put(num++,values);
-			    values.clear();
+			    values = new ArrayList<Object>();
 			    
 	            // 添加值到Map当中
 			    values.add(Functions.fIAUFromEq(ds_neighbor1.getFloat("ra"), ds_neighbor1.getFloat("dec")));
 			    values.add(ds_neighbor1.getLong("objID"));
 			    values.add(ds_neighbor1.getLong("thingId"));
 		        res.put(num++,values);
-			    values.clear();
 			}
 			else {
 			    return res;
@@ -95,7 +94,7 @@ public class Neighbors {
 		    	values.add("mode");
 		    	values.add("(mode description)");
 			    res.put(num++,values);
-			    values.clear();
+			    values = new ArrayList<Object>();
 			    
 			    while(!ds_neighbor2.isAfterLast())
 			    {
@@ -115,7 +114,7 @@ public class Neighbors {
 			    	values.add(Functions.fPhotoModeN(mode));
 			    	
 			    	res.put(num++,values);
-			    	values.clear();
+			    	values = new ArrayList<Object>();
 			    	
 			    	ds_neighbor2.next();
 			    }

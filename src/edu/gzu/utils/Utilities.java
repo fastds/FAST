@@ -436,7 +436,7 @@ public class Utilities {
 			    	values.add(meta.getCatalogName(k));
 			    }
 			    res.put(num++,values);
-			    values.clear();
+			    values = new ArrayList<Object>();
 			    while (!rs.isAfterLast())
 			    {
 
@@ -463,7 +463,7 @@ public class Utilities {
 						}
 			        }
 			        res.put(num++,values);
-				    values.clear();
+			        values = new ArrayList<Object>();
 			    }
 			}
 			else {
