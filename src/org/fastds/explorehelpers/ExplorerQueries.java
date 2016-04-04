@@ -165,7 +165,7 @@ public class ExplorerQueries {
 //    public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
     	StringBuilder aql = new StringBuilder();
     	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
-    	aql.append(" SELECT p.ra, p.dec, p.objID, p.thingID FROM PhotoObjAll AS p WHERE p.objID="+objID);
+    	aql.append(" SELECT p.ra, p.dec, p.objID, p.thingId FROM PhotoObjAll AS p WHERE p.objID="+objID);
     	return aql.toString();
     }
 
