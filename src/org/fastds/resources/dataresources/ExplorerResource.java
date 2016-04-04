@@ -309,10 +309,12 @@ public class ExplorerResource {
     private void pmtsFromEq(double qra, double qdec)
     {
        Map<String,Long> ids = explorerService.fillObjectInfo(qra, qdec);
+       Long objID = ids.get("objID");
+       Long specObjID = ids.get("specObjID");
        if(ids!=null && ids.size()>0)
        {
-    	   objectInfo.objID = ids.get("objID")+"";
-           objectInfo.specObjID = ids.get("specObjID")+"";
+    	   objectInfo.objID = objID ==null || objID.equals(0L)?null:Utilities.longToHex(objID);
+           objectInfo.specObjID = specObjID ==null || specObjID.equals(0L)?null:Utilities.longToHex(specObjID);
        }
        
        if (objectInfo.objID != null && !objectInfo.objID.equals(""))

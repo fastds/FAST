@@ -165,7 +165,7 @@ public class ExplorerQueries {
 //    public static String neighbors1 = " SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid FROM photoobjall p WHERE p.objid=@objID";
     	StringBuilder aql = new StringBuilder();
     	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
-    	aql.append(" SELECT p.ra, p.dec, p.objID, p.thingID FROM PhotoObjAll p WHERE p.objID=");
+    	aql.append(" SELECT p.ra, p.dec, p.objID, p.thingID FROM PhotoObjAll AS p WHERE p.objID="+objID);
     	return aql.toString();
     }
 
@@ -176,7 +176,7 @@ public class ExplorerQueries {
 //                            +"FROM Neighbors n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID=@objID ORDER BY n.distance ASC ";
     	StringBuilder aql = new StringBuilder();
     	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
-    	aql.append(" SELECT n.neighborObjID AS objID, t.ra, t.dec , n.distance AS distance_arcmin, ");
+    	aql.append(" SELECT n.NeighborObjID AS objID, t.ra, t.dec , n.distance AS distance_arcmin, ");
     	aql.append(" n.neighborType AS type, neighborMode AS mode, n.neighborMode AS mode_description ");
     	aql.append(" FROM Neighbors AS n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID="+objID+" ORDER BY n.distance ASC ");
     	return aql.toString();
@@ -644,8 +644,8 @@ public class ExplorerQueries {
     	 * 返回 top 1 
     	 */
     	aql = aql.append(" SELECT p.objID, p.specObjID");
-    	aql = aql.append(" FROM ("+photoTag+") AS p, ("+subselect.toString()+") AS n ");
-    	aql = aql.append(" WHERE p.objID=n.objID ORDER BY n.mode , n.distance");
+    	aql = aql.append(" FROM ("+photoTag+") AS p JOIN ("+subselect.toString()+") AS n ");
+    	aql = aql.append(" ON p.objID=n.objID ORDER BY n.mode , n.distance");
     	
     	return aql.toString();
     }
