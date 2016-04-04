@@ -176,9 +176,9 @@ public class ExplorerQueries {
 //                            +"FROM Neighbors n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID=@objID ORDER BY n.distance ASC ";
     	StringBuilder aql = new StringBuilder();
     	objID = objID.startsWith("0x")? Long.parseLong(objID.substring(2),16)+"" :objID;
-    	aql.append(" SELECT n.NeighborObjID, t.ra, t.dec , n.distance AS distance_arcmin, ");
-    	aql.append(" n.neighborType AS type, neighborMode AS mode, n.neighborMode AS mode_description ");
-    	aql.append(" FROM Neighbors AS n, PhotoObjAll AS t WHERE n.NeighborObjID=t.objID AND n.objID="+objID+" ORDER BY n.distance ASC ");
+    	aql.append(" SELECT n.NeighborObjID, t.ra, t.dec , n.distance , ");
+    	aql.append(" n.neighborType, neighborMode  ");
+    	aql.append(" FROM Neighbors AS n JOIN PhotoObjAll AS t ON n.NeighborObjID=t.objID WHERE n.objID="+objID+" ORDER BY n.distance ASC ");
     	return aql.toString();
     }
     /// Fits Parameters Queries

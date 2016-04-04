@@ -1,7 +1,9 @@
 package edu.gzu.image;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -753,11 +755,141 @@ public class Functions {
 	}
 	public static String fIAUFromEq(double ra,double dec)
 	{
-		return null;
+		return  "SDSS J"+(fHMSbase(ra,1,2)+fDMSbase(dec,1,1)).replace(":","");
 	}
 	public static String fHMSbase(double ra,double dec)
 	{
+
 		return null;
+	}
+	/**
+	 * -------------------------------------------------------------------------------
+	 * 	--/H Base function to convert right ascension in degrees to +hh:mm:ss.ss notation.
+	 * 	-------------------------------------------------------------------------------
+	 * 	--/T @truncate is 0 (default) if decimal digits to be rounded, 1 to be truncated.
+	 * 	--/T <br> @precision is the number of decimal digits, default 2.
+	 * 	--/T <p><samp> select dbo.fHMSBase(187.5,1,3) </samp> <br>
+	 * 	--/T <samp> select dbo.fHMSBase(187.5,default,default) </samp>
+	 * 	-------------------------------------------------------------------------------
+	 * @param ra
+	 * @param truncate
+	 * @param precision
+	 * @return
+	 */
+	public static String fHMSbase(double deg,int truncate,int precision)
+	{
+		String s = "+";
+		String t = "00:00:00.0"; 
+		double d =  Math.abs(deg); 
+		int nd = (int) Math.floor(d);
+		String q = new Integer(nd).toString().trim();//ltrim()
+		int np = 0;
+//		--
+		if (precision < 1) precision = 1;
+		if (precision > 10)precision = 10;
+		while ( np  < (precision-1))
+		{
+			t = t+'0';
+			np = np + 1;
+		}
+//		-- degrees
+		t  = stuff(t,3-q.length(),q.length(), q);
+//		-- minutes
+		d  =  (60.0 * (d-nd));
+		nd = (int) Math.floor(d);
+		q  = new Integer(nd).toString().trim();
+		t  = stuff(t,6-q.length(),q.length(), q);
+//		-- seconds
+		if(truncate != 0) //截断
+		{
+			String str = new String(60.0 * (d-nd)+"");
+			int endIndex = str.indexOf(".");
+			d = Double.parseDouble(str.substring(0,endIndex));
+		}
+		else   //四舍五入
+			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//	--	SET @d  = 60.0 * (@d-@nd);
+		q  = str(d,6+precision,precision).trim();//ltrim() old
+		t = stuff(t,10+precision-q.length(),q.length(), q);
+		return t;
+	}
+	/**
+	 * -------------------------------------------------------------------------------
+		--/H Base function to convert declination in degrees to +dd:mm:ss.ss notation.
+		-------------------------------------------------------------------------------
+		--/T @truncate is 0 (default) if decimal digits to be rounded, 1 to be truncated.
+		--/T <br> @precision is the number of decimal digits, default 2.
+		--/T <p><samp> select dbo.fDMSbase(87.5,1,4) </samp> <br>
+		--/T <samp> select dbo.fDMSbase(87.5,default,default) </samp>
+		-------------------------------------------------------------------------------
+	 * @param ra
+	 * @param truncate
+	 * @param precision
+	 * @return
+	 */
+	public static String fDMSbase(double deg,int truncate,int precision)
+	{
+		String s = "+";
+		String t = "00:00:00.0"; 
+		double d =  Math.abs(deg); 
+		int nd = (int) Math.floor(d);
+		String q = new Integer(nd).toString().trim();//ltrim()
+		int np = 0;
+		
+		if(deg<0) s = "-";
+		
+		if (precision < 1) precision = 1;
+		if (precision > 10) precision = 10;
+		
+		while (np < precision-1)
+		{
+			t = t+"0";
+			np = np + 1;
+		}
+//		-- degrees
+		t  = stuff(t,3-q.length(),q.length(), q);
+//		-- minutes
+		d  =  (60.0 * (d-nd));
+		nd = (int) Math.floor(d);
+		q  = new Integer(nd).toString().trim();
+		t  = stuff(t,6-q.length(),q.length(), q);
+//		-- seconds
+		if(truncate != 0) //截断
+		{
+			String str = new String(60.0 * (d-nd)+"");
+			int endIndex = str.indexOf(".");
+			d = Double.parseDouble(str.substring(0,endIndex));
+		}
+		else   //四舍五入
+			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//	--	SET @d  = 60.0 * (@d-@nd);
+		q  = str(d,6+precision,precision).trim();//ltrim() old
+		t = stuff(t,10+precision-q.length(),q.length(), q);
+		
+		return (s+t);
+	}
+
+	private static String str(double num,int length,int decimal)
+	{
+		String result = new DecimalFormat("#.00").format(num);
+		if(result.length()>length)
+		{
+			int diff = result.length() - length;
+			if(diff <= 3)
+			{
+				result = result.substring(0, result.length()-length);
+			}
+		}
+		return result;
+	}
+	/*
+	 * 参数都以index 从1起为标准
+	 */
+	private static String stuff(String str, int start, int length, String replacement) {
+		String temp = str;
+		String pre = temp.substring(0,start-1);
+		String behind = temp.substring(start-1+length);
+		return pre + temp + behind;
 	}
 	/**
 	 * ---------------------------------------------------
