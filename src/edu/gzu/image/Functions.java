@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.fastds.dao.ExQuery;
 import org.fastds.model.View;
@@ -782,7 +783,7 @@ public class Functions {
 		String t = "00:00:00.0"; 
 		double d =  Math.abs(deg); 
 		int nd = (int) Math.floor(d);
-		String q = new Integer(nd).toString().trim();//ltrim()
+		String q = ltrim(new Integer(nd).toString());
 		int np = 0;
 //		--
 		if (precision < 1) precision = 1;
@@ -809,9 +810,19 @@ public class Functions {
 		else   //四舍五入
 			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //	--	SET @d  = 60.0 * (@d-@nd);
-		q  = str(d,6+precision,precision).trim();//ltrim() old
+		q  = ltrim(str(d,6+precision,precision));
 		t = stuff(t,10+precision-q.length(),q.length(), q);
 		return t;
+	}
+	private static String ltrim(String value) {
+		int len = value.length();
+        int st = 0;
+
+        while ((st < len) && (value.charAt(st) <= ' ')) {
+            st++;
+        }
+        return (st > 0) ? value.substring(st) : value;
+			
 	}
 	/**
 	 * -------------------------------------------------------------------------------
@@ -833,7 +844,7 @@ public class Functions {
 		String t = "00:00:00.0"; 
 		double d =  Math.abs(deg); 
 		int nd = (int) Math.floor(d);
-		String q = new Integer(nd).toString().trim();//ltrim()
+		String q = ltrim(new Integer(nd).toString().trim());
 		int np = 0;
 		
 		if(deg<0) s = "-";
@@ -863,7 +874,7 @@ public class Functions {
 		else   //四舍五入
 			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //	--	SET @d  = 60.0 * (@d-@nd);
-		q  = str(d,6+precision,precision).trim();//ltrim() old
+		q  = ltrim(str(d,6+precision,precision).trim());
 		t = stuff(t,10+precision-q.length(),q.length(), q);
 		
 		return (s+t);
