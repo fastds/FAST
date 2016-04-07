@@ -153,9 +153,9 @@ public class ExplorerQueries {
 //    		+"FROM thingindex t join photoobjall p on t.objid = p.objid "
 //    		+"WHERE t.objid=@objID and p.mode != 1 order by p.mode";
     	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT t.objID, t.thingID, p.mode, dbo.fPhotoModeN(p.mode) AS '(mode description)' ");
-    	aql.append(" FROM thingIndex t join PhotOobjAll p on t.objID = p.objID ");
-    	aql.append(" WHERE t.objID="+objID+" and p.mode != 1 ORDER BY p.mode ");
+    	aql.append(" SELECT t.objID, t.thingID, p.mode ");
+    	aql.append(" FROM thingIndex t JOIN PhotoObjAll p ON t.objID = p.objID ");
+    	aql.append(" WHERE t.objID="+objID+" AND p.mode<>1 ORDER BY p.mode ");
     	System.out.println("ExplorerQueries.gtMatches()->aql:"+aql.toString());
     	return aql.toString();
     }
