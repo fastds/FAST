@@ -29,7 +29,7 @@ public class ExplorerQueries {
      
 
     //sppLines
-    public static String sppLinesQuery = "SELECT * FROM sppLines WHERE specObjID=@specID";
+    public static String sppLinesQuery = "SELECT * FROM sppLines WHERE SPECOBJID=@specID";
    
 
     //sppParams
@@ -49,8 +49,8 @@ public class ExplorerQueries {
     
 
     //stellarMassStarformingPort
-    public static String stellarMassStarformingPortQuery = "SELECT * FROM stellarMassStarformingPort" 
-                                                            +"WHERE specObjID=@specID";
+    public static String stellarMassStarformingPortQuery = "SELECT * FROM stellarMassStarformingPort " 
+                                                            +" WHERE specObjID=@specID";
 
     //stellarMassPassivePort
     public static String stellarMassPassivePortQuery = "SELECT * FROM stellarMassPassivePort" 
