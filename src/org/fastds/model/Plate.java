@@ -46,7 +46,7 @@ public class Plate {
          String cmd = ExplorerQueries.PlateShow(plateID.toString());
          ResultSet ds = explorerService.runCmd(cmd);
          
-         String u = "<a class='content' target='_top' href='summary.aspx?sid=";
+         String u = "<a class='content' target='_top' href='Summary?sid=";
          String sid;
          int col = 0;
          int row = 0;

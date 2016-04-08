@@ -155,39 +155,40 @@
    <div id="content">
    <!-- 
        <asp:contentplaceholder id="OEContent" runat="server" /> -->
-    <table class="content">
-    <tr>
-      <td colspan="3">
-        <h1>Plate</h1>
-        <p>The SDSS takes spectra using a large aluminum <em>plate</em> that can collect light 
-        from hundreds to thousands of spectra at a time. Plates are given incremental plate 
-        numbers, and are labeled with the MJD on which they were observed. If a plate is observed 
-        on multiple nights, it will appear under each MJD. Data about each plate are are stored in the 
-        <a href="<c:url value='/v1/Schema?name=Neighbors'/>" class='content'>Plate</a> table.</p>
-        <p>The <em>Plate Data</em> table on the left below shows the data associated with the 
-        plate on which this object's spectrum was taken. The <em>All Spectra on this plate</em> table 
-        shows all the spectra that were measured on that plate, including this object's. Click on 
-        one of those links to go to the Explore page for that object.</p>
-      </td>
-    </tr>
-    <tr>
-        <td colspan="2"><h2>Plate Data</h2></td>
-    </tr>
-    <tr>
-    <td valign="top">
-        <div id="plate">
-        <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((Plate)request.getAttribute("plate")).getDs(), 200)%>
-        </div>
-    </td>
-    <td valign="top">
-        <div id="objects">
-        <h2>All Spectra on this plate</h2>
-        <%=((Plate)request.getAttribute("plate")).showFTable()%> 
-        </div>
-    </td>
-    </tr>
-    </table>
-</div>
+       <div class="content">
+	    <table class="content">
+	    <tr>
+	      <td colspan="3">
+	        <h1>Plate</h1>
+	        <p>The SDSS takes spectra using a large aluminum <em>plate</em> that can collect light 
+	        from hundreds to thousands of spectra at a time. Plates are given incremental plate 
+	        numbers, and are labeled with the MJD on which they were observed. If a plate is observed 
+	        on multiple nights, it will appear under each MJD. Data about each plate are are stored in the 
+	        <a href="<c:url value='/v1/Schema?name=Neighbors'/>" class='content'>Plate</a> table.</p>
+	        <p>The <em>Plate Data</em> table on the left below shows the data associated with the 
+	        plate on which this object's spectrum was taken. The <em>All Spectra on this plate</em> table 
+	        shows all the spectra that were measured on that plate, including this object's. Click on 
+	        one of those links to go to the Explore page for that object.</p>
+	      </td>
+	    </tr>
+	    <tr>
+	        <td colspan="2"><h2>Plate Data</h2></td>
+	    </tr>
+	    <tr>
+	    <td valign="top">
+	        <div id="plate">
+	        <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((Plate)request.getAttribute("plate")).getDs(), 200)%>
+	        </div>
+	    </td>
+	    <td valign="top">
+	        <div id="objects">
+	        <h2>All Spectra on this plate</h2>
+	        <%=((Plate)request.getAttribute("plate")).showFTable()%> 
+	        </div>
+	    </td>
+	    </tr>
+	    </table>
+	</div>
    </div>              
     </div>
 </form>
