@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.Plate"%>
 <%@ page import="org.fastds.model.ObjectExplorer"%>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="OEHead" runat="server">
+<%@ page import="edu.gzu.utils.U"%>
+<!-- 
+<asp:Content ID="Content1" ContentPlaceHolderID="OEHead" runat="server"> -->
     <style type="text/css">
         div.content       
             { background-color: #ffffff; }
@@ -22,10 +24,11 @@
         a.content:hover	
             { color: Blue; text-decoration: underline;}
     </style>
-</asp:Content>
-
+    <!-- 
+</asp:Content> -->
+  <!-- 
 <asp:Content ID="Content2" ContentPlaceHolderID="OEContent" runat="server">
-
+ -->
 <div class="content">
 
     <table class="content">
@@ -36,7 +39,7 @@
         from hundreds to thousands of spectra at a time. Plates are given incremental plate 
         numbers, and are labeled with the MJD on which they were observed. If a plate is observed 
         on multiple nights, it will appear under each MJD. Data about each plate are are stored in the 
-        <a href="../../help/browser/browser.aspx?cmd=description+neighbors+U" class='content'>Plate</a> table.</p>
+        <a href="<c:url value='/v1/Schema?name=Neighbors'/>" class='content'>Plate</a> table.</p>
         <p>The <em>Plate Data</em> table on the left below shows the data associated with the 
         plate on which this object's spectrum was taken. The <em>All Spectra on this plate</em> table 
         shows all the spectra that were measured on that plate, including this object's. Click on 
@@ -49,9 +52,7 @@
     <tr>
     <td valign="top">
         <div id="plate">
-        <%=           
-        	((ObjectExplorer)request.getAttribute("master")).showVTable(((Plate)request.getAttribute("plate")).getDs(), 200)
-        %>
+        <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((Plate)request.getAttribute("plate")).getDs(), 200)%>
         </div>
     </td>
     <td valign="top">
@@ -65,4 +66,5 @@
     </tr>
     </table>
 </div>
-</asp:Content>
+<!-- 
+</asp:Content> -->

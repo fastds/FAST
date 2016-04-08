@@ -370,10 +370,7 @@ public class ObjectExplorer {
 			            res.append("<td valign='top' class='" + c + "'>");
 			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
 							res.append(ds.getBoolean(k));
-						} else if ("int64".endsWith(meta.getColumnTypeName(k))
-								|| "int32".endsWith(meta.getColumnTypeName(k))
-								|| "int16".endsWith(meta.getColumnTypeName(k))
-								|| "int8".endsWith(meta.getColumnTypeName(k))) {
+						} else if (meta.getColumnTypeName(k).startsWith("int")) {
 							res.append(ds.getLong(k));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 							String str = ds.getString(k);
@@ -408,135 +405,6 @@ public class ObjectExplorer {
      * Added new HTable with namevalue pair options
      * 返回要显示的页面元素
      */
-//    public String showHTable(ResultSet rs, int w, String target)
-//    {
-//    	StringBuilder res = new StringBuilder();
-//    	ResultSetMetaData meta = null;
-//        char c = 't'; String unit = "test";
-//
-//        res.append("<table cellpadding=2 cellspacing=2 border=0");
-//        if (w > 0)
-//        	res.append(" width=" + w);
-//        res.append(">\n");
-//
-//        res.append("<tr>");
-//
-//        try {
-//			if (rs!=null && !rs.isAfterLast())
-//			{
-//				meta = rs.getMetaData();
-//				int colCount =  meta.getColumnCount();
-//			    for (int k = 1; k <= colCount; k++)
-//			    {
-//			    	res.append("<td align='middle' class='h'>");
-//			    	res.append("<span ");
-//			        if (unit != "")
-//			        	res.append("ONMOUSEOVER=\"this.T_ABOVE=true;this.T_WIDTH='100';return escape('<i>unit</i>=" + unit + "')\" ");
-//			        res.append("></span>");
-//			        res.append(meta.getColumnName(k) + "</td>");
-//			    }
-//			    res.append("</tr>");
-//
-//
-//			    while (!rs.isAfterLast())
-//			    {
-//			        res.append("<tr>");
-//
-//			        for (int k = 1; k <= colCount; k++)
-//			        {
-//			            res.append("<td nowrap align='middle' class='" + c + "'>");
-//
-//			            // think something else if possible for this
-//			            if (target.equals("AllSpectra") && k == 1)
-//			            {
-//			                String u = "<a class='content' target='_top' href='Summary?sid=";
-////      old                      res.append(u + rs.GetValue(k) + "'>" + rs.GetValue(k) + "</a></td>");
-//			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(u + rs.getBoolean(k)+ "'>" + rs.getBoolean(k) + "</a></td>");
-//							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(u + rs.getBigDecimal(k)+ "'>" + rs.getBigDecimal(k) + "</a></td>");
-//							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-//								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
-//								if(str.contains("<"))
-//									str = str.replace("<", "&lt;");
-//								if(str.contains(">"))
-//									str = str.replace(">","&gt;");
-//								//System.out.println(str);
-//								res.append(str);
-//								
-//							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
-//								
-//								res.append(u + rs.getTime(k)+ "'>" + rs.getTime(k) + "</a></td>");
-//							} else {
-//								res.append(u + rs.getLong(k)+ "'>" + rs.getLong(k) + "</a></td>");
-//							}
-//			            }
-//
-//			            else if (target.equals("Neighbors") && k == 1)
-//			            {
-//			                String u = "<a class='content' target='_top' href='Summary?id=";
-////                  old          res.append(u + reader.GetValue(k) + "'>" + reader.GetValue(k) + "</a></td>");
-//			                if ("bool".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(u + rs.getBoolean(k)+ "'>" + rs.getBoolean(k) + "</a></td>");
-//							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(u + rs.getBigDecimal(k)+ "'>" + rs.getBigDecimal(k) + "</a></td>");
-//							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-//								String str = u + rs.getString(meta.getColumnTypeName(k))+ "'>" + rs.getString(meta.getColumnLabel(k)) + "</a></td>";
-//								if(str.contains("<"))
-//									str = str.replace("<", "&lt;");
-//								if(str.contains(">"))
-//									str = str.replace(">","&gt;");
-//								//System.out.println(str);
-//								res.append(str);
-//								
-//							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
-//								
-//								res.append(u + rs.getTime(k)+ "'>" + rs.getTime(k) + "</a></td>");
-//							} else {
-//								res.append(u + rs.getLong(k)+ "'>" + rs.getLong(k) + "</a></td>");
-//							}
-//			            }
-//
-//			            else
-//			            {
-////                            res.append(reader.GetValue(k));
-//			            	if ("bool".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(rs.getBoolean(k));
-//							} else if ("double".endsWith(meta.getColumnTypeName(k))) {
-//								res.append(rs.getBigDecimal(k));
-//							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-//								String str = rs.getString(k);
-//								if(str.contains("<"))
-//									str = str.replace("<", "&lt;");
-//								if(str.contains(">"))
-//									str = str.replace(">","&gt;");
-//								//System.out.println(str);
-//								res.append(str);
-//								
-//							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
-//								
-//								res.append(rs.getTime(k));
-//							} else {
-//								res.append(rs.getLong(k));
-//							}
-//			            }
-//			            res.append("</td>");
-//			        }
-//			    }
-//			}
-//			else {
-//			    res.append(" <td class='nodatafound'>No data found for this object </td>");
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//        res.append("</tr>");
-//
-//        res.append("</table>");
-//        return res.toString();
-//    }
     public String showHTable(Map<Integer,List<Object>> rs, int w, String target)
     {
     	StringBuilder res = new StringBuilder();
