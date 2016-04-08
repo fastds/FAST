@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.Plate"%>
 <%@ page import="org.fastds.model.ObjectExplorer"%>
-<%@ page import="edu.gzu.utils.U"%>
+<%@ page import="edu.gzu.utils.Utilities"%>
 <!-- 
 <asp:Content ID="Content1" ContentPlaceHolderID="OEHead" runat="server"> -->
     <style type="text/css">
