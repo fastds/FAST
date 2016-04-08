@@ -201,7 +201,7 @@ public class ExplorerResource {
 		
 		request.setAttribute("plate", plate);
 		request.setAttribute("master", master);
-		return new Viewable("/tools/plate.jsp", null);
+		return new Viewable("/tools/Plate.jsp", null);
 	}
 	@GET
 	@Path("FitsImg")

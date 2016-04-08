@@ -1,7 +1,5 @@
 package org.fastds.explorehelpers;
 
-
-
 import org.fastds.model.View;
 
 import edu.gzu.image.Functions;
@@ -97,10 +95,17 @@ public class ExplorerQueries {
     //Plate
     public static String Plate = "SELECT * FROM PlateX WHERE plateID=@plateID";
         
-    public static String PlateShow = " SELECT cast(specObjID as binary(8)) as specObjID, fiberID, class as name, str(z,5,3) as z"+ 
-                           " FROM SpecObjAll WHERE plateID=@plateID order by fiberID";
+//    public static String PlateShow = " SELECT cast(specObjID as binary(8)) as specObjID, fiberID, class as name, str(z,5,3) as z"+ 
+//                           " FROM SpecObjAll WHERE plateID=@plateID order by fiberID";
             
-
+    public static String PlateShow(String plateID)
+    {
+    	plateID = plateID.startsWith("0x")? Long.parseLong(plateID.substring(2),16)+"" :plateID;
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT specObjID, fiberID, class as name, z ");
+    	aql.append(" FROM SpecObjAll WHERE plateID="+plateID+" ORDER BY fiberID ");
+    	return aql.toString();
+    }
     //AllSpectra Queries
     public static String AllSpec1(String objID)
     {

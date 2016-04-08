@@ -43,7 +43,7 @@ public class Plate {
 
 	public String showFTable()
      {
-         String cmd = ExplorerQueries.PlateShow.replace("@plateID", plateID.toString());
+         String cmd = ExplorerQueries.PlateShow(plateID.toString());
          ResultSet ds = explorerService.runCmd(cmd);
          
          String u = "<a class='content' target='_top' href='summary.aspx?sid=";
