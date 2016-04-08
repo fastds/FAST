@@ -13,7 +13,8 @@ public class AllSpec {
     ExplorerService explorerService = new ExplorerService();
     public AllSpec(ObjectExplorer master)
     {
-    	this.master = master;            
+    	this.master = master;          
+    	this.globals = master.globals;
     }
 //    protected void load(ObjectExplorer master)
 //    {

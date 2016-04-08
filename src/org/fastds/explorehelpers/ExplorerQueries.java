@@ -148,7 +148,7 @@ public class ExplorerQueries {
 //                                   +" FROM Photoobjall p WHERE p.objid=@objID";
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT p.ra,p.dec, p.objID, p.thingID, p.mode ");
-    	aql.append(" FROM PhotoObjAll p WHERE p.objID="+objID);
+    	aql.append(" FROM PhotoObjAll AS p WHERE p.objID="+objID);
     	System.out.println("ExplorerQueries.gtMatches1()->aql:"+aql.toString());
     	return aql.toString();
     }
@@ -159,9 +159,9 @@ public class ExplorerQueries {
 //    		+"WHERE t.objid=@objID and p.mode != 1 order by p.mode";
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT t.objID, t.thingID, p.mode ");
-    	aql.append(" FROM thingIndex t JOIN PhotoObjAll p ON t.objID = p.objID ");
+    	aql.append(" FROM thingIndex AS t JOIN PhotoObjAll AS p ON t.objID = p.objID ");
     	aql.append(" WHERE t.objID="+objID+" AND p.mode<>1 ORDER BY p.mode ");
-    	System.out.println("ExplorerQueries.gtMatches()->aql:"+aql.toString());
+    	System.out.println("ExplorerQueries.gtMatches2()->aql:"+aql.toString());
     	return aql.toString();
     }
     ///Neighbors
