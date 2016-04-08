@@ -96,7 +96,6 @@ public class SpectralControl {
             veldisp = (Float)attrs.get("veldisp") == 0 ? -999.99 : (Float)attrs.get("veldisp");
             veldisp_err = (Float)attrs.get("veldisp_err") == 0 ? -999.99 : (Float)attrs.get("veldisp_err");
             targeting_flags = attrs.get("targeting_flags") == null ? "" : (String)attrs.get("targeting_flags");
-            System.out.println("red...."+redshift_z+","+redshift_err);
         }
     }
 	public Globals getGlobals() {
