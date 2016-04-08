@@ -374,13 +374,16 @@ public class ObjectExplorer {
 							res.append(ds.getLong(k));
 						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
 							String str = ds.getString(k);
-							if(str.contains("<"))
-								str = str.replace("<", "&lt;");
-							if(str.contains(">"))
-								str = str.replace(">","&gt;");
-							//System.out.println(str);
-							res.append(str);
-							
+							if(str!=null)
+							{
+								if(str.contains("<"))
+									str = str.replace("<", "&lt;");
+								if(str.contains(">"))
+									str = str.replace(">","&gt;");
+								res.append(str);
+							}
+							else
+								res.append("");
 						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
 							
 							res.append(ds.getTime(k));
