@@ -51,42 +51,43 @@ public class FitsSpec {
 	        ResultSet rs = null;
 	        rs = service.runCmd(aql);
 	        System.out.println("FitsSpec.getFits--->aql:"+aql);
-	        ResultSetMetaData meta;
+	        ResultSetMetaData meta = null;
 			try {
-				meta = rs.getMetaData();
-				int colNum = meta.getColumnCount();
 	            if (rs!=null && !rs.isAfterLast())
 	            {
+	            	meta = rs.getMetaData();
+	            	int colNum = meta.getColumnCount();
 	                result = new String[colNum];
-	            }
-	            if (!rs.isAfterLast())
-	            {
-	                for (int k = 1; k <= colNum; k++)
-	                {
-	                	if ("bool".endsWith(meta.getColumnTypeName(k))) {
-							result[k-1] = rs.getBoolean(k)+"";
-						} else if (meta.getColumnTypeName(k).startsWith("int")) {
-							result[k-1] = rs.getLong(k)+"";
-						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-							String str = rs.getString(k);
-							if(str!=null)
-							{
-								if(str.contains("<"))
-									str = str.replace("<", "&lt;");
-								if(str.contains(">"))
-									str = str.replace(">","&gt;");
-								result[k-1] = str;
+	            
+		            if (!rs.isAfterLast())
+		            {
+		                for (int k = 1; k <= colNum; k++)
+		                {
+		                	if ("bool".endsWith(meta.getColumnTypeName(k))) {
+								result[k-1] = rs.getBoolean(k)+"";
+							} else if (meta.getColumnTypeName(k).startsWith("int")) {
+								result[k-1] = rs.getLong(k)+"";
+							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+								String str = rs.getString(k);
+								if(str!=null)
+								{
+									if(str.contains("<"))
+										str = str.replace("<", "&lt;");
+									if(str.contains(">"))
+										str = str.replace(">","&gt;");
+									result[k-1] = str;
+								}
+								else
+									result[k-1] = "";
+							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+								
+								result[k-1] = rs.getTime(k).toString();
+							} else {
+								result[k-1] = rs.getDouble(k)+"";
 							}
-							else
-								result[k-1] = "";
-						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
-							
-							result[k-1] = rs.getTime(k).toString();
-						} else {
-							result[k-1] = rs.getDouble(k)+"";
-						}
-	                	
-	                }
+		                	
+		                }
+		            }
 	            }
 			} catch (SQLException e) {
 				e.printStackTrace();
