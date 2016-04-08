@@ -171,7 +171,7 @@
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift (z)</span></td>
-	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_z}" pattern="#.###"></fmt:formatNumber></td>
+	                       <td valign='top' class='t'><fmt:formatNumber value="${spectralCtrl.redshift_z }" pattern="#.###"></fmt:formatNumber></td>
 	                   </tr>
 	                   <tr align='left' >
 	                       <td  valign='top' class='h'><span>Redshift error</span></td>

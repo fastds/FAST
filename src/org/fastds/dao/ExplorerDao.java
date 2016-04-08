@@ -1035,7 +1035,6 @@ public class ExplorerDao {
 				attrs.put("veldisp", veldisp);
 				attrs.put("veldisp_err", veldisp_err);
 				attrs.put("targeting_flags", targeting_flags);
-				System.out.println("red..."+redshift_z+","+redshift_err);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
