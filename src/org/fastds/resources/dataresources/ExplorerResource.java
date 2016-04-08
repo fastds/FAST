@@ -17,6 +17,7 @@ import org.fastds.model.ApogeeControl;
 import org.fastds.model.CrossIDControls;
 import org.fastds.model.DisplayResults;
 import org.fastds.model.FitsImg;
+import org.fastds.model.FitsSpec;
 import org.fastds.model.GalaxyZoo;
 import org.fastds.model.Globals;
 import org.fastds.model.ImagingControl;
@@ -215,6 +216,18 @@ public class ExplorerResource {
 		request.setAttribute("fitsImg", fitsImg);
 		request.setAttribute("master", master);
 		return new Viewable("/tools/FitsImg.jsp", null);
+	}
+	@GET
+	@Path("FitsSpec")
+	public Viewable getFitsSpec(@QueryParam("sid") String sid) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		FitsSpec fitsSpec = new FitsSpec(master);
+		fitsSpec.setSpecObjID(Utilities.ParseId(sid));
+		fitsSpec.setHrefsSpec(fitsSpec.getFits());
+		
+		request.setAttribute("fitsSpec", fitsSpec);
+		request.setAttribute("master", master);
+		return new Viewable("/tools/FitsSpec.jsp", null);
 	}
 	@GET
 	@Path("GalaxyZoo")
