@@ -29,7 +29,8 @@ public class Plate {
 //     }  old 
      
      public void executeQuery() {
-         String cmd = ExplorerQueries.Plate.replace("@plateID",plateID.toString());
+    	 String id = plateID.toString().startsWith("ox")?Utilities.longToHex(plateID):plateID.toString();
+         String cmd = ExplorerQueries.Plate.replace("@plateID",id);
          ds = explorerService.runCmd(cmd);
      }
 
