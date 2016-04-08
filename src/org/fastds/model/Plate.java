@@ -70,6 +70,7 @@ public class Plate {
                      res.append("</tr>\n<tr>\n");
                      c = ("st".equals(c) ? "sb" : "st");
                  }
+                 ds.next();
              }
          }
          catch(Exception e)
