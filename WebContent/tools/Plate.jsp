@@ -19,8 +19,7 @@
     <script src="../js/jquery-1.7.1.js"></script>
     <script type="text/javascript" src="../js/master.js"> </script>
     <script type="text/javascript" src="../js/explore.js"></script>
-</head>
-<style type="text/css">
+    <style type="text/css">
         div.content       
             { background-color: #ffffff; }
         table.content td  
@@ -38,6 +37,8 @@
         a.content:hover	
             { color: Blue; text-decoration: underline;}
     </style>
+</head>
+  
 <body>
   <!-- 
 <asp:Content ID="Content2" ContentPlaceHolderID="OEContent" runat="server">
@@ -155,7 +156,7 @@
    <div id="content">
    <!-- 
        <asp:contentplaceholder id="OEContent" runat="server" /> -->
-       <div class="content">
+       <div  class="content">
 	    <table class="content">
 	    <tr>
 	      <td colspan="3">
