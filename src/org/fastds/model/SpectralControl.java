@@ -91,7 +91,7 @@ public class SpectralControl {
             survey = attrs.get("survey") == null ? "" : (String)attrs.get("survey");
             programname = attrs.get("programname") == null ? "" : (String)attrs.get("programname");
             primary = (Short)attrs.get("primary") == 0 ? -99999 : (Short)attrs.get("primary");
-            otherspec = (Integer)attrs.get("otherspec") == 0 ? -99999 : (Integer)attrs.get("otherspec");
+            otherspec = (Integer)attrs.get("otherspec") == null ? -99999 : (Integer)attrs.get("otherspec");
             sourcetype = attrs.get("sourcetype") == null ? "" : (String)attrs.get("sourcetype");
             veldisp = (Float)attrs.get("veldisp") == 0 ? -999.99 : (Float)attrs.get("veldisp");
             veldisp_err = (Float)attrs.get("veldisp_err") == 0 ? -999.99 : (Float)attrs.get("veldisp_err");
