@@ -977,25 +977,6 @@ public class ExplorerDao {
 		ExQuery exQuery = new ExQuery();
 		Map<String, Object> attrs = new HashMap<String, Object>();
 		
-		/*if (reader.HasRows)
-        {
-            plate = reader["plate"] is DBNull ? -99999 : (short)reader["plate"]; 
-            mjd = reader["mjd"] is DBNull ? -99999 : (int)reader["mjd"];
-            fiberid = reader["fiberid"] is DBNull ? -99999 : (short)reader["fiberid"];
-            instrument = reader["instrument"] is DBNull ? "" : (String)reader["instrument"];
-            objclass = reader["objclass"] is DBNull ? "" : (String)reader["objclass"];
-            redshift_z = reader["redshift_z"] is DBNull ? -999.99 : (float)reader["redshift_z"];
-            redshift_err = reader["redshift_err"] is DBNull ? -999.99 : (float)reader["redshift_err"];
-            redshift_flags = reader["redshift_flags"] is DBNull ? "" : (String)reader["redshift_flags"];
-            survey = reader["survey"] is DBNull ? "" : (String)reader["survey"];
-            programname = reader["programname"] is DBNull ? "" : (String)reader["programname"];
-            primary = reader["primary"] is DBNull ? -99999 : (short)reader["primary"];
-            otherspec = reader["otherspec"] is DBNull ? -99999 : (int)reader["otherspec"];
-            sourcetype = reader["sourcetype"] is DBNull ? "" : (String)reader["sourcetype"];
-            veldisp = reader["veldisp"] is DBNull ? -999.99 : (float)reader["veldisp"];
-            veldisp_err = reader["veldisp_err"] is DBNull ? -999.99 : (float)reader["veldisp_err"];
-            targeting_flags = reader["targeting_flags"] is DBNull ? "" : (String)reader["targeting_flags"];
-        }*/
 		try {
 			rs = exQuery.aqlQuery(aql);
 			if (!rs.isAfterLast())
@@ -1054,6 +1035,7 @@ public class ExplorerDao {
 				attrs.put("veldisp", veldisp);
 				attrs.put("veldisp_err", veldisp_err);
 				attrs.put("targeting_flags", targeting_flags);
+				System.out.println("red..."+redshift_z+","+redshift_err);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
