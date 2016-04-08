@@ -147,7 +147,7 @@ public class ExplorerQueries {
 //    public static  String matches1 = "SELECT dbo.fIAUFromEq(p.ra,p.dec) as 'IAU name', p.objid, p.thingid, dbo.fPhotoModeN(p.mode) as mode"
 //                                   +" FROM Photoobjall p WHERE p.objid=@objID";
     	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT p.ra,p.dec, p.objID, p.thingID, p.mode ");
+    	aql.append(" SELECT p.ra,p.dec, p.objID, p.thingId, p.mode ");
     	aql.append(" FROM PhotoObjAll AS p WHERE p.objID="+objID);
     	System.out.println("ExplorerQueries.gtMatches1()->aql:"+aql.toString());
     	return aql.toString();
