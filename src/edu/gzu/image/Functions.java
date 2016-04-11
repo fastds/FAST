@@ -1480,13 +1480,13 @@ public class Functions {
 		aql.append("FROM PlateX AS p JOIN (SELECT * FROM SpecObjAll WHERE specObjID="+specObjID+") AS s ON p.plateID=s.plateID");
 		ExQuery ex = new ExQuery();
 		ResultSet rs = null;
-		try {
-			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='DataServerURL'");
+		try { 
+			rs = ex.aqlQuery(" SELECT value FROM SiteConstants WHERE name='DataServerURL' ");
 			if(rs!=null && !rs.isAfterLast())
 			{
 				link = rs.getString("value");
 			}
-			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='Release'");
+			rs = ex.aqlQuery(" SELECT value FROM SiteConstants WHERE name='Release' ");
 			if(rs!=null && !rs.isAfterLast())
 			{
 				release = rs.getString("value");
@@ -1537,5 +1537,16 @@ public class Functions {
 	 */
 	private static double DEGREES(double rad) {
 		return 180/Math.PI*rad;
+	}
+	public static void main(String[] args) {
+		ExQuery ex = new ExQuery();
+		ResultSet rs = null;
+		try {
+			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='DataServerURL'");
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 }
