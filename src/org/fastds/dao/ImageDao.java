@@ -145,10 +145,10 @@ public class ImageDao {
 	public long getSpecObjID(long photoObjAllID)
 	{
 		  StringBuilder aql = new StringBuilder();
-	        aql.append(" SELECT s.specObjID AS specObjID");
-	        aql.append(" FROM PhotoObjAll AS p, SpecObj AS s ");
-	        aql.append(" WHERE s.bestObjID=p.objID AND p.objID="+photoObjAllID);
-	        System.out.println("getSpecObjID-->"+aql);
+	        aql.append(" SELECT s.specObjID ");
+	        aql.append(" FROM (SELECT * FROM PhotoObjAll WHERE objID="+photoObjAllID+") AS p JOIN SpecObj AS s ");
+	        aql.append(" ON s.bestObjID=p.objID ");
+	        System.out.println("ImageDao.getSpecObjID-->"+aql);
 	        ResultSet rs = null;
 	        long specObjID = -1;
 	        try {
