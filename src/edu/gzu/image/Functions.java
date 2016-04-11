@@ -1487,12 +1487,22 @@ public class Functions {
 			{
 				link = rs.getString("value");
 			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try { 
 			System.out.println("Functions.fGetUrlFitsSpectrum-->aql2: SELECT value FROM SiteConstants WHERE name='Release' ");
 			rs = ex.aqlQuery(" SELECT value FROM SiteConstants WHERE name='Release' ");
 			if(rs!=null && !rs.isAfterLast())
 			{
 				release = rs.getString("value");
 			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try{
 			System.out.println("Functions.fGetUrlFitsSpectrum-->"+aql.toString());
 			rs = ex.aqlQuery(aql.toString());
 			if(rs!=null && !rs.isAfterLast())
