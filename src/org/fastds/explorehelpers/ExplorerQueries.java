@@ -118,7 +118,7 @@ public class ExplorerQueries {
     	aql.append(" SELECT s.specObjID, s.plate, s.mjd as MJD, s.fiberID as fiber,  t.ra, t.dec, ");
     	aql.append(" s.ra as specRa, s.dec AS specDec, s.sciencePrimary , s.class ");
     	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE objID="+objID+") AS t");
-    	aql.append(" ON s.bestObjID=t.objID ORDER BY sciencePrimary desc, plate, MJD, fiber");
+    	aql.append(" ON s.bestObjID=t.objID ORDER BY sciencePrimary desc, plate, mjd, fiberID");
     	return aql.toString();
     }
     
@@ -136,7 +136,7 @@ public class ExplorerQueries {
     	aql.append("SELECT s.specObjID, s.plate, s.mjd as MJD, s.fiberID as fiber, t.ra, t.dec,");
     	aql.append(" s.ra as specRa, s.dec as specDec,  s.sciencePrimary, s.class ");
     	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE objID="+objID+") AS t ");
-    	aql.append(" ON s.fluxObjID=t.objID ORDER BY  plate, MJD, fiber, ");
+    	aql.append(" ON s.fluxObjID=t.objID ORDER BY  plate, mjd, fiberID, ");
     	aql.append(" sciencePrimary desc ");
     	return aql.toString();
     }
