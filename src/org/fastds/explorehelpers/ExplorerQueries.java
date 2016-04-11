@@ -117,7 +117,7 @@ public class ExplorerQueries {
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT s.specObjID, s.plate, s.mjd as MJD, s.fiberID as fiber,  t.ra, t.dec, ");
     	aql.append(" s.ra as specRa, s.dec AS specDec, s.sciencePrimary , s.class ");
-    	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE ObjID="+objID+") AS t");
+    	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE objID="+objID+") AS t");
     	aql.append(" ON s.bestObjID=t.objID ORDER BY sciencePrimary desc, plate, MJD, fiber");
     	return aql.toString();
     }
@@ -135,7 +135,7 @@ public class ExplorerQueries {
     	//确实一个排序属性
     	aql.append("SELECT s.specObjID, s.plate, s.mjd as MJD, s.fiberID as fiber, t.ra, t.dec,");
     	aql.append(" s.ra as specRa, s.dec as specDec,  s.sciencePrimary, s.class ");
-    	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE ObjID="+objID+") AS t ");
+    	aql.append(" FROM SpecObjAll AS s JOIN (SELECT * FROM PhotoObjAll WHERE objID="+objID+") AS t ");
     	aql.append(" ON s.fluxObjID=t.objID ORDER BY  plate, MJD, fiber, ");
     	aql.append(" sciencePrimary desc ");
     	return aql.toString();
