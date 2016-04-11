@@ -84,7 +84,7 @@ public class AllSpec {
 	            // 添加值到Map当中
 			    values.add(ds_spec1.getLong("specObjID"));
 			    values.add(ds_spec1.getShort("plate"));
-			    values.add(ds_spec1.getInt("mjd"));
+			    values.add(ds_spec1.getInt("MJD"));
 			    values.add(ds_spec1.getShort("fiber"));
 			    float ra = ds_spec1.getFloat("ra");
 			    float dec = ds_spec1.getFloat("dec");
@@ -120,7 +120,7 @@ public class AllSpec {
 		    	values = new ArrayList<Object>();
 		    	values.add("specObjID");
 		    	values.add("plate");
-		    	values.add("mjd");
+		    	values.add("MJD");
 		    	values.add("fiber");
 		    	values.add("ra");
 		    	values.add("dec");
@@ -136,7 +136,7 @@ public class AllSpec {
 	            // 添加值到Map当中
 			    values.add(ds_spec1.getLong("specObjID"));
 			    values.add(ds_spec1.getShort("plate"));
-			    values.add(ds_spec1.getInt("MJD"));
+			    values.add(ds_spec1.getInt("mjd"));
 			    values.add(ds_spec1.getShort("fiber"));
 			    float ra = ds_spec1.getFloat("ra");
 			    float dec = ds_spec1.getFloat("dec");

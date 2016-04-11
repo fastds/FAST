@@ -1,8 +1,5 @@
 package org.fastds.model;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 import org.fastds.service.ExplorerService;
 
