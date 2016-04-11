@@ -1450,4 +1450,91 @@ public class Functions {
 //		RETURN ( cast( ((@ObjID / power(cast(2 as bigint),59)) & 0x0000000F) AS INT));
 		return (int)(objID/Math.pow(2, 59)) & 0x0000000F;
 	}
+	/**
+	 * -------------------------------------------------
+	 *	--/H Get the URL to the FITS file of the spectrum given the SpecObjID
+	 *	-------------------------------------------------
+	 *	--/T Combines the value of the DataServer URL from the
+	 *	--/T SiteConstants table and builds up the whole URL
+	 *	--/T from the specObjId.
+	 *	--/T <br><samp> select dbo.fGetUrlFitsSpectrum(75094092974915584)</samp>
+	 *	-------------------------------------------------
+	 * @param specObjID
+	 * @return
+	 */
+	public static String fGetUrlFitsSpectrum(long specObjID)
+	{
+		String link, plate,mjd, fiber,rerun,release,survey,oplate,ofiber;
+		link = "";
+		plate = "";
+		mjd = "";
+		fiber = "";
+		rerun = "";
+		release = "";
+		survey = "";
+		oplate = "";
+		ofiber = "";
+		StringBuilder aql = new StringBuilder();
+		aql.append("SELECT p.run2d, p.run1d, p.survey, p.mjd, p.plate, s.fiberID");
+		aql.append("FROM PlateX AS p JOIN (SELECT * FROM SpecObjAll WHERE specObjID="+specObjID+") AS s ON p.plateID=s.plateID");
+		ExQuery ex = new ExQuery();
+		ResultSet rs = null;
+		try {
+			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='DataServerURL'");
+			if(rs!=null && !rs.isAfterLast())
+			{
+				link = rs.getString("value");
+			}
+			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='Release'");
+			if(rs!=null && !rs.isAfterLast())
+			{
+				release = rs.getString("value");
+			}
+			rs = ex.aqlQuery(aql.toString());
+			if(rs!=null && !rs.isAfterLast())
+			{
+				String run2d = rs.getString("run2d");
+				String run1d = rs.getString("run1d");
+				if(run2d==null || run2d.isEmpty())
+					rerun = run1d;
+				else
+					rerun = run2d;
+				survey = rs.getString("survey");
+				mjd = rs.getLong("mjd")+"";
+				plate = rs.getLong("plate")+"";
+				fiber = rs.getLong("fiberID")+"";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(!"boss".equals(survey))
+			survey = "sdss";
+		oplate = "0000".substring(1,4-plate.length()) + plate;
+		ofiber = "0000".substring(1,4-fiber.length()) + fiber;
+		link += "sas/dr" + release + "/" + survey + "/spectro/redux/" +
+		rerun + "/spectra/" + oplate + "/spec-" + oplate + "-" + 
+		mjd + "-" + ofiber + ".fits";
+		return link;
+	}
+	public static double fDistanceArcMinEq(double ra1, double dec1, double ra2 , double dec2)
+	{
+		double d2r, nx1, ny1, nz1, nx2, ny2, nz2;
+		d2r = Math.PI/180.0;
+		nx1 = Math.cos(dec1*d2r)*Math.cos(ra1*d2r);
+		ny1 = Math.cos(dec1*d2r)*Math.sin(ra1*d2r);
+		nz1 = Math.sin(dec1*d2r);
+		nx2 = Math.cos(dec2*d2r)*Math.cos(ra2*d2r);
+		ny2 = Math.cos(dec2*d2r)*Math.sin(ra2*d2r);
+		nz2 = Math.sin(dec2*d2r);
+		
+		return ( 2*DEGREES(Math.asin(Math.sqrt(Math.pow(nx1-nx2,2)+Math.pow(ny1-ny2,2)+Math.pow(nz1-nz2,2))/2))*60);
+		
+	}
+	/**
+	 * 弧度变角度 :180/π×弧度
+	 * 角度转弧度 :π/180×角度
+	 */
+	private static double DEGREES(double rad) {
+		return 180/Math.PI*rad;
+	}
 }
