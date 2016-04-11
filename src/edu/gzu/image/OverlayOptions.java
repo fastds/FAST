@@ -188,9 +188,10 @@ public class OverlayOptions
 //        sQ.append(" o \nwith (nolock)\n");
 //        sQ.append(" ON f.objid=o.objid  group by rmin,rmax,cmin,cmax ) q\n");
 //        sQ.append(" ON m.objid=q.objid");
+        
         String subAql = Functions.fGetObjectsEqStr(SdssConstants.pflag, ra, dec, radius, zoom);
         StringBuilder sQ = new StringBuilder();
-        sQ.append(" SELECT q.objID AS fieldID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
+        sQ.append(" SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
         sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
         sQ.append(" (SELECT min(f.objID) AS objID ");
         sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN");
@@ -219,11 +220,11 @@ public class OverlayOptions
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
             	
-            	fieldid = (rs.getLong("fieldID") & 0xFFFFFFFFFFFF0000L);
-            	rmin = (double)rs.getInt("rmin");
-            	rmax = (double)rs.getInt("rmax");
-	            cmin = (double)rs.getInt("cmin");
-	            cmax = (double)rs.getInt("cmax");
+            	fieldid = (rs.getLong("objID") & 0xFFFFFFFFFFFF0000L);
+            	rmin = (double)rs.getInt("rmin") * SdssConstants.getOutlinePix();
+            	rmax = (double)rs.getInt("rmax") * SdssConstants.getOutlinePix();
+	            cmin = (double)rs.getInt("cmin") * SdssConstants.getOutlinePix();
+	            cmax = (double)rs.getInt("cmax") * SdssConstants.getOutlinePix();
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
                 fc =  cTable.get(fieldid);
 	            if (drawBoundingBox)
