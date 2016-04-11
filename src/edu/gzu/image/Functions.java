@@ -1481,16 +1481,19 @@ public class Functions {
 		ExQuery ex = new ExQuery();
 		ResultSet rs = null;
 		try { 
+			System.out.println("Functions.fGetUrlFitsSpectrum-->aql1: SELECT value FROM SiteConstants WHERE name='DataServerURL' ");
 			rs = ex.aqlQuery(" SELECT value FROM SiteConstants WHERE name='DataServerURL' ");
 			if(rs!=null && !rs.isAfterLast())
 			{
 				link = rs.getString("value");
 			}
+			System.out.println("Functions.fGetUrlFitsSpectrum-->aql2: SELECT value FROM SiteConstants WHERE name='Release' ");
 			rs = ex.aqlQuery(" SELECT value FROM SiteConstants WHERE name='Release' ");
 			if(rs!=null && !rs.isAfterLast())
 			{
 				release = rs.getString("value");
 			}
+			System.out.println("Functions.fGetUrlFitsSpectrum-->"+aql.toString());
 			rs = ex.aqlQuery(aql.toString());
 			if(rs!=null && !rs.isAfterLast())
 			{
