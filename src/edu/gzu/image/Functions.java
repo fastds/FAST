@@ -1523,8 +1523,8 @@ public class Functions {
 		}
 		if(!"boss".equals(survey))
 			survey = "sdss";
-		oplate = "0000".substring(1,4-plate.length()) + plate;
-		ofiber = "0000".substring(1,4-fiber.length()) + fiber;
+		oplate = "0000".substring(0,4-plate.length()) + plate;
+		ofiber = "0000".substring(0,4-fiber.length()) + fiber;
 		link += "sas/dr" + release + "/" + survey + "/spectro/redux/" +
 		rerun + "/spectra/" + oplate + "/spec-" + oplate + "-" + 
 		mjd + "-" + ofiber + ".fits";
