@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import org.fastds.service.ExplorerService;
 
+import edu.gzu.image.Functions;
+
 public class FitsSpec {
 	 protected String[] hrefsSpec;
      Long specObjID = null;
@@ -45,55 +47,7 @@ public class FitsSpec {
 		return hrefsSpec;
 	}
 	public String[] getFits() {
-	        String[] result = null;
-	        String aql = "select dbo.fGetUrlFitsSpectrum(@specObjId)";
-	        aql.replace("@specObjId", this.specObjID.toString());
-	        ResultSet rs = null;
-	        rs = service.runCmd(aql);
-	        System.out.println("FitsSpec.getFits--->aql:"+aql);
-	        ResultSetMetaData meta = null;
-			try {
-	            if (rs!=null && !rs.isAfterLast())
-	            {
-	            	meta = rs.getMetaData();
-	            	int colNum = meta.getColumnCount();
-	                result = new String[colNum];
-	            
-		            if (!rs.isAfterLast())
-		            {
-		                for (int k = 1; k <= colNum; k++)
-		                {
-		                	if ("bool".endsWith(meta.getColumnTypeName(k))) {
-								result[k-1] = rs.getBoolean(k)+"";
-							} else if (meta.getColumnTypeName(k).startsWith("int")) {
-								result[k-1] = rs.getLong(k)+"";
-							} else if ("string".endsWith(meta.getColumnTypeName(k))) {
-								String str = rs.getString(k);
-								if(str!=null)
-								{
-									if(str.contains("<"))
-										str = str.replace("<", "&lt;");
-									if(str.contains(">"))
-										str = str.replace(">","&gt;");
-									result[k-1] = str;
-								}
-								else
-									result[k-1] = "";
-							} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
-								
-								result[k-1] = rs.getTime(k).toString();
-							} else {
-								result[k-1] = rs.getDouble(k)+"";
-							}
-		                	
-		                }
-		            }
-	            }
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	        
-	        return result;
+	        return new String[]{Functions.fGetUrlFitsSpectrum(specObjID)};
      }
 
 }

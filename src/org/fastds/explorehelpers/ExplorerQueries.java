@@ -626,7 +626,7 @@ public class ExplorerQueries {
 //    	+"  WHERE p.objID=n.objID order by n.mode asc, n.distance asc";
     	StringBuilder aql = new StringBuilder();
     	String subselect = Functions.fGetNearbyObjAllEq(qra, qdec, searchRadius);
-    	aql = aql.append(" SELECT top 1 cast(p.objID as binary(8)) as objID, cast(p.specObjID as binary(8)) as specObjID");
+    	aql = aql.append(" SELECT top 1 p.objID, p.specObjID ");
     	aql = aql.append(" FROM PhotoTag p, "+subselect+" AS n ");
     	aql = aql.append(" WHERE p.objID=n.objID order by n.mode asc, n.distance asc");
     	

@@ -1464,6 +1464,7 @@ public class Functions {
 	 */
 	public static String fGetUrlFitsSpectrum(long specObjID)
 	{
+		System.out.println("Functions.fGetUrlFitsSpectrum->run");
 		String link, plate,mjd, fiber,rerun,release,survey,oplate,ofiber;
 		link = "";
 		plate = "";
