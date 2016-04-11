@@ -1476,8 +1476,8 @@ public class Functions {
 		oplate = "";
 		ofiber = "";
 		StringBuilder aql = new StringBuilder();
-		aql.append("SELECT p.run2d, p.run1d, p.survey, p.mjd, p.plate, s.fiberID");
-		aql.append("FROM PlateX AS p JOIN (SELECT * FROM SpecObjAll WHERE specObjID="+specObjID+") AS s ON p.plateID=s.plateID");
+		aql.append("SELECT p.run2d, p.run1d, p.survey, p.mjd, p.plate, s.fiberID ");
+		aql.append(" FROM PlateX AS p JOIN (SELECT * FROM SpecObjAll WHERE specObjID="+specObjID+") AS s ON p.plateID=s.plateID");
 		ExQuery ex = new ExQuery();
 		ResultSet rs = null;
 		try { 
