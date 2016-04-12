@@ -1,6 +1,7 @@
 package org.fastds.resources.dataresources;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
@@ -256,27 +258,30 @@ public class ExplorerResource {
 	}
 	@GET
 	@Path("Resolver")
+	@Produces("text/plain")
 	public void getResolver(@QueryParam("name") String name
 								,@QueryParam("ra") String ra
 								,@QueryParam("dec") String dec
 								,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
 		try {
+			PrintWriter out = response.getWriter();
 			if (name != null && (ra == null && dec == null))
 	        {
 	            
-					response.getWriter().println(resolver.resolveName(name));
+				out.println(resolver.resolveName(name));
 				
 	        }
 	        else if (name == null && (ra != null && dec != null))
 	        {
 	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
-					response.getWriter().println(resolver.resolveCoords(ra, dec,radius));
+	            	out.println(resolver.resolveCoords(ra, dec,radius));
 	        }
 	        else
 	        {
-					response.getWriter().println("Error: Incorrect request parameters.");
+	        	out.println("Error: Incorrect request parameters.");
 	        }
+			out.close();
 		} catch (IOException e) {
 			try {
 				response.getWriter().println(e.getMessage());
