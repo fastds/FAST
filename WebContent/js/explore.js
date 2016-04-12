@@ -51,8 +51,10 @@ function findOtherNames(thera, thedec) {
     //alert("Test");
     var theothernames = document.getElementById("othernames");
     var sdssnamedisplay = document.getElementById("sdssname");
+    alert("url:"+ "./Resolver?ra=" + thera + "&dec=" + thedec)
     $.ajax({
         type: "GET",
+        
         url: "./Resolver?ra=" + thera + "&dec=" + thedec,
         success: function (response) {
             if (response.indexOf("Error:") == 0) {
