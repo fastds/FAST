@@ -265,6 +265,7 @@ public class ExplorerResource {
 								,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
 		try {
+			response.setContentType("text/plain");
 			PrintWriter out = response.getWriter();
 			if (name != null && (ra == null && dec == null))
 	        {
