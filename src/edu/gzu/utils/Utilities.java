@@ -373,14 +373,15 @@ public class Utilities {
     {
         return "SDSS J" + hmsIAU(ra) + dmsIAU(dec);
     }
-
     public static String hmsIAU(double deg)
-    {
+    { 
         double hh = Math.floor(deg / 15.0);
         double qq = 4.0 * (deg - 15 * hh);
         double mm = Math.floor(qq);
         double ss = Math.floor(6000.0 * (qq - mm)) / 100.0;
-        return (pad(hh) + pad(mm) + pad(Double.parseDouble(new DecimalFormat("#.00").format(ss))));
+        String tempHH = pad(hh);
+        String tempMM = pad(mm);
+        return tempHH.substring(0,tempHH.indexOf('.')) + tempMM.substring(0,tempMM.indexOf('.')) +  pad(Double.parseDouble(new DecimalFormat("#.00").format(ss)));
     }
 
     public static String dmsIAU(double deg)
@@ -391,7 +392,9 @@ public class Utilities {
         double qq = 60.0 * (deg - dd);
         double mm = Math.floor(qq);
         double ss = Math.floor(600.0 * (qq - mm)) / 10.0;
-        return (sign + pad(dd) + pad(mm) + pad(Double.parseDouble(new DecimalFormat("#.0").format(ss))));
+        String tempDD = pad(dd);
+        String tempMM = pad(mm);
+        return (sign + tempDD.substring(0,tempDD.indexOf('.')) + tempMM.substring(0,tempMM.indexOf('.')) + pad(Double.parseDouble(new DecimalFormat("#.0").format(ss))));
     }
 
     public static String hmsC(double deg)
