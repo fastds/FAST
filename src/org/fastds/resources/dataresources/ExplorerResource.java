@@ -1,5 +1,6 @@
 package org.fastds.resources.dataresources;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.fastds.service.ExplorerService;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 import edu.gzu.domain.PhotoTag;
+import edu.gzu.utils.Resolver;
 import edu.gzu.utils.Utilities;
 
 @Path("/explore")
@@ -252,7 +254,37 @@ public class ExplorerResource {
 		request.setAttribute("master", master);
 		return new Viewable("/tools/Matches.jsp", null);
 	}
-	
+	@GET
+	@Path("Resolver")
+	public void getResolver(@QueryParam("name") String name
+								,@QueryParam("ra") String ra
+								,@QueryParam("dec") String dec
+								,@QueryParam("radius") String radius) {
+		Resolver resolver = new Resolver();
+		try {
+			if (name != null && (ra == null && dec == null))
+	        {
+	            
+					response.getWriter().println(resolver.resolveName(name));
+				
+	        }
+	        else if (name == null && (ra != null && dec != null))
+	        {
+	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
+					response.getWriter().println(resolver.resolveCoords(ra, dec,radius));
+	        }
+	        else
+	        {
+					response.getWriter().println("Error: Incorrect request parameters.");
+	        }
+		} catch (IOException e) {
+			try {
+				response.getWriter().println(e.getMessage());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 	
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))

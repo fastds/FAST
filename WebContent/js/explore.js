@@ -53,7 +53,7 @@ function findOtherNames(thera, thedec) {
     var sdssnamedisplay = document.getElementById("sdssname");
     $.ajax({
         type: "GET",
-        url: "../Resolver.ashx?ra=" + thera + "&dec=" + thedec,
+        url: "./Resolver?ra=" + thera + "&dec=" + thedec,
         success: function (response) {
             if (response.indexOf("Error:") == 0) {
                 //alert(response);
