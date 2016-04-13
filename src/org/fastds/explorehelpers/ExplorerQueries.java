@@ -160,7 +160,7 @@ public class ExplorerQueries {
     	aql.append(" SELECT t.objID, t.thingId, p.mode ");
     	aql.append(" FROM (SELECT * FROM thingIndex WHERE objID="+objID+") AS t JOIN PhotoObjAll AS p ON t.objID = p.objID ");
     	aql.append(" WHERE p.mode<>1 ORDER BY p.mode ");
-    	System.out.println("ExplorerQueries.gtMatches2()->aql:"+aql.toString());
+    	System.out.println("ExplorerQueries.getMatches2()->aql:"+aql.toString());
     	return aql.toString();
     }
     ///Neighbors
