@@ -318,7 +318,7 @@ public class ExplorerQueries {
     public static String getZooSpec(String objID)
     {
     	StringBuilder aql = new StringBuilder();
-    	aql.append("SELECT * FROM zooSpec WHERE objid="+objID);
+    	aql.append("SELECT * FROM zooSpec WHERE objID="+objID);
     	return aql.toString();
     }
     
@@ -333,7 +333,7 @@ public class ExplorerQueries {
 //                        +"FROM zooSpec WHERE objid=@objID";                
 	   StringBuilder aql = new StringBuilder();
 	   aql.append(" SELECT p_cw as Clockwise_spiral_probability, p_acw as Anticlockwise_spiral_probability,");
-	   aql.append(" p_edge as 'Edgeon_spiral_probablity, p_mg as Merger_system_probability'");
+	   aql.append(" p_edge as Edgeon_spiral_probablity, p_mg as Merger_system_probability");
 	   aql.append(" FROM zooSpec WHERE objID="+objID);
 	   return aql.toString();
    }
