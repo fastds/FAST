@@ -602,7 +602,7 @@
 	</div>  <!-- end of spectro div -->
 
 </c:if><!-- SpectralControl finished -->
-
+<%--
   <c:if test="${not empty requestScope.master.apid}">
 		 <div id="irspec">
         <h3>Infrared Spectra
@@ -825,7 +825,7 @@
           </table>                          
         </div>  <!-- end of visits div -->
       </div>  <!-- end of irspec div -->
- </c:if><!-- master.apid not empty   finished -->
+ </c:if><!-- master.apid not empty   finished --> --%>
    </div>              
     </div>
 </form>
