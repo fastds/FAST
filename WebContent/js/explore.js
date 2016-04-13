@@ -66,9 +66,8 @@ function findOtherNames(thera, thedec) {
                // sdssnamedisplay.innerHTML = <%= Functions.SDSSname(0.0, 0.0)%>;
             }
         },
-        error: function (err) {
-        	alert(err);
-        	alert(err.text);
+        error: function (err,type,response) {
+        	alert(err.responseText);
             alert("Error: Could not resolve coordinates.");
         }
     });
