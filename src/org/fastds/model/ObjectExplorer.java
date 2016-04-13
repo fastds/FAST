@@ -426,7 +426,7 @@ public class ObjectExplorer {
         if (rs!=null && rs.size()>0)
 		{
 			List<Object> list =  rs.get(0);
-			int colCount =  rs.get(0).size();
+			int colCount =  list.size();
 		    for (int k = 0; k < colCount; k++)
 		    {
 		    	res.append("<td align='middle' class='h'>");

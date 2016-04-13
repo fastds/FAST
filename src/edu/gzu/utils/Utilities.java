@@ -417,7 +417,7 @@ public class Utilities {
         return (sign + pad(dd) + ":" + pad(mm) + ":" + pad(Double.parseDouble(new DecimalFormat("#.00").format(ss))));
     }
     /**
-     * Map<0,>:储存属性名称集合
+     * Map<0,>:储存属性名称集合</br>
      * Map<1..n,List<>>:储存1-n各个行所有属性值集
      * @param rs 结果集
      * @return 返回一个Map
@@ -436,7 +436,7 @@ public class Utilities {
 			    for (int k = 1; k <= colCount; k++)
 			    {
 			    	values = new ArrayList<Object>();
-			    	values.add(meta.getCatalogName(k));
+			    	values.add(meta.getColumnName(k));
 			    }
 			    res.put(num++,values);
 			    values = new ArrayList<Object>();
