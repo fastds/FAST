@@ -343,7 +343,7 @@ public class Globals {
     {
 // old       Object appSettings = System.Web.Configuration.WebConfigurationManager.AppSettings;
         this.solarConnectionString = ""/*old appSettings["solarConnectionString"]*/;
-        this.releaseNumber = Integer.parseInt("9");
+        this.releaseNumber = Integer.parseInt("12");
         //this.dbType = appSettings["dbType"];
         this.connectionString = ""/* old appSettings["connectionString"]*/;
         this.wsBaseUrl = "http://skyservice.pha.jhu.edu/";

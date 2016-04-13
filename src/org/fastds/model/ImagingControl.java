@@ -75,7 +75,7 @@ public class ImagingControl {
             //If the querystring is empty and no objid key
             objID = null;
         }
-//        sdssUrl = globals.SdssUrl;     old
+        sdssUrl = globals.getSdssUrl();
         flagsLink = sdssUrl + "/algorithms/photo_flags_recommend.php";
 
         if (objID != null && !objID.equals(""))
