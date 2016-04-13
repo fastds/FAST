@@ -93,9 +93,7 @@ public class Resolver {
          String script = "output console=off script=off\nformat object \"%D,%MAIN_ID,%COO(d;A,D),%DIST\"\nquery coo " + ra + " " + dec + " radius="+radius;
          
       try {
-    	  System.out.println("send get..before");
          String s = sendGet(BASE_URL + URLEncoder.encode(script,"UTF-8"),"");
-         System.out.println("send get..after.."+s);
          if (!s.startsWith("1,"))
          {
              

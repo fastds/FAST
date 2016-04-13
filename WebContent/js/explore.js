@@ -55,7 +55,6 @@ function findOtherNames(thera, thedec) {
         type: "GET",
         url: "./Resolver?ra=" + thera + "&dec=" + thedec,
         success: function (response) {
-	    	alert(response);
             if (response.indexOf("Error:") == 0) {
                 theothernames.innerHTML = "No common name found";
             }
@@ -66,8 +65,6 @@ function findOtherNames(thera, thedec) {
             }
         },
         error: function (err,type,response) {
-        	alert(err+','+type+','+response)
-        	alert(err.responseText);
             alert("Error: Could not resolve coordinates.");
         }
     });
