@@ -67,6 +67,7 @@ public class Resolver {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
+	System.out.println("result:::"+result);
          return result;
      }
 
@@ -92,7 +93,9 @@ public class Resolver {
          String script = "output console=off script=off\nformat object \"%D,%MAIN_ID,%COO(d;A,D),%DIST\"\nquery coo " + ra + " " + dec + " radius="+radius;
          
       try {
+    	  System.out.println("send get..before");
          String s = sendGet(BASE_URL + URLEncoder.encode(script,"UTF-8"),"");
+         System.out.println("send get..after.."+s);
          if (!s.startsWith("1,"))
          {
              
@@ -166,7 +169,8 @@ public class Resolver {
     @Test
     public void test()
     {
-    	String res = resolveCoords("57.50890","0.06656","0.5m");
+//    	String res = resolveCoords("57.50890","0.06656","0.5m");
+    	String res = resolveCoords("57.5088996887207","0.06656374037265778","0.5m");
     	System.out.println(res);
     }
 }
