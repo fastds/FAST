@@ -368,13 +368,16 @@ public class ObjectExplorer {
 			            res.append(meta.getColumnName(k) + "</td>");
 
 			            res.append("<td valign='top' class='" + c + "'>");
-			            if ("bool".endsWith(meta.getColumnTypeName(k))) {
+			            String typeName = meta.getColumnTypeName(k);
+			            if ("bool".endsWith(typeName)) {
 							res.append(ds.getBoolean(k));
 						} else if (meta.getColumnTypeName(k).startsWith("int")) {
 							res.append(ds.getLong(k));
-						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+						} else if ("string".endsWith(typeName)) {
 							String str = ds.getString(k);
-							if(str!=null)
+							if("img".equals(meta.getColumnName(k)))
+								res.append("image");
+							else if(str!=null)
 							{
 								if(str.contains("<"))
 									str = str.replace("<", "&lt;");
@@ -384,7 +387,7 @@ public class ObjectExplorer {
 							}
 							else
 								res.append("");
-						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+						} else if ("datetime".endsWith(typeName)) {
 							
 							res.append(ds.getTime(k));
 						} else {
