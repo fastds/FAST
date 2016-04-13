@@ -467,8 +467,8 @@ public class Utilities {
 						}
 			        }
 			        res.put(num++,values);
-			        rs.next();
 			    }
+			    rs.next();
 			}
 			else {
 			    return res;
