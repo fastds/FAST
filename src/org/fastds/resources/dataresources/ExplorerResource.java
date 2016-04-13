@@ -264,7 +264,7 @@ public class ExplorerResource {
 								,@QueryParam("dec") String dec
 								,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
-		response.setContentType("text/plain");
+		response.setContentType("text/plain;charset=utf-8");
 		PrintWriter out =  null;
 		try {
 			out = response.getWriter();
@@ -277,7 +277,8 @@ public class ExplorerResource {
 	        else if (name == null && (ra != null && dec != null))
 	        {
 	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
-	            	out.println(resolver.resolveCoords(ra, dec,radius));
+	            String data = resolver.resolveCoords(ra, dec,radius);
+	            out.println("data..."+data);
 	        }
 	        else
 	        {
