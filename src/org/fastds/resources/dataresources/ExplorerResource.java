@@ -285,8 +285,7 @@ public class ExplorerResource {
 	        }
 			out.close();
 		} catch (IOException e) {
-			if(out != null)
-				out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
