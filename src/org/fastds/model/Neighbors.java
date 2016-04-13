@@ -108,7 +108,7 @@ public class Neighbors {
 			    	values.add(objID);
 			    	values.add(new DecimalFormat("####.00000").format(ra));
 			    	values.add(new DecimalFormat("####.00000").format(dec));
-			    	values.add(new DecimalFormat("#.000").format(distance));
+			    	values.add(new DecimalFormat("0.000").format(distance));
 			    	values.add(PhotoObjAll.getTypeName(ds_neighbor2.getShort("neighborType")));
 			    	values.add(mode);
 			    	values.add(Functions.fPhotoModeN(mode));
