@@ -571,6 +571,7 @@ public class Functions {
 	public static String fPhotoModeN(int value)
 	{
 		String aql = "SELECT name FROM ("+View.getPhotoMode()+") WHERE value='"+ Utilities.longToHex(value)+"'";
+		System.out.println("Functions.fPhotoModeN-->aql"+aql);
 		String name = null;
 		ExQuery eq = new ExQuery();
 		ResultSet rs = null;
