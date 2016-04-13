@@ -278,13 +278,14 @@ public class ExplorerResource {
 	        {
 	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
 	            String data = resolver.resolveCoords(ra, dec,radius);
-	            out.println("data..."+data);
+	            System.out.println("data..."+data);
+	            out.println(data);
 	        }
 	        else
 	        {
 	        	out.println("Error: Incorrect request parameters.");
 	        }
-//			out.close();
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
