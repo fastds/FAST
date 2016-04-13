@@ -264,9 +264,10 @@ public class ExplorerResource {
 								,@QueryParam("dec") String dec
 								,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
+		response.setContentType("text/plain");
+		PrintWriter out =  null;
 		try {
-			response.setContentType("text/plain");
-			PrintWriter out = response.getWriter();
+			out = response.getWriter();
 			if (name != null && (ra == null && dec == null))
 	        {
 	            
@@ -285,7 +286,7 @@ public class ExplorerResource {
 			out.close();
 		} catch (IOException e) {
 			try {
-				response.getWriter().println(e.getMessage());
+				out.println(e.getMessage());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
