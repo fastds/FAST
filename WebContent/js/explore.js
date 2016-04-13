@@ -1,11 +1,11 @@
 ﻿function showChart(ra, dec) {
-    var url = "../chart/chart.aspx?ra=" + ra + "&dec=" + dec;
+    var url = "../chartinfo.jsp?ra=" + ra + "&dec=" + dec;
     var w = window.open(url, "_top");
     w.focus();
 }
 
 function showNavi(ra, dec, scale) {
-    var url = "../chart/navi.aspx?ra=" + ra + "&dec=" + dec + "&scale=" + scale;
+    var url = "../navi.jsp?ra=" + ra + "&dec=" + dec + "&scale=" + scale;
     var w = window.open(url, "_blank");
     w.focus();
 }

@@ -1,11 +1,11 @@
 ﻿var search = false;
 function gotochart(ra, dec) {
-    var s = "../chart/chart.aspx?ra=" + ra + "&dec=" + dec;
+    var s = "../chartinfo.jsp?ra=" + ra + "&dec=" + dec;
     var w = window.open(s, "_blank");
     w.focus();
 }
 function gotonavi(ra, dec) {
-    var s = "../chart/navi.aspx?ra=" + ra + "&dec=" + dec;
+    var s = "../navi.aspx?ra=" + ra + "&dec=" + dec;
     var w = window.open(s, "_top");
     w.focus();
 }
