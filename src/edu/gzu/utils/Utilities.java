@@ -433,9 +433,9 @@ public class Utilities {
 				meta = rs.getMetaData();
 				int colCount =  meta.getColumnCount();
 				/*把属性名存储如Map<0,List<>>中*/
+				values = new ArrayList<Object>();
 			    for (int k = 1; k <= colCount; k++)
 			    {
-			    	values = new ArrayList<Object>();
 			    	values.add(meta.getColumnName(k));
 			    }
 			    res.put(num++,values);
