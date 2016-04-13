@@ -158,8 +158,8 @@ public class ExplorerQueries {
 //    		+"WHERE t.objid=@objID and p.mode != 1 order by p.mode";
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT t.objID, t.thingId, p.mode ");
-    	aql.append(" FROM thingIndex AS t JOIN PhotoObjAll AS p ON t.objID = p.objID ");
-    	aql.append(" WHERE t.objID="+objID+" AND p.mode<>1 ORDER BY p.mode ");
+    	aql.append(" FROM (SELECT * FROM thingIndex WHERE objID="+objID+") AS t JOIN PhotoObjAll AS p ON t.objID = p.objID ");
+    	aql.append(" WHERE p.mode<>1 ORDER BY p.mode ");
     	System.out.println("ExplorerQueries.gtMatches2()->aql:"+aql.toString());
     	return aql.toString();
     }
