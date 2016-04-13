@@ -277,7 +277,6 @@ public class ExplorerResource {
 	        else if (name == null && (ra != null && dec != null))
 	        {
 	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
-	            System.out.println("resolver.resolveCoords("+ra+"," +dec+","+radius+")");
 	            String data = resolver.resolveCoords(ra, dec,radius);
 	            out.println("data..."+data);
 	        }
