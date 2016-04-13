@@ -445,21 +445,23 @@ public class Utilities {
 
 			        for (int k = 1; k <= colCount; k++)
 			        {
-
+			        	String typeName = meta.getColumnTypeName(k);
 			            // think something else if possible for this
-		                if ("bool".endsWith(meta.getColumnTypeName(k))) {
+		                if ("bool".endsWith(typeName)) {
 		                	values.add(rs.getBoolean(k));
-						} else if ("double".endsWith(meta.getColumnTypeName(k))) {
+						} else if ("double".endsWith(typeName)) {
 							values.add(rs.getBigDecimal(k));
-						} else if ("string".endsWith(meta.getColumnTypeName(k))) {
+						} else if ("string".endsWith(typeName)) {
 							String str = rs.getString(k);
+							if("img".equals(meta.getColumnName(k)))
+								str = "image";
 							if(str.contains("<"))
 								str = str.replace("<", "&lt;");
 							if(str.contains(">"))
 								str = str.replace(">","&gt;");
 							values.add(str);
 							
-						} else if ("datetime".endsWith(meta.getColumnTypeName(k))) {
+						} else if ("datetime".endsWith(typeName)) {
 							values.add(rs.getTime(k));
 						} else {
 							values.add(rs.getLong(k));

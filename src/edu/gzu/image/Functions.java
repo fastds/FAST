@@ -761,7 +761,6 @@ public class Functions {
 	}
 	public static String fHMSbase(double ra,double dec)
 	{
-
 		return null;
 	}
 	/**
