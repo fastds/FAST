@@ -448,8 +448,8 @@ public class Utilities {
 			            // think something else if possible for this
 		                if ("bool".endsWith(typeName)) {
 		                	values.add(rs.getBoolean(k));
-						} else if ("double".endsWith(typeName)) {
-							values.add(rs.getBigDecimal(k));
+						} else if (typeName.startsWith("int")) {
+							values.add(rs.getLong(k));
 						} else if ("string".endsWith(typeName)) {
 							String str = rs.getString(k);
 							if("img".equals(meta.getColumnName(k)))
@@ -463,7 +463,7 @@ public class Utilities {
 						} else if ("datetime".endsWith(typeName)) {
 							values.add(rs.getTime(k));
 						} else {
-							values.add(rs.getLong(k));
+							values.add(rs.getBigDecimal(k));
 						}
 			        }
 			        res.put(num++,values);
