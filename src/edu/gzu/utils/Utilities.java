@@ -462,12 +462,8 @@ public class Utilities {
 							
 						} else if ("datetime".endsWith(typeName)) {
 							values.add(rs.getTime(k));
-						}  else if ("double".endsWith(typeName)) {
-							values.add(rs.getDouble(k));
-						}  else if ("float".endsWith(typeName)) {
-							values.add(rs.getFloat(k));
 						} else {
-							values.add(rs.getBigDecimal(k));
+							values.add(rs.getDouble(k));
 						}
 			        }
 			        res.put(num++,values);
