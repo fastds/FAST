@@ -157,7 +157,6 @@
 		    <h2>Galaxy Zoo 1</h2>
 		        <h3><a href="${galaxyZoo.zooSpec}" class="content">zooSpec</a></h3>
 				${galaxyZoo.show.showZooSpec }
-				${galaxyZoo.show.showZooSpec2 }
 		        <h3><a href="${galaxyZoo.zooNoSpec }" class="content">zooNoSpec</a></h3>
 		        ${galaxyZoo.show.showZooNoSpec }
 		
