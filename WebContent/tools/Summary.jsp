@@ -23,12 +23,7 @@
     <script type="text/javascript" src="../js/explore.js"></script>
 </head>
 <body>
-<div id="headerAlert">
-    <a href="${master.globals.sciServerLink}updates/" class="imgwithlink" target="_blank">
-        <img src="../images/planet.jpg" alt="logo" width="190" />
-    </a>
-    <p><a href="${master.globals.sciServerLink}updates/" target="_blank">Coming soon!<img src="../../images/new_window_cyan.png" alt=" (new window)" style="max-width:95%;margin:2%" /></a></p>
-</div>    
+ 
 <form id="form1" method="post" action="<c:url value='/explore/Summary.jsp'/>" >
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
