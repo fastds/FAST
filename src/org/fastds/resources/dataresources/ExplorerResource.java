@@ -93,10 +93,10 @@ public class ExplorerResource {
 		if(spec != null)
 			sidstring = (spec.isEmpty()) ? spec : Utilities.ParseId(spec).toString();
 		try {
-				if(qapid !=null && !qapid.isEmpty() && Long.parseLong(qapid)!= -1)
+				if(qapid !=null && !qapid.isEmpty())
 				{
 					String s = null;
-					s = URLEncoder.encode(apid,"UTF-8");
+					s = URLEncoder.encode(qapid,"UTF-8");
 		            if (qapid != null & !"".equals(qapid))
 		            {
 		                    this.apid = s;
