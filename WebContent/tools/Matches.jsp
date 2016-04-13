@@ -147,9 +147,9 @@
 		 <h3>This detected object and its associated "Thing" (Primary observation)</h3>
 		 </td></tr>
 		 <tr><td>
-		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("master")).getMapMatches1(), 400, "PhotoObj")%>
+		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("matches")).getMapMatches1(), 400, "PhotoObj")%>
 		 <h3>Other Observations of this "Thing"</h3>
-		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("master")).getMapMatches2(), 400, "PhotoObj")%>
+		 <%=((ObjectExplorer)request.getAttribute("master")).showHTable(((Matches)request.getAttribute("matches")).getMapMatches2(), 400, "PhotoObj")%>
 		 </td></tr></table>
 		 </div>
 
