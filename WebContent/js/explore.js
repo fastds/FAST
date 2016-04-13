@@ -67,8 +67,6 @@ function findOtherNames(thera, thedec) {
             }
         },
         error: function (err) {
-        	alert(err);
-        	alert(err.text);
             alert("Error: Could not resolve coordinates.");
         }
     });
