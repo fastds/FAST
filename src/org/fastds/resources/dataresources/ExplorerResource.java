@@ -264,7 +264,7 @@ public class ExplorerResource {
 								,@QueryParam("dec") String dec
 								,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
-		response.setContentType("text/plain;charset=utf-8");
+		response.setContentType("text/plain");
 		PrintWriter out =  null;
 		try {
 			out = response.getWriter();
@@ -277,6 +277,7 @@ public class ExplorerResource {
 	        else if (name == null && (ra != null && dec != null))
 	        {
 	            if (radius == null) radius = resolver.DEFAULT_RADIUS;
+	            System.out.println("resolver.resolveCoords("+ra+"," +dec+","+radius+")");
 	            String data = resolver.resolveCoords(ra, dec,radius);
 	            out.println("data..."+data);
 	        }
@@ -284,7 +285,7 @@ public class ExplorerResource {
 	        {
 	        	out.println("Error: Incorrect request parameters.");
 	        }
-			out.close();
+//			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
