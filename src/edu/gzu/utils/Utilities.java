@@ -439,10 +439,9 @@ public class Utilities {
 			    	values.add(meta.getColumnName(k));
 			    }
 			    res.put(num++,values);
-			    values = new ArrayList<Object>();
 			    while (!rs.isAfterLast())
 			    {
-
+			    	values = new ArrayList<Object>();
 			        for (int k = 1; k <= colCount; k++)
 			        {
 			        	String typeName = meta.getColumnTypeName(k);
@@ -468,7 +467,7 @@ public class Utilities {
 						}
 			        }
 			        res.put(num++,values);
-			        values = new ArrayList<Object>();
+			        rs.next();
 			    }
 			}
 			else {
