@@ -215,6 +215,7 @@ public class OverlayOptions
 			while(!rs.isAfterLast())
 			{
 				cond.append(rs.getLong("objID")+" OR objID=");
+				rs.next();
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
