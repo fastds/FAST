@@ -1554,12 +1554,14 @@ public class Functions {
 	public static void main(String[] args) {
 		ExQuery ex = new ExQuery();
 		ResultSet rs = null;
+		String aql = "SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutlinetest AS m JOIN (SELECT min(f.objID) AS objID  FROM AtlasOutlinetest AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID";
 		try {
-			rs = ex.aqlQuery("SELECT value FROM SiteConstants WHERE name='DataServerURL'");
+			rs = ex.aqlQuery(aql);
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
+		System.out.println("resultset :"+rs);
 	}
 }
