@@ -193,42 +193,20 @@ public class OverlayOptions
 //        sQ.append(" ON m.objid=q.objid");
         
         String subAql = Functions.fGetObjectsEqStr(SdssConstants.pflag, ra, dec, radius, zoom);
-//        StringBuilder sQ = new StringBuilder();
-//        sQ.append(" SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
-//        sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
-//        sQ.append(" (SELECT min(f.objID) AS objID ");
-//        sQ.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN");
-//        sQ.append(" ("+subAql+") AS f ");
-//        sQ.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
-//        sQ.append(" ON m.objID=q.objID");
-        StringBuilder aqlOne = new StringBuilder();
-        aqlOne.append(" SELECT min(f.objID) AS objID ");
-        aqlOne.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN ");
-        aqlOne.append(" ("+subAql+") AS f ");
-        aqlOne.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ");
-        System.out.println("OverlayOptions:getOutlines()---->aqlOne:"+aqlOne);
-        
-        ResultSet rs = new ExplorerService().runCmd(aqlOne.toString());
-        StringBuilder cond = new StringBuilder();
-        try {
-			while(!rs.isAfterLast())
-			{
-				cond.append(rs.getLong("objID")+" OR objID=");
-				rs.next();
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-        StringBuilder aqlTwo = new StringBuilder();
-        aqlTwo.append(" SELECT objID , rmin, rmax , cmin , cmax, span ");
-        aqlTwo.append(" FROM "+SdssConstants.getOutlineTable());
-        aqlTwo.append(" WHERE objID="+cond.substring(0, cond.lastIndexOf("OR")));
-        System.out.println("OverlayOptions:getOutlines()---->aqlTwo:"+aqlTwo.toString());
+        StringBuilder aql = new StringBuilder();
+        aql.append(" SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
+        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
+        aql.append(" (SELECT min(f.objID) AS objID ");
+        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN");
+        aql.append(" ("+subAql+") AS f ");
+        aql.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
+        aql.append(" ON m.objID=q.objID");
+        System.out.println("OverlayOptions:getOutlines()---->aql:"+aql.toString());
         ExQuery exQuery = new ExQuery();
-        
+        ResultSet rs = null;
         try
         {
-        	rs = exQuery.aqlQuery(aqlTwo.toString());
+        	rs = exQuery.aqlQuery(aql.toString());
             Long fieldid;
             StringBuilder span = null;
             double rmin, rmax, cmin, cmax;
