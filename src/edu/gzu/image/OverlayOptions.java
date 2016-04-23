@@ -201,13 +201,12 @@ public class OverlayOptions
 //        sQ.append(" ("+subAql+") AS f ");
 //        sQ.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
 //        sQ.append(" ON m.objID=q.objID");
-        String[] aql = new String[2];
         StringBuilder aqlOne = new StringBuilder();
         aqlOne.append(" SELECT min(f.objID) AS objID ");
         aqlOne.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN ");
         aqlOne.append(" ("+subAql+") AS f ");
         aqlOne.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ");
-        System.out.println("OverlayOptions:getOutlines()---->aqlOne:"+Arrays.toString(aql));
+        System.out.println("OverlayOptions:getOutlines()---->aqlOne:"+aqlOne);
         
         ResultSet rs = new ExplorerService().runCmd(aqlOne.toString());
         StringBuilder cond = new StringBuilder();
