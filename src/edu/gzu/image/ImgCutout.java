@@ -392,7 +392,6 @@ import org.fastds.dao.ExQuery;
               if (drawBoundingBox | drawOutline) options.getOutlines(drawBoundingBox, drawOutline, cTable);
               if (drawMask) options.getMasks();
               if (drawLabel) options.getLabel(sDataRelease, scale, imageScale);
-              System.out.println("drawPlate==true?"+drawPlate);
               if (drawPlate) options.getPlates();
 //                  if (drawList) getListObjects();
               if (drawRuler)
@@ -434,7 +433,7 @@ import org.fastds.dao.ExQuery;
 private void getFrames() throws Exception
 {
 	int zoom10x = SdssConstants.zoom10(zoom);
-	System.out.println("ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
+	System.out.println("ImgCutout.getFrames():ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
 	StringBuilder sQ = new StringBuilder();
 	ResultSet rs = null;
 
@@ -442,7 +441,7 @@ private void getFrames() throws Exception
   {
 	  String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
 	  ExQuery exQuery = new ExQuery();
-	  System.out.println("sql:"+sql);
+	  System.out.println("ImgCutout.getFrame()--->sql:"+sql);
 	  rs = exQuery.aqlQuery(sql);
 	  
 	  cTable = new Hashtable<Long,Coord>();
