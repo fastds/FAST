@@ -207,6 +207,7 @@ public class OverlayOptions
         try
         {
         	rs = exQuery.aqlQuery(aql.toString());
+        	System.out.println("outline->rs:"+rs);
             Long fieldid;
             StringBuilder span = null;
             double rmin, rmax, cmin, cmax;
@@ -221,14 +222,21 @@ public class OverlayOptions
 //
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
-            	
+            	System.out.println("while..in");
             	fieldid = (rs.getLong("objID") & 0xFFFFFFFFFFFF0000L);
             	rmin = (double)rs.getInt("rmin") * SdssConstants.getOutlinePix();
             	rmax = (double)rs.getInt("rmax") * SdssConstants.getOutlinePix();
 	            cmin = (double)rs.getInt("cmin") * SdssConstants.getOutlinePix();
 	            cmax = (double)rs.getInt("cmax") * SdssConstants.getOutlinePix();
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
+	            System.out.println("fieldid:"+fieldid);
+	            System.out.println("rmin:"+rmin);
+	            System.out.println("rmax:"+rmax);
+	            System.out.println("cmin:"+cmin);
+	            System.out.println("cmax:"+cmax);
+	            System.out.println("span:"+span);
                 fc =  cTable.get(fieldid);
+                System.out.println("fc:"+fc);
                 System.out.println("drawBoundingBox?"+drawBoundingBox);
                 System.out.println("drawOutline?"+drawOutline);
 	            if (drawBoundingBox)
