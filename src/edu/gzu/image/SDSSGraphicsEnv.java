@@ -743,6 +743,7 @@ class Pen
 		 */
 		public void drawPlate ( double pRa, double pDec, double pRadius) 
 		{   
+			System.out.println("SDSSGraphicsEnv.drawPlate("+pRa+","+pDec+","+pRadius+")");
 			// the increment for the angle in degrees
 			double  inc	= 1.0;
 			double[] n = GetV3Normal(pRa,pDec);
