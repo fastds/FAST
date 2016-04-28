@@ -234,7 +234,7 @@ public class OverlayOptions
         	System.out.println("outline->rs:"+rs);
             Long fieldid;
             StringBuilder span = null;
-            double rmin, rmax, cmin, cmax;
+            long rmin, rmax, cmin, cmax;
             Coord fc=null;
             while (!rs.isAfterLast())		// read the next record in the dataset
             {
@@ -247,10 +247,10 @@ public class OverlayOptions
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
             	fieldid = (rs.getLong("objID") & 0xFFFFFFFFFFFF0000L);
-            	rmin = (double)rs.getLong("rmin") * SdssConstants.getOutlinePix();
-            	rmax = (double)rs.getLong("rmax") * SdssConstants.getOutlinePix();
-	            cmin = (double)rs.getLong("cmin") * SdssConstants.getOutlinePix();
-	            cmax = (double)rs.getLong("cmax") * SdssConstants.getOutlinePix();
+            	rmin = rs.getLong("rmin") * SdssConstants.getOutlinePix();
+            	rmax = rs.getLong("rmax") * SdssConstants.getOutlinePix();
+	            cmin = rs.getLong("cmin") * SdssConstants.getOutlinePix();
+	            cmax = rs.getLong("cmax") * SdssConstants.getOutlinePix();
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
 	            System.out.println("fieldid:"+fieldid);
 	            System.out.println("rmin:"+rmin);
