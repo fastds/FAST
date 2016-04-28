@@ -246,12 +246,11 @@ public class OverlayOptions
 //
 //                span = new StringBuilder("\"" + Convert.ToString(reader[5]) + "\"");
 //                fc = (Coord)cTable[fieldid];
-            	System.out.println("while..in");
             	fieldid = (rs.getLong("objID") & 0xFFFFFFFFFFFF0000L);
-            	rmin = (double)rs.getInt("rmin") * SdssConstants.getOutlinePix();
-            	rmax = (double)rs.getInt("rmax") * SdssConstants.getOutlinePix();
-	            cmin = (double)rs.getInt("cmin") * SdssConstants.getOutlinePix();
-	            cmax = (double)rs.getInt("cmax") * SdssConstants.getOutlinePix();
+            	rmin = (double)rs.getLong("rmin") * SdssConstants.getOutlinePix();
+            	rmax = (double)rs.getLong("rmax") * SdssConstants.getOutlinePix();
+	            cmin = (double)rs.getLong("cmin") * SdssConstants.getOutlinePix();
+	            cmax = (double)rs.getLong("cmax") * SdssConstants.getOutlinePix();
 	            span = new StringBuilder("\"" + rs.getString("span") + "\"");
 	            System.out.println("fieldid:"+fieldid);
 	            System.out.println("rmin:"+rmin);
