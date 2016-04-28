@@ -213,7 +213,7 @@ public class OverlayOptions
         ResultSet rs = null;
         StringBuilder aqlTwo = new StringBuilder();
         aqlTwo.append("SELECT m.objID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
-        aqlTwo.append(" FROM AtlasOutline AS m where ");
+        aqlTwo.append(" FROM AtlasOutline AS m WHERE ");
         try {
 			rs = ex.aqlQuery(aqlOne.toString());
 			while(!rs.isAfterLast())
