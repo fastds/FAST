@@ -191,11 +191,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Inverts black and white in the image')"><input type="checkbox" onclick="setopt(this,'I')" name="InvertImage"   id="InvertImage"/> Invert Image</td></tr>	
 			  <tr><td align="center" bgcolor="skyblue">Advanced options</td></tr>	
 		     <!-- <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows APOGEE DATA')"><input type="checkbox" onclick="setopt(this,'A')" name="APOGEE" id="Checkbox3"/> APOGEE Spectra</td></tr>		
-			  <tr><td  onmouseover="this.T_TEMP='5000';this.T_WIDTH='140';return escape('Draws the outline (green) of each photometric object except at the largest zoom-out scales (where they are not legible)')"><input type="checkbox" onclick="setopt(this,'O')" name="Outline"  id="Outline"/>SDSS Outlines</td></tr>
-			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Draws a rectangular box (pink) around each photometric object')"><input type="checkbox" onclick="setopt(this,'B')" name="BoundingBox" id="BoundingBox"/>SDSS Bounding Boxes</td></tr> -->
+			  <tr><td  onmouseover="this.T_TEMP='5000';this.T_WIDTH='140';return escape('Draws the outline (green) of each photometric object except at the largest zoom-out scales (where they are not legible)')"><input type="checkbox" onclick="setopt(this,'O')" name="Outline"  id="Outline"/>SDSS Outlines</td></tr>-->
+			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Draws a rectangular box (pink) around each photometric object')"><input type="checkbox" onclick="setopt(this,'B')" name="BoundingBox" id="BoundingBox"/>SDSS Bounding Boxes</td></tr> 
 			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows each SDSS field (~10x14 arcmin) in gray')"><input type="checkbox" onclick="setopt(this,'F')" name="Fields" id="Fields"/>SDSS Fields</td></tr>
 			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows masks (pink) around bright objects and data artifacts')"><input type="checkbox" onclick="setopt(this,'M')" name="Masks" id="Masks"/>SDSS Masks</td></tr>
-			  <!-- <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows plates (lavender) used to collect spectra')"><input type="checkbox" onclick="setopt(this,'Q')" name="Plates" id="Plates"/>SDSS Plates</td></tr> -->		
+			  <tr><td  onmouseover="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows plates (lavender) used to collect spectra')"><input type="checkbox" onclick="setopt(this,'Q')" name="Plates" id="Plates"/>SDSS Plates</td></tr>		
 			</table>
 
     </div>
@@ -235,7 +235,6 @@ The formats (1) and (2) can also contain a single header line, containing the co
 
 		<li><b>Lists in the IRSA Gator format</b></li><br />
 For details see the IRSA website. 
-
 
 	</ol>
 	</td></tr>
