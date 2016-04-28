@@ -814,7 +814,8 @@ class Pen
 		public void drawOutline (Coord coord, StringBuilder span)
 		{
 			AffineTransform beforeTS = gc.getTransform();
-			gc.transform(coord.m);
+			if(coord!=null)//add by zoe
+				gc.transform(coord.m);
 //	old		gc.Transform = coord.m;
 			span.toString().replace('"', 'k');
 			span.toString().replace("k", "");
