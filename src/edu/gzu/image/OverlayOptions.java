@@ -181,7 +181,7 @@ public class OverlayOptions
             return;
         };
 
-//        StringBuilder sQ = new StringBuilder("SELECT \n");
+//   old     StringBuilder sQ = new StringBuilder("SELECT \n");
 //        sQ.append("	(q.objid & 0xFFFFFFFFFFFF0000) as fieldid,\n");
 //        sQ.append("	m.rmin, m.rmax, m.cmin, m.cmax, m.span\n from ");
 //        sQ.append(SdssConstants.getOutlineTable());
@@ -231,7 +231,6 @@ public class OverlayOptions
         {
         	System.out.println("OverlayOptions:getOutlines()---->aqlTwo:"+aqlTwo.toString());
         	rs = ex.aqlQuery(aqlTwo.substring(0,aqlTwo.lastIndexOf("OR")));
-        	System.out.println("outline->rs:"+rs);
             Long fieldid;
             StringBuilder span = null;
             long rmin, rmax, cmin, cmax;
@@ -259,9 +258,9 @@ public class OverlayOptions
 	            System.out.println("cmax:"+cmax);
 	            System.out.println("span:"+span);
                 fc =  cTable.get(fieldid);
+                System.out.println("cTable have?"+cTable.containsKey(fieldid));
+                System.out.println("cTable size?"+cTable.size());
                 System.out.println("fc::"+fc);
-                System.out.println("drawBoundingBox?"+drawBoundingBox);
-                System.out.println("drawOutline?"+drawOutline);
 	            if (drawBoundingBox)
                 {
                     canvas.drawBoundingBox(fc, cmin, cmax, rmin, rmax);

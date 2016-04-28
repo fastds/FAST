@@ -463,7 +463,7 @@ private void getFrames() throws Exception
 		   double f = rs.getFloat("f");
 		   double node = rs.getFloat("node");
 		   double incl = rs.getFloat("incl");
-		   long fieldID = rs.getBigDecimal("fieldID").longValue();
+		   long fieldID = rs.getLong("fieldID");
 		   String info = Functions.fSDSS(fieldID);
 //		   System.out.println("a:"+a+",b:"+b+",c:"+c+",d:"+d+",e:"+e+",f:"+f+",node:"+node+",incl:"+incl+",info:"+info);
 		   coord = new Coord(
