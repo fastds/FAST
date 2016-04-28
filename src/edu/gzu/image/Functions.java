@@ -1554,14 +1554,25 @@ public class Functions {
 	public static void main(String[] args) {
 		ExQuery ex = new ExQuery();
 		ResultSet rs = null;
-		String aql = "SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutlinetest AS m JOIN (SELECT min(f.objID) AS objID  FROM AtlasOutlinetest AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID";
+		String aql = "SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutline AS m JOIN (SELECT min(f.objID) AS objID  FROM AtlasOutline AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q  ON m.objID=q.objID";
+		String aql2="SELECT * FROM(  SELECT fieldID,pow(0.537168231780872-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386443-cz,2) AS orderCol  FROM Frame  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 AND zoom=0 AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386443-cz,2) < 6.793415086819679E-6 ) ORDER BY orderCol";
+		
+		String aql3 = "SELECT min(f.objID) AS objID  FROM AtlasOutline AS o JOIN (SELECT ra,dec,objID  FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5  AND r<=23.5) AS f  ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ";
 		try {
-			rs = ex.aqlQuery(aql);
+			rs = ex.aqlQuery(aql3);
+			String str = "SELECT m.objID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span  FROM AtlasOutline AS m where ";
+			while(!rs.isAfterLast())
+			{
+				
+				str+="objID="+rs.getLong("objID")+" OR ";
+				rs.next();
+			}
+			rs = ex.aqlQuery(str.substring(0,str.lastIndexOf("OR")));
+			System.out.println("resultset :"+rs.getLong("objID"));
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		System.out.println("resultset :"+rs);
 	}
 }
