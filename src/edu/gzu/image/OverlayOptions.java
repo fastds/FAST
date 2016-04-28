@@ -193,20 +193,44 @@ public class OverlayOptions
 //        sQ.append(" ON m.objid=q.objid");
         
         String subAql = Functions.fGetObjectsEqStr(SdssConstants.pflag, ra, dec, radius, zoom);
-        StringBuilder aql = new StringBuilder();
-        aql.append(" SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
-        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
-        aql.append(" (SELECT min(f.objID) AS objID ");
-        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN");
-        aql.append(" ("+subAql+") AS f ");
-        aql.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
-        aql.append(" ON m.objID=q.objID");
-        System.out.println("OverlayOptions:getOutlines()---->aql:"+aql.toString());
-        ExQuery exQuery = new ExQuery();
+        StringBuilder aqlOne = new StringBuilder();
+//        aql.append(" SELECT q.objID , m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
+//        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS m JOIN ");
+//        aql.append(" (SELECT min(f.objID) AS objID ");
+//        aql.append(" FROM "+SdssConstants.getOutlineTable()+" AS o JOIN");
+//        aql.append(" ("+subAql+") AS f ");
+//        aql.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
+//        aql.append(" ON m.objID=q.objID");
+        aqlOne.append(" SELECT min(f.objID) AS objID  FROM AtlasOutline AS o ");
+        aqlOne.append(" JOIN (SELECT ra,dec,objID ");
+        aqlOne.append(" FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 ");
+        aqlOne.append(" AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5 ");
+        aqlOne.append(" AND r<=23.5) AS f ");
+        aqlOne.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ");
+        System.out.println("OverlayOptions:getOutlines()---->aqlOne:"+aqlOne.toString());
+        
+        ExQuery ex = new ExQuery();
         ResultSet rs = null;
+        StringBuilder aqlTwo = new StringBuilder();
+        aqlTwo.append("SELECT m.objID, m.rmin, m.rmax ,m.cmin ,m.cmax, m.span ");
+        aqlTwo.append(" FROM AtlasOutline AS m where ");
+        try {
+			rs = ex.aqlQuery(aqlOne.toString());
+			while(!rs.isAfterLast())
+			{
+				
+				aqlTwo.append("objID="+rs.getLong("objID")+" OR ");
+				rs.next();
+			}
+			rs = ex.aqlQuery(aqlTwo.substring(0,aqlTwo.lastIndexOf("OR")));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
         try
         {
-        	rs = exQuery.aqlQuery(aql.toString());
+        	rs = ex.aqlQuery(aqlTwo.toString());
         	System.out.println("outline->rs:"+rs);
             Long fieldid;
             StringBuilder span = null;
@@ -236,7 +260,7 @@ public class OverlayOptions
 	            System.out.println("cmax:"+cmax);
 	            System.out.println("span:"+span);
                 fc =  cTable.get(fieldid);
-                System.out.println("fc:"+fc);
+                System.out.println("fc::"+fc);
                 System.out.println("drawBoundingBox?"+drawBoundingBox);
                 System.out.println("drawOutline?"+drawOutline);
 	            if (drawBoundingBox)
