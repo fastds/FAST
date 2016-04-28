@@ -222,7 +222,6 @@ public class OverlayOptions
 				aqlTwo.append("objID="+rs.getLong("objID")+" OR ");
 				rs.next();
 			}
-			rs = ex.aqlQuery(aqlTwo.substring(0,aqlTwo.lastIndexOf("OR")));
 		}
 		catch(Exception e)
 		{
@@ -230,7 +229,8 @@ public class OverlayOptions
 		}
         try
         {
-        	rs = ex.aqlQuery(aqlTwo.toString());
+        	System.out.println("OverlayOptions:getOutlines()---->aqlTwo:"+aqlTwo.toString());
+        	rs = ex.aqlQuery(aqlTwo.substring(0,aqlTwo.lastIndexOf("OR")));
         	System.out.println("outline->rs:"+rs);
             Long fieldid;
             StringBuilder span = null;
