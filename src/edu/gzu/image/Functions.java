@@ -471,15 +471,15 @@ public class Functions {
 					aql.append(" FROM PlateX ");
 					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
 //					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->palteX"+aql);
+					System.out.println("Functions:fGetObjectsEq():aql-->palteX:"+aql);
 					ResultSet rs = null;
 					ExQuery exQuery = new ExQuery();
 					try {
 						rs = exQuery.aqlQuery(aql.toString());
 						while(!rs.isAfterLast())
 						{
-							float oRa = rs.getFloat("ra");
-							float oDec = rs.getFloat("dec");
+							double oRa = rs.getDouble("ra");
+							double oDec = rs.getDouble("dec");
 							long objID = rs.getLong("plateID");
 							Obj obj = new Obj();
 							obj.setRa(oRa);
