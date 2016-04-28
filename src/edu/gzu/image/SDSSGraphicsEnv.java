@@ -794,7 +794,8 @@ class Pen
 		{			
 			System.out.println("SDSSGraphicsEnv:drawBoundingBox()  in......");
 			AffineTransform beforeTS = gc.getTransform();
-			gc.transform(coord.m);
+			if(coord!=null)//add by zoe
+				gc.transform(coord.m);
 //	zoe		gc.DrawRectangle(bboxPen, (float)xmin, (float)ymin, 
 //				(float)(xmax-xmin+SdssConstants.OutlinePix), (float)(ymax-ymin+SdssConstants.OutlinePix));		
 			gc.setColor(bboxPen.getColor());
