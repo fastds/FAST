@@ -818,11 +818,11 @@ class Pen
 			if(coord!=null)//add by zoe
 				gc.transform(coord.m);
 //	old		gc.Transform = coord.m;
-			span.toString().replace('"', 'k');
-			span.toString().replace("k", "");
+			String newSpan = span.toString().replace('"', 'k').replace("k", "");
 			try
 			{								
-				ArrayList<Line> l = polyFunk.getPoly(span.toString());
+				ArrayList<Line> l = polyFunk.getPoly(newSpan);
+				System.out.println("poly size:"+l.size());
 				gc.setColor(outlinePen.getColor());
 				for(int i=0; i < l.size();  i++)
 				{
@@ -830,7 +830,10 @@ class Pen
 					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
 				}					
 			}
-			catch(Exception e) {	System.out.println("Exception in drawOutline " + span);}
+			catch(Exception e) {
+				System.out.println("Exception in drawOutline " + newSpan);
+				e.printStackTrace();
+				}
 			
 			//if (debug) debugMessage.Append("drawOutline: "+span+"\n");
 
