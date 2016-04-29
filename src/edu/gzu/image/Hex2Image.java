@@ -64,7 +64,7 @@ public class Hex2Image {
     	   hexStr = hexStr.startsWith("0x")? hexStr.substring(2).toUpperCase():hexStr.toUpperCase();
            byte[] bytes = hexStr.getBytes();
            byte[] dest = new byte[bytes.length/2];
-           System.out.println(bytes.length);
+           System.out.println("img.getBytes().length:"+bytes.length);
            for(int i=0;i<bytes.length;i+=2){
         	   dest[i/2] = (byte)(charToInt(bytes[i])*16+charToInt(bytes[i+1]));
            }
