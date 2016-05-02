@@ -319,10 +319,6 @@ public class ImageResource {
 			@QueryParam("dec") String dec, @QueryParam("opt") String opt,
 			@QueryParam("scale") String scaleStr,
 			@QueryParam("radius") double radius) {
-		// 鏄剧ずNearest Primary Object鐩稿叧淇℃伅銆佹槦浣撳浘鍍� // String ra =
-		// request.getParameter("ra");
-		// String dec = request.getParameter("dec");
-		// String scaleStr = request.getParameter("scale");
 		int height, width;
 		height = 120;
 		width = 120;
@@ -352,9 +348,6 @@ public class ImageResource {
 				map.get("radius"));
 		long specObjID = service.getSpecObjID(map.get("ra"), map.get("dec"),
 				map.get("radius"));
-
-		// 寰楀埌鏈�繎鐨凱rimary Object鐩稿叧淇℃伅杈撳嚭鍒伴〉闈� request.setAttribute("zImageUrl",
-		// zImageUrl);
 		request.setAttribute("poa", poa);// Primary Object
 		request.setAttribute("specObjID", specObjID);
 		request.setAttribute("zImageUrl", zImageUrl);
