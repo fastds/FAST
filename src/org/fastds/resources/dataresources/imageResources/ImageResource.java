@@ -43,82 +43,14 @@ public class ImageResource {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
-	@GET
-	@Path("v2/image/Jpeg")
-	// @Produces(MediaType.)
-	public Viewable getJpeg(@QueryParam("ra") double ra,
-			@QueryParam("dec") double dec, @QueryParam("opt") String opt,
-			@QueryParam("scale") String scaleStr) {
-
-		// double ra = 0; // the right ascension in degrees [0..360]
-		// double dec = 0; // the declination in degrees [-90..90]
-		double scale = 0.396127; // pixel scale in arcsec/pixel [0.015,60.0]
-		int height = 120; // pixel height of image
-		int width = 120; // pixel width of image
-		// String opt = ""; // drawing options
-		String param = "";
-		String query = "";
-		String imgType = "jpeg";
-		String imgField = "";
-
-		// Set<String> set = request.getParameterMap().keySet();
-		// for(String key:set)
-		// {
-		// String val = request.getParameter(key);
-		// System.out.println(key+"::"+val);
-		// }
-		Map<String, String> errors = new HashMap<String, String>();
-		// parse required parameters and throw exception if missing.
-		try {
-			ra = Double.parseDouble(request.getParameter("ra"));
-			dec = Double.parseDouble(request.getParameter("dec"));
-			// String scaleStr = request.getParameter("scale");
-			String heightStr = request.getParameter("height");
-			String widthStr = request.getParameter("width");
-			if (scaleStr != null && !scaleStr.trim().isEmpty())
-				scale = Double.parseDouble(scaleStr);
-			if (heightStr != null && !heightStr.trim().isEmpty())
-				height = Integer.parseInt(heightStr);
-			if (widthStr != null && !widthStr.trim().isEmpty())
-				width = Integer.parseInt(widthStr);
-			// System.out.println("h:"+height+",w:"+width);
-		} catch (Exception e) {
-			errors.put(
-					"errors",
-					"missing parameter: "
-							+ param
-							+ "ra must be in [0,360], dec must be in [-90,90], scale must be in [0.015, 60.0], height and width must be in [64,2048]");
-			request.setAttribute("erros", errors);
-			// return "f:/listinfo.jsp";
-			return new Viewable("/listinfo", null);
-		}
-
-		if (request.getParameter("opt") != null)
-			opt = request.getParameter("opt");
-		if (request.getParameter("query") != null)
-			query = request.getParameter("query");
-		opt += 'C';
-		// Invoke web method and return its response.
-		try {
-			ImgCutout cutout = new ImgCutout();
-			byte[] buffer = cutout.GetJpeg(ra, dec, scale, height, width, opt,
-					query, imgType, imgField);
-			response.setContentType("image/jpeg");
-			response.getOutputStream().write(buffer);
-			return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			String message = e.getMessage();
-			message = message.replace('\n', ' ');
-			errors.put("errors", message);
-			request.setAttribute("erros", errors);
-			// return "f:/listinfo.jsp"; // It would be good to pass the
-			// exception message
-			return new Viewable("/listinfo", null);
-		}
-		// return null;
-	}
-
+	/**
+	 * 
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
+	 * @param opt 绘制选项
+	 * @param scaleStr 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+	 * @return
+	 */
 	@GET
 	@Path("/image/Jpeg")
 	// @Produces(MediaType.)
@@ -126,29 +58,19 @@ public class ImageResource {
 			@QueryParam("dec") double dec, @QueryParam("opt") String opt,
 			@QueryParam("scale") String scaleStr) {
 
-		// double ra = 0; // the right ascension in degrees [0..360]
-		// double dec = 0; // the declination in degrees [-90..90]
 		double scale = 0.396127; // pixel scale in arcsec/pixel [0.015,60.0]
 		int height = 120; // pixel height of image
 		int width = 120; // pixel width of image
-		// String opt = ""; // drawing options
 		String param = "";
 		String query = "";
 		String imgType = "jpeg";
 		String imgField = "";
 
-		// Set<String> set = request.getParameterMap().keySet();
-		// for(String key:set)
-		// {
-		// String val = request.getParameter(key);
-		// System.out.println(key+"::"+val);
-		// }
 		Map<String, String> errors = new HashMap<String, String>();
-		// parse required parameters and throw exception if missing.
+		// 解析用户参数，如果错误则保存返回
 		try {
 			ra = Double.parseDouble(request.getParameter("ra"));
 			dec = Double.parseDouble(request.getParameter("dec"));
-			// String scaleStr = request.getParameter("scale");
 			String heightStr = request.getParameter("height");
 			String widthStr = request.getParameter("width");
 			if (scaleStr != null && !scaleStr.trim().isEmpty())
@@ -157,7 +79,6 @@ public class ImageResource {
 				height = Integer.parseInt(heightStr);
 			if (widthStr != null && !widthStr.trim().isEmpty())
 				width = Integer.parseInt(widthStr);
-			// System.out.println("h:"+height+",w:"+width);
 		} catch (Exception e) {
 			errors.put(
 					"errors",
@@ -208,13 +129,20 @@ public class ImageResource {
 			return null;
 		}
 	}
-
+	/**
+	 * 
+	 * @param cp 当前页码
+	 * @param opt 绘制参数
+	 * @param scale1 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+	 * @param paste 用户发送的查询参数，多个(ra，dec)对
+	 * @return
+	 */
 	@POST
 	@Path("/image/JpegList")
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Viewable getJpegList(@FormParam("cp") String cp,
-			@FormParam("opt") String opt, @FormParam("scale") String scale1,
+			@FormParam("opt") String opt, @FormParam("scale") String scaleStr,
 			@FormParam("paste") String paste) {
 
 		Map<String, String> errors = new HashMap<String, String>();
@@ -224,24 +152,22 @@ public class ImageResource {
 			if (!key.equals("paste"))
 				System.out.println(key + ".." + params.get(key)[0]);
 		}
-		int currentPage = cp == null ? 1 : Integer.parseInt(cp);// 褰撳墠椤� //
+		int currentPage = cp == null ? 1 : Integer.parseInt(cp);// 当前页 //
 																// String opt =
 																// request.getParameter("opt");
-		double scale = Double.parseDouble(scale1);
-		// String paste = request.getParameter("paste");
+		double scale = Double.parseDouble(scaleStr);
 		String[] arr = paste.replace('\n', ':').split(":");
 		if (arr.length <= 1) {
-			// return "r:/listinfo.jsp";
 			return new Viewable("/listinfo", null);
 		}
-		// 鍒濆鍖杙age瀵硅薄
+		// 初始化page对象
 		Page page = new Page();
 		page.setTotalRecord(arr.length - 1);
 		page.setPageSize(25);
 		page.setCurrentPage(currentPage);
 		int totalPages = page.getTotalPages();
 
-		// 鍒嗗壊name ra dec
+		// 分割name ra dec
 		String regex = " +";
 		Pattern pattern = Pattern.compile(regex);
 		int start = 25 * (currentPage - 1);
@@ -249,7 +175,7 @@ public class ImageResource {
 			String[] res = pattern.split(arr[index + 1]);
 			// System.out.println(Arrays.toString(res));
 			if (res.length != 3) {
-				errors.put("paramError", "鎻愪氦鐨勬暟鎹湁璇紒");
+				errors.put("paramError", "Please check your data!");//提交的数据有误
 				break;
 			}
 			String url = request.getContextPath() + "/v1/image/Jpeg?ra="
@@ -263,20 +189,18 @@ public class ImageResource {
 			infoList.add(info);
 		}
 		/*
-		 * 濡傛灉浜х敓閿欒锛岃閿欒淇℃伅杞彂鍒發istinfo.jsp椤甸潰
+		 * 如果产生错误，见错误信息转发到listinfo.jsp页面
 		 */
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
-			// return "f:/listinfo.jsp";
 			return new Viewable("/listinfo", null);
 		}
-		// 淇濆瓨鏈〉璁板綍鍒皃age
+		// 保存本页记录到page
 		page.setJpegInfo(infoList);
 		request.setAttribute("scale", scale);
 		request.setAttribute("page", page);
-		request.setAttribute("paste", paste);// textarea 鍐呭
+		request.setAttribute("paste", paste);// textarea 内容
 		request.setAttribute("opt", opt);
-		// return "f:/list.jsp";
 		return new Viewable("/list", null);
 	}
 
@@ -300,8 +224,7 @@ public class ImageResource {
 		}
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
-			// return "f:/" + url.substring(0, url.length() - 1);
-			return new Viewable("/navi", null);
+			return new Viewable(url.substring(0,url.length()-1), null);
 		}
 		response.setContentType("image/gif");
 		try {
@@ -312,7 +235,15 @@ public class ImageResource {
 		}
 		return null;
 	}
-
+	/**
+	 * 搜索距离给定坐标（ra,dec）最近的天体
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
+	 * @param opt 绘制选项
+	 * @param scaleStr 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+	 * @param radius 半径
+	 * @return
+	 */
 	@GET
 	@Path("/image/Nearest")
 	public Viewable getNearest(@QueryParam("ra") String ra,
@@ -326,7 +257,7 @@ public class ImageResource {
 
 		Map<String, String> errors = new HashMap<String, String>();
 		if ((ra == null || ra.isEmpty()) || (dec == null || dec.isEmpty()))
-			errors.put("paramError", "缂哄皯鍙傛暟锛�");
+			errors.put("paramError", "Please check your parameters!");//缺少参数
 
 		// if((scaleStr!=null&&!scaleStr.isEmpty())
 		// ||(hStr!=null&&!hStr.isEmpty()))
@@ -336,8 +267,7 @@ public class ImageResource {
 
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
-			// return "f:/blank.jsp?ra="+ra+"&dec="+dec;
-			return new Viewable("/blank", null);
+			return new Viewable("/blank.jsp?ra="+ra+"&dec="+dec, null);
 
 		}
 		Map<String, Double> map = getRadius(Double.parseDouble(ra),
@@ -351,8 +281,7 @@ public class ImageResource {
 		request.setAttribute("poa", poa);// Primary Object
 		request.setAttribute("specObjID", specObjID);
 		request.setAttribute("zImageUrl", zImageUrl);
-		// return "f:/blank.jsp?ra=" + ra + "&dec=" + dec;
-		return new Viewable("/blank", null);
+		return new Viewable("/blank.jsp?ra=" + ra + "&dec="+dec, null);
 	}
 
 	private Map<String, Double> getRadius(double ra_, double dec_, int width,
@@ -380,17 +309,26 @@ public class ImageResource {
 		map.put("radius", radius);
 		return map;
 	}
-
+	/**
+	 * 
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
+	 * @param opt 绘制选项
+	 * @param scaleStr 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+	 * @param heightStr 高度，单位：像素
+	 * @param widthStr 宽度，单位：像素
+	 * @return
+	 */
 	@POST
 	@Path("/image/img")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Viewable getImage(@FormParam("ra") double ra,
 			@FormParam("dec") final double dec, @FormParam("opt") String opt,
 			@FormParam("scale") final double scale,
-			@FormParam("height") float heightF, @FormParam("width") float widthF) {
+			@FormParam("height") float heightStr, @FormParam("width") float widthStr) {
 
-		int height = (int) heightF;
-		int width = (int) widthF;
+		int height = (int) heightStr;
+		int width = (int) widthStr;
 		request.setAttribute("ra", ra);
 		request.setAttribute("dec", dec);
 		request.setAttribute("scale", scale);
