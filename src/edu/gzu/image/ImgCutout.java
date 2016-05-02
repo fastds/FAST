@@ -421,16 +421,12 @@ import org.fastds.dao.ExQuery;
       
   }
 
-   Coord coord = null;
-// coord of current tile    当前tile的坐标
+   Coord coord = null;	// coord of current tile    当前tile的坐标
 
-/// <summary>
-/// getFrames. Fetch the images and put them onto the canvas.
-/// This is for using sdss and twomass images table separately
-///从数据库中获取图像数据并将其添加到绘制环境中
-/// @Deoyani N-H
-/// </summary>
-private void getFrames() throws Exception
+   /**
+    * 从数据库中获取图像数据并将其添加到绘制环境中进行绘制
+    */
+   private void getFrames() throws Exception
 {
 	int zoom10x = SdssConstants.zoom10(zoom);
 	System.out.println("ImgCutout.getFrames():ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
@@ -595,24 +591,36 @@ private void getFrames() throws Exception
 
 
       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      //%%%%%%%%%%%%%  utilities %%%%%%%%%%%%%%%
+      //%%%%%%%%%%%%%  实用工具      %%%%%%%%%%%%%%%
       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		/**
-		 *  validateInput(). Validate the range limits the input parameters.
-		 */
-      private void validateInput(double ra_, double dec_, double scale_,
+	/**
+	 *  validateInput(). Validate the range limits the input parameters.
+	 */
+   /**
+    * 检查输入的查询参数的范围，将参数取值控制在合理范围内
+    * @param ra_ 赤经，范围：[0°-360]，单位：度
+    * @param dec_ 赤纬，范围：[-90,90]，单位：度
+    * @param scale_ 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+    * @param height_ 高度，单位：像素
+    * @param width_ 宽度，单位：像素
+    * @param opt_ 绘制选项
+    * @param query_ 查询语句
+    * @param imgtype_ 查询图像类型
+    * @param imgfield_ 
+    */ 
+     private void validateInput(double ra_, double dec_, double scale_,
                                  int height_, int width_, String opt_,
                                  String query_, String imgtype_, String imgfield_)
       {
-          // Normalize ra and dec
+          //标准化 ra dec
           ra = ra_;
           dec = dec_;
           dec = dec % 180;					// bring dec within the circle
-          if (Math.abs(dec) > 90)				// if it is "over the pole",
+          if (Math.abs(dec) > 90)			// if it is "over the pole",
           {
-              dec = (dec - 90) % 180;			// bring int back to the [-90..90] range
-              ra += 180;						// and go 1/2 way round the globe
+              dec = (dec - 90) % 180;		// bring int back to the [-90..90] range
+              ra += 180;					// and go 1/2 way round the globe
           }
           ra = ra % 360;					// bring ra into [0..360]
           if (ra < 0) ra += 360;

@@ -91,23 +91,23 @@ public class Functions {
 	{
 		return (int)(id/(long)Math.pow(2, 29) & 0x00000007);
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H Extracts Field from an SDSS Photo Object ID.
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp> select top 10 objId, dbo.fField(objId) as fField from Galaxy</samp>
-	------------------------------------------------------------------------------- 
+	/**
+	 * -------------------------------------------------------------------------------
+	 * --/H Extracts Field from an SDSS Photo Object ID.
+	 * --/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
+	 * --/T <samp> select top 10 objId, dbo.fField(objId) as fField from Galaxy</samp>
+	 * ------------------------------------------------------------------------------- 
 	 */
 	public static int field(long id)
 	{
 		return (int)(id/(long)Math.pow(2, 16) & 0x00000FFF);
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H Extracts Obj from an SDSS Photo Object ID.
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp> select top 10 objId, dbo.fObj(objId) as fObj from Galaxy</samp>
-	-------------------------------------------------------------------------------
+	/**
+	 * -------------------------------------------------------------------------------
+	 * --/H Extracts Obj from an SDSS Photo Object ID.
+	 * --/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
+	 * --/T <samp> select top 10 objId, dbo.fObj(objId) as fObj from Galaxy</samp>
+	 * -------------------------------------------------------------------------------
 	 */
 	public static int obj(long id)
 	{
@@ -144,8 +144,8 @@ public class Functions {
 	}
 	/**
 	 * 
-	 * @param ra 赤经
-	 * @param dec 赤纬
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
 	 * @param radius 半径
 	 * @return 根据以上参数得到的查询Array PhotoObjAll 中最近物体的objID的AQL语句
 	 */
@@ -192,10 +192,10 @@ public class Functions {
 	}
 	/**
 	 * 
-	 * param ra 赤经
-	 * @param dec 赤纬
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
 	 * @param radius 半径
-	 * @param zoom 缩放
+	 * @param zoom 缩放程度 [0,12,24,50]
 	 * @return 得到Frame相关信息（包含星体图像）的AQL语句
 	 */
 	public static String fGetNearbyFrameEq(double ra,double dec,double radius,int zoom)

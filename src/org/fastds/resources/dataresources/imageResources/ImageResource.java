@@ -132,7 +132,7 @@ public class ImageResource {
 	 * 
 	 * @param cp 当前页码
 	 * @param opt 绘制参数
-	 * @param scale1 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
+	 * @param scaleStr 缩放比例，范围：[0.015,60.0],单位：arcsec/pixel
 	 * @param paste 用户发送的查询参数，多个(ra，dec)对
 	 * @return
 	 */
