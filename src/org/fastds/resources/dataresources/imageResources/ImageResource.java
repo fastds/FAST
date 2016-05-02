@@ -32,7 +32,7 @@ import edu.gzu.image.ImgCutout;
 import edu.gzu.image.SdssConstants;
 import edu.gzu.utils.Page;
 
-@Path("/get")
+@Path("/v1")
 public class ImageResource {
 	@Context
 	HttpServletRequest request;
