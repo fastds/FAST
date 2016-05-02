@@ -32,7 +32,7 @@ import edu.gzu.image.ImgCutout;
 import edu.gzu.image.SdssConstants;
 import edu.gzu.utils.Page;
 
-@Path("/v1")
+@Path("/get")
 public class ImageResource {
 	@Context
 	HttpServletRequest request;
@@ -53,8 +53,7 @@ public class ImageResource {
 	 */
 	@GET
 	@Path("/image/Jpeg")
-	// @Produces(MediaType.)
-	public StreamingOutput getJpeg1(@QueryParam("ra") double ra,
+	public StreamingOutput getJpeg(@QueryParam("ra") double ra,
 			@QueryParam("dec") double dec, @QueryParam("opt") String opt,
 			@QueryParam("scale") String scaleStr) {
 
