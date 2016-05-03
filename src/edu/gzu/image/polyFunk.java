@@ -12,12 +12,11 @@ class polyFunk {
     static final  int X   = 11;		//random references
     static final  int Y   = 22;
 
-    /// <summary>
-    /// given a span, will return an arraylist of line segments 
-    /// that form a bounding polygon(s)
-    /// </summary>
-    /// <param name="spans"></param>
-    /// <returns>ArrayList</returns>
+    /**
+     * given a span, will return an arraylist of line segments <br/>
+     * that form a bounding polygon(s)
+     * @param spans
+     */
     public static ArrayList<Line> getPoly(String spans)
     {
         // if(1==1)return getAll(spans);
@@ -30,9 +29,10 @@ class polyFunk {
     }
 
 
-    //-----------------------------------------
-    //reads lines into an ArrayList of lines
-    //-----------------------------------------
+    /**
+     * reads lines into an ArrayList of lines
+     * 读取lines到存放lines的列表中
+     */
     private static void loadLines(String spans,
         /*ref*/ ArrayList<Line> hSegments, /*ref*/ ArrayList<Line> vSegments)
     {
@@ -58,9 +58,9 @@ class polyFunk {
     }
 
 
-    ///<summary>
-    /// horizontalScan(): groups same rows together, then calls cleanUpRow to remove overlap
-    ///</summary>
+    /**
+     *  groups same rows together, then calls cleanUpRow to remove overlap
+     */
     private static void horizontalScan(/*ref*/ ArrayList<Line> segments)
     {
         ArrayList<Line> result = new ArrayList<Line>();
@@ -92,9 +92,10 @@ class polyFunk {
     }
 
     
-    ///<summary>
-    /// cleanUpRow(): only cleans up items on same row
-    ///</summary>
+    /**
+     * only cleans up items on same row
+     * 仅仅用于对同一行的items进行清理
+     */
     private static void cleanUpRow(/*ref*/ ArrayList<Line> lines)
     {
         if (lines.size() < 2) return;
@@ -166,7 +167,10 @@ class polyFunk {
         } while (ret.retval != true);
         return ret.retval;
     }
-    //sorts line segments, highest to lowest.  pass X or Y to specify axis
+    /**
+     * sorts line segments, highest to lowest.  pass X or Y to specify axis
+     * 将线段从高到低排序，通过X Y指定轴
+     */
     private static Tuple lineSort2(/*ref*/ ArrayList<Line> segments, int compareBy)
     {
         boolean switched = false;

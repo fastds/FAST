@@ -13,12 +13,10 @@ class PointEq
 		dec	= pDec;
 	}
 }
-/// <summary>
-/// Summary description for Coord.
-/// </summary>
-/// <summary>
-/// Coord private class carries the transformation of ra/dec to nu/mu and xy. 
-/// </summary>
+/**
+ * Summary description for Coord.
+ *  Coord private class carries the transformation of ra/dec to nu/mu and xy. 
+ */
 public class Coord 
 {
 	public static String Revision = "$Revision: 1.3 $";
@@ -58,10 +56,11 @@ public class Coord
 	}
 
 
-	/// <summary>
-	/// The copy method copies the values of the coord parameter into the current coordinate object
-  /// <param name=coord>			
-  /// </summary>
+	/**
+	 * The copy method copies the values of the coord parameter into the current coordinate object
+	 * 复制coord参数的值到当前coordinate对象中
+	 * @param coord 
+	 */
 	public void copy( Coord coord ) 
 	{
 		this.a			= coord.a;
@@ -78,25 +77,26 @@ public class Coord
 	}
 
 
-	/// <summary>
-	/// EqtoScreen goes from equatorial coordinates to xy
-	/// Sets ra, dec and consequently xOffset and yOffset of 
-	/// Coord according to the astrometric transformation.
-	/// </summary>
-	/// <param name="ra">right ascension degrees in J2000</param>
-	/// <param name="dec">declination degrees in J2000</param>
+	/**
+	 * EqtoScreen goes from equatorial coordinates to xy
+	 * Sets ra, dec and consequently xOffset and yOffset of 
+	 * Coord according to the astrometric transformation.
+	 * 根据天体测量变换，转换赤道坐标为xy集合、ra,dec、和Coord的xOffset和yOffset
+	 * @param pRa 赤经，范围：[0°-360]，单位：度
+	 * @param pDec 赤纬，范围：[-90,90]，单位：度
+	 */
 	public Point2D EqToFrame(double pRa, double pDec) 
 	{   
-		// save the angles
+		// save the angles 储存角度
 		ra	= pRa;
 		dec	= pDec;
 
-		// convert angles to radians
+		// convert angles to radians  角度到弧度的转换
 		double inclR = incl*D2R;
 		double raR	 = (pRa-node) *D2R;
 		double decR	 = pDec*D2R;
 
-		// first go to (mu,nu)
+		// first go to (mu,nu) 首先变换为(mu,nu)
 		double gx	=  Math.cos(raR) * Math.cos(decR);
 		double gy	=  Math.sin(raR) * Math.cos(decR);
 		double gz	=  Math.sin(decR);
@@ -115,12 +115,12 @@ public class Coord
 		if (dmu<-180)  dmu += 360;
 		if (dmu> 180)  dmu -=360;
 
-		// set up the determinant
+		// set up the determinant 建立行列式
 		double det	 = b * f - e * c;
 		double col   = ( (nu-d)*b - dmu*e )/det;
 		double row   = ( dmu*f - (nu-d)*c )/det;
 
-		// compute pixel coordinates
+		// compute pixel coordinates 计算像素坐标
 		x	= (float)(col/scale);
 		y	= (float)(row/scale);
       Point2D p = new Point2D.Float(x,y);
@@ -128,14 +128,15 @@ public class Coord
 	} 
 
 
-	/// <summary>
-	/// FrameToEq goes from Frame x,y coordinates and sets ra and dec
-	/// </summary>
-	/// <param name="x">pixels across (scaled for zoom level)</param>
-	/// <param name="y">pixels down (scaled for zoom level)</param>
+	/**
+	 * FrameToEq goes from Frame x,y coordinates and sets ra and dec
+	 * 从Frame x,y坐标开始，设置ra,dec
+	 * @param x pixels across (scaled for zoom level)
+	 * @param y pixels down (scaled for zoom level)
+	 */
 	public PointEq FrameToEq(float x, float y)  
 	{
-		// x,y need to be in original pixel scale
+		// x,y need to be in original pixel scale x,y需要是最初的像素比例x,y
 		double col = x;
 		double row = y;
 
