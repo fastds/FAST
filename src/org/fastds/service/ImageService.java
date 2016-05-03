@@ -26,8 +26,8 @@ public class ImageService {
 	}
 	/**
 	 * 
-	 * @param ra 
-	 * @param dec
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
 	 * @param radius
 	 * @return 通过PhotoObjAll的id查询出SpecObjAll的id，另见本类getPhotoObjAll(double ra,double dec,double radius)
 	 */
@@ -41,8 +41,8 @@ public class ImageService {
 	}
 	/**
 	 * 
-	 * @param ra
-	 * @param dec
+	 * @param ra 赤经，范围：[0°-360]，单位：度
+	 * @param dec 赤纬，范围：[-90,90]，单位：度
 	 * @param radius
 	 * @return 返回PhotoObjAll对象，Nearest Obj
 	 */

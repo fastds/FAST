@@ -22,6 +22,9 @@ import org.fastds.dao.ExQuery;
 /// </summary>
 /**
  * 从数据库中获取、生成经过剪裁的星体图像的jpeg格式的图片
+ * 基本数据中image最大像素到2048x2048
+ * 会进行旋转操作使得北方朝上
+ * 图像可选包含PhotoObj, SpecObj 和 Target 图表  还有label和grid
  * @author zhouyu
  *
  */
@@ -40,8 +43,8 @@ import org.fastds.dao.ExQuery;
       //-------------------------------------
       // Input parameters  输入参数
       //-------------------------------------
-      private double ra, dec;				 // normalized [ra,dec]
-      private int width, height;			// image size  图像大小
+      private double ra, dec;				 // 标准化 [ra,dec]
+      private int width, height;			//   图像大小
       private double scale;					// arcseconds/pixel  角秒/像素
 
       // private StringBuilder query;	// It can be a SQL SELECT query or  a string like SR(12,20) 
@@ -51,8 +54,7 @@ import org.fastds.dao.ExQuery;
       //						G for Galaxies 星系
       //						P for Both Stars and Galaxies	 星体和星系																						
       // bad: u | g | r | i | z | a --  will select objects with
-      //		
-      //         band  BETWEEN low_mag AND high_mag
+      //         					band  BETWEEN low_mag AND high_mag
       // 
       // if band is 'a' then it will look for all the objects 
       // with values between low_mag and high_mag for any band	(compositions of OR)
@@ -62,7 +64,7 @@ import org.fastds.dao.ExQuery;
       // Derived parameters  派生参数
       //-------------------------------------
       // zoom: the image pyramid level [0..max_zoom]  图像层级
-      // imageScale: the additional scaling of   图片比比例
+      // imageScale: the additional scaling of   图片比例
       // the image beyond walking the pyramid
       //-------------------------------------
       private int zoom;					    // zoom level 
@@ -139,9 +141,10 @@ import org.fastds.dao.ExQuery;
       //----------------------------------------------------
 
 
-  /// <summary>
-  /// Constructor and getting connection strings for databases   获取数据库连接的构造器
-  /// </summary> 
+      /**
+       * Constructor and getting connection strings for databases  
+       * 构造器，获取数据库连接字符串
+       */
   public ImgCutout() throws Exception
   {
       //CODEGEN: This call is required by the ASP.NET Web Services Designer
@@ -163,18 +166,16 @@ import org.fastds.dao.ExQuery;
       
   }
 
-  /// <summary>
-  /// Revision from CVS
-  /// </summary>
-  public static String Revision = "$Revision: 1.26 $";
-  //    [WebMethod(Description = "Return CVS revision numbers")]
-  public String[] Revisions()
-  {
-      String[] revs = { "ImgCutout:WebServices " + ImgCutout.Revision, };
-      return revs;
-  }
-      //Required by the Web Services Designer    web服务设计器所需要的对象
-//zoe      private IContainer components = null;
+	  /// <summary>
+	  /// Revision from CVS
+	  /// </summary>
+	  public static String Revision = "$Revision: 1.26 $";
+	  //    [WebMethod(Description = "Return CVS revision numbers")]
+	  public String[] Revisions()
+	  {
+	      String[] revs = { "ImgCutout:WebServices " + ImgCutout.Revision, };
+	      return revs;
+	  }
       /// <summary>
       /// Required method for Designer support - do not modify
       /// the contents of this method with the code editor.
@@ -192,51 +193,32 @@ import org.fastds.dao.ExQuery;
           }
           base.Dispose(disposing);
       }*/
-      /// <summary>
-      /// GetJpeg retuns a Jpeg of the image around a point at the specified zoom.
-		//// GetJped 返回一个指定了zoom 的点周边的 Jpeg图像
-      ///	optionally draws circles/squares/crosses around photo/spectro/target objects
-		/// 可选的针对 photo/spectro/target 对象绘制圆圈、方块、十字
-      ///	optionally draws a grid on the output 
-      ///	optionally labels the output.
-      ///	optionally inverts the image.
-      ///	It throws an authorization exception if it cannot connect to the database.
-      /// </summary>
-      /// <param name="dec"> The image center point declination(偏角) in J2000 degrees. Should be double in [0...360]</param>
-      /// <param name="ra"> The image center point right ascencion（赤经） in J2000 degrees. Should be double in [-90..90]</param>
-      /// <param name="scale"> Arcseconds per pixel. Limited to the range 0.015 .. 60.
-      /// The native number for SDSS is 0.396126761"/pixel.
-      /// </param>
-      /// <param name="height"> The image height in pixels. Should be int in [64 .. 2048] </param>
-      /// <param name="width"> The image width in pixels. Should be int in [64 .. 2048], int</param>
-      /// <param name="opt"> String coding over drawing requests: //用户绘制请求
-      ///			'P': draws Photo Objects   绘制Photo对象
-      ///			'S': draws Spectro Objects  绘制光谱对象
-      ///			'T': draws Target Objects  绘制目标对象
-      ///			'G': draws a Grid   绘制表格
-      ///			'R': draws a Ruler  绘制尺子
-      ///			'L': draws a Label  绘制标记
-      ///			'B': draws BoundingBox 
-      ///			'O': draws Outline   绘制轮廓
-      ///			'M': draws Mask 
-      ///			'Q': draws Plate 
-      ///			'I': inverts Image </param>   反相
-      /// <returns> byte[] JPEG image.</returns>
-      /// <example> 
-      ///		ws.GetJpeg(ra, dec, scale, height, width, opt)
-      /// </example>
+    ///	optionally draws circles/squares/crosses around photo/spectro/target objects
+	/// 可选的针对 photo/spectro/target 对象绘制圆圈、方块、十字
     /**
-     * 
-     * @param ra_ 基于J2000天球参考坐标系的赤经
-	 * @param dec_ 基于J2000天球参考坐标系的赤纬
-	 * @param scale_ 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。(0.3961267 对应 1:1)
-	 * @param width_ 图像像素宽度
-	 * @param height_ 图像像素高度
-	 * @param opt_ 绘制选项
+     * GetJpeg retuns a Jpeg of the image around a point at the specified zoom.
+     * It throws an authorization exception if it cannot connect to the database.
+     * @param ra_ 基于J2000天球参考坐标系的赤经，范围： [0...360]double类型
+	 * @param dec_ 基于J2000天球参考坐标系的赤纬，范围：[-90..90]double类型
+	 * @param scale_ 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。(0.3961267 对应 1:1，默认为0.396126761"/pixel.)，范围：0.015 .. 60.
+	 * @param width_ 图像像素宽度，范围：[64 .. 2048]的整数
+	 * @param height_ 图像像素高度，范围：[64 .. 2048]的整数
+	 * @param opt_ 绘制选项，字符串表示，有如下几个绘制请求：<br/>
+	 * 				'P': draws Photo Objects   绘制Photo对象
+     *				'S': 绘制具有光谱信息的天体对象
+     *				'T': draws Target Objects  绘制目标对象
+     *				'G': 绘制单位刻度
+     *				'R': 绘制标尺
+     *				'L': 绘制信息标签
+     *				'B': 绘制包含星体轮廓的最小矩形框
+     *				'O': 绘制星体轮廓
+     *				'M': 绘制遮罩区
+     *				'Q': 绘制光谱观测孔径边界 
+     *				'I': 将图像反相
 	 * @param query_
 	 * @param imgtype_ 图像类型
 	 * @param imgfield_
-	 * @return 图像的字节数组 byte[]
+	 * @return JPEG格式图像的字节数组 byte[]
      */
       public byte[] GetJpeg(
           double ra_,						// right ascension in J2000 degrees
