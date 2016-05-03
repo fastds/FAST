@@ -15,7 +15,8 @@ class PointEq
 }
 /**
  * Summary description for Coord.
- *  Coord private class carries the transformation of ra/dec to nu/mu and xy. 
+ * Coord private class carries the transformation of ra/dec to nu/mu and xy. 
+ * 进行ra/dec 到 nu/mu 和 xy的转换 
  */
 public class Coord 
 {
@@ -31,7 +32,7 @@ public class Coord
 	private double a,b,c,d,e,f,node,incl;	// affine tranformation of the stripe to ra,dec
 	public String info;				        // information about the field for debugging
 	public AffineTransform m;
-	public static double D2R = Math.PI / 180.0;	// degrees to radians 角度转换为弧度
+	public static double D2R = Math.PI / 180.0;	// degrees to radians 角度到弧度的转换
 	public double crval1, crval2, crpix1, crpix2, cdelt1, cdelt2;	// wcs for 2mass
 
 
@@ -140,24 +141,24 @@ public class Coord
 		double col = x;
 		double row = y;
 
-		// Great circle coordinates in degrees
+		// Great circle coordinates in degrees 
 		mu = (a +  b*row  +  c*col);
 		nu = (d +  e*row  +  f*col);
 
-		// convert to radians, then to ra,dec
+		// convert to radians, then to ra,dec 转换为弧度，然后在转换为ra,dec
 		double muR = (mu - node) * D2R;
 		double nuR = nu * D2R;
 		double xg  = Math.cos(muR) * Math.cos(nuR);
 		double yg  = Math.sin(muR) * Math.cos(nuR);
 		double zg  = Math.sin(nuR);
 
-		// compute unit vector
+		// compute unit vector 计算单位向量
 		double inR = incl * D2R;
 		double qx  = xg;
 		double qy  = yg * Math.cos(inR) - zg*Math.sin(inR);
 		double qz  = yg * Math.sin(inR) + zg*Math.cos(inR);
 
-		// compute ra, dec
+		// compute ra, dec 计算ra,dec
 		double pRa  = Math.atan2(qy,qx) / D2R  +  node;
 		double pDec = Math.asin(qz) / D2R;
 		if (pRa>360) pRa -= 360;
@@ -168,12 +169,11 @@ public class Coord
 	}
 
 
-  /// <summary>
-	/// rotateDegreesToNorth returns the number of degrees 
-	/// the image must be rotated to make North be "up"
-	/// </summary>
-	/// <param name="ra"> center point of the frame</param>
-	/// <param name="dec">center point of the frame</param>
+	/**
+	 * @param ra frame的中心点
+	 * @param dec frame的中心点
+	 * @return the number of degrees ,the image must be rotated to make North be "up"
+	 */
 	public double rotateDegreesToNorth(double ra, double dec)  
 	{
 		// compute point due North, and center            
@@ -184,9 +184,9 @@ public class Coord
 	}
 
 
-  /// <summary>
-  /// Converts ra into decimal degrees.
-  /// </summary>
+	/**
+	 * Converts ra into decimal degrees.
+	 */
   public static double hms2deg(String s)
   {
       String[] a = s.split(":");
@@ -194,9 +194,9 @@ public class Coord
       return v;
   }
 
-  /// <summary>
-  /// Converts dec into decimal degrees.
-  /// </summary>
+  /**
+   * Converts dec into decimal degrees.
+   */
   public static double dms2deg(String s)
   {
       String[] a = s.split(":");

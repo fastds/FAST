@@ -15,6 +15,7 @@ class polyFunk {
     /**
      * given a span, will return an arraylist of line segments <br/>
      * that form a bounding polygon(s)
+     * 通过参数span，返回一个元素为线段的arraylist
      * @param spans
      */
     public static ArrayList<Line> getPoly(String spans)
@@ -31,7 +32,7 @@ class polyFunk {
 
     /**
      * reads lines into an ArrayList of lines
-     * 读取lines到存放lines的列表中
+     * 读取lines到存放到列表中
      */
     private static void loadLines(String spans,
         /*ref*/ ArrayList<Line> hSegments, /*ref*/ ArrayList<Line> vSegments)
