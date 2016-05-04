@@ -22,7 +22,6 @@ public class SmartVertex {
     private Cartesian west;
 
     // Methods
-//    [CLSCompliant(false)]
     public SmartVertex(Cartesian v)
     {
         this.v = v;
@@ -31,7 +30,6 @@ public class SmartVertex {
         this.v.Tangent( this.west,  this.up);
     }
 
-//    [CLSCompliant(true)]
     public SmartVertex(Cartesian v, boolean inside)
     {
     	this(v);

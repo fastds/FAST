@@ -70,7 +70,6 @@ public class ExplorerResource {
     ApogeeControl apogeeCtrl = null;			//与apogee（远地点、最高点、最远点）相关的变量元素
     protected Globals globals;
     
-    
 	@GET
 	@Path("Summary")
 	public Viewable summary(@QueryParam("ra") String ra
@@ -138,7 +137,6 @@ public class ExplorerResource {
 		}
 		return new Viewable("/tools/Summary.jsp", null); 
 	}
-	
 	@GET
 	@Path("AllSpec")
 	public Viewable getAllSpec(@QueryParam("id") String id) {

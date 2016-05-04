@@ -145,26 +145,26 @@ import org.fastds.dao.ExQuery;
        * Constructor and getting connection strings for databases  
        * 构造器，获取数据库连接字符串
        */
-  public ImgCutout() throws Exception
-  {
-      //CODEGEN: This call is required by the ASP.NET Web Services Designer
-      InitializeComponent();
-
-      sDataRelease = SdssConstants.getSDataRelease();
-      if (sDataRelease == null)
-          throw new Exception("DataRelease keyword not found or invalid.\n" +
-          "Please check AppSettings in the Web.config file!");
-      sDR = SdssConstants.getSDR();
-
-//  zoe        sConnect = ConfigurationManager.AppSettings["SkyServer"];
-//    zoe      sConnectImage = ConfigurationManager.AppSettings["SkyServerImage"];
-
-//   zoe       if (sConnect == null || sDataRelease == null || sConnectImage == null)
-//   zoe        throw new Exception("SkyServer keyword not found or invalid. \n" +
-//   zoe         "Please check AppSettings in the Web.config file!");
-
-      
-  }
+	  public ImgCutout() throws Exception
+	  {
+	      //CODEGEN: This call is required by the ASP.NET Web Services Designer
+	      InitializeComponent();
+	
+	      sDataRelease = SdssConstants.getSDataRelease();
+	      if (sDataRelease == null)
+	          throw new Exception("DataRelease keyword not found or invalid.\n" +
+	          "Please check AppSettings in the Web.config file!");
+	      sDR = SdssConstants.getSDR();
+	
+	//  zoe        sConnect = ConfigurationManager.AppSettings["SkyServer"];
+	//    zoe      sConnectImage = ConfigurationManager.AppSettings["SkyServerImage"];
+	
+	//   zoe       if (sConnect == null || sDataRelease == null || sConnectImage == null)
+	//   zoe        throw new Exception("SkyServer keyword not found or invalid. \n" +
+	//   zoe         "Please check AppSettings in the Web.config file!");
+	
+	      
+	  }
 
 	  /// <summary>
 	  /// Revision from CVS
@@ -327,15 +327,15 @@ import org.fastds.dao.ExQuery;
 
               //-------------------------------------
               // set image scale and zoom 
-              // 设置图像比例和图片缩放
+              // 设置图像比例和层级
               //-------------------------------------
               zoom = 0;
               ppd = 3600.0 / scale;
               imageScale = ppd / SdssConstants.getPixelsPerDegree();
               while (zoom < SdssConstants.getMaxZoom() & imageScale <= .5)
               {
-                  zoom++;											    // go higher in the pyramid
-                  imageScale *= 2;								        // change the scaling accordingly
+                  zoom++;							 // go higher in the pyramid
+                  imageScale *= 2;					 // change the scaling accordingly
               }
               zoomScale = (float)Math.pow(2, zoom);//pow:对数  // set the scale according to the real zoom 根据真实的zoom设置scale
               size = (float)((zoom > 3) ? 6 : 12 * imageScale);
@@ -842,11 +842,10 @@ import org.fastds.dao.ExQuery;
 //       zoe?   if (qry.indexOf(new char[] { 'S', 'G', 'P' }) != -1) return QUERYTYPE.FLT;
           return QUERYTYPE.UKN;
       }
-      ///<summary>
-      /// validateQuery(). Filtering queries of the form SR(10,20) are decomposed 
-      /// and the query string is composed.
-      ///</summary>		
-       
+       /**
+        * validateQuery(). Filtering queries of the form SR(10,20) are decomposed
+        * and the query string is composed.
+        */
       private boolean validateQuery(String myq)
       {
     	  boolean correctQuery = true;
