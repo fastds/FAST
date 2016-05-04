@@ -390,7 +390,7 @@ public class OverlayOptions
 	   List<Obj> objList = Functions.fGetObjectsEq(SdssConstants.plateflag, ra, dec, 2 * radius + SdssConstants.plateRadiusArcMin, zoom);
 	   System.out.println("OverlayOptions:getPlates()...run..objList:size():"+objList.size());
 	   for(Obj obj : objList)
-	   { 
+	   {
 		   canvas.drawPlate(obj.getRa(), obj.getDec(), SdssConstants.plateRadiusArcMin);
 	   }
     }

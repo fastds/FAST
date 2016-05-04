@@ -3,7 +3,8 @@ package edu.gzu.service;
 import java.io.IOException;
 import java.io.InputStream;
 
-import edu.gzu.dao.ImageDao;
+import org.fastds.dao.ImageDao;
+
 import edu.gzu.domain.PhotoObjAll;
 import edu.gzu.domain.PrimaryObject;
 import edu.gzu.image.Hex2Image;
