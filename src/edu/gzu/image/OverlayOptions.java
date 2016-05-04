@@ -334,9 +334,9 @@ public class OverlayOptions
 
     }
 
-    /// <summary>
-    /// getLabel. Display the standard label on the image.
-    /// </summary>
+     /**
+      * getLabel. Display the standard label on the image.
+      */
     void getLabel(String sDataRelease, double scale, double imageScale)
     {
     	String zoomRatio = (zoom >= 1) ? ("1:" + (int)(Math.pow(4, zoom))) : ((int)(Math.pow(imageScale, 2.0) + .5) + ":1");
@@ -347,9 +347,9 @@ public class OverlayOptions
     	canvas.drawLabel(theLabel);
     }
 
-    /// <summary>
-    /// Assemble a generic message and throw the Exception
-    /// </summary>
+    /**
+     * Assemble a generic message and throw the Exception
+     */
     public void showException(String sFunction, String sQuery, Exception e) throws Exception
     {
         StringBuilder msg = new StringBuilder();
