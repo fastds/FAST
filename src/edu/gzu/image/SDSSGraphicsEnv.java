@@ -827,7 +827,7 @@ class Pen
 				{
 //	zoe				gc.drawLine(outlinePen,((Line)l.get(i)).p1,((Line)l.get(i)).p2);						
 					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
-					System.out.println(l.get(i).p1.x+","+ l.get(i).p1.y+","+ l.get(i).p2.x+","+l.get(i).p2.y);
+					System.out.println("line:"+l.get(i).p1.x+","+ l.get(i).p1.y+","+ l.get(i).p2.x+","+l.get(i).p2.y);
 				}					
 			}
 			catch(Exception e) {
