@@ -202,10 +202,7 @@ public class OverlayOptions
 //        aql.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ) AS q ");
 //        aql.append(" ON m.objID=q.objID");
         aqlOne.append(" SELECT min(f.objID) AS objID  FROM AtlasOutline AS o ");
-        aqlOne.append(" JOIN (SELECT ra,dec,objID ");
-        aqlOne.append(" FROM PhotoPrimary  WHERE htmID BETWEEN 16492674416640 AND 17592186044415 ");
-        aqlOne.append(" AND pow(0.5371682317808762-cx,2)+pow(0.8434743275522294-cy,2)+pow(0.0011616908888386446-cz,2)<1.740325247409794E-5 ");
-        aqlOne.append(" AND r<=23.5) AS f ");
+        aqlOne.append(" JOIN ("+subAql+") AS f ");
         aqlOne.append(" ON f.objID=o.objID GROUP BY o.rmin,o.rmax,o.cmin,o.cmax ");
         System.out.println("OverlayOptions:getOutlines()---->aqlOne:"+aqlOne.toString());
         
