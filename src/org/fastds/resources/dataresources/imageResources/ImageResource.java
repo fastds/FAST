@@ -224,7 +224,7 @@ public class ImageResource {
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
 //			return new Viewable(url.substring(0,url.length()-1), null);
-			return new Viewable("blank", null);
+			return null;
 		}
 		response.setContentType("image/gif");
 		try {
