@@ -148,7 +148,7 @@ public class ImageDao {
 //	        aql.append(" FROM (SELECT * FROM PhotoObjAll WHERE objID="+photoObjAllID+") AS p JOIN SpecObj AS s ");
 //	        aql.append(" ON s.bestObjID=p.objID ");  最初的语句，导致内存不足
 	        aql.append(" SELECT s.specObjID ");
-	        aql.append(" FROM SpecObj AS s ");
+	        aql.append(" FROM SpecObjAll AS s ");
 	        aql.append(" WHERE s.bestObjID="+photoObjAllID);
 	        System.out.println("ImageDao.getSpecObjID-->"+aql);
 	        ResultSet rs = null;
@@ -157,13 +157,14 @@ public class ImageDao {
 				ExQuery exQuery = new ExQuery();
 				rs = exQuery.aqlQuery(aql.toString());
 				if(rs!=null&&(!rs.isAfterLast()))
-					specObjID = rs.getBigDecimal("specObjID").longValue();
+					specObjID = rs.getLong("specObjID");
 			} catch (Exception e) {
 				try {
 					if(rs!=null)rs.close();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+				e.printStackTrace();
 			}
 	        
 		return specObjID;
