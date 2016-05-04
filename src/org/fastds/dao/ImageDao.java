@@ -144,9 +144,12 @@ public class ImageDao {
 	public long getSpecObjID(long photoObjAllID)
 	{
 		  StringBuilder aql = new StringBuilder();
+//	        aql.append(" SELECT s.specObjID ");
+//	        aql.append(" FROM (SELECT * FROM PhotoObjAll WHERE objID="+photoObjAllID+") AS p JOIN SpecObj AS s ");
+//	        aql.append(" ON s.bestObjID=p.objID ");  最初的语句，导致内存不足
 	        aql.append(" SELECT s.specObjID ");
-	        aql.append(" FROM (SELECT * FROM PhotoObjAll WHERE objID="+photoObjAllID+") AS p JOIN SpecObj AS s ");
-	        aql.append(" ON s.bestObjID=p.objID ");
+	        aql.append(" FROM SpecObj AS s ");
+	        aql.append(" WHERE s.bestObjID="+photoObjAllID);
 	        System.out.println("ImageDao.getSpecObjID-->"+aql);
 	        ResultSet rs = null;
 	        long specObjID = -1;
