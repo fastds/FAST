@@ -267,7 +267,6 @@ public class ImageResource {
 
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
-			System.out.println("error>>>>>>>0");
 //			return new Viewable("/blank.jsp"/*?ra="+ra+"&dec="+dec*/, null);
 			return new Viewable("/navi", null);
 
@@ -284,7 +283,6 @@ public class ImageResource {
 		request.setAttribute("specObjID", specObjID);
 		request.setAttribute("zImageUrl", zImageUrl);
 //		return new Viewable("/blank.jsp?"/*ra=" + ra + "&dec="+dec*/, null);
-		System.out.println("nearest execute successful~~~");
 		return new Viewable("/blank", null);
 	}
 

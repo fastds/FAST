@@ -157,9 +157,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	<tr>
            <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('SkyServer Home page')">|<a target="_top" href="<c:url value='/index.jsp'/>">Home&nbsp;|</a></td>
            <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Help on the current tool')"><a target="_blank" href="<c:url value='/naviinfo.jsp'/>">Help&nbsp;|</a></td>
-            <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('View the tool tutorial (Flash)')"><a target="MosaicWindow" href="<c:url value='/navi.swf'/>">Tutorial&nbsp;|</a></td>
+           <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('View the tool tutorial (Flash)')"><a target="MosaicWindow" href="<c:url value='/navi.swf'/>">Tutorial&nbsp;|</a></td>
            <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Finding Chart')"><a href="javascript:void(0)" onclick="return gotochart();">Chart&nbsp;|</a></td>
-        <!-- <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td> -->	
+           <td class='s' align="left" onmouseover="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td>	
      	</tr>
         </table>
 		<table width='180' bgColor="lightblue" border="1" cellspacing=1 cellpadding=1 valign="middle">

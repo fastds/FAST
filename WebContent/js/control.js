@@ -321,7 +321,7 @@
               // open new window for the Explorer
               //--------------------------------------
               function gotoExp() {
-                  var s = "../explore/obj.aspx";
+                  var s = "tools/Summary";
                   ///alert(s);
               //if (branchname!='list') {
               s += "?ra="+document.getElementById('ra').value;
