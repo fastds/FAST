@@ -267,7 +267,9 @@ public class ImageResource {
 
 		if (errors.size() > 0) {
 			request.setAttribute("errors", errors);
-			return new Viewable("/blank.jsp"/*?ra="+ra+"&dec="+dec*/, null);
+			System.out.println("error>>>>>>>0");
+//			return new Viewable("/blank.jsp"/*?ra="+ra+"&dec="+dec*/, null);
+			return new Viewable("/navi", null);
 
 		}
 		Map<String, Double> map = getRadius(Double.parseDouble(ra),
@@ -281,7 +283,9 @@ public class ImageResource {
 		request.setAttribute("poa", poa);// Primary Object
 		request.setAttribute("specObjID", specObjID);
 		request.setAttribute("zImageUrl", zImageUrl);
-		return new Viewable("/blank.jsp?"/*ra=" + ra + "&dec="+dec*/, null);
+//		return new Viewable("/blank.jsp?"/*ra=" + ra + "&dec="+dec*/, null);
+		System.out.println("nearest execute successful~~~");
+		return new Viewable("/blank", null);
 	}
 
 	private Map<String, Double> getRadius(double ra_, double dec_, int width,
