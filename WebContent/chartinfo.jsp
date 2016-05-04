@@ -84,9 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <tr>
                 <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('SkyServer Home page')">|<a target="_top" href="<c:url value='/index.jsp'/>">Home&nbsp;|</a></td>
                 <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Help on the current tool')"><a target="MosaicWindow" href="<c:url value='/chartinfo.jsp'/>">Help&nbsp;|</a></td>
-                        <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Image List')"><a href="<c:url value='/listinfo.jsp'/>" TARGET="_top">List&nbsp;|</a></td>
-					    <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Navigate Tool')"><a href="javascript:void(0)" onclick="return gotonavi();">Navi&nbsp;|</a></td>
-		    <!--     <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td> -->	
+                <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Image List')"><a href="<c:url value='/listinfo.jsp'/>" TARGET="_top">List&nbsp;|</a></td>
+				<td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Navigate Tool')"><a href="javascript:void(0)" onclick="return gotonavi();">Navi&nbsp;|</a></td>
+		        <td class='s' align="left" ONMOUSEOVER="this.T_WIDTH='140';return escape('Go to the Object Explorer')"><A href="javascript:void(0)" onclick="return gotoExp();">Explore&nbsp;|</A></td> 	
 	        </tr>
         </table>
 
