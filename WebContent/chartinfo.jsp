@@ -207,9 +207,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td align=middle bgcolor="skyblue">Advanced options</td></tr>	
 	<!--
 	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Marks potential spectroscopy targets with green Xs')"><INPUT type="checkbox" onclick="setopt(this,'T')" name="TargetObjs"  id="TargetObjs"> Spectroscopic Targets</td></tr>
-	
-    <tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows APOGEE DATA')"><INPUT type="checkbox" onclick="setopt(this,'A')" name="APOGEE" id="Checkbox3"> APOGEE Spectra</td></tr>		
-	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='5000';this.T_WIDTH='140';return escape('Draws the outline (green) of each photometric object except at the largest zoom-out scales (where they are not legible)')"><INPUT type="checkbox" onclick="setopt(this,'O')" name="Outline"  id="Outline">SDSS Outlines</td></tr>-->
+    <tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows APOGEE DATA')"><INPUT type="checkbox" onclick="setopt(this,'A')" name="APOGEE" id="Checkbox3"> APOGEE Spectra</td></tr>		-->
+	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='5000';this.T_WIDTH='140';return escape('Draws the outline (green) of each photometric object except at the largest zoom-out scales (where they are not legible)')"><INPUT type="checkbox" onclick="setopt(this,'O')" name="Outline"  id="Outline">SDSS Outlines</td></tr>
 	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Draws a rectangular box (pink) around each photometric object')"><INPUT type="checkbox" onclick="setopt(this,'B')" name="BoundingBox" id="BoundingBox">SDSS Bounding Boxes</td></tr>
 	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows each SDSS field (~10x14 arcmin) in gray')"><INPUT type="checkbox" onclick="setopt(this,'F')" name="Fields" id="Fields">SDSS Fields</td></tr>
 	<tr><td bgColor="lightblue" ONMOUSEOVER="this.T_TEMP='2000';this.T_WIDTH='140';return escape('Shows masks (pink) around bright objects and data artifacts')"><INPUT type="checkbox" onclick="setopt(this,'M')" name="Masks" id="Masks">SDSS Masks</td></tr>
