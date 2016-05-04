@@ -37,10 +37,10 @@ public class OverlayOptions
         this.fradius = fradius;
     }
 
-    /// <summary>
-    /// getFields. Display the outlines of the Fields on the canvas.
-    /// Requires getFrames() to be run beforehand.
-    /// </summary>
+    /**
+     * getFields. Display the outlines of the Fields on the canvas.
+     * Requires getFrames() to be run beforehand.
+     */
     void getFields(Hashtable<Long,Coord> cTable)
     {
     	System.out.println("getFields------------");

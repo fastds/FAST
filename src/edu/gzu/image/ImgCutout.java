@@ -28,7 +28,7 @@ import org.fastds.dao.ExQuery;
  * @author zhouyu
  *
  */
-  public class ImgCutout //zoe : System.Web.Services.WebService
+  public class ImgCutout 
   {
       //-------------------------------------		
       // Limits of the input parameters 对输入参数的限制
@@ -140,15 +140,16 @@ import org.fastds.dao.ExQuery;
 //      private SqlDataReader readerImage = null;
       //----------------------------------------------------
 
-
+      public Hashtable<Long,Coord> getCTable()
+      {
+    	  return this.cTable;
+      }
       /**
        * Constructor and getting connection strings for databases  
        * 构造器，获取数据库连接字符串
        */
 	  public ImgCutout() throws Exception
 	  {
-	      //CODEGEN: This call is required by the ASP.NET Web Services Designer
-	      InitializeComponent();
 	
 	      sDataRelease = SdssConstants.getSDataRelease();
 	      if (sDataRelease == null)
@@ -176,23 +177,6 @@ import org.fastds.dao.ExQuery;
 	      String[] revs = { "ImgCutout:WebServices " + ImgCutout.Revision, };
 	      return revs;
 	  }
-      /// <summary>
-      /// Required method for Designer support - do not modify
-      /// the contents of this method with the code editor.
-      /// </summary>
-      private void InitializeComponent() { }
-      /// <summary>
-      /// Clean up any resources being used.   释放所有使用的资源
-      /// </summary>
-      /*  zoe
-      protected  void Dispose(boolean disposing)
-      {
-          if (disposing && components != null)
-          {
-              components.Dispose();
-          }
-          base.Dispose(disposing);
-      }*/
     ///	optionally draws circles/squares/crosses around photo/spectro/target objects
 	/// 可选的针对 photo/spectro/target 对象绘制圆圈、方块、十字
     /**
@@ -250,13 +234,13 @@ import org.fastds.dao.ExQuery;
   * @return 图像的字节数组 byte[]
   */
   public byte[] GetJpegQuery(
-      double ra_,						// right ascension in J2000 degrees 基于J2000天球参考坐标系的赤经
-      double dec_, 						// declination in J2000 degrees 基于J2000天球参考坐标系的赤纬
-      double scale_,						// arcsec/pixel 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。(0.3961267 对应 1:1)
-      int width_,						// image width  (in pixels)图像像素宽度
-      int height_,					// image height (in pixels)图像像素高度
-      String opt_,						// drawing options 绘制选项
-      String query_,						// mark objects selected by a query, or Region list  通过查询或区域列表选择标记对象
+      double ra_,			// right ascension in J2000 degrees 基于J2000天球参考坐标系的赤经
+      double dec_, 			// declination in J2000 degrees 基于J2000天球参考坐标系的赤纬
+      double scale_,		// arcsec/pixel 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。(0.3961267 对应 1:1)
+      int width_,			// image width  (in pixels)图像像素宽度
+      int height_,			// image height (in pixels)图像像素高度
+      String opt_,			// drawing options 绘制选项
+      String query_,		// mark objects selected by a query, or Region list  通过查询或区域列表选择标记对象
       String imgtype_,
       String imgfield_
       )
@@ -275,43 +259,15 @@ import org.fastds.dao.ExQuery;
       return (canvas.getBuffer());							// return image
   }
 
-  ///// <summary>
-  ///// Drawing options on with json data
-  ///// </summary>
-//      public String GetJpegQuery64(
-//         double ra_,		// right ascension in J2000 degrees
-//         double dec_, 		// declination in J2000 degrees 
-//         double scale_,		// arcsec/pixel(0.3961267 is native 1:1 for SDSS)
-//         int width_,		// image width  (in pixels)图像像素宽度
-//         int height_,		// image height (in pixels)图像像素高度
-//         String opt_,		// drawing options 绘制选项
-//         String query_,		// mark objects selected by a query
-//         String imgtype_,
-//         String imgfield_
-//         )
-//      {
-//          try
-//          {
-//              getImageCutout(ra_, dec_, scale_, width_, height_, opt_, query_, imgtype_, imgfield_);
-//          }
-//          catch (Exception e)
-//          {
-//              canvas.drawDebugMessage(width,height);
-//          }
-//          finally {
-//        	  //disconnectAllDatabases(); 
-//        	  }
-//          return (canvas.getBufferBase64());
-//      }
 	//获取绘制的图像剪裁
   private void getImageCutout(
-      double ra_,						// right ascension in J2000 degrees
-      double dec_, 						// declination in J2000 degrees
-      double scale_,						// arcsec/pixel (0.3961267 is native 1:1 for SDSS)
-      int width_,						// image width  (in pixels)
+      double ra_,					// right ascension in J2000 degrees
+      double dec_, 					// declination in J2000 degrees
+      double scale_,				// arcsec/pixel (0.3961267 is native 1:1 for SDSS)
+      int width_,					// image width  (in pixels)
       int height_,					// image height (in pixels)
-      String opt_,						// drawing options
-      String query_,						// mark objects selected by a query, or Region list
+      String opt_,					// drawing options
+      String query_,				// mark objects selected by a query, or Region list
       String imgtype_,
       String imgfield_
       ) throws Exception {

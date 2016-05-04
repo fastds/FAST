@@ -817,7 +817,6 @@ class Pen
 			AffineTransform beforeTS = gc.getTransform();
 			if(coord!=null)//add by zoe
 				gc.transform(coord.m);
-//	old		gc.Transform = coord.m;
 			String newSpan = span.toString().replace('"', 'k').replace("k", "");
 			try
 			{								
@@ -828,6 +827,7 @@ class Pen
 				{
 //	zoe				gc.drawLine(outlinePen,((Line)l.get(i)).p1,((Line)l.get(i)).p2);						
 					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
+					System.out.println(l.get(i).p1.x+","+ l.get(i).p1.y+","+ l.get(i).p2.x+","+l.get(i).p2.y);
 				}					
 			}
 			catch(Exception e) {
@@ -838,7 +838,6 @@ class Pen
 			//if (debug) debugMessage.Append("drawOutline: "+span+"\n");
 
 			//------------------------------------------------
-//	old		gc.ResetTransform();
 			gc.setTransform(beforeTS);
 		}
 
