@@ -225,32 +225,6 @@ class Pen
 		}
 
 
-      ///// <summary>
-      ///// InvertImage(): It will invert each pixel of the image.
-      ///// Uses the ColorMatrix function
-      ///// </summary>
-      //public void InvertImage()
-      //{
-      //    try
-      //    {
-      //        ColorMatrix cm = new ColorMatrix(new float[][]
-      //    {
-      //        new float[] {-1, 0 ,0, 0, 0},
-      //        new float[] { 0,-1, 0, 0, 0},
-      //        new float[] { 0, 0,-1, 0, 0},
-      //        new float[] { 0, 0, 0, 1, 0},
-      //        new float[] { 0, 0, 0, 0, 1}
-      //    });
-      //        ImageAttributes ia = new ImageAttributes();
-      //        ia.SetColorMatrix(cm);
-      //        gc.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height),
-      //            0, 0, img.Width, img.Height,
-      //            GraphicsUnit.Pixel, ia);
-      //    }
-      //    catch (Exception exp) { 
-
-      //    }
-      //}
 
 	/**
 	 * Invert. It will invert each pixel of the image.

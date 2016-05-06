@@ -164,11 +164,11 @@ interface IProjection
       }
 
 
-      /// <summary>
-      /// ScreenToEq. Maps a screen coordinate to an (ra,dec).
-      /// This is the inverse coordinate transformation function
-      ///  </summary>
-      /// <param name="p">The screen coordinate of the point</param>
+      /**
+       * Maps a screen coordinate to an (ra,dec).<br/>
+       * This is the inverse coordinate transformation function
+       * @param p The screen coordinate of the point
+       */
       public PointEq ScreenToEq(Point2D p)
       {
           double[] r = new double[3];
