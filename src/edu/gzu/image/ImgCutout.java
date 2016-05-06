@@ -298,7 +298,7 @@ import org.fastds.dao.ExQuery;
               radius = 60.0 * 0.5 * Math.sqrt(width * width + height * height) / ppd;
               fradius = SdssConstants.FrameHalfDiag + radius;//8.4+
               //---------------------------------------------------
-              // initialize the canvas, connection and projection  初始化画布，连接对象，投影
+              // 初始化canvas，connection，projection
               //---------------------------------------------------
              if (drawQuery) validateQuery(query_);
              	canvas = new SDSSGraphicsEnv(width, height, imageScale, ppd, debug, imgtype);
@@ -356,168 +356,99 @@ import org.fastds.dao.ExQuery;
       
   }
 
-   Coord coord = null;	// coord of current tile    当前tile的坐标
+   Coord coord = null;	// coord of current tile  
 
    /**
     * 从数据库中获取图像数据并将其添加到绘制环境中进行绘制
     */
    private void getFrames() throws Exception
-{
-	int zoom10x = SdssConstants.zoom10(zoom);
-	System.out.println("ImgCutout.getFrames(): ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
-	StringBuilder sQ = new StringBuilder();
-	ResultSet rs = null;
-
-  try
-  {
-	  String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
-	  ExQuery exQuery = new ExQuery();
-	  System.out.println("ImgCutout.getFrame()--->sql:"+sql);
-	  rs = exQuery.aqlQuery(sql);
-	  
-	  cTable = new Hashtable<Long,Coord>();
-	   if(rs == null || rs.wasNull())
-	   {
-		   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
-		   canvas.drawDebugMessage(width, height);
-		   return;
-	   }
-	   while(!rs.isAfterLast())
-	   {
-		   String img = rs.getString("img");
-		   double a = rs.getFloat("a");
-		   double b = rs.getFloat("b");
-		   double c = rs.getFloat("c");
-		   double d = rs.getFloat("d");
-		   double e = rs.getFloat("e");
-		   double f = rs.getFloat("f");
-		   double node = rs.getFloat("node");
-		   double incl = rs.getFloat("incl");
-		   long fieldID = rs.getLong("fieldID");
-		   String info = Functions.fSDSS(fieldID);
-//		   System.out.println("a:"+a+",b:"+b+",c:"+c+",d:"+d+",e:"+e+",f:"+f+",node:"+node+",incl:"+incl+",info:"+info);
-		   coord = new Coord(
-				   a,			// a 天体测量转换系数
-                   b,			// b 天体测量转换系数
-                   c,			// c 天体测量转换系数
-                   d,			// d 天体测量转换系数
-                   e,			// e 天体测量转换系数
-                   f,			// f 天体测量转换系数
-                   node,		// node 天体测量转换系数
-                   incl, 		// inclination 倾角，天体测量转换系数
-                   zoomScale,	// zoomScale 缩放比例
-                   info			// info 该天区对象对应的SDSS编号，调试用
-                   );
-		   if (debug)
-	       {
-	           canvas.addDebugMessage("info="+ coord.info+" "+fieldID+"\n");
-	       }
-	       coord.m = canvas.getAffineTransform(coord);
-	       cTable.put(fieldID, coord);
-
-	       if (drawFrames)
-	       {
-	           //-----------------------------------------
-	           // fetch the tile into the memory stream
-	           //-----------------------------------------
-	    	   InputStream is = new Hex2Image().hex2Binary(img);
-	    	   System.out.println("img string length："+img.length());
-	    	   BufferedImage tile = ImageIO.read(is);
-	    	   System.out.println("tile="+tile);
-				
-	           if (tile != null)
-	           {
-	         	  
-	               canvas.drawFrame(coord, tile);
-
-	           }
-	       }
-		   rs.next();
-	   }
-	   
-	  /*zoe
-      connectToDataBaseImage();
-      sQ.append("SELECT img , f.a, f.b, f.c, f.d, f.e, f.f, f.node, f.incl, f.ra, f.dec, f.fieldID, \n");
-      sQ.append(" dbo.fSDSS(f.fieldID) , f.run, f.camcol, f.rerun,f.field \n");
-      sQ.AppendFormat("FROM dbo.fGetNearbyFrameEq({0}, {1}, {2}, {3}) as n JOIN Frame f \n", ra, dec, fradius, zoom10x);
-      sQ.AppendFormat("ON f.fieldID = n.fieldID  and f.zoom =  {0} \n", zoom10x);
-      sQ.append(" and f.iflag = 1  and f.ifieldflag=1 order by f.iorder");
-      IntPtr imageFromBytedata = IntPtr.Zero;*/
-//      cTable = new Hashtable();
-////   zoe++               SqlCommand cmd = new SqlCommand(sQ.ToString(), SqlConnImage);
-////                  reader = cmd.ExecuteReader();
-////
-////                  if (!reader.HasRows)
-////                  {
-////                      //throw new Exception("Requested (ra, dec) is outside the SDSS footprint. \n");
-////                      canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
-////                      canvas.drawDebugMessage(width, height);
-////                      return;
-////                  }
-//      
-//          coord = new Coord(
-//        		  Double.parseDouble(a),
-//        		  Double.parseDouble(b),
-//        		  Double.parseDouble(c),
-//        		  Double.parseDouble(d),
-//        		  Double.parseDouble(e),
-//        		  Double.parseDouble(f),
-//        		  Double.parseDouble(node),
-//        		  Double.parseDouble(inclination),
-//        		  zoomScale,
-//        		  info
-//        		  );
-//          if (debug)
-//          {
-//              canvas.addDebugMessage("info="+ coord.info+" "+fieldId+"\n");
-//          }
-//          // compute the affine transformation计算仿射变换
-//          coord.m = canvas.getAffineTransform(coord);
-//          // fetch fieldId, and save coord in Hashtable
-////                      String fieldId = Convert.ToString(reader[11]);
-//          cTable.put(fieldId, coord);
-//
-//          if (drawFrames)
-//          {
-//              //-----------------------------------------
-//              // fetch the tile into the memory stream
-//          	  // 将数据库中读取出来的img数据处理后转换成Image对象
-//              //-----------------------------------------
-//         		FileInputStream fis = new FileInputStream("C:\\Users\\zhouyu\\Desktop\\img2.jp2");
-//          		BufferedImage tile = ImageIO.read(fis);
-////      zheng                String hex = "";
-////           zheng           System.out.println("test");
-////          zhen            InputStream is = new Hex2Image().hex2Binary(hex);
-////           zhen           BufferedImage tile = ImageIO.read(is);
-//          		
-//          		System.out.println("tile="+tile);
-//              //--------------------------------
-//              // draw the tile onto the canvas
-//          	  //将tile绘制到画布上
-//              //--------------------------------
-//              if (tile != null)
-//              {
-//            	  
-//                  canvas.drawFrame(coord, tile);
-//
-//              }
-//          }
-
-      //zoe        tile.Dispose();
-	  //zoe     if (reader != null) reader.Close();
-  }
-  catch (Exception exp)
-  {
-	 exp.printStackTrace();
-     showException("Exception in getFrame()",sQ.toString(),exp);
-  }
-  finally {
-    //zoe  disconnectFromDataBaseImage();
-	  if(rs!=null)
-	  {
-		  rs.close();
-	  }
-  }
+   {
+		int zoom10x = SdssConstants.zoom10(zoom);
+		System.out.println("ImgCutout.getFrames(): ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
+		StringBuilder sQ = new StringBuilder();
+		ResultSet rs = null;
+	
+		try
+		{
+			  String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
+			  ExQuery exQuery = new ExQuery();
+			  System.out.println("ImgCutout.getFrame()--->sql:"+sql);
+			  rs = exQuery.aqlQuery(sql);
+			  
+			  cTable = new Hashtable<Long,Coord>();
+			   if(rs == null || rs.wasNull())
+			   {
+				   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
+				   canvas.drawDebugMessage(width, height);
+				   return;
+			   }
+			   while(!rs.isAfterLast())
+			   {
+				   String img = rs.getString("img");
+				   double a = rs.getFloat("a");
+				   double b = rs.getFloat("b");
+				   double c = rs.getFloat("c");
+				   double d = rs.getFloat("d");
+				   double e = rs.getFloat("e");
+				   double f = rs.getFloat("f");
+				   double node = rs.getFloat("node");
+				   double incl = rs.getFloat("incl");
+				   long fieldID = rs.getLong("fieldID");
+				   String info = Functions.fSDSS(fieldID);
+		//		   System.out.println("a:"+a+",b:"+b+",c:"+c+",d:"+d+",e:"+e+",f:"+f+",node:"+node+",incl:"+incl+",info:"+info);
+				   coord = new Coord(
+						   a,			// a 天体测量转换系数
+		                   b,			// b 天体测量转换系数
+		                   c,			// c 天体测量转换系数
+		                   d,			// d 天体测量转换系数
+		                   e,			// e 天体测量转换系数
+		                   f,			// f 天体测量转换系数
+		                   node,		// node 天体测量转换系数
+		                   incl, 		// inclination 倾角，天体测量转换系数
+		                   zoomScale,	// zoomScale 缩放比例
+		                   info			// info 该天区对象对应的SDSS编号，调试用
+		                   );
+				   if (debug)
+			       {
+			           canvas.addDebugMessage("info="+ coord.info+" "+fieldID+"\n");
+			       }
+				   //通过一系列天体测量转换系数构造仿射变化矩阵
+			       coord.m = canvas.getAffineTransform(coord);
+			       cTable.put(fieldID, coord);
+		
+			       if (drawFrames)
+			       {
+			           //-----------------------------------------
+			           // fetch the tile into the memory stream
+			           //-----------------------------------------
+			    	   InputStream is = new Hex2Image().hex2Binary(img);
+			    	   System.out.println("img string length："+img.length());
+			    	   BufferedImage tile = ImageIO.read(is);
+			    	   System.out.println("tile="+tile);
+						
+			           if (tile != null)
+			           {
+			         	  
+			               canvas.drawFrame(coord, tile);
+		
+			           }
+			       }
+				   rs.next();
+			   }
+		   
+		  }
+		  catch (Exception exp)
+		  {
+			 exp.printStackTrace();
+		     showException("Exception in getFrame()",sQ.toString(),exp);
+		  }
+		  finally {
+		    //zoe  disconnectFromDataBaseImage();
+			  if(rs!=null)
+			  {
+				  rs.close();
+			  }
+		  }
   
   }
 

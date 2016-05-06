@@ -7,11 +7,9 @@ import java.awt.geom.Point2D;
 ///Revision:    $Revision: 1.2 $
 ///Date:        $Date: 2003/04/10 21:54:32 $
 
-
-
-/// <summary>
-/// Interface definition for different projections.
-/// </summary>
+/**
+ * 为不同的投影定义的接口
+ */
 interface IProjection
 {
 	Point2D EqToScreen(double ra_, double dec_, float size_);
@@ -25,6 +23,10 @@ interface IProjection
   /// Gives us the definition of the projection to the screen
   /// using a cartesian projection, centered on (ra=180, dec=0).
   /// </summary>
+/**
+ * Gives us the definition of the projection to the screen
+ *  using a cartesian projection, centered on (ra=180, dec=0).
+ */
   class CARTProjection implements IProjection
   {
       public static String Revision = "$Revision: 1.2 $";
@@ -78,11 +80,11 @@ interface IProjection
       }
 
 
-      /// <summary>
-      /// ScreenToEq. Maps a screen coordinate to an (ra,dec).
-      /// This is the inverse coordinate transformation function
-      ///  </summary>
-      /// <param name="p">The screen coordinate of the point</param>
+      /**
+       * Maps a screen coordinate to an (ra,dec).
+       * This is the inverse coordinate transformation function
+       * @param The screen coordinate of the point
+       */
       public PointEq ScreenToEq(Point2D p)
       {
           double[] r = new double[3];
@@ -103,23 +105,21 @@ interface IProjection
       }
   }
 
-
-  /// <summary>
-  /// TANProjection
-  /// Gives us the definition of the projection to the screen
-  /// using a tangent plane projection, centered on (ra,dec).
-  /// </summary>
+  /**
+   * Gives us the definition of the projection to the screen
+   * using a tangent plane projection, centered on (ra,dec).
+   * 用一个以(ra,dec)为中心点的切面投影定义到屏幕的投影
+   */
  class TANProjection implements IProjection
   {
       public static String Revision="$Revision: 1.2 $";
       private int width, height;					// screen size
-      private Point2D cOffset;							// reference point offset
+      private Point2D cOffset;						// reference point offset
       private double scale;							// image scale
       private double[] n, w, u;						// normal, west, up vectors
-      /// <summary>
-      /// InitProjection. Initialize the transformation for the projection
-      /// to be used on the screen.
-      /// </summary>	
+      /**
+       * Initialize the transformation for the projection to be used on the screen.
+       */
       public TANProjection(double ra_, double dec_, double ppd_, int width_, int height_)
       {
           n = V3.Normal(ra_, dec_);
@@ -132,17 +132,16 @@ interface IProjection
           cOffset = new Point2D.Float((float)(width / 2.0), (float)(height / 2.0));
       }
 
-      //------------------------------
-      // Coordinate transformations
-      //------------------------------
+      //--------------
+      // 坐标变换
+      //--------------
 
-      /// <summary>
-      /// EqToScreen. Maps an (ra,dec) coordinate to the Screen.
-      /// This is the basic coordinate transformation function
-      ///  </summary>
-      /// <param name="ra_">Right ascension in degrees, double</param>
-      /// <param name="dec_">Declination in degrees, double</param>
-      /// <param name="size_">Symbol size in pixels, float</param>
+      /**
+       * 将(ra,dec)映射到屏幕，这是一个基本的坐标变换功能
+       * @param ra_ Right ascension in degrees, double
+       * @param dec_ Declination in degrees, double
+       * @param size_ Symbol size in pixels, float
+       */
       public Point2D EqToScreen(double ra_, double dec_, float size_)
       {
           double[] r = V3.Normal(ra_, dec_);

@@ -58,7 +58,7 @@ class Pen
 		public static String Revision = "$Revision: 1.9 $";
       //-----------------------------------
       private boolean debug = false;		
-      private int width, height;		// Image size
+      private int width, height;		// Image size 图片大小
       private double imageScale;		// Image scale   图片比例
       private double ppm;				// image resolution in pixels per arcminute 每弧分的像素点的解析
       private double ppd;               // pixel resolution in pixels per degree
@@ -67,7 +67,7 @@ class Pen
       // define the different projections
       //-----------------------------------
       public  IProjection proj;							// the abstract Projection object		
-		//private SDSSProjection  SDSSproj;					// the actual SDSSProjection object		
+		//private SDSSProjection  SDSSproj;				// the actual SDSSProjection object		
       private TANProjection tproj;					    // the TAN projection object
       private STRProjection sproj;					    // the STR projection object
 		//-----------------------------------
@@ -154,18 +154,11 @@ class Pen
 		 * @param dec_ Declination in degrees
 		 * @param ptype_ Astrometric transformation of center Frame
 		 */
-//		public void InitializeProjection(double ra_, double dec_, Coord fc_, string ptype_)
 		public void InitializeProjection(double ra_, double dec_, String ptype_)
 		{
-			// call the SDSSProjection constructor
-			//SDSSproj	= new SDSSProjection( ra_, dec_, imageScale, width, height, fc_);
-
-			//create the cast onto the abstract Interface
-			//proj	= (IProjection)SDSSproj;
 
           //-------------------------------------
-          // call the Projection constructor, then
-          // cast onto the abstract Interface
+          // 调用 Projection 构造器, 然后转换为抽象接口
           //-------------------------------------
           if (ptype_ == "TAN")
           {
@@ -222,22 +215,12 @@ class Pen
 		 */
 		public byte[] getBuffer()
 		{
-			/*  zoe
-			MemoryStream theJpeg = new MemoryStream();      // place to store the Jpeg
-			System.Windows.Media.Imaging.JpegBitmapEncoder
-			EncoderParameters jpegParms = new EncoderParameters(1);
-			jpegParms.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 95L);
-			img.Save(theJpeg, GetEncoderInfo("image/jpeg"), jpegParms);
-
-          	img.Save(theJpeg, getImageFormat(imageType));	// make the Jpeg				
-			Byte[] imgdata = theJpeg.ToArray();	*/		    // the image to be returned as a Jpeg byte stream
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				ImageIO.write(img, "jpeg", out);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-//			ImageOutputStream output = new MemoryCacheImageOutputStream(out);
 			return out.toByteArray();							    // return image
 		}
 
@@ -327,6 +310,7 @@ class Pen
       } 
       /**
        * GetViewPort. It will compute the ViewPort from the projection.
+       * 根据投影计算视口。
        * @return
        */
       public String GetViewPort()
@@ -352,7 +336,7 @@ class Pen
           vs = "REGION CONVEX ";
 
           //-----------------------------------------
-          // compute distance from center计算距中心的距离
+          // compute distance from center
           //-----------------------------------------
           double dist = Math.acos(V3.Dot(cen, nw3));
           //-----------------------------------------
@@ -1011,7 +995,7 @@ class Pen
 			gc.setColor(rulerPen.getColor());
 			gc.drawLine( x1, yy , x2, yy);
 			gc.drawLine( x1, yy - len, x1, yy + len);
-			gc.drawLine(x2, yy - len, x2, yy + len);
+			gc.drawLine( x2, yy - len, x2, yy + len);
 //			gc.DrawLine(rulerPen, x1, yy      , x2, yy      );
 //			gc.DrawLine(rulerPen, x1, yy - len, x1, yy + len);
 //			gc.DrawLine(rulerPen, x2, yy - len, x2, yy + len);
@@ -1078,40 +1062,38 @@ class Pen
 		 * GetAffineTransform. Compute the affine transformation for the
 		 * graphic context that maps the pixel coordinates of a Frame to
 		 * the world coordinate system of the projection of the canvas.
+		 * 为图形上下文计算仿射变换，用以实现Frame的像素坐标到画布上的世界坐标系的投影映射
 		 * @param coord The input astrometric transformation of the Frame
 		 * @return Matrix for the canvas graphic context
 		 */
 		public AffineTransform getAffineTransform(Coord coord)
 		{
-			// compute the corners in both coordinate systems            
+			// compute the corners in both coordinate systems   
+			//计算两种坐标系中的四个角裁剪后的坐标
 			Point2D.Float[] p	= SdssConstants.FieldGeometry(true);
 			int len		= p.length;	
 			Point2D[] g	= new Point2D.Float[len];
 			Coord fc	= new Coord();
-          if (SdssConstants.isSdss)
+			if (SdssConstants.isSdss)
               fc.copy(coord);
-//  zoe        else
-//             fc.copy2Mass(coord);
 			    
 			fc.scale	= 1.0;
-
-			// loop through the array
+			
 			for(int i=0;i<len;i++)
 			{              
-              if(SdssConstants.isSdss)
+              if(SdssConstants.isSdss)//像素坐标变换为ra,dec
                   fc.FrameToEq((float)p[i].getX(),(float) p[i].getY());  // SDSS
-//    zoe          else 
-//                  fc.FrameToEq((float)p[i].getX(), (float)p[i].getY(), fc.crpix1, fc.crpix2, fc.cdelt1, fc.cdelt2, fc.crval1, fc.crval2);  // 2mass
-
+              
               g[i] = proj.EqToScreen(fc.ra, fc.dec, 0.0F);  
 			}
 			// build up the terms for solving the best fit affine transformation
+			//建立求解最佳拟合仿射变换的项
 			float qu=0, qv=0, qux=0, quy=0, qvx=0, qvy=0, 
 				  qx=0, qy=0, qxx=0, qyy=0, qxy=0;
 
-          //ImgCutout
-          for (int i = 0; i < 4; i++)
-          {
+			//ImgCutout
+			for (int i = 0; i < 4; i++)
+			{
               qu += g[i].getX() / 4;
               qv += g[i].getY() / 4;
               qux += g[i].getX() * p[i].getX() / 4;
@@ -1123,32 +1105,32 @@ class Pen
               qxx += p[i].getX() * p[i].getX() / 4;
               qxy += p[i].getX() * p[i].getY() / 4;
               qyy += p[i].getY() * p[i].getY() / 4;
-          }
+			}
 
 			// we seek the affine transformation in the form (see Petzold book p. 292)
 			//		x' = sx*x + rx * y + dx
 			//		y' = ry*x + sy * y + dy;
-			double d =  det3x3(new double[] {1.0, qx, qy,  qx, qxx, qxy,  qy, qxy, qyy});
-			double dx = (det3x3(new double[] { qu, qx, qy, qux, qxx, qxy, quy, qxy, qyy})/d);
-			double sx =  (det3x3(new double[] {1.0, qu, qy,  qx, qux, qxy,  qy, quy, qyy})/d);
-			double rx = (det3x3(new double[] {1.0, qx, qu,  qx, qxx, qux,  qy, qxy, quy})/d);
-			double dy =(det3x3(new double[] { qv, qx, qy, qvx, qxx, qxy, qvy, qxy, qyy})/d);
-			double ry = (det3x3(new double[] {1.0, qv, qy,  qx, qvx, qxy,  qy, qvy, qyy})/d);
-			double sy = (det3x3(new double[] {1.0, qx, qv,  qx, qxx, qvx,  qy, qxy, qvy})/d);
+			double d = det3x3(new double[] {1.0, qx, qy,  qx, qxx, qxy,  qy, qxy, qyy});
+			double dx = det3x3(new double[] { qu, qx, qy, qux, qxx, qxy, quy, qxy, qyy})/d;
+			double sx = det3x3(new double[] {1.0, qu, qy,  qx, qux, qxy,  qy, quy, qyy})/d;
+			double rx = det3x3(new double[] {1.0, qx, qu,  qx, qxx, qux,  qy, qxy, quy})/d;
+			double dy = det3x3(new double[] { qv, qx, qy, qvx, qxx, qxy, qvy, qxy, qyy})/d;
+			double ry = det3x3(new double[] {1.0, qv, qy,  qx, qvx, qxy,  qy, qvy, qyy})/d;
+			double sy = det3x3(new double[] {1.0, qx, qv,  qx, qxx, qvx,  qy, qxy, qvy})/d;
 //zoe			if (debug && false)
 //			{
 //				debugMessage.append("Affine: ["+coord.info+"][ "+sx+", "+ry+",  "+rx+",  "+sy+",  "+dx+",  "+dy+"]\n");        
-//				debugMessage.append("             [ W "+(p[2].getX()-p[0].getX())+", H "+(p[2].getY()-p[0].getY())+"]\n");        
-//				debugMessage.append("             [ W "+(g[2].getX()-g[0].getX())+", H "+(g[2].getY()-g[0].getY())+"]\n");        
+//				debugMessage.append("  [ W "+(p[2].getX()-p[0].getX())+", H "+(p[2].getY()-p[0].getY())+"]\n");        
+//				debugMessage.append("  [ W "+(g[2].getX()-g[0].getX())+", H "+(g[2].getY()-g[0].getY())+"]\n");        
 //			}           
 			return new AffineTransform(sx,ry,rx,sy,dx,dy);
 		}
 		
       
 		/**
-		 * det3x3. Computes the determinant of a 3x3 matrix.
-		 * @param a Vector of 9 doubles, the elements of the matrix
-		 * @return
+		 * 计算一个3x3矩阵的行列式
+		 * @param 包含9个double值的向量, 代表矩阵中的元素
+		 * @return 行列式结果
 		 */
 		private double det3x3(double[] a)
 		{

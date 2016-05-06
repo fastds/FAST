@@ -250,42 +250,43 @@ public class SdssConstants
            ) return _DR;
          return -1;
  }
-	/// <summary>
-	/// FieldGeometry. Returns the four corners of the field
-	/// in unscaled pixel coordinates with optional clipping
-	///  </summary>
+ 	/**
+ 	 * FieldGeometry. Returns the four corners of the field
+ 	 * in unscaled pixel coordinates with optional clipping
+ 	 * 返回未缩放的filed的四个角的坐标，裁剪可选
+ 	 */
 	public static Point2D.Float[]	FieldGeometry(boolean clip )
 	{
-		float fX1, fX2, fY1, fY2;
-     //-----------------------------------------------------------------
-	 // compute the pixel coordinates of corners with optional clipping
-     //-----------------------------------------------------------------
-     if (!isSdss) clip = false;  // no clipping for twomass images
-     int clipit	= (clip?1:0);
-     float offY = -0.0F;
-     fX1 = (float) (getClipXLeft() * clipit);				
-	 fX2	= (float) (getFrameWidth() - getClipXRight() * clipit);							
-	 fY1	= (float) (getClipYTop() * clipit +offY);
-	 fY2	= (float) (getFrameHeight() - getClipYBottom() * clipit +offY);
-
-		//-----------------------------------
-     // create array for the four corners
-     //-----------------------------------
-		Point2D.Float[] p = new Point2D.Float[4];
-
-     if (getSDR() > getPrevVersion())
-     {
-         p[0] = new Point2D.Float(fX1, fY2);
-         p[1] = new Point2D.Float(fX2, fY2);
-         p[2] = new Point2D.Float(fX2, fY1);
-         p[3] = new Point2D.Float(fX1, fY1);
-     }
-     else {
-         p[0] = new Point2D.Float(fX1, fY1);
-         p[1] = new Point2D.Float(fX2, fY1);
-         p[2] = new Point2D.Float(fX2, fY2);
-         p[3] = new Point2D.Float(fX1, fY2);
-     }
-     return p;
+		 float fX1, fX2, fY1, fY2;
+	     //--------------------------------------
+		 // 计算四个角的可选裁剪的像素坐标
+	     //--------------------------------------
+	     if (!isSdss) clip = false;  // twomass 图像不裁剪
+	     int clipit	= (clip?1:0);
+	     float offY = -0.0F;
+	     fX1 = (float) (getClipXLeft() * clipit);				
+		 fX2 = (float) (getFrameWidth() - getClipXRight() * clipit);							
+		 fY1 = (float) (getClipYTop() * clipit +offY);
+		 fY2 = (float) (getFrameHeight() - getClipYBottom() * clipit +offY);
+	
+		 //--------------------------
+	     // 创建数组存放四个角
+	     //--------------------------
+		 Point2D.Float[] p = new Point2D.Float[4];
+	
+	     if (getSDR() > getPrevVersion())
+	     {
+	         p[0] = new Point2D.Float(fX1, fY2);	//左上角
+	         p[1] = new Point2D.Float(fX2, fY2);	//右上角
+	         p[2] = new Point2D.Float(fX2, fY1);	//左下角
+	         p[3] = new Point2D.Float(fX1, fY1);	//右下角
+	     }
+	     else {
+	         p[0] = new Point2D.Float(fX1, fY1);
+	         p[1] = new Point2D.Float(fX2, fY1);
+	         p[2] = new Point2D.Float(fX2, fY2);
+	         p[3] = new Point2D.Float(fX1, fY2);
+	     }
+	     return p;
 	}
 }	

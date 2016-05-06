@@ -1,7 +1,7 @@
 package edu.gzu.image;
 class V3
 {
-	public static double D2R = Math.PI/180.0;	// degrees to radians
+	public static double D2R = Math.PI/180.0;	// 角度到弧度的转换
 
 	public static double[] FromXYZ(double x_, double y_, double z_)
 	{
@@ -12,12 +12,12 @@ class V3
 		return r; 
 	}
 
-	/// <summary>
-	/// Dot. Calculate the dot product of two Cartesian vectors
-	/// </summary>
-	/// <param name="r">First V3 vector</param>
-	/// <param name="s">Second V3 vector</param>
-	/// <returns>dot product, as a double</returns>
+	/**
+	 * 计算两个向量的笛卡尔的点积
+	 * @param r First V3 vector
+	 * @param s Second V3 vector
+	 * @return  dot product, as a double
+	 */
 	public static double Dot(double[] r_, double[] s_)
 	{
 		double dot=0.0;
@@ -58,14 +58,13 @@ class V3
 		for (int i=0;i<3;i++) n[i] = sc* r[i];
 		return n;
 	}
-
-	/// <summary>
-	/// Normal. Calculate the Cartesian normal vector 
-	/// corresponding to the point (ra,dec).
-	/// </summary>
-	/// <param name="ra_">Right ascension in degrees</param>
-	/// <param name="dec_">Declination in degrees</param>
-	/// <returns>Array of 3 doubles, a 3-vector</returns>
+	
+	/**
+	 * Calculate the Cartesian normal vector corresponding to the point (ra,dec).
+	 * @param ra_ Right ascension in degrees
+	 * @param dec_ Declination in degrees
+	 * @return Array of 3 doubles, a 3-vector
+	 */
 	public static double[] Normal(double ra_, double dec_) 
 	{
 		double[] n = new double[3];	
@@ -90,13 +89,12 @@ class V3
 		return n;
 	}
 
-	/// <summary>
-	/// GetNorth. Calculate the Cartesian normal vector 
-	/// corresponding to the North direction at the point (ra,dec).
-	/// </summary>
-	/// <param name="ra_">Right ascension in degrees</param>
-	/// <param name="dec_">Declination in degrees</param>
-	/// <returns>Array of 3 doubles, a 3-vector</returns>
+	/**
+	 * Calculate the Cartesian normal vector corresponding to the north direction at point (ra,dec).
+	 * @param ra_ Right ascension in degrees
+	 * @param dec_ Declination in degrees
+	 * @return Array of 3 doubles, a 3-vector
+	 */
 	public static double[] North(double ra_, double dec_) 
 	{
 		double[] u = new double[3];	
@@ -105,14 +103,12 @@ class V3
 		u[2] =  Math.cos(dec_ * D2R);
 		return u;
 	}
-
-	/// <summary>
-	/// West. Calculate the Cartesian normal vector 
-	/// corresponding to the west direction at the point (ra,dec).
-	/// </summary>
-	/// <param name="ra_">Right ascension in degrees</param>
-	/// <param name="dec_">Declination in degrees</param>
-	/// <returns>Array of 3 doubles, a 3-vector</returns>
+	/**
+	 * Calculate the Cartesian normal vector corresponding to the west direction at the point (ra,dec).
+	 * @param ra_ Right ascension in degrees
+	 * @param dec_ Declination in degrees
+	 * @return Array of 3 doubles, a 3-vector
+	 */
 	public static double[] West(double ra_, double dec_) 
 	{
 		double[] w = new double[3];	

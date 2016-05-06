@@ -131,8 +131,7 @@ public class Coord
 
 
 	/**
-	 * FrameToEq goes from Frame x,y coordinates and sets ra and dec
-	 * 从Frame x,y坐标开始，设置ra,dec
+	 * 根据Frame图像的 像素坐标(x,y)，计算ra,dec
 	 * @param x pixels across (scaled for zoom level)
 	 * @param y pixels down (scaled for zoom level)
 	 */
@@ -143,10 +142,10 @@ public class Coord
 		double row = y;
 
 		// Great circle coordinates in degrees 
-		mu = (a +  b*row  +  c*col);
-		nu = (d +  e*row  +  f*col);
+		this.mu = (this.a +  this.b*row  +  this.c*col);
+		this.nu = (this.d +  this.e*row  +  this.f*col);
 
-		// convert to radians, then to ra,dec 转换为弧度，然后在转换为ra,dec
+		// convert to radians, then to ra,dec 单位变换为弧度，然后计算ra,dec
 		double muR = (mu - node) * D2R;
 		double nuR = nu * D2R;
 		double xg  = Math.cos(muR) * Math.cos(nuR);
@@ -159,13 +158,13 @@ public class Coord
 		double qy  = yg * Math.cos(inR) - zg*Math.sin(inR);
 		double qz  = yg * Math.sin(inR) + zg*Math.cos(inR);
 
-		// compute ra, dec 计算ra,dec
+		//  计算ra,dec
 		double pRa  = Math.atan2(qy,qx) / D2R  +  node;
 		double pDec = Math.asin(qz) / D2R;
 		if (pRa>360) pRa -= 360;
 		if (pRa<0)   pRa += 360;
-		ra	= pRa;
-		dec	= pDec;
+		this.ra	= pRa;
+		this.dec	= pDec;
 		return new PointEq(pRa,pDec);
 	}
 
