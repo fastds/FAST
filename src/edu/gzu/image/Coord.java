@@ -4,9 +4,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 //////////////////////////////////等待完善的矩阵类////////////////////////////////////
+/**
+ * 与赤经赤纬等价的坐标点对象
+ */
 class PointEq
 {
-	public double ra,dec;			// the right ascension and declination
+	public double ra,dec;
 	public PointEq(double pRa, double pDec)
 	{
 		ra	= pRa;
@@ -15,7 +18,7 @@ class PointEq
 }
 /**
  * Summary description for Coord.
- * Coord private class carries the transformation of ra/dec to nu/mu and xy. 
+ * Coord  class carries the transformation of ra/dec to nu/mu and xy. 
  * 进行ra/dec 到 nu/mu 和 xy的转换 
  */
 public class Coord 
@@ -32,28 +35,26 @@ public class Coord
 	private double a,b,c,d,e,f,node,incl;	// affine tranformation of the stripe to ra,dec
 	public String info;				        // information about the field for debugging
 	public AffineTransform m;
-	public static double D2R = Math.PI / 180.0;	// degrees to radians 角度到弧度的转换
-	public double crval1, crval2, crpix1, crpix2, cdelt1, cdelt2;	// wcs for 2mass
-
+	public static double D2R = Math.PI / 180.0;	// 角度到弧度的变换
 
 	public Coord()
 	{}
 
 
-	public Coord(double _a,double _b,double _c,double _d,double _e,double _f,
-		double _node,double _incl,double _scale, String _info) 
+	public Coord(double a,double b,double c,double d,double e,double f,
+		double node,double incl,double scale, String info) 
 	{
-		a = _a;
-		b = _b;
-		c = _c;
-		d = _d;
-		e = _e;
-		f = _f;
-		node = _node;
-		incl = _incl;
-		scale= _scale;
-		info = _info;
-		m	 = null;
+		this.a = a;
+		this.b = b;
+		this.c = c;
+		this.d = d;
+		this.e = e;
+		this.f = f;
+		this.node = node;
+		this.incl = incl;
+		this.scale= scale;
+		this.info = info;
+		this.m	 = null;
 	}
 
 
@@ -187,12 +188,12 @@ public class Coord
 	/**
 	 * Converts ra into decimal degrees.
 	 */
-  public static double hms2deg(String s)
-  {
-      String[] a = s.split(":");
-      double v = 15.0 * Double.parseDouble(a[0]) + Double.parseDouble(a[1]) / 4.0 + Double.parseDouble(a[2]) / 240.0;
-      return v;
-  }
+	  public static double hms2deg(String s)
+	  {
+	      String[] a = s.split(":");
+	      double v = 15.0 * Double.parseDouble(a[0]) + Double.parseDouble(a[1]) / 4.0 + Double.parseDouble(a[2]) / 240.0;
+	      return v;
+	  }
 
   /**
    * Converts dec into decimal degrees.
@@ -212,115 +213,5 @@ public class Coord
       return v;
   }
 
-
-  //%%%%%%%%%%%%%%%%%%%%%%%  2MASS Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//
-  /*
-  //// WCS for 2mass images
-  public void get_theta_phi(double alpha_deg, double delta_deg, double alpha_p_deg, double delta_p_deg, ref double theta, ref double phi)
-  {
-
-      double deg2rad = Math.PI / 180.0;
-      double alpha = alpha_deg * deg2rad;
-      double delta = delta_deg * deg2rad;
-      double alpha_p = alpha_p_deg * deg2rad;
-      double delta_p = delta_p_deg * deg2rad;
-
-      double phi_p = 180.0 * deg2rad;  //;delta_p
-      double cd = Math.Cos(delta);
-      double sd = Math.Sin(delta);
-      double cdp = Math.Cos(delta_p);
-      double sdp = Math.Sin(delta_p);
-
-      phi = phi_p + Math.Atan2(-cd * Math.Sin(alpha - alpha_p), sd * cdp - cd * sdp * Math.Cos(alpha - alpha_p));
-      theta = Math.Asin(sd * sdp + cd * cdp * Math.Cos(alpha - alpha_p));
-
-  }
-*//*
-  public Point2D EqToFrame(double ra, double dec, double ra_ref, double dec_ref, double scale, double x_ref, double y_ref)
-  {
-
-      double deg2rad = Math.PI / 180.0;
-      double theta = 0.0;
-      double phi = 0.0;
-      get_theta_phi(ra, dec, ra_ref, dec_ref,  theta,  phi);
-
-      double rtheta = 1.0 / Math.tan(theta) / deg2rad;
-      double x = rtheta * Math.sin(phi);
-      double y = -rtheta * Math.cos(phi);
-      //now  get the actual pixels values  //-1 if first pixel is at 0
-      double x_pix = -x / scale + x_ref - 1;
-      double y_pix = y / scale + y_ref - 1;
-      Point2D p = new Point2D.Float((float)x, (float)y);
-      return p;
-  }
-*/
-  //public PointEq FrameToEq(float x, float y, double crpix1, double crpix2, double cdelt1, double cdelt2, double crval1, double crval2)
-  //{
-
-  //    double pRa = (x - crpix1 +1) * cdelt1 + crval1;
-  //    double pDec = (y - crpix2 +1 ) * cdelt2 + crval2;            
-  //    ra = pRa;
-  //    dec = pDec;
-  //    return new PointEq(pRa, pDec);
-
-  //}
-  public PointEq FrameToEq(float x, float y, double crpix1, double crpix2, double cdelt1, double cdelt2, double crval1, double crval2)
-  {
-      double deg2rad = Math.PI / 180.0;
-
-      double x_int = cdelt1 * (x - crpix1);
-      double y_int = cdelt2 * (y - crpix2);
-
-      double phi = Math.atan2(x_int, (-y_int));
-      double rtheta = Math.sqrt(x_int * x_int + y_int * y_int);
-      double theta = Math.atan(180.0 / Math.PI / rtheta);
-
-
-      double deltap = crval2 * deg2rad;
-      double alphap = crval1 * deg2rad;
-      double phip = Math.PI;
-
-      double ct = Math.cos(theta);
-      double st = Math.sin(theta);
-      double cdp = Math.cos(deltap);
-      double sdp = Math.sin(deltap);
-
-      double t1 = st * cdp - ct * sdp * Math.cos(phi - phip);
-      double t2 = -Math.cos(theta) * Math.sin(phi - phip);
-      ra = alphap + Math.atan(t2 / t1);
-
-      double t = st * sdp + ct * cdp * Math.cos(phi - phip);
-      dec = Math.asin(t);
-
-      ra = ra / deg2rad;
-      dec = dec / deg2rad;
-      return new PointEq(ra, dec);
-  }
-/*
-  public void copy2Mass(Coord coord)
-  {
-      this.crval1 = coord.crval1;
-      this.crval2 = coord.crval2;
-      this.crpix1 = coord.crpix1;
-      this.crpix2 = coord.crpix2;
-      this.cdelt1 = coord.cdelt1;
-      this.cdelt2 = coord.cdelt2;
-      this.m = coord.m;
-  }
-
-  // This Constructor for 2mass images with wcs read from fits files
-  public Coord(double _crval1, double _crval2, double _crpix1, double _crpix2, double _cdelt1, double _cdelt2)
-  {
-      crval1 = _crval1;
-      crval2 = _crval2;
-      crpix1 = _crpix1;
-      crpix2 = _crpix2;
-      cdelt1 = _cdelt1;
-      cdelt2 = _cdelt2;
-      m = null;
-  }
-*/
- /////%%%%%%%%%%%%%%%%%%%%%%%%%  end 2mass section %%%%%%%%%%%%%%%%%%%%%%%%% ///
-  
-  } // end of Coord Class
+} // end of Coord Class
 

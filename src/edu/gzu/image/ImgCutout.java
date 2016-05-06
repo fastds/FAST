@@ -25,7 +25,6 @@ import org.fastds.dao.ExQuery;
  * 基本数据中image最大像素到2048x2048
  * 会进行旋转操作使得北方朝上
  * 图像可选包含PhotoObj, SpecObj 和 Target 图表  还有label和grid
- * @author zhouyu
  *
  */
   public class ImgCutout 
@@ -167,11 +166,9 @@ import org.fastds.dao.ExQuery;
 	      
 	  }
 
-	  /// <summary>
-	  /// Revision from CVS
-	  /// </summary>
+	  // Revision from CVS
 	  public static String Revision = "$Revision: 1.26 $";
-	  //    [WebMethod(Description = "Return CVS revision numbers")]
+	  // Return CVS revision numbers
 	  public String[] Revisions()
 	  {
 	      String[] revs = { "ImgCutout:WebServices " + ImgCutout.Revision, };
@@ -184,7 +181,8 @@ import org.fastds.dao.ExQuery;
      * It throws an authorization exception if it cannot connect to the database.
      * @param ra_ 基于J2000天球参考坐标系的赤经，范围： [0...360]double类型
 	 * @param dec_ 基于J2000天球参考坐标系的赤纬，范围：[-90..90]double类型
-	 * @param scale_ 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。(0.3961267 对应 1:1，默认为0.396126761"/pixel.)，范围：0.015 .. 60.
+	 * @param scale_ 角秒/像素(0.3961267 is native 1:1 for SDSS)角秒，一度的三千六百分之一。<br/>
+	 * 					(0.3961267 对应 1:1，默认为0.396126761"/pixel.)，范围：0.015 .. 60.
 	 * @param width_ 图像像素宽度，范围：[64 .. 2048]的整数
 	 * @param height_ 图像像素高度，范围：[64 .. 2048]的整数
 	 * @param opt_ 绘制选项，字符串表示，有如下几个绘制请求：<br/>
@@ -283,7 +281,6 @@ import org.fastds.dao.ExQuery;
 
               //-------------------------------------
               // set image scale and zoom 
-              // 设置图像比例和层级
               //-------------------------------------
               zoom = 0;
               ppd = 3600.0 / scale;
@@ -304,7 +301,7 @@ import org.fastds.dao.ExQuery;
               // initialize the canvas, connection and projection  初始化画布，连接对象，投影
               //---------------------------------------------------
              if (drawQuery) validateQuery(query_);
-             canvas = new SDSSGraphicsEnv(width, height, imageScale, ppd, debug, imgtype);
+             	canvas = new SDSSGraphicsEnv(width, height, imageScale, ppd, debug, imgtype);
   //zoe            connectToDataBase();
 
               byte oflag = 0;
@@ -367,7 +364,7 @@ import org.fastds.dao.ExQuery;
    private void getFrames() throws Exception
 {
 	int zoom10x = SdssConstants.zoom10(zoom);
-	System.out.println("ImgCutout.getFrames():ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
+	System.out.println("ImgCutout.getFrames(): ra:"+ra+",dec:"+dec+",zoom10x:"+zoom10x+",zoom:"+zoom+",fradius:"+fradius+",scale"+scale);
 	StringBuilder sQ = new StringBuilder();
 	ResultSet rs = null;
 
@@ -379,7 +376,6 @@ import org.fastds.dao.ExQuery;
 	  rs = exQuery.aqlQuery(sql);
 	  
 	  cTable = new Hashtable<Long,Coord>();
-	   ResultSetMetaData metaData = rs.getMetaData();
 	   if(rs == null || rs.wasNull())
 	   {
 		   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
@@ -401,16 +397,16 @@ import org.fastds.dao.ExQuery;
 		   String info = Functions.fSDSS(fieldID);
 //		   System.out.println("a:"+a+",b:"+b+",c:"+c+",d:"+d+",e:"+e+",f:"+f+",node:"+node+",incl:"+incl+",info:"+info);
 		   coord = new Coord(
-				   a,		// a
-                   b,		// b 
-                   c,		// c
-                   d,		// d
-                   e,		// e
-                   f,		// f
-                   node,		// node
-                   incl, 		// inclination
-                   zoomScale,	// zoomScale
-                   info		// info
+				   a,			// a 天体测量转换系数
+                   b,			// b 天体测量转换系数
+                   c,			// c 天体测量转换系数
+                   d,			// d 天体测量转换系数
+                   e,			// e 天体测量转换系数
+                   f,			// f 天体测量转换系数
+                   node,		// node 天体测量转换系数
+                   incl, 		// inclination 倾角，天体测量转换系数
+                   zoomScale,	// zoomScale 缩放比例
+                   info			// info 该天区对象对应的SDSS编号，调试用
                    );
 		   if (debug)
 	       {
@@ -423,8 +419,6 @@ import org.fastds.dao.ExQuery;
 	       {
 	           //-----------------------------------------
 	           // fetch the tile into the memory stream
-	       	  // 将数据库中读取出来的img数据处理后转换成
-
 	           //-----------------------------------------
 	    	   InputStream is = new Hex2Image().hex2Binary(img);
 	    	   System.out.println("img string length："+img.length());
@@ -510,7 +504,7 @@ import org.fastds.dao.ExQuery;
 //          }
 
       //zoe        tile.Dispose();
- //zoe     if (reader != null) reader.Close();
+	  //zoe     if (reader != null) reader.Close();
   }
   catch (Exception exp)
   {
@@ -788,9 +782,9 @@ import org.fastds.dao.ExQuery;
           }
       }
 */
-      ///<summary>
-      /// getQueryType(). Determines the type of marking query. SQL, List of objects or Filter
-      ///</summary>				
+      /**
+       * getQueryType(). Determines the type of marking query. SQL, List of objects or Filter
+       */
       private QUERYTYPE getQueryType(String qry)
       {
           if (qry.indexOf("SELECT") != -1) return QUERYTYPE.SQL; //SQL
@@ -865,11 +859,10 @@ import org.fastds.dao.ExQuery;
           return correctQuery;
       }
 
-
-      ///<summary>
-      /// check_and_set_ObjType(). Determines what type of objects are being filtered and builds the proper SQL query.
-      /// Returns the Table alias to be used by the check_and_set_Band() function.
-      ///</summary>	
+      /**
+       * check_and_set_ObjType(). Determines what type of objects are being filtered and builds the proper SQL query.
+       * Returns the Table alias to be used by the check_and_set_Band() function.
+       */
       private String check_and_set_ObjType(char objType) throws Exception
       {
     	  String table = "", t = "";
@@ -898,9 +891,9 @@ import org.fastds.dao.ExQuery;
       }
 
 
-      ///<summary>
-      /// check_and_set_Band(). Determines what Band is being filtered and builds the proper SQL query.
-      ///</summary>
+      /**
+       * check_and_set_Band(). Determines what Band is being filtered and builds the proper SQL query.
+       */
       private void check_and_set_Band(char band, String t, double low_mag, double high_mag) throws Exception
       {
           switch (band)
@@ -926,11 +919,11 @@ import org.fastds.dao.ExQuery;
 
 
 
-      /// <summary>
-      /// cleanLine(): Replaces separation caracters ';' and ',' for spaces 
-      /// and then double spaces for only one space to avoid unnecessary
-      /// columns when building the attributes table.
-      /// </summary>
+      /**
+       * cleanLine(): Replaces separation caracters ';' and ',' for spaces 
+       * and then double spaces for only one space to avoid unnecessary
+       * columns when building the attributes table.
+       */
       private String cleanLine(String ln)
       {
           String line = ln;
@@ -944,10 +937,6 @@ import org.fastds.dao.ExQuery;
           return line;
       }
 
-      /// <summary>
-      /// Assemble a generic message and throw the Exception
-      /// 
-      /// </summary>
       public void showException(String sFunction, String sQuery, Exception e) throws Exception
       {
           StringBuilder msg = new StringBuilder();
@@ -960,8 +949,6 @@ import org.fastds.dao.ExQuery;
      //###############################
      // Only for monitoring system 
      //###############################
-     
-
       [WebMethod(BufferResponse = false, Description = "This is just to check availability of service")]
       public byte[] checkAvailability(
           double ra_,		// right ascension in J2000 degrees

@@ -222,9 +222,9 @@ public class SdssConstants
          return null;
  }
 
- /// <summary>
- /// sDataRelease. String version of the DR version, or NULL if invalid
- /// </summary>
+ /**
+  * sDataRelease. String version of the DR version, or NULL if invalid
+  */
  public static int getSDR()
  {
          if (getSDataRelease().equals("EDR"))

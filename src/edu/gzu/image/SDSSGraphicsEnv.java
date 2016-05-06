@@ -390,14 +390,14 @@ class Pen
       }
 
 		//=============================================================
-		// High level drawing routines
+		// 高级绘制程序
 		//=============================================================
       /**
        * drawImage. Draw the image onto the canvas using the affine 
        * transformation through the Graphics.Transform
-       * 
-       * @param coord The affine transformation of a Field
-       * @param tile The bytes of the JPEG image of the Field
+       * 同过Graphics2D中的方法，利用反射变换将图像画到画布上
+       * @param coord The affine transformation of a Field 仿射变换域
+       * @param tile JPEG图像的字节数组
        */
 		public void drawFrame(Coord coord, Image tile) 
 		{	
@@ -406,21 +406,6 @@ class Pen
 			gc.transform(coord.m);
 //before	gc.DrawImage(tile, new Point2D.Float[] {(Float) p[0], (Float) p[1], (Float) p[3] });
 			gc.drawImage(tile,(int) p[0].getX(),(int) p[0].getY(), (int)(p[1].getX()-p[0].getX()),(int)(p[2].getY()-p[1].getY()),null );
-			if (debug)
-			{
-				// draw the outline for debugging
-				// gc.drawPolygon(new int[]{(int)p[0].getX(),(int)p[0].getX(),(int)p[1].getX(),(int)p[2].getX(),(int)p[3].getX()},new int[]{(int)p[0].getY(),(int)p[1].getY(),(int)p[2].getY(),(int)p[3].getY()}, 4);
-//				gc.DrawLines(testPen, new Point2D.Float[] {(Float) p[0],(Float) p[1],(Float) p[2],(Float) p[3],(Float) p[0]});
-			}
-//	zoe		if (debug && false)
-//			{
-//				debugMessage.append("drawImage "+coord.info+"\n");     
-//				double[] eles = new double[6];
-//				coord.m.getMatrix(eles);
-//				debugMessage.append("Affine: ["+eles[0]+", ["+eles[1]+", ["+eles[2]+"," +
-//						"  ["+eles[3]+", ["+eles[4]+", ["+eles[5]+"]\n");
-//			}
-//	zoe		gc.ResetTransform();
 			gc.setTransform(beforeTS);
 		}
 
@@ -440,20 +425,17 @@ class Pen
 			///////////注意：该多边形有可能是凹多边形
 			for(int i =0;i < p.length; i++)	poly.addPoint((int)p[i].getX(),(int) p[i].getY());
 			gc.draw(poly);
-//	zoe		gc.ResetTransform();
 			gc.setTransform(beforeTS);//重置为之前的单位矩阵
-			if (debug/* && false*/)
+			if (debug)
 			{
 			   debugMessage.append("DrawField "+coord.info+"\n");        
 			}
 		}
 
-
-
-      /// <summary>
-      /// drawRegion. Draw the outlines of a region.
-      ///  </summary>
-      /// <param name="hr">The struct containing an HTMRegion</param>
+		/**
+		 * drawRegion. Draw the outlines of a region.
+		 * @param hr The struct containing an HTMRegion
+		 */
       public void drawRegion(HTMRegion hr, boolean fill)
       {
           if (hr.arc.length == 0)
@@ -1118,8 +1100,8 @@ class Pen
 			{              
               if(SdssConstants.isSdss)
                   fc.FrameToEq((float)p[i].getX(),(float) p[i].getY());  // SDSS
-              else 
-                  fc.FrameToEq((float)p[i].getX(), (float)p[i].getY(), fc.crpix1, fc.crpix2, fc.cdelt1, fc.cdelt2, fc.crval1, fc.crval2);  // 2mass
+//    zoe          else 
+//                  fc.FrameToEq((float)p[i].getX(), (float)p[i].getY(), fc.crpix1, fc.crpix2, fc.cdelt1, fc.cdelt2, fc.crval1, fc.crval2);  // 2mass
 
               g[i] = proj.EqToScreen(fc.ra, fc.dec, 0.0F);  
 			}

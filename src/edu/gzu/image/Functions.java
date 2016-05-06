@@ -29,12 +29,10 @@ public class Functions {
 	{
 		return x*(Math.PI/180);
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H Computes the 6-part SDSS numbers from the long objID
-	--/T The bit-fields and their lengths are skyversion[5] + rerun[11] + run[16] + camcol[3] + first[1] + field[12] + obj[16]<br>
-	--/T <samp> select top 5 dbo.fSDSS(objid) as SDSS from PhotoObj</samp>
-	------------------------------------------------------------------------------- 
+	/**
+	 * 由long类型的objID计算六段的SDSS编号
+	 * 每一个段的意义和长度为skyversion[5] + rerun[11] + run[16] + camcol[3] + first[1] + field[12] + obj[16]<br>
+	 * <samp> select top 5 dbo.fSDSS(objid) as SDSS from PhotoObj</samp>
 	 */
 	public static String fSDSS(long fieldID)
 	{
