@@ -18,11 +18,6 @@ interface IProjection
 }
 
    
-  /// <summary>
-  /// CARTProjection
-  /// Gives us the definition of the projection to the screen
-  /// using a cartesian projection, centered on (ra=180, dec=0).
-  /// </summary>
 /**
  * Gives us the definition of the projection to the screen
  *  using a cartesian projection, centered on (ra=180, dec=0).
@@ -114,9 +109,9 @@ interface IProjection
   {
       public static String Revision="$Revision: 1.2 $";
       private int width, height;					// screen size
-      private Point2D cOffset;						// reference point offset
-      private double scale;							// image scale
-      private double[] n, w, u;						// normal, west, up vectors
+      private Point2D cOffset;						// reference point offset 参考点的偏移量
+      private double scale;							// image scale 图像比例
+      private double[] n, w, u;						// normal, west, up vectors 三个方向的向量
       /**
        * Initialize the transformation for the projection to be used on the screen.
        */
@@ -150,9 +145,9 @@ interface IProjection
           double gu = 0;
           for (int i = 0; i < 3; i++)
           {
-              gn += r[i] * n[i];
-              gw += r[i] * w[i];
-              gu += r[i] * u[i];
+              gn += r[i] * this.n[i];
+              gw += r[i] * this.w[i];
+              gu += r[i] * this.u[i];
           }
           Point2D q = new Point2D.Float((float)cOffset.getX() - (float)(scale * gw),(float) cOffset.getY() - (float)(scale * gu));
           return q;
@@ -165,9 +160,9 @@ interface IProjection
 
 
       /**
-       * Maps a screen coordinate to an (ra,dec).<br/>
+       * 映射屏幕坐标到(ra,dec).<br/>
        * This is the inverse coordinate transformation function
-       * @param p The screen coordinate of the point
+       * @param p 代表屏幕坐标的点
        */
       public PointEq ScreenToEq(Point2D p)
       {
@@ -191,13 +186,11 @@ interface IProjection
       }
   }
 
-
-
-  /// <summary>
-  /// STRProjection
-  /// Gives us the definition of the projection to the screen
-  /// using a stereographic projection, centered on (ra,dec).
-  /// </summary>
+ /**
+  * STRProjection
+  * Gives us the definition of the projection to the screen
+  * using a stereographic projection, centered on (ra,dec).
+  */
  class STRProjection implements IProjection
   {
       public static String Revision="$Revision: 1.2 $";
@@ -205,10 +198,9 @@ interface IProjection
       private Point2D cOffset;							// reference point offset
       private double scale;							// image scale
       private double[] n, w, u;
-      /// <summary>
-      /// InitProjection. Initialize the transformation for the projection
-      /// to be used on the screen.
-      /// </summary>	
+      /**
+       * Initialize the transformation for the projection to be used on the screen.
+       */
       public STRProjection(double ra_, double dec_, double ppd_, int width_, int height_)
       {
           n = V3.Normal(ra_, dec_);
@@ -225,13 +217,13 @@ interface IProjection
       // Coordinate transformations
       //-----------------------------
 
-      /// <summary>
-      /// EqToScreen. Maps an (ra,dec) coordinate to the Screen.
-      /// This is the basic coordinate transformation function
-      ///  </summary>
-      /// <param name="ra_">Right ascension in degrees, double</param>
-      /// <param name="dec_">Declination in degrees, double</param>
-      /// <param name="size_">Symbol size in pixels, float</param>
+      /**
+       * Maps an (ra,dec) coordinate to the Screen.
+       * This is the basic coordinate transformation function
+       * @param ra_ Right ascension in degrees, double
+       * @param dec_ Declination in degrees, double
+       * @param size_ Symbol size in pixels, float
+       */
       public Point2D EqToScreen(double ra_, double dec_, float size_)
       {
           double[] r = V3.Normal(ra_, dec_);

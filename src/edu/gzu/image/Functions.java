@@ -225,19 +225,19 @@ public class Functions {
 	}
 	public static String fGetObjectsEqStr(int flag,double ra, double dec,double radius,double zoom)
 	{
-		System.out.println("fGetObjectsEqStr run-------------");
+			System.out.println("fGetObjectsEqStr run-------------");
 		    double nx,ny,nz,rad,mag;
 		                
 			rad = radius;
 	        if (rad > 250)  rad = 250 ;     //-- limit to 4.15 degrees == 250 arcminute radius
-	         nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
-	         ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
-	         nz  = Math.sin(radians(dec));
-	         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
+	        nx  = Math.cos(radians(dec))*Math.cos(radians(ra));
+	        ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
+	        nz  = Math.sin(radians(dec));
+	        mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
 		        
-	         List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
+	        List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
 			
-	         double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
+	        double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
 			String res = null;
 			if ( (flag & 1) > 0 )  //-- specObj
 			{
@@ -250,7 +250,6 @@ public class Functions {
 				res = aql.toString();
 				
 			}
-		            
 
 	        if ( (flag & 2) > 0 )  //-- photoObj
 	        {
@@ -278,44 +277,44 @@ public class Functions {
 	        }
 		               
 
-		        if ( (flag & 8) > 0 ) // -- mask
-		        {
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,maskID AS objID");
-					aql.append(" FROM Mask ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+	        if ( (flag & 8) > 0 ) // -- mask
+	        {
+				StringBuilder aql = new StringBuilder();
+				aql.append("SELECT ra,dec,maskID AS objID");
+				aql.append(" FROM Mask ");
+				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
 //					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->mask:"+aql);
-					res = aql.toString();
-					return res;
-		        }
+				System.out.println("Functions:fGetObjectsEq():aql-->mask:"+aql);
+				res = aql.toString();
+				return res;
+	        }
 
-		        if ( (flag & 16) > 0 ) //-- plate
-		        {
-		        	rad = radius + 89.4;   //-- add the tile radius
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,plateID AS objID");
-					aql.append(" FROM PlateX ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+	        if ( (flag & 16) > 0 ) //-- plate
+	        {
+	        	rad = radius + 89.4;   //-- add the tile radius
+				StringBuilder aql = new StringBuilder();
+				aql.append("SELECT ra,dec,plateID AS objID");
+				aql.append(" FROM PlateX ");
+				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
 //					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->palteX"+aql);
-					res = aql.toString();
-					return res;
-		        }
+				System.out.println("Functions:fGetObjectsEq():aql-->palteX"+aql);
+				res = aql.toString();
+				return res;
+	        }
 
-		        if ( (flag & 32) > 0 )  //-- photoPrimary and secondary
-		        {
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,objID ");
-					aql.append(" FROM PhotoObjAll ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-					aql.append(" AND (mod=1 OR mod=2) ");
+	        if ( (flag & 32) > 0 )  //-- photoPrimary and secondary
+	        {
+				StringBuilder aql = new StringBuilder();
+				aql.append("SELECT ra,dec,objID ");
+				aql.append(" FROM PhotoObjAll ");
+				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+				aql.append(" AND (mod=1 OR mod=2) ");
 //					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->PhotoObjAll"+aql);
-					res = aql.toString();
-					return res;
-		        }
-		        return res;
+				System.out.println("Functions:fGetObjectsEq():aql-->PhotoObjAll"+aql);
+				res = aql.toString();
+				return res;
+	        }
+	        return res;
 	}
 	public static List<Obj> fGetObjectsEq(int flag,double ra, double dec,double radius,double zoom)
 	{

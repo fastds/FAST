@@ -42,40 +42,34 @@ class Pen
 	}
 	
 }
-///Current version
-///ID:          $Id: SDSSGraphicsEnv.cs,v 1.9 2004/02/23 14:07:36 nieto Exp $
-///Revision:    $Revision: 1.9 $
-///Date:        $Date: 2004/02/23 14:07:36 $
 
 /**
  * SDSSGraphicsEnv defines our own Graphic Enviroment for SDSS
- * 下面这个类定义了我们自己的准对SDSS的图形环境
- * @author zhouyu
+ * 下面这个类定义了我们自己的SDSS的图形环境
  *
  */
 	public class SDSSGraphicsEnv
 	{	
 		public static String Revision = "$Revision: 1.9 $";
-      //-----------------------------------
-      private boolean debug = false;		
-      private int width, height;		// Image size 图片大小
-      private double imageScale;		// Image scale   图片比例
-      private double ppm;				// image resolution in pixels per arcminute 每弧分的像素点的解析
-      private double ppd;               // pixel resolution in pixels per degree
-      private double pixelScale;		// Pixel scale in arcsec/pixel units 每单元 弧秒/像素 的像素比例
-      //-----------------------------------
-      // define the different projections
-      //-----------------------------------
-      public  IProjection proj;							// the abstract Projection object		
-		//private SDSSProjection  SDSSproj;				// the actual SDSSProjection object		
-      private TANProjection tproj;					    // the TAN projection object
-      private STRProjection sproj;					    // the STR projection object
+		//-----------------------------------
+		private boolean debug = false;		
+      	private int width, height;		// Image size 图片大小
+      	private double imageScale;		// Image scale   图片比例
+      	private double ppm;				// image resolution in pixels per arcminute 每弧分的像素点的解析
+      	private double ppd;               // pixel resolution in pixels per degree
+      	private double pixelScale;		// Pixel scale in arcsec/pixel units 每单元 弧秒/像素 的像素比例
+      	//-----------------------------------
+      	// define the different projections
+      	//-----------------------------------
+      	public  IProjection proj;							// the abstract Projection object		
+      	private TANProjection tproj;					    // the TAN projection object
+      	private STRProjection sproj;					    // the STR projection object
 		//-----------------------------------
         private Graphics2D  gc;
 		private BufferedImage	  img;
-      //-----------------------------------
-      // predefine the different colors
-      //-----------zoe------------------------
+		//-----------------------------------
+		// predefine the different colors
+		//-----------zoe------------------------
 		private Pen queryPen	= new Pen(Color.magenta, 1);
 		private Pen photoPen	= new Pen(Color.blue, 1);			
 		private Pen specPen		= new Pen(Color.RED, 1);					
@@ -89,25 +83,23 @@ class Pen
 		private Pen gridPen		= new Pen(Color.GREEN,1);
 		private Pen rulerPen	= new Pen(Color.GREEN,2);
 		private Pen regionPen   = new Pen(Color.ORANGE, 2.0F);
-      /// <summary>
-      /// for Apoggee objects
-      /// </summary>
-      private Pen apoPen = new Pen(new Color(11,111,11,11), 2);	
-      //-----------------------------------
+		// for Apoggee objects
+		private Pen apoPen = new Pen(new Color(11,111,11,11), 2);	
+		//-----------------------------------
 		// label formats
-      //-----------------------------------
+		//-----------------------------------
 //  zoe    private SolidBrush drawBrush    = new SolidBrush(Color.WHITE);
 //  zoe    private SolidBrush fillBrush    = new SolidBrush(Color.FromArgb(17, 59, 227));
 //zoe	private StringFormat drawFormat = new StringFormat();
 		private Font font		= new Font("Arial", Font.BOLD,9);
-      //-----------------------------------
-      // define where the label is printed. 
-      // yLabel changes as we write lines.
-      //-----------------------------------
-      private int xLabel = 20;
-      private int yLabel	= 15;
+		//-----------------------------------
+		// define where the label is printed. 
+		// yLabel changes as we write lines.
+		//-----------------------------------
+		private int xLabel = 20;
+		private int yLabel	= 15;
 		private StringBuilder debugMessage = new StringBuilder();		
-      private String imageType = "";
+		private String imageType = "";
 
 
       /**
@@ -127,21 +119,20 @@ class Pen
 			ppd         = ppd_;
 			ppm			= ppd_ /60.0;
 			imageScale	= isc_;
-          pixelScale  = 3600.0 / ppd_;
-          imageType   = _imageType;
+			pixelScale  = 3600.0 / ppd_;
+          	imageType   = _imageType;
 
 			//---------------------------------------------
-          // Extend line ends to fill the whole pixel 
-          //---------------------------------------------
+            // Extend line ends to fill the whole pixel 
+            //---------------------------------------------
 //		zoe	outlinePen.StartCap = LineCap.Square;
 //	zoe		outlinePen.EndCap	= LineCap.Square;								
 			//---------------------------------------------
 			// Allocate the drawing canvas 
-          //---------------------------------------------
+            //---------------------------------------------
   //zoe        PixelFormat pf  = PixelFormat.Format32bppRgb;		// use colors
 			img	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);	// Make our new image to user's adjusted specs
-		//zoe	gc	= Graphics2D.FromImage(img);		// Make an graphic obj we can draw on				
-			gc = (Graphics2D)img.getGraphics();
+			gc = (Graphics2D)img.getGraphics();				// Make an graphic obj we can draw on			
 		
 			//zoe	gc.SmoothingMode = SmoothingMode.AntiAlias;	// set as default SmoothingMode 指定抗锯齿的显示
 			gc.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -149,7 +140,7 @@ class Pen
 
 
 		/**
-		 * Initialize the Projection for the canvas.
+		 * 初始化cavas中的Project成员
 		 * @param ra_ Right ascension in degrees
 		 * @param dec_ Declination in degrees
 		 * @param ptype_ Astrometric transformation of center Frame
@@ -226,9 +217,9 @@ class Pen
 
 
 
-	/**
-	 * Invert. It will invert each pixel of the image.
-	 */
+	 /**
+	  * Invert. It will invert each pixel of the image.
+	  */
       public void Invert()
       {
           // GDI+ still lies to us - the return format
@@ -290,17 +281,17 @@ class Pen
       public String GetViewPort()
       {
           String vs;
-          //------------------------
-          // construct the viewport
-          //------------------------
+          //------------------------------------------------------------
+          // construct the viewport 计算四个角以及中心点的(ra,dec)
+          //------------------------------------------------------------
           PointEq cc = proj.ScreenToEq(new Point2D.Float(width / 2.0F, height / 2.0F));
           PointEq nw = proj.ScreenToEq(new Point2D.Float(0.0F, 0.0F));
           PointEq ne = proj.ScreenToEq(new Point2D.Float((float)(width), 0.0F));
           PointEq sw = proj.ScreenToEq(new Point2D.Float(0.0F, (float)(height)));
           PointEq se = proj.ScreenToEq(new Point2D.Float((float)(width), (float)(height)));
-          //----------------------------
-          // convert the vertices(至高点) to V3
-          //----------------------------
+          //-------------------------------------------------------
+          // convert the vertices(至高点) to V3 ，即计算每个点的法向量
+          //-------------------------------------------------------
           double[] nw3 = V3.Normal(nw);
           double[] ne3 = V3.Normal(ne);
           double[] sw3 = V3.Normal(sw);
@@ -1055,7 +1046,7 @@ class Pen
 			
 			for(int i=0;i<len;i++)
 			{              
-              if(SdssConstants.isSdss)//像素坐标变换为ra,dec
+              if(SdssConstants.isSdss)//将四个角的像素坐标变换为ra,dec
                   fc.FrameToEq((float)p[i].getX(),(float) p[i].getY());  // SDSS
               
               g[i] = proj.EqToScreen(fc.ra, fc.dec, 0.0F);  

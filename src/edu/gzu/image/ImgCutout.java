@@ -308,7 +308,7 @@ import org.fastds.dao.ExQuery;
               if (drawPhotoObjs) oflag |= SdssConstants.pflag;
               if (drawSpecObjs) oflag |= SdssConstants.sflag;
               if (drawTargetObjs) oflag |= SdssConstants.tflag;
-
+              //为canvas 初始化切面投影成员对象
               canvas.InitializeProjection(ra, dec, "TAN"); ///TAN or STR     
               canvas.GetViewPort();
 
@@ -370,12 +370,12 @@ import org.fastds.dao.ExQuery;
 	
 		try
 		{
-			  String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
-			  ExQuery exQuery = new ExQuery();
-			  System.out.println("ImgCutout.getFrame()--->sql:"+sql);
-			  rs = exQuery.aqlQuery(sql);
+			   String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
+			   ExQuery exQuery = new ExQuery();
+			   System.out.println("ImgCutout.getFrame()--->sql:"+sql);
+			   rs = exQuery.aqlQuery(sql);
 			  
-			  cTable = new Hashtable<Long,Coord>();
+			   cTable = new Hashtable<Long,Coord>();
 			   if(rs == null || rs.wasNull())
 			   {
 				   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
