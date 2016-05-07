@@ -43,8 +43,8 @@ public class OverlayOptions
      */
     void getFields(Hashtable<Long,Coord> cTable)
     {
-    	System.out.println("getFields------------");
-    	System.out.println("ctable:"+cTable.size());
+    	System.out.println("getFields------in------");
+    	System.out.println("ctable size:"+cTable.size());
         try
         {
             for (Long key: cTable.keySet())

@@ -371,7 +371,6 @@ class Pen
 //zoe		gc.DrawLines(fieldPen, new Point2D[] {p[0],p[1],p[2],p[3],p[0]});
 			gc.setColor(fieldPen.getColor());
 			Polygon poly = new Polygon();
-			///////////注意：该多边形有可能是凹多边形
 			for(int i =0;i < p.length; i++)	poly.addPoint((int)p[i].getX(),(int) p[i].getY());
 			gc.draw(poly);
 			gc.setTransform(beforeTS);//重置为之前的单位矩阵
@@ -808,7 +807,6 @@ class Pen
               gc.drawPolygon(xPoints, yPoints, pts.length);
 			}
 			catch(Exception e) {displayMessage("exception in drawMask " + area);}
-          //newfile.Close();
 		}
 
       /// <summary>

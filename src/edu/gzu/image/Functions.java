@@ -323,23 +323,120 @@ public class Functions {
 	                
 		rad = radius;
         if (rad > 250)  rad = 250 ;     //-- limit to 4.15 degrees == 250 arcminute radius
-         nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
-         ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
-         nz  = Math.sin(radians(dec));
-         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
+        nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
+        ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
+        nz  = Math.sin(radians(dec));
+        mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
 	        
-         List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
-		 System.out.println("fGetObjectsEq()--->pair.size()"+pair.size());
-         double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
-		  List<Obj> objList = new ArrayList<Obj>();
-			if ( (flag & 1) > 0 )  //-- specObj
-			{
-				StringBuilder aql = new StringBuilder();
-				aql.append("SELECT ra,dec,specObjID as objID ");
-				aql.append(" FROM SpecObjAll ");//old:SpecObj
-				aql.append(" WHERE sciencePrimary=1 AND htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim);
-				System.out.println("Functions:fGetObjectsEq()-specobj:"+aql);
+        List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
+		System.out.println("fGetObjectsEq()--->pair.size()"+pair.size());
+        double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
+		List<Obj> objList = new ArrayList<Obj>();
+		if ( (flag & 1) > 0 )  //-- specObj
+		{
+			StringBuilder aql = new StringBuilder();
+			aql.append("SELECT ra,dec,specObjID as objID ");
+			aql.append(" FROM SpecObjAll ");//old:SpecObj
+			aql.append(" WHERE sciencePrimary=1 AND htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim);
+			System.out.println("Functions:fGetObjectsEq()-specobj:"+aql);
 //				ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+			ResultSet rs = null;
+			ExQuery exQuery = new ExQuery();
+			try {
+				rs = exQuery.aqlQuery(aql.toString());
+				while(!rs.isAfterLast())
+				{
+					float oRa = rs.getFloat("ra");
+					float oDec = rs.getFloat("dec");
+					long objID = rs.getLong("objID");
+					Obj obj = new Obj();
+					obj.setRa(oRa);
+					obj.setDec(oDec);
+					obj.setObjID(objID);
+					obj.setFlag(flag);
+					objList.add(obj);
+					rs.next();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	            
+
+        if ( (flag & 2) > 0 )  //-- photoObj
+        {
+			StringBuilder aql = new StringBuilder();
+			aql.append("SELECT ra,dec,objID ");
+			aql.append(" FROM PhotoPrimary ");
+			aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+			aql.append(" AND r<="+mag);
+			System.out.println("Functions:fGetObjectsEq():photoprimay-->"+aql);
+//				ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+			ResultSet rs = null;
+			ExQuery exQuery = new ExQuery();
+			try {
+				rs = exQuery.aqlQuery(aql.toString());
+				
+				while(!rs.isAfterLast())
+				{
+					double oRa = rs.getDouble("ra");
+					double oDec = rs.getDouble("dec");
+					long objID = rs.getLong("objID");
+					Obj obj = new Obj();
+					obj.setRa(oRa);
+					obj.setDec(oDec);
+					obj.setObjID(objID);
+					obj.setFlag(2);
+					objList.add(obj);
+					rs.next();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+        }
+
+        if ( (flag & 4) > 0 )  //-- target
+        {
+			StringBuilder aql = new StringBuilder();
+			aql.append("SELECT ra,dec,targetID ");
+			aql.append(" FROM Target ");
+			aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+//				ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+			ResultSet rs = null;
+			ExQuery exQuery = new ExQuery();
+			System.out.println("Functions:fGetObjectsEq()-target:aql-->"+aql);
+			try {
+				rs = exQuery.aqlQuery(aql.toString());
+				while(!rs.isAfterLast())
+				{
+					float oRa = rs.getFloat("ra");
+					float oDec = rs.getFloat("dec");
+					long objID = rs.getLong("targetID");
+					Obj obj = new Obj();
+					obj.setRa(oRa);
+					obj.setDec(oDec);
+					obj.setObjID(objID);
+					obj.setFlag(4);
+					objList.add(obj);
+					rs.next();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+        }
+	               
+
+	        if ( (flag & 8) > 0 ) // -- mask
+	        {
+				StringBuilder aql = new StringBuilder();
+				aql.append("SELECT ra,dec,maskID ");
+				aql.append(" FROM Mask ");
+				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+				System.out.println("Functions:fGetObjectsEq():aql-->mask"+aql);
 				ResultSet rs = null;
 				ExQuery exQuery = new ExQuery();
 				try {
@@ -348,12 +445,12 @@ public class Functions {
 					{
 						float oRa = rs.getFloat("ra");
 						float oDec = rs.getFloat("dec");
-						long objID = rs.getLong("objID");
+						long objID = rs.getLong("maskID");
 						Obj obj = new Obj();
 						obj.setRa(oRa);
 						obj.setDec(oDec);
 						obj.setObjID(objID);
-						obj.setFlag(flag);
+						obj.setFlag(8);
 						objList.add(obj);
 						rs.next();
 					}
@@ -361,28 +458,58 @@ public class Functions {
 					e.printStackTrace();
 				}
 				
-			}
-		            
+	        }
 
-	        if ( (flag & 2) > 0 )  //-- photoObj
+	        if ( (flag & 16) > 0 ) //-- plate
 	        {
+	        	rad = radius + 89.4;   //-- add the tile radius
 				StringBuilder aql = new StringBuilder();
-				aql.append("SELECT ra,dec,objID ");
-				aql.append(" FROM PhotoPrimary ");
+				aql.append("SELECT ra,dec,plateID ");
+				aql.append(" FROM PlateX ");
 				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-				aql.append(" AND r<="+mag);
-				System.out.println("Functions:fGetObjectsEq():photoprimay-->"+aql);
-//				ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+				System.out.println("Functions:fGetObjectsEq():aql-->palteX:"+aql);
 				ResultSet rs = null;
 				ExQuery exQuery = new ExQuery();
 				try {
 					rs = exQuery.aqlQuery(aql.toString());
-					
 					while(!rs.isAfterLast())
 					{
 						double oRa = rs.getDouble("ra");
 						double oDec = rs.getDouble("dec");
-						long objID = rs.getLong("objID");
+						long objID = rs.getLong("plateID");
+						Obj obj = new Obj();
+						obj.setRa(oRa);
+						obj.setDec(oDec);
+						obj.setObjID(objID);
+						obj.setFlag(16);
+						objList.add(obj);
+						rs.next();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+	        }
+
+	        if ( (flag & 32) > 0 )  //-- photoPrimary and secondary
+	        {
+				StringBuilder aql = new StringBuilder();
+				aql.append("SELECT ra,dec,objID ");
+				aql.append(" FROM PhotoObjAll ");
+				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
+				aql.append(" AND (mod=1 OR mod=2) ");
+//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
+				System.out.println("Functions:fGetObjectsEq():aql-->PhotoObjAll"+aql);
+				ResultSet rs = null;
+				ExQuery exQuery = new ExQuery();
+				try {
+					rs = exQuery.aqlQuery(aql.toString());
+					while(!rs.isAfterLast())
+					{
+						float oRa = rs.getFloat("ra");
+						float oDec = rs.getFloat("dec");
+						long objID = rs.getLong("plateID");
 						Obj obj = new Obj();
 						obj.setRa(oRa);
 						obj.setDec(oDec);
@@ -396,133 +523,6 @@ public class Functions {
 				}
 				
 	        }
-
-	        if ( (flag & 4) > 0 )  //-- target
-	        {
-				StringBuilder aql = new StringBuilder();
-				aql.append("SELECT ra,dec,targetID ");
-				aql.append(" FROM Target ");
-				aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-//				ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-				ResultSet rs = null;
-				ExQuery exQuery = new ExQuery();
-				System.out.println("Functions:fGetObjectsEq()-target:aql-->"+aql);
-				try {
-					rs = exQuery.aqlQuery(aql.toString());
-					while(!rs.isAfterLast())
-					{
-						float oRa = rs.getFloat("ra");
-						float oDec = rs.getFloat("dec");
-						long objID = rs.getLong("targetID");
-						Obj obj = new Obj();
-						obj.setRa(oRa);
-						obj.setDec(oDec);
-						obj.setObjID(objID);
-						obj.setFlag(4);
-						objList.add(obj);
-						rs.next();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
-	        }
-		               
-
-		        if ( (flag & 8) > 0 ) // -- mask
-		        {
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,maskID ");
-					aql.append(" FROM Mask ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->mask"+aql);
-					ResultSet rs = null;
-					ExQuery exQuery = new ExQuery();
-					try {
-						rs = exQuery.aqlQuery(aql.toString());
-						while(!rs.isAfterLast())
-						{
-							float oRa = rs.getFloat("ra");
-							float oDec = rs.getFloat("dec");
-							long objID = rs.getLong("maskID");
-							Obj obj = new Obj();
-							obj.setRa(oRa);
-							obj.setDec(oDec);
-							obj.setObjID(objID);
-							obj.setFlag(8);
-							objList.add(obj);
-							rs.next();
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					
-		        }
-
-		        if ( (flag & 16) > 0 ) //-- plate
-		        {
-		        	rad = radius + 89.4;   //-- add the tile radius
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,plateID ");
-					aql.append(" FROM PlateX ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->palteX:"+aql);
-					ResultSet rs = null;
-					ExQuery exQuery = new ExQuery();
-					try {
-						rs = exQuery.aqlQuery(aql.toString());
-						while(!rs.isAfterLast())
-						{
-							double oRa = rs.getDouble("ra");
-							double oDec = rs.getDouble("dec");
-							long objID = rs.getLong("plateID");
-							Obj obj = new Obj();
-							obj.setRa(oRa);
-							obj.setDec(oDec);
-							obj.setObjID(objID);
-							obj.setFlag(16);
-							objList.add(obj);
-							rs.next();
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					
-		        }
-
-		        if ( (flag & 32) > 0 )  //-- photoPrimary and secondary
-		        {
-					StringBuilder aql = new StringBuilder();
-					aql.append("SELECT ra,dec,objID ");
-					aql.append(" FROM PhotoObjAll ");
-					aql.append(" WHERE htmID BETWEEN "+pair.get(0).getLo()+" AND "+pair.get(0).getHi()+" AND pow("+nx+"-cx,2)+pow("+ny+"-cy,2)+pow("+nz+"-cz,2)<"+lim+" ");
-					aql.append(" AND (mod=1 OR mod=2) ");
-//					ORDER BY power(@nx-cx,2)+power(@ny-cy,2)+power(@nz-cz,2) ASC
-					System.out.println("Functions:fGetObjectsEq():aql-->PhotoObjAll"+aql);
-					ResultSet rs = null;
-					ExQuery exQuery = new ExQuery();
-					try {
-						rs = exQuery.aqlQuery(aql.toString());
-						while(!rs.isAfterLast())
-						{
-							float oRa = rs.getFloat("ra");
-							float oDec = rs.getFloat("dec");
-							long objID = rs.getLong("plateID");
-							Obj obj = new Obj();
-							obj.setRa(oRa);
-							obj.setDec(oDec);
-							obj.setObjID(objID);
-							obj.setFlag(2);
-							objList.add(obj);
-							rs.next();
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-					
-		        }
 		        return objList;
 	}
 /*--------------------------------以下是explore用到的函数---------------------------------------------*/
