@@ -64,26 +64,20 @@ public class OverlayOptions
     }
 
 
-    /// <summary>
-    /// getObjects(). Mark Photo|Spec|Target objects according to the drawing option string.
-    /// </summary>
+    /**
+     *  根据绘制选项，标记 Photo|Spec|Target 对象
+     */
     void getObjects(boolean drawPhotoObjs ,boolean drawSpecObjs , boolean drawTargetObjs)
     {
         byte flag = 0;
         if (drawPhotoObjs) flag |= SdssConstants.pflag;
         if (drawSpecObjs) flag |= SdssConstants.sflag;
         if (drawTargetObjs) flag |= SdssConstants.tflag;
-        /*
-         * select * from dbo.fGetObjectsEq(1,195.035290810573,2.56797342011648,0.5975553875436449,0);
-         * */
 //        StringBuilder sQ = new StringBuilder(" select *");
 //        sQ.append(" from dbo.fGetObjectsEq("+flag+","+ra+","+dec+","+radius+","+zoom+")");
         List<Obj> list = Functions.fGetObjectsEq(flag, ra, dec, radius, zoom);
-        //    test    System.out.println(sQ.toString());
-        //       zoe SqlDataReader reader = null;
         try
         {
-//     zoe       SqlCommand cmd = new SqlCommand(sQ.toString(), this.SqlConn);
         	double oRa, oDec;
             byte oFlag;
             System.out.println("listSize:"+list.size());
@@ -93,9 +87,6 @@ public class OverlayOptions
                 oRa = obj.getRa();
                 oDec = obj.getDec();
                 oFlag = (byte)obj.getFlag();
-                System.out.println("drawSpecObjs && (oFlag & SdssConstants.sflag) > 0..."+(drawSpecObjs && (oFlag & SdssConstants.sflag) > 0));
-                System.out.println("drawPhotoObjs && (oFlag & SdssConstants.pflag) > 0..."+(drawPhotoObjs && (oFlag & SdssConstants.pflag) > 0));
-                System.out.println("drawTargetObjs && (oFlag & SdssConstants.tflag) > 0..."+(drawTargetObjs && (oFlag & SdssConstants.tflag) > 0));
             	if (drawSpecObjs && (oFlag & SdssConstants.sflag) > 0)
   	              canvas.drawSpecObj(oRa, oDec, size);
             	if (drawPhotoObjs && (oFlag & SdssConstants.pflag) > 0)
@@ -104,7 +95,6 @@ public class OverlayOptions
   	              canvas.drawTargetObj(oRa, oDec, size);
             }
 	          
-//  zoe..          reader = cmd.ExecuteReader();					// invoke fGetObjectsEq()
 //            while (reader.Read())
 //            {
 //                oRa = Convert.ToDouble(reader[0]);		// get ra
@@ -128,38 +118,8 @@ public class OverlayOptions
 				e1.printStackTrace();
 			}
         }
-//        finally { try { if (reader != null) reader.Close(); } catch (Exception e) { } }
     }
 
-
-//    /**
-//     *  APOGEE objects for 2mass , this needs to be updated once we get final twomass data
-//     */
-//    void getApogeeObjects()        
-//    {  
-//        StringBuilder sq1 = new StringBuilder();
-//        try
-//        {
-//            //canvas.drawLabel("Here Are Apgee:"+radius);
-//            sq1.append("select ra,dec from dbo.fGetNearbyApogeeStarEq ({0},{1},{2})", ra,dec,radius);                
-//            SqlCommand cmd = new SqlCommand(sq1.toString(), SqlConn);
-//            double oRa, oDec;
-//            SqlDataReader sReader = cmd.ExecuteReader();					// invoke fGetObjectsEq()               
-//            while (sReader.Read())
-//            {
-//                oRa = Convert.ToDouble(sReader[0]);		// get ra
-//                oDec = Convert.ToDouble(sReader[1]);		// get dec
-//                canvas.drawApogeeObj(oRa, oDec, size);
-//            }
-//            if (sReader != null) sReader.Close();
-//        }
-//        catch (Exception e)
-//        {
-//            showException("getApogee Objects", sq1.toString(), e);
-//        }
-//    }		old
-
-   
 
     /**
      * getOutlines. Display the bounding boxes and outlines of photoObj.

@@ -932,27 +932,23 @@ class Pen
 			if (i == ruler.length) i--;
 			String label	= ruler[i].label;
 			double tickSize = ruler[i].size * ppm;
-          //------------------------
+            //------------------------
 			// draw the tickmarks
-          //------------------------
+            //------------------------
 			int pos =  0;
 			for (i = -ticks; i <= ticks; i++)
 			{
 				pos = (int) Math.floor(i*tickSize);
 				gc.setColor(gridPen.getColor());
-			
+				//原来没有类型抓转换
 				gc.drawLine(0,(int)(yc + pos),(int)cFudge,(int)(yc + pos));
 				gc.drawLine(width,(int)( yc + pos),width-cFudge,(int)(yc + pos));
 				gc.drawLine((int)(xc + pos),0,(int)(xc + pos),cFudge);
 				gc.drawLine((int)(xc + pos),height,(int)(xc + pos),height-cFudge);
-//		zoe		gc.DrawLine(gridPen, 0, yc + pos,	cFudge, yc + pos);
-//				gc.DrawLine(gridPen, width, yc + pos, width-cFudge, yc + pos);
-//				gc.DrawLine(gridPen, xc + pos, 0,	xc + pos,	cFudge);
-//				gc.DrawLine(gridPen, xc + pos, height, xc + pos, height-cFudge);
 			}
 			//-------------------------------------------------					
 			// draw the tick and write the label at the center
-          //-------------------------------------------------
+            //-------------------------------------------------
 			int x1	= xLabel;		
 			int x2	= xLabel + (int)tickSize;
 			int len	= 4;
@@ -961,9 +957,6 @@ class Pen
 			gc.drawLine( x1, yy , x2, yy);
 			gc.drawLine( x1, yy - len, x1, yy + len);
 			gc.drawLine( x2, yy - len, x2, yy + len);
-//			gc.DrawLine(rulerPen, x1, yy      , x2, yy      );
-//			gc.DrawLine(rulerPen, x1, yy - len, x1, yy + len);
-//			gc.DrawLine(rulerPen, x2, yy - len, x2, yy + len);
 			xLabel += (int)(0.5*tickSize) - cFudge;
 			this.drawLabel(label);
 		}
