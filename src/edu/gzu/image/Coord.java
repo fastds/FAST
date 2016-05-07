@@ -164,7 +164,7 @@ public class Coord
 		if (pRa>360) pRa -= 360;
 		if (pRa<0)   pRa += 360;
 		this.ra	= pRa;
-		this.dec	= pDec;
+		this.dec = pDec;
 		return new PointEq(pRa,pDec);
 	}
 
