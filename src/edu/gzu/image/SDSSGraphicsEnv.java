@@ -1034,7 +1034,7 @@ class Pen
 		public AffineTransform getAffineTransform(Coord coord)
 		{
 			// compute the corners in both coordinate systems   
-			//计算两种坐标系中的四个角裁剪后的坐标
+			//计算Frame裁剪后的四个角的坐标
 			Point2D.Float[] p	= SdssConstants.FieldGeometry(true);
 			int len		= p.length;	
 			Point2D[] g	= new Point2D.Float[len];
@@ -1056,7 +1056,7 @@ class Pen
 			float qu=0, qv=0, qux=0, quy=0, qvx=0, qvy=0, 
 				  qx=0, qy=0, qxx=0, qyy=0, qxy=0;
 
-			//ImgCutout
+			//ImgCutout 通过Frame->Eq->Screen
 			for (int i = 0; i < 4; i++)
 			{
               qu += g[i].getX() / 4;
