@@ -1,4 +1,5 @@
 package edu.gzu.image;
+//Hierarchical Triangular Mesh
 class V3
 {
 	public static double D2R = Math.PI/180.0;	// 角度到弧度的转换

@@ -862,7 +862,6 @@ class Pen
 		{
 			//-------------------------------------------------------------------
 			// write the grid with tickmarks 
-//		zoe	gc.ResetTransform();
 			// first draw X, Y grid and the N, S, E, W labels on the grid
 			int cFudge	= 8;
 			float inner	= 0.05F*Math.max(width,height);
@@ -884,10 +883,6 @@ class Pen
 			gc.drawString("S",  xc-cFudge, height-4*cFudge);				
 			gc.drawString("E",  2*cFudge, yc-cFudge);		
 			gc.drawString("W",  width-4*cFudge, yc-cFudge);
-//			gc.DrawString("N", font, drawBrush, xc-cFudge, 2*cFudge, drawFormat);
-//			gc.DrawString("S", font, drawBrush, xc-cFudge, height-4*cFudge, drawFormat);				
-//			gc.DrawString("E", font, drawBrush, 2*cFudge, yc-cFudge, drawFormat);		
-//			gc.DrawString("W", font, drawBrush, width-4*cFudge, yc-cFudge, drawFormat);
 		
 		}
 
@@ -1256,23 +1251,5 @@ class Pen
           if (isMask > 0) cl = new Color(255, 0, 0);
           return cl;
       }
-      /***
-       * This is specially written to get json data format, which is used in navi drag.
-       ***/
-//      public String getBufferBase64()
-//      {
-//          try
-//          {
-//              MemoryStream theJpeg = new MemoryStream();  // place to store the Jpeg
-//              img.Save(theJpeg, getImageFormat(imageType));		// make the Jpeg				
-//              Byte[] imgdata = theJpeg.ToArray();
-//              String encodedData = Convert.ToBase64String(imgdata);
-//              return "data:image/jpeg;base64," + encodedData;
-//          }
-//          catch (Exception e)
-//          {
-//              throw new Exception("Error in base64Encode" + e.Message);
-//          }
-//      }
   }
 

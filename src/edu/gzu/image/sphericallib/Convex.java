@@ -5,6 +5,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * A convex is the intersection of one or more circles,
+ *  with a depth (the number of circles involved). If we have two intersection circles,
+ *   A and B, then both (A) and (B) are a convex of depth 1, 
+ *   their intersection (A) (B) is also a convex, but of depth 2.
+ *    We call these simple convexes wedges 
+ * @author enheng
+ *
+ */
+
 public class Convex
 {
     // Fields
@@ -167,7 +177,12 @@ public class Convex
         this.simplified = true;
         this.area = new Double(Cartesian.SphericalTriangleArea(p1, p2, p3));
     }
-
+    /**
+     * 凸面体构造器
+     * @param ra 赤经
+     * @param dec 赤纬
+     * @param arcmin 半径
+     */
     public Convex(double ra, double dec, double arcmin) 
     {
     	 this(new Halfspace(ra, dec, arcmin));

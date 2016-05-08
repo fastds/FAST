@@ -3,6 +3,10 @@ package edu.gzu.image.sphericalhtm;
 import edu.gzu.image.sphericallib.Cartesian;
 import edu.gzu.image.sphericallib.Constant;
 
+/**
+ * HTM 中被划分出来的三角区块 
+ *
+ */
 public class Trixel {
 	 // Fields
     public static  double DblTolerance = (2.0 * Constant.DoublePrecision);

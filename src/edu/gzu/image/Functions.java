@@ -111,6 +111,14 @@ public class Functions {
 	{
 		return (int)(id & 0x0000FFFF);
 	}
+	/**
+	 * The covermap of the given Halfspace specified as a circle with the radius given in minutes of arc.
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param radiusArcMin 半径范围，以弧分为单位
+	 * @return
+	 */
 	public static List<Pair> fHtmCoverCircleXyz(double x, double y, double z, double radiusArcMin)
 	{
 		System.out.println("Functions.fHtmCoverCircleXyz-----run");
