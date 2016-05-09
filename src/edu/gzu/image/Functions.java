@@ -784,9 +784,8 @@ public class Functions {
 	 */
 	public static String fHMSbase(double deg,int truncate,int precision)
 	{
-		String s = "+";
 		String t = "00:00:00.0"; 
-		double d =  Math.abs(deg); 
+		double d =  Math.abs(deg/15.0); 
 		int nd = (int) Math.floor(d);
 		String q = ltrim(new Integer(nd).toString());
 		int np = 0;
@@ -810,7 +809,7 @@ public class Functions {
 		{
 			String str = new String(60.0 * (d-nd)+"");
 			int endIndex = str.indexOf(".");
-			d = Double.parseDouble(str.substring(0,endIndex));
+			d = Double.parseDouble(str.substring(0,endIndex+precision+1));
 		}
 		else   //四舍五入
 			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -849,7 +848,7 @@ public class Functions {
 		String t = "00:00:00.0"; 
 		double d =  Math.abs(deg); 
 		int nd = (int) Math.floor(d);
-		String q = ltrim(new Integer(nd).toString().trim());
+		String q = ltrim(new Integer(nd).toString());
 		int np = 0;
 		
 		if(deg<0) s = "-";
@@ -867,27 +866,31 @@ public class Functions {
 //		-- minutes
 		d  =  (60.0 * (d-nd));
 		nd = (int) Math.floor(d);
-		q  = new Integer(nd).toString().trim();
+		q  = ltrim(new Integer(nd).toString().trim());
 		t  = stuff(t,6-q.length(),q.length(), q);
 //		-- seconds
 		if(truncate != 0) //截断
 		{
 			String str = new String(60.0 * (d-nd)+"");
 			int endIndex = str.indexOf(".");
-			d = Double.parseDouble(str.substring(0,endIndex));
+			d = Double.parseDouble(str.substring(0,endIndex+precision+1));
 		}
 		else   //四舍五入
 			d = new BigDecimal(60.0 * (d-nd)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //	--	SET @d  = 60.0 * (@d-@nd);
 		q  = ltrim(str(d,6+precision,precision).trim());
 		t = stuff(t,10+precision-q.length(),q.length(), q);
-		
 		return (s+t);
 	}
 
 	private static String str(double num,int length,int decimal)
 	{
-		String result = new DecimalFormat("#.00").format(num);
+		StringBuilder precision = new StringBuilder();
+		while(decimal-- > 0)
+		{
+			precision.append("#");
+		}
+		String result = new DecimalFormat("#."+precision.toString()).format(num);
 		if(result.length()>length)
 		{
 			int diff = result.length() - length;
@@ -900,12 +903,37 @@ public class Functions {
 	}
 	/*
 	 * 参数都以index 从1起为标准
+	 * 
+	 * 如果开始位置或长度值是负数，或者如果开始位置大于第一个字符串的长度，将返回空字符串。如果要删除的长度大于第一个字符串的长度，将删除到第一个字符串中的第一个字符。 
+	 * 如果结果值大于返回类型支持的最大值，则产生错误。
+
+示例 
+以下示例在第一个字符串 abcdef 中删除从第 2 个位置（字符 b）开始的三个字符，然后在删除的起始位置插入第二个字符串，从而创建并返回一个字符串。
+
+SELECT STUFF('abcdef', 2, 3, 'ijklmn'); 
+GO
+
+下面是结果集： 
+--------- 
+aijklmnef
+
+(1 row(s) affected)
 	 */
-	private static String stuff(String str, int start, int length, String replacement) {
+	/**
+	 * @param str 
+	 * @param start 个整数值，指定删除和插入的开始位置。如果 start 或 length 为负，则返回空字符串。
+	 * 				如果 start 比第一个 character_expression 长，则返回空字符串。start 可以是 bigint 类型。
+	 * @param length 一个整数，指定要删除的字符数。如果 length 比第一个 character_expression 长，
+	 * 				则最多删除到replacement中的最后一个字符。length 可以是 bigint 类型。
+	 * @param replacement
+	 */
+	private static String stuff(String str, int start, int length, String str2) {
+		if(start<0 || str.length()<start)
+			return "";
 		String temp = str;
 		String pre = temp.substring(0,start-1);
 		String behind = temp.substring(start-1+length);
-		return pre + temp + behind;
+		return pre + str2 + behind;
 	}
 	/**
 	 * ---------------------------------------------------
