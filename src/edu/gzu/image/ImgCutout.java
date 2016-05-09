@@ -383,7 +383,7 @@ import org.fastds.dao.ExQuery;
 				   return;
 			   }
 			   int i = 0;
-			   while(!rs.isAfterLast()&&i<=10)
+			   while(!rs.isAfterLast()&&i<=4)
 			   {
 				   i++;
 				   String img = rs.getString("img");
