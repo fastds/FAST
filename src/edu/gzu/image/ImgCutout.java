@@ -382,10 +382,8 @@ import org.fastds.dao.ExQuery;
 				   canvas.drawDebugMessage(width, height);
 				   return;
 			   }
-			   int i = 0;
-			   while(!rs.isAfterLast()&&i<=4)
+			   while(!rs.isAfterLast())
 			   {
-				   i++;
 				   String img = rs.getString("img");
 				   double a = rs.getFloat("a");
 				   double b = rs.getFloat("b");
