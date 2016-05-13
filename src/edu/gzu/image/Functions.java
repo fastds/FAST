@@ -331,7 +331,7 @@ public class Functions {
 	                
 		rad = radius;
         if (rad > 250)  rad = 250 ;     //-- limit to 4.15 degrees == 250 arcminute radius
-        nx  =  (Math.cos(radians(dec))*Math.cos(radians(ra)));
+        nx  = Math.cos(radians(dec))*Math.cos(radians(ra));
         ny  = Math.cos(radians(dec))*Math.sin(radians(ra));
         nz  = Math.sin(radians(dec));
         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.

@@ -586,8 +586,8 @@ class Pen
 		public void drawSpecObj	(double oRa, double oDec, float size)		
 		{
 			Point2D p = proj.EqToScreen(oRa,oDec,0.0F);	
-//		zoe	gc.DrawRectangle(specPen, p.getX()-size/2 , p.getY()-size/2, size, size);
 			gc.setColor(specPen.getColor());
+			//原始代码没有类型转换
 			gc.drawRect((int)(p.getX()-size/2),(int)(p.getY()-size/2),(int) size,(int) size);
 //			System.out.println((p.getX()-size/2)+"..."+(p.getY()-size/2)+"..."+size);
 		}
