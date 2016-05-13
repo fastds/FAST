@@ -300,7 +300,7 @@ public class ExplorerResource {
 
     private void getObjPmts()
     {
-    	System.out.println("fiber:"+fiber==null);
+    	System.out.println(" fiber:"+fiber==null);
     	System.out.print(" ra,dec:"+(qra==null)+","+(qdec==null));
     	System.out.print(" specID:"+specID==null);
     	System.out.print(" sidstring:"+sidstring==null);
