@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.fastds.model.ObjectExplorer" %>
 <%@ page import="org.fastds.model.Matches" %>
 <%@ page import="edu.gzu.utils.Utilities" %>

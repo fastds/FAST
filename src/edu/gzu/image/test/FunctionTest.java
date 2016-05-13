@@ -2,7 +2,6 @@ package edu.gzu.image.test;
 
 import static org.junit.Assert.*;
 
-import org.apache.http.util.Asserts;
 import org.junit.Test;
 
 import edu.gzu.image.Functions;
