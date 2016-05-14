@@ -634,7 +634,13 @@ public class ExplorerQueries {
 	}
 
     
-
+    /**
+     * 
+     * @param ra 赤经
+     * @param dec 赤纬
+     * @param searchRadius 搜索半径
+     * @return 对给定坐标的搜索半径范围内的天体的查询AQL语句
+     */
     public static String getPmtsFromEq(double ra,double dec,double searchRadius)
     {
 //    public static String getpmtsFromEq = " SELECT top 1 cast(p.objID as binary(8)) as objID, cast(p.specObjID as binary(8)) as specObjID" 
@@ -649,7 +655,7 @@ public class ExplorerQueries {
     	 */
     	aql = aql.append(" SELECT p.objID, p.specObjID");
     	aql = aql.append(" FROM ("+photoTag+") AS p JOIN ("+subselect.toString()+") AS n ");
-    	aql = aql.append(" ON p.objID=n.objID ORDER BY n.mode , n.distance");
+    	aql = aql.append(" ON p.objID=n.objID ORDER BY n.mode,n.distance");
     	
     	return aql.toString();
     }

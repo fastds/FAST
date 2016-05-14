@@ -548,7 +548,13 @@ public class Functions {
 	}
 	
 	
-	
+	/**
+	 * @param nx 天球坐标对应的向量坐标
+	 * @param ny 天球坐标对应的向量坐标
+	 * @param nz 天球坐标对应的向量坐标
+	 * @param r 搜索半径
+	 * @return 对给定坐标的搜索半径范围内的天体的查询AQL语句
+	 */
 	public static String fGetNearbyObjAllXYZ(double nx ,double ny ,double nz ,double r )
 	{
 		StringBuilder aql = new StringBuilder();

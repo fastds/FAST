@@ -353,7 +353,11 @@ public class ExplorerResource {
         objectInfo.specObjID = pt.getSpecObjID() == 0? null : Utilities.longToHex(pt.getSpecObjID());
        
     }
-
+    /**
+     * 
+     * @param qra 赤经，单位：度
+     * @param qdec 赤纬，单位：度
+     */
     private void pmtsFromEq(double qra, double qdec)
     {
        Map<String,Long> ids = explorerService.fillObjectInfo(qra, qdec);

@@ -19,7 +19,13 @@ import edu.gzu.image.Functions;
 import edu.gzu.utils.Utilities;
 
 public class ExplorerDao {
-
+	/**
+	 * 查询给定坐标特定范围内搜索到的光度测量和光谱测量对象的id，搜寻不到返回null
+	 * @param qra 赤经
+	 * @param qdec 赤纬
+	 * @return 返回给定坐标一定范围内(radius=0.5*60)objID、specObjID，<br/>
+	 * 			以<列名，ID>对为元素的map作为返回结果
+	 */
 	public Map<String,Long> getObjIDAndSpecObjIDByCoord(double qra, double qdec) {
 		double searchRadius = 0.5 / 60;
         String aql = ExplorerQueries.getPmtsFromEq(qra,qdec,searchRadius);
