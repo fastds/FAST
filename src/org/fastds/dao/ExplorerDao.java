@@ -50,7 +50,13 @@ public class ExplorerDao {
 		}
 		return result;
 	}
-
+	/**
+	 * DR9不支持该功能
+	 * @param qra
+	 * @param qdec
+	 * @param searchRadius
+	 * @return
+	 */
 	public long getApid(double qra, double qdec, double searchRadius) {
 		String aql = ExplorerQueries.getApogeeFromEq(qra,qdec,searchRadius);
 		System.out.println("ExplorerDao.getApid-->aql:"+aql);
@@ -217,7 +223,11 @@ public class ExplorerDao {
 //        }
 		return attrs;
 	}
-
+	/**
+	 * 
+	 * @param sid SpecObjAll中的spebObjID
+	 * @return 天体的基本信息，以<name,value>为元素的map返回
+	 */
 	public Map<String, Object> getPmtsFromSpecWithSpecobjID(long sid) {
 		String aql = ExplorerQueries.getPmtsFromSpecWithSpecobjID(sid);
 		System.out.println("ExplorerDao.getPmtsFromSpecWithSpecobjID-->aql:"+aql);

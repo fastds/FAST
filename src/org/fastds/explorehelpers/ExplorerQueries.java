@@ -387,10 +387,10 @@ public class ExplorerQueries {
 //                                            +"WHERE p.objID= @objID";  注意otype
     	objID = (objID!=null && objID.startsWith("0x"))? Long.parseLong(objID.substring(2),16)+"":objID;
     	StringBuilder aql = new StringBuilder();
-    	aql = aql.append(" SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, p.mode, ");
-    	aql = aql.append(" p.type AS otype, p.mjd ");
-    	aql = aql.append(" FROM PhotoObjAll AS p JOIN SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1 ");
-    	aql = aql.append(" WHERE p.objID="+ objID);
+    	aql.append(" SELECT p.ra, p.dec, s.specObjID, p.clean, s.survey, p.mode, ");
+    	aql.append(" p.type AS otype, p.mjd ");
+    	aql.append(" FROM (SELECT objID, ra, dec, clean, mode, type, mjd ");
+    	aql.append(" FROM PhotoObjAll WHERE objID="+objID+") AS p JOIN SpecObjAll AS s ON s.bestObjID=p.objID AND s.sciencePrimary=1 ");
     	return aql.toString();
     }
 
@@ -606,10 +606,13 @@ public class ExplorerQueries {
     	+"FROM apogeeVisit v JOIN apogeeStar s ON s.apogee_id=v.apogee_id"
     	+" WHERE v.plate = @plate  and v.mjd = @mjd  and v.fiberID = @fiberID";
           
-    
-/*
- * 未完成
- */
+    /**
+     * DR9不支持该查询。
+     * @param qra 赤经
+     * @param qdec 赤纬
+     * @param searchRadius 搜索半径
+     * @return
+     */
     public static String getApogeeFromEq(double qra, double qdec, double searchRadius)
     {
 //    public static String getApogeeFromEq = " SELECT top 1 p.apstar_id"                     
@@ -630,7 +633,7 @@ public class ExplorerQueries {
 //    	+"  WHERE p.objID=n.objID order by n.mode asc, n.distance asc";
     	StringBuilder aql = new StringBuilder();
     	String subselect = Functions.fGetNearbyObjAllEq(qra, qdec, searchRadius);
-    	aql = aql.append(" SELECT top 1 p.objID, p.specObjID ");
+    	aql = aql.append(" SELECT p.objID, p.specObjID ");
     	aql = aql.append(" FROM ("+View.getPhotoTag()+") p JOIN ("+subselect+") AS n ");
     	aql = aql.append(" ON p.objID=n.objID order by n.mode asc, n.distance asc");
     	
@@ -684,13 +687,10 @@ public class ExplorerQueries {
 //    	+" WHERE s.specObjID= @sid";
     	  
     	  StringBuilder aql = new StringBuilder();
-    	  aql.append(" SELECT p.ra, p.dec,");
-    	  aql.append(" cast(p.fieldID as binary(8)) AS fieldID,");
-    	  aql.append(" cast(s.specObjID as binary(8)) AS specObjID,");
-    	  aql.append(" cast(p.objID as binary(8)) AS objID,");
-    	  aql.append(" cast(s.plateID as binary(8)) AS plateID, s.mjd, s.fiberID, q.plate");
-    	  aql.append(" FROM SpecObjAll s JOIN PhotoTag p ON s.bestobjID=p.objid JOIN PlateX q ON s.plateID=q.plateID");
-    	  aql.append(" WHERE s.specObjID="+sid);
+    	  aql.append(" SELECT p.ra, p.dec,p.fieldID,s.specObjID ,p.objID,");
+    	  aql.append(" s.plateID , s.mjd, s.fiberID, q.plate ");
+    	  aql.append(" FROM (SELECT plateID, mjd, fiberID, specObjID, bestObjID, plateID ");
+    	  aql.append(" FROM SpecObjAll WHERE specObjID="+sid+") AS s JOIN ("+View.getPhotoTag()+") AS p ON s.bestobjID=p.objID JOIN PlateX AS q ON s.plateID=q.plateID");
     	  return aql.toString();
       }
 

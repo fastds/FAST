@@ -64,11 +64,11 @@ public class ImagingControl {
     public void load(ObjectExplorer master)
     {
         globals = master.globals;   
-//        master  = (ObjectExplorer)Page.Master;   old 
+        this.master  = master;
 
         try
         {
-            //objID = Request.QueryString["id"];
+//            objID = Request.QueryString["id"];
             objID = master.objID;
         }
         catch (Exception exp) {

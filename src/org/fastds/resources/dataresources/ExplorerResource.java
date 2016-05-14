@@ -300,7 +300,7 @@ public class ExplorerResource {
 
     private void getObjPmts()
     {
-    	System.out.println(" fiber:"+fiber==null);
+    	System.out.println(" fiber,plate:"+fiber==null+","+(plate==null));
     	System.out.println(" ra,dec:"+(qra==null)+","+(qdec==null));
     	System.out.println(" specID:"+specID==null);
     	System.out.println(" sidstring:"+sidstring==null);
@@ -373,7 +373,7 @@ public class ExplorerResource {
         {
             // This is required to get the primary specObjId (with sciprimary=1). PhotoTag.specObjId is not necessarily primary...
             pmtsFromPhoto(Utilities.ParseId(objectInfo.objID));
-            apogeeFromEq(qra, qdec);
+//            apogeeFromEq(qra, qdec); old
         }
     }
 
@@ -413,7 +413,10 @@ public class ExplorerResource {
         objectInfo.ra = (Double)attrs.get("ra");
         objectInfo.dec = (Double)attrs.get("dec");
     }
-    
+    /**
+     * 由specObjID查询获取天体的基本信息
+     * @param sid 即specObjID
+     */
     private void pmtsFromSpecWithSpecobjID(long sid)
     {
         Map<String,Object> attrs = null;

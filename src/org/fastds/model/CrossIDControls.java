@@ -6,7 +6,7 @@ import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.service.ExplorerService;
 
 public class CrossIDControls {
-//	protected Globals globals;  	old
+	protected Globals globals;  	
     protected ObjectExplorer master;
 
     protected String objID;
@@ -62,9 +62,8 @@ public class CrossIDControls {
     }
     protected void load(ObjectExplorer master)
     {
-//        globals = (Globals)Application[Globals.PROPERTY_NAME]; old
-//        master = (ObjectExplorer)Page.Master;       old
-        objID = master.objID;
+    	this.globals = master.globals;
+        this.objID = master.objID;
         if (master.objID != null && !master.objID.equals(""))
         execQuery();
     }

@@ -13,8 +13,10 @@ import java.util.regex.Pattern;
 
 public class Utilities {
 	
-    /// Parses an identifier represented as integer or hex String 
-    /// starting with '0x...' (e.g. '0x112d0bd721480030'). 
+	/**
+	 * Parses an identifier represented as integer or hex String 
+	 * starting with '0x...' (e.g. '0x112d0bd721480030'). 
+	 */
     public static Long ParseId (String s)
     {
         Long id = null;
