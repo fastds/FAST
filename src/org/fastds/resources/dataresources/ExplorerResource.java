@@ -301,10 +301,10 @@ public class ExplorerResource {
     private void getObjPmts()
     {
     	System.out.println(" fiber:"+fiber==null);
-    	System.out.print(" ra,dec:"+(qra==null)+","+(qdec==null));
-    	System.out.print(" specID:"+specID==null);
-    	System.out.print(" sidstring:"+sidstring==null);
-    	System.out.print(" id:"+id==null);
+    	System.out.println(" ra,dec:"+(qra==null)+","+(qdec==null));
+    	System.out.println(" specID:"+specID==null);
+    	System.out.println(" sidstring:"+sidstring==null);
+    	System.out.println(" id:"+id==null);
     	System.out.println(" apid:"+apid==null);
         if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
