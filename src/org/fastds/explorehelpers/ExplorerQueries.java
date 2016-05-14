@@ -584,6 +584,9 @@ public class ExplorerQueries {
     }
 
     // Summary.jsp
+    /**
+     * @return AQL语句，该语句对满足给定条件并对objID、specObjID、ra、dec进行查询
+     */
     public static String getObjIDFromPlatefiberMjd(String mjd, String plate,String fiber)
     {
 //    public static String getObjIDFromPlatefiberMjd= " SELECT cast(p.objID as binary(8)) as objID,cast(s.specObjID as binary(8)) as specObjID"
@@ -591,10 +594,11 @@ public class ExplorerQueries {
 //    	+"  FROM SpecObjAll s JOIN PhotoTag p ON s.bestobjid=p.objid JOIN PlateX q ON s.plateID=q.plateID"
 //    	+"  WHERE s.mjd = @mjd and s.fiberID = @fiberID  and q.plate = @plate";
     	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT p.objID ,s.specObjID ");
-    	aql.append(" ,p.ra,p.dec");
-    	aql.append(" FROM SpecObjAll AS s JOIN PhotoTag AS p ON s.bestObjID=p.objID JOIN PlateX AS q ON s.plateID=q.plateID");
-    	aql.append(" WHERE s.mjd ="+mjd+" and s.fiberID ="+fiber+" and q.plate ="+plate);
+    	aql.append(" SELECT p.objID ,s.specObjID ,p.ra,p.dec");
+    	aql.append(" FROM (SELECT specObjID,bestObjID");
+    	aql.append(" FROM SpecObjAll WHERE mjd="+mjd+" AND fiberID="+fiber+") AS s ");
+    	aql.append(" JOIN ("+View.getPhotoTag()+") AS p ON s.bestObjID=p.objID ");
+    	aql.append(" JOIN (SELECT plateID FROM PlateX WHERE plate="+plate+") AS q ON s.plateID=q.plateID");
     	return aql.toString();
     }
 
