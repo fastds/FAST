@@ -65,9 +65,9 @@ public class ExplorerResource {
      */
     MetaDataControl metaDataCtrl = null;	//与meda data 相关的变量元素
     ImagingControl imagingCtrl = null;		//与图像相关联的变量元素
-    CrossIDControls crossIDCtrl = null;	//与交叉认证相关的变量元素
+    CrossIDControls crossIDCtrl = null;		//与交叉认证相关的变量元素
     SpectralControl specCtrl = null;		//与光谱相关的变量元素
-    ApogeeControl apogeeCtrl = null;			//与apogee（远地点、最高点、最远点）相关的变量元素
+    ApogeeControl apogeeCtrl = null;		//与apogee（远地点、最高点、最远点）相关的变量元素
     protected Globals globals;
     
 	@GET
@@ -104,7 +104,7 @@ public class ExplorerResource {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-		if(ra != null && !ra.isEmpty()) qra = Utilities.parseRA(ra); // need to parse J2000
+		if(ra != null && !ra.isEmpty()) qra = Utilities.parseRA(ra); 	  // need to parse J2000
         if(dec != null && !dec.isEmpty()) qdec = Utilities.parseDec(dec); // need to parse J2000
         if(plate != null && !plate.isEmpty()) this.plate = Short.parseShort(plate);
         if(mjd != null && !mjd.isEmpty()) this.mjd = Integer.parseInt(mjd);
@@ -258,9 +258,9 @@ public class ExplorerResource {
 	@Path("Resolver")
 	@Produces("text/plain")
 	public void getResolver(@QueryParam("name") String name
-								,@QueryParam("ra") String ra
-								,@QueryParam("dec") String dec
-								,@QueryParam("radius") String radius) {
+							,@QueryParam("ra") String ra
+							,@QueryParam("dec") String dec
+							,@QueryParam("radius") String radius) {
 		Resolver resolver = new Resolver();
 		response.setContentType("text/plain");
 		PrintWriter out =  null;
@@ -323,8 +323,8 @@ public class ExplorerResource {
         {
         	objectInfo.objID = attrsOne.get("objID")== null ? null :  Utilities.longToHex((Long)attrsOne.get("objID"));
         	objectInfo.specObjID = (String)attrsOne.get("specObjID") == null? null : Utilities.longToHex((Long)attrsOne.get("specObjID"));
-        	objectInfo.ra = (Double)attrsOne.get("specObjID");
-        	objectInfo.dec = (Double)attrsOne.get("specObjID");
+        	objectInfo.ra = (Double)attrsOne.get("ra");
+        	objectInfo.dec = (Double)attrsOne.get("dec");
         }
 
         long apid = explorerService.findApid(objectInfo.ra, objectInfo.dec,(0.5 / 60));
