@@ -1120,8 +1120,8 @@ public class ExplorerDao {
 			{
 				long objID = rs.getLong("objID");
 				long specObjID = rs.getLong("specObjID");
-				double ra = rs.getFloat("ra");
-				double dec = rs.getFloat("dec");
+				double ra = rs.getDouble("ra");
+				double dec = rs.getDouble("dec");
 				
 				attrs.put("objID", objID);
 				attrs.put("specObjID", specObjID);
