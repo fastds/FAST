@@ -128,16 +128,7 @@ import org.fastds.dao.ExQuery;
       private String sConnect = null;
       private String sDataRelease = null;
       private int sDR = -1;  /// Added for releases after dr7
-      //-------------------------------------
 
-      //----------------------------------------------------
-      // DataBase properties for new database only for Image
-      // Added after discussions for DR9/10
-      //--------------zoe    3------------------------
-//      private String sConnectImage = null;
-//      private SqlConnection SqlConnImage = null;
-//      private SqlDataReader readerImage = null;
-      //----------------------------------------------------
 
       public Hashtable<Long,Coord> getCTable()
       {
@@ -156,14 +147,6 @@ import org.fastds.dao.ExQuery;
 	          "Please check AppSettings in the Web.config file!");
 	      sDR = SdssConstants.getSDR();
 	
-	//  zoe        sConnect = ConfigurationManager.AppSettings["SkyServer"];
-	//    zoe      sConnectImage = ConfigurationManager.AppSettings["SkyServerImage"];
-	
-	//   zoe       if (sConnect == null || sDataRelease == null || sConnectImage == null)
-	//   zoe        throw new Exception("SkyServer keyword not found or invalid. \n" +
-	//   zoe         "Please check AppSettings in the Web.config file!");
-	
-	      
 	  }
 
 	  // Revision from CVS
@@ -249,9 +232,7 @@ import org.fastds.dao.ExQuery;
       }
       catch (Exception e)
       {
-
-          canvas.addDebugMessage(e.getMessage());
-          canvas.drawDebugMessage(width,height);
+    	  e.printStackTrace();
       }
       //返回图像  转到canvas对象对应的类 SdssEvn？？查看
       return (canvas.getBuffer());							// return image
@@ -276,22 +257,8 @@ import org.fastds.dao.ExQuery;
               //  验证输入参数的值的范围是否合法
               //-------------------------------------
               validateInput(ra_, dec_, scale_, height_, width_, opt_, query_, imgtype_, imgfield_);
-              if (draw2Mass) SdssConstants.isSdss = false;
-              else SdssConstants.isSdss = true;
-
-              //-------------------------------------
-              // set image scale and zoom 
-              //-------------------------------------
-              zoom = 0;
-              ppd = 3600.0 / scale;
-              imageScale = ppd / SdssConstants.getPixelsPerDegree();
-              while (zoom < SdssConstants.getMaxZoom() & imageScale <= .5)
-              {
-                  zoom++;							 // go higher in the pyramid
-                  imageScale *= 2;					 // change the scaling accordingly
-              }
-              zoomScale = (float)Math.pow(2, zoom);//pow:对数  // set the scale according to the real zoom 根据真实的zoom设置scale
-              size = (float)((zoom > 3) ? 6 : 12 * imageScale);
+              SdssConstants.isSdss = true;
+              setImageScaleAndZoom();
               //---------------------------------------------
               // set SQL search radii（半径范围、半径） for fields and objects
               //---------------------------------------------
@@ -351,7 +318,21 @@ import org.fastds.dao.ExQuery;
       
   }
 
-   Coord coord = null;	// coord of current tile  
+   private void setImageScaleAndZoom() {
+	   zoom = 0;
+       ppd = 3600.0 / scale;
+       imageScale = ppd / SdssConstants.getPixelsPerDegree();
+       while (zoom < SdssConstants.getMaxZoom() & imageScale <= .5)
+       {
+           zoom++;							 // go higher in the pyramid
+           imageScale *= 2;					 // change the scaling accordingly
+       }
+       zoomScale = (float)Math.pow(2, zoom);//pow:对数  // set the scale according to the real zoom 根据真实的zoom设置scale
+       size = (float)((zoom > 3) ? 6 : 12 * imageScale);
+	
+}
+
+Coord coord = null;	// coord of current tile  
 
    /**
     * 从数据库中获取图像数据并将其添加到绘制环境中进行绘制
