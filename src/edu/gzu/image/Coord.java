@@ -57,6 +57,16 @@ public class Coord
 		this.m	 = null;
 	}
 
+	
+	public AffineTransform getAffineTransform() {
+		return m;
+	}
+
+
+	public void setAffineTransform(AffineTransform m) {
+		this.m = m;
+	}
+
 
 	/**
 	 * The copy method copies the values of the coord parameter into the current coordinate object

@@ -288,7 +288,7 @@ import org.fastds.dao.ExQuery;
 //            zoe     OverlayOptions options = new OverlayOptions(SqlConn, canvas, size, ra, dec, radius, zoom, fradius);
               OverlayOptions options = new OverlayOptions(null, canvas, size, ra, dec, radius, zoom, fradius);
              
-//                  if (drawApogee) options.getApogeeObjects();
+//     DR9不支持该才做             if (drawApogee) options.getApogeeObjects();
               if (drawField) options.getFields(cTable);
               if (drawPhotoObjs | drawSpecObjs | drawTargetObjs) options.getObjects(drawPhotoObjs, drawSpecObjs, drawTargetObjs);
               if (drawBoundingBox | drawOutline) options.getOutlines(drawBoundingBox, drawOutline, cTable);
@@ -384,12 +384,8 @@ Coord coord = null;	// coord of current tile
 		                   zoomScale,	// zoomScale 缩放比例
 		                   info			// info 该天区对象对应的SDSS编号，调试用
 		                   );
-				   if (debug)
-			       {
-			           canvas.addDebugMessage("info="+ coord.info+" "+fieldID+"\n");
-			       }
 				   //通过一系列天体测量转换系数构造仿射变化矩阵
-			       coord.m = canvas.getAffineTransform(coord);
+			       coord.setAffineTransform(canvas.getAffineTransform(coord));
 			       cTable.put(fieldID, coord);
 		
 			       if (drawFrames)
@@ -403,11 +399,7 @@ Coord coord = null;	// coord of current tile
 			    	   System.out.println("tile="+tile);
 						
 			           if (tile != null)
-			           {
-			         	  
 			               canvas.drawFrame(coord, tile);
-		
-			           }
 			       }
 				   rs.next();
 			   }
