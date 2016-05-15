@@ -274,9 +274,9 @@ class Pen
           img.UnlockBits(bmData);*/
       } 
       /**
-       * GetViewPort. It will compute the ViewPort from the projection.
-       * 根据投影计算视口。
-       * @return
+       * GetViewPort. It will compute the ViewPort from the projection.<br/>
+       * 根据投影计算视口,计算投影到屏幕上的图像的中心点和四个角的ra,dec<br/>
+       * 
        */
       public String GetViewPort()
       {
