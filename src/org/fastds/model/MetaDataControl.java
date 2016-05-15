@@ -8,7 +8,7 @@ public class MetaDataControl {
 
     protected double ra ;
     protected double dec ;
-
+    protected Globals globals;  
     protected Long specObjId = null;
     protected Integer clean = null;
     protected Integer mode = null;
@@ -21,11 +21,7 @@ public class MetaDataControl {
   
     public MetaDataControl(ObjectExplorer master)
     {
-    	load(master);
-    }
-    protected void load(ObjectExplorer master)
-    {
-//        globals = (Globals)Application[Globals.PROPERTY_NAME];   old 
+    	globals = master.globals;
     	this.master = master;
         if (master.objID != null && !master.objID.equals(""))
         	executeQuery();      

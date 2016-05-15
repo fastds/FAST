@@ -393,15 +393,16 @@ public class ExplorerResource {
     private void pmtsFromSpec(String sid)
     {
         long sidnumber = 0;
+        /*DR9不支持该功能
         try			
         {
-//            pmtsFromSpecWithApogeeID(sidstring);	DR9不支持该功能
+            pmtsFromSpecWithApogeeID(sidstring);	
             if (objectInfo.apid != null && objectInfo.apid != "")
             {
                 photoFromEq(objectInfo.ra, objectInfo.dec);
             }
         }
-        catch (Exception e) { }
+        catch (Exception e) { }*/
 
         try
         {

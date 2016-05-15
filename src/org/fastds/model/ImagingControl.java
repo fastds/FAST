@@ -58,31 +58,27 @@ public class ImagingControl {
     
     public ImagingControl(ObjectExplorer master)
     {
-    	load(master);
-    }
-    
-    public void load(ObjectExplorer master)
-    {
-        globals = master.globals;   
-        this.master  = master;
+//    	load(master);
+    	 globals = master.globals;   
+         this.master  = master;
 
-        try
-        {
-//            objID = Request.QueryString["id"];
-            objID = master.objID;
-        }
-        catch (Exception exp) {
-            //If the querystring is empty and no objid key
-            objID = null;
-        }
-        sdssUrl = globals.getSdssUrl();
-        flagsLink = sdssUrl + "/algorithms/photo_flags_recommend.php";
+         try
+         {
+//             objID = Request.QueryString["id"];
+             objID = master.objID;
+         }
+         catch (Exception exp) {
+             //If the querystring is empty and no objid key
+             objID = null;
+         }
+         sdssUrl = globals.getSdssUrl();
+         flagsLink = sdssUrl + "/algorithms/photo_flags_recommend.php";
 
-        if (objID != null && !objID.equals(""))
-        {
-            execQuery();
-            getUnit();
-        }
+         if (objID != null && !objID.equals(""))
+         {
+             execQuery();
+             getUnit();
+         }
     }
 
     private void execQuery()

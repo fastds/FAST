@@ -273,7 +273,7 @@ import org.fastds.dao.ExQuery;
           try
           {
               //-------------------------------------
-              // validate ranges and values of input  验证输入参数的值的范围是否合法
+              //  验证输入参数的值的范围是否合法
               //-------------------------------------
               validateInput(ra_, dec_, scale_, height_, width_, opt_, query_, imgtype_, imgfield_);
               if (draw2Mass) SdssConstants.isSdss = false;
@@ -300,7 +300,7 @@ import org.fastds.dao.ExQuery;
               //---------------------------------------------------
               // 初始化canvas，connection，projection
               //---------------------------------------------------
-             if (drawQuery) validateQuery(query_);
+//             if (drawQuery) validateQuery(query_); old
              	canvas = new SDSSGraphicsEnv(width, height, imageScale, ppd, debug, imgtype);
   //zoe            connectToDataBase();
 
@@ -316,7 +316,7 @@ import org.fastds.dao.ExQuery;
 
               if (drawFrames | drawField) getFrames();
               
-//                  if (drawQuery) getQueryObjects(query_);
+//         zoe         if (drawQuery) getQueryObjects(query_);	
 				//覆盖选项
 //            zoe     OverlayOptions options = new OverlayOptions(SqlConn, canvas, size, ra, dec, radius, zoom, fradius);
               OverlayOptions options = new OverlayOptions(null, canvas, size, ra, dec, radius, zoom, fradius);
@@ -342,11 +342,6 @@ import org.fastds.dao.ExQuery;
               if (invertImage)
               {
                   canvas.Invert();
-              }
-              if (debug)
-              {
-                  canvas.addDebugMessage(dbgMsg.toString());
-                  canvas.drawDebugMessage(width,height);
               }
           }
           catch (Exception e) { throw e; }

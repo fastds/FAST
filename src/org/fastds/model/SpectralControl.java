@@ -30,14 +30,11 @@ public class SpectralControl {
     protected double veldisp_err;
     protected String targeting_flags;
     protected Long specObjID;
+    ExplorerService explorerService = new ExplorerService();
 
     public SpectralControl(ObjectExplorer master)
     {
-    	load(master);
-    }
-    protected void load(ObjectExplorer master)
-    {
-        globals = master.globals;
+    	globals = master.globals;
     	this.master = master;
         try
         {
@@ -53,7 +50,6 @@ public class SpectralControl {
         if(specID != null && !specID.equals(""))
         executeQuery();
     }
-    ExplorerService explorerService = new ExplorerService();
     private void executeQuery()
     {
 
