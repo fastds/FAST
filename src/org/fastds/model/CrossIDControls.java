@@ -58,20 +58,16 @@ public class CrossIDControls {
     }
     public CrossIDControls(ObjectExplorer master)
     {
-    	load(master);
-    }
-    protected void load(ObjectExplorer master)
-    {
     	this.globals = master.globals;
         this.objID = master.objID;
         if (master.objID != null && !master.objID.equals(""))
         execQuery();
     }
     
- public String getLinkQuery() {
+    public String getLinkQuery() {
 		return linkQuery;
 	}
-public String getWise() {
+    public String getWise() {
 		return wise;
 	}
 	public float getWmag1() {

@@ -382,7 +382,7 @@ public class ExplorerResource {
         {
             // This is required to get the primary specObjId (with sciprimary=1). PhotoTag.specObjId is not necessarily primary...
             pmtsFromPhoto(Utilities.ParseId(objectInfo.objID));
-//            apogeeFromEq(qra, qdec); old
+//            apogeeFromEq(qra, qdec); DR9不支持该操作
         }
     }
 
@@ -453,7 +453,6 @@ public class ExplorerResource {
     {
        
         PhotoTag photoTag = explorerService.findPhotoTag(id);
-        
         objectInfo.ra = photoTag.getRa();
         objectInfo.dec = photoTag.getDec();
         objectInfo.run = photoTag.getRun();
