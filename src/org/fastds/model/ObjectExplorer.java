@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import org.fastds.explorehelpers.ExplorerQueries;
 import org.fastds.explorehelpers.ObjectInfo;
 
 import edu.gzu.utils.Utilities;
@@ -21,7 +20,6 @@ public class ObjectExplorer {
 
 	protected int tabwidth = 128;        
 
-    public ExplorerQueries exploreQuery;       
 
     public Long id = null;        
     public Long specID = null;
@@ -57,152 +55,159 @@ public class ObjectExplorer {
 
 	public ObjectExplorer(ObjectInfo objectInfo)
     {
-    	load(objectInfo);
+		init(objectInfo);
     }
     
-    protected void load(ObjectInfo objectInfo)
+    protected void init(ObjectInfo objectInfo)
     {
         
-       globals = new Globals(); 
+       this.globals = new Globals(); 
         
-        exploreQuery = new ExplorerQueries();           
-        //Get Values from Session Object  从session对象中获取值
+        //从session对象中获取值
         getSessionIDs(objectInfo);
 
-        url = getURL();
-        enUrl = getEnURL(); 
+//        this.url = getURL();
+//        this.enUrl = getEnURL(); 
+        this.url = "http://skyserver.sdss.org";
+        this.enUrl = "http://skyserver.sdss.org/en";
        
-        // common query to explorer
-        String allID ="id="+id + "&spec=" + specID + "&apid=" + apid+"&field="+fieldID;
-
-        
-        // id is the decimal representation; objID is the hex representation.
-        hrefs.Summary  = "Summary?"+allID;
-        hrefs.PhotoObj = "DisplayResults?name=PhotoObj&"+allID;
-        hrefs.PhotoTag = "DisplayResults?name=PhotoTag&" + allID;
-        hrefs.Field    = "DisplayResults?name=Field&" + allID;
-        hrefs.Frame    = "DisplayResults?name=Frame&" + allID;
-
-
-        if (globals.getReleaseNumber() >= 8) 
-        {
-            hrefs.Galaxyzoo = "GalaxyZoo?" + allID;
-        }            
-
-       if (globals.getReleaseNumber() > 4)
-        {
-            hrefs.PhotoZ = "DisplayResults?&name=photoZ&" + allID;
-        } 
-
-        hrefs.Matches = "Matches?"+allID;
-        hrefs.Neighbors = "Neighbors?"+allID;
-        hrefs.Chart    = "javascript:gotochart(" + ra + "," + dec + ");";
-        hrefs.Navigate = "javascript:gotonavi(" + ra + "," + dec + ");";
-        hrefs.SaveBook = "javascript:saveBook(\"" + objID + "\");";
-        hrefs.ShowBook = "javascript:showNotes();";
-        
-       if (globals.getDatabase().startsWith("STRIPE"))
-        {
-                if (run == 106)  run = 100006;
-                if (run == 206)  run = 200006;
-        } 
-
-        hrefs.FITS = "FitsImg?"+allID;//id=" + id + "&fieldID=" + fieldID + "&spec=" + specID + "&apid=" + apid;
-        
-        hrefs.NED = "http://nedwww.ipac.caltech.edu/cgi-bin/nph-objsearch?search_type=Near+Position+Search"
-                  + "&in_csys=Equatorial&in_equinox=J2000.0&obj_sort=Distance+to+search+center"
-                  + "&lon=" + (ra != null?(new BigDecimal(ra).setScale(7, BigDecimal.ROUND_HALF_EVEN).toString()+"d"):"") 
-                  + "&lat=" + (dec != null?(new BigDecimal(dec).setScale(7, BigDecimal.ROUND_HALF_EVEN).toString()+"d"):"") + "&radius=1.0";
-        									//ROUND_HALF_EVEN:银行家舍入法
-        String hmsRA;
-            hmsRA = Utilities.hmsPad(ra ==null ? 0:ra).replace(" ", "+");
-
-        String dmsDec;
-            if (dec != null && dec >= 0)
-                dmsDec = Utilities.dmsPad(dec ==null ? 0:dec).replace("+", "%2B");
-            else
-                dmsDec = Utilities.dmsPad(dec ==null ? 0:dec);
-            dmsDec = dmsDec.replace(" ", "+");
-
-        hrefs.SIMBAD = "http://simbad.u-strasbg.fr/sim-id.pl?protocol=html&IDent=" + hmsRA + "+" + dmsDec + "&NbIDent=1"
-                                + "&Radius=1.0&Radius.unit=arcmin&CooFrame=FK5&CooEpoch=2000&CooEqui=2000"
-                                + "&output.max=all&o.catall=on&output.mesdisp=N&Bibyear1=1983&Bibyear2=2005"
-                                + "&Frame1=FK5&Frame2=FK4&Frame3=G&Equi1=2000.0&Equi2=1950.0&Equi3=2000.0"
-                                + "&Epoch1=2000.0&Epoch2=1950.0&Epoch3=2000.0";
-
-        hrefs.ADS = "http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=AST&sim_query=YES&aut_xct=NO&aut_logic=OR"
-                                + "&obj_logic=OR&author=&object=" + hmsRA + "+" + dmsDec + "&start_mon=&start_year=&end_mon="
-                                + "&end_year=&ttl_logic=OR&title=&txt_logic=OR&text=&nr_to_return=100&start_nr=1"
-                                + "&start_entry_day=&start_entry_mon=&start_entry_year=&min_score=&jou_pick=ALL"
-                                + "&ref_stems=&data_and=ALL&group_and=ALL&sort=SCORE&aut_syn=YES&ttl_syn=YES"
-                                + "&txt_syn=YES&aut_wt=1.0&obj_wt=1.0&ttl_wt=0.3&txt_wt=3.0&aut_wgt=YES&obj_wgt=YES"
-                                + "&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1";
-
-        hrefs.Print = "framePrint();";
-        hrefs.AllSpec = "AllSpec?"+allID;
-
-        if (specID != null)
-        {
-            hrefs.SpecObj = "DisplayResults?name=SpecObj&" + allID;
-            hrefs.sppLines = "DisplayResults?name=sppLines&" + allID;
-            hrefs.sppParams = "DisplayResults?name=sppParams&" + allID;
-            hrefs.galSpecLine = "DisplayResults?name=galSpecLine&" + allID;
-            hrefs.galSpecIndx = "DisplayResults?name=galSpecIndx&" + allID;
-            hrefs.galSpecInfo = "DisplayResults?name=galSpecInfo&" + allID;
-
-            hrefs.Plate = "Plate?&name=Plate&plateID=" + plateID;
-
-            hrefs.Spectrum = "/v1/image/SpecById/" + specID;
-
-            hrefs.SpecFITS = "FitsSpec?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
-                
-           if (globals.getReleaseNumber() >= 8)
-            {  
-                hrefs.theParameters = "Parameters?"+allID;
-                hrefs.stellarMassStarformingPort = "DisplayResults?name=stellarMassStarFormingPort&" + allID;
-                hrefs.stellarMassPassivePort = "DisplayResults?name=stellarMassPassivePort&" + allID;
-                hrefs.emissionLinesPort = "DisplayResults?name=emissionlinesPort&" + allID;
-                hrefs.stellarMassPCAWiscBC03 = "DisplayResults?name=stellarMassPCAWiscBC03&" + allID;
-                hrefs.stellarMassPCAWiscM11 = "DisplayResults?name=stellarMassPCAWiscM11&" + allID;
-            }  
-            if (globals.getReleaseNumber() >= 10)
-            {
-                hrefs.stellarMassFSPSGranEarlyDust = "DisplayResults?name=stellarMassFSPSGranEarlyDust&" + allID;
-                hrefs.stellarMassFSPSGranEarlyNoDust = "DisplayResults?name=stellarMassFSPSGranEarlyNoDust&" + allID;
-                hrefs.stellarMassFSPSGranWideDust = "DisplayResults?name=stellarMassFSPSGranWideDust&" + allID;
-                hrefs.stellarMassFSPSGranWideNoDust = "DisplayResults?name=stellarMassFSPSGranWideNoDust&" + allID;
-             }
-         }            
-         if (apid != null && !apid.isEmpty())
-         {
-             hrefs.apogeeStar = "DisplayResults?name=apogeeStar&" + allID;
-             hrefs.aspcapStar = "DisplayResults?name=aspcapStar&" + allID;
-         }
+        buildURLs();
     }
+    /**
+     * 构建页面上可以访问的所有链接
+     */
+   private void buildURLs() {
+	   // common query to explorer
+       String allID ="id="+id + "&spec=" + specID + "&apid=" + apid+"&field="+fieldID;
 
-    private void getSessionIDs(ObjectInfo o) {
+       
+       // id is the decimal representation; objID is the hex representation.
+       hrefs.Summary  = "Summary?"+allID;
+       hrefs.PhotoObj = "DisplayResults?name=PhotoObj&"+allID;
+       hrefs.PhotoTag = "DisplayResults?name=PhotoTag&" + allID;
+       hrefs.Field    = "DisplayResults?name=Field&" + allID;
+       hrefs.Frame    = "DisplayResults?name=Frame&" + allID;
 
-//        ObjectInfo o =(ObjectInfo)Session["objectInfo"];   old ---
-        objID = o.objID;
-        specObjID = o.specObjID;
-        apid = o.apid;
 
-        ra = o.ra;
-        dec = o.dec;
+       if (globals.getReleaseNumber() >= 8) 
+       {
+           hrefs.Galaxyzoo = "GalaxyZoo?" + allID;
+       }            
 
-        plateID =o.plateID;
-        fieldID = o.fieldID;
-        fiberID = o.fiberID;
-        mjd = o.mjd;
-        plate = o.plate;
+      if (globals.getReleaseNumber() > 4)
+       {
+           hrefs.PhotoZ = "DisplayResults?&name=photoZ&" + allID;
+       } 
 
-        run = o.run;
-        rerun = o.rerun;
-        camcol = o.camcol;
-        field = o.field;
+       hrefs.Matches = "Matches?"+allID;
+       hrefs.Neighbors = "Neighbors?"+allID;
+       hrefs.Chart    = "javascript:gotochart(" + ra + "," + dec + ");";
+       hrefs.Navigate = "javascript:gotonavi(" + ra + "," + dec + ");";
+       hrefs.SaveBook = "javascript:saveBook(\"" + objID + "\");";
+       hrefs.ShowBook = "javascript:showNotes();";
+       
+      if (globals.getDatabase().startsWith("STRIPE"))
+       {
+               if (run == 106)  run = 100006;
+               if (run == 206)  run = 200006;
+       } 
 
-        id = o.id;
-        specID = o.specID;
+       hrefs.FITS = "FitsImg?"+allID;//id=" + id + "&fieldID=" + fieldID + "&spec=" + specID + "&apid=" + apid;
+       
+       hrefs.NED = "http://nedwww.ipac.caltech.edu/cgi-bin/nph-objsearch?search_type=Near+Position+Search"
+                 + "&in_csys=Equatorial&in_equinox=J2000.0&obj_sort=Distance+to+search+center"
+                 + "&lon=" + (ra != null?(new BigDecimal(ra).setScale(7, BigDecimal.ROUND_HALF_EVEN).toString()+"d"):"") 
+                 + "&lat=" + (dec != null?(new BigDecimal(dec).setScale(7, BigDecimal.ROUND_HALF_EVEN).toString()+"d"):"") + "&radius=1.0";
+       									//ROUND_HALF_EVEN:银行家舍入法
+       String hmsRA;
+           hmsRA = Utilities.hmsPad(ra ==null ? 0:ra).replace(" ", "+");
+
+       String dmsDec;
+           if (dec != null && dec >= 0)
+               dmsDec = Utilities.dmsPad(dec ==null ? 0:dec).replace("+", "%2B");
+           else
+               dmsDec = Utilities.dmsPad(dec ==null ? 0:dec);
+           dmsDec = dmsDec.replace(" ", "+");
+
+       hrefs.SIMBAD = "http://simbad.u-strasbg.fr/sim-id.pl?protocol=html&IDent=" + hmsRA + "+" + dmsDec + "&NbIDent=1"
+                               + "&Radius=1.0&Radius.unit=arcmin&CooFrame=FK5&CooEpoch=2000&CooEqui=2000"
+                               + "&output.max=all&o.catall=on&output.mesdisp=N&Bibyear1=1983&Bibyear2=2005"
+                               + "&Frame1=FK5&Frame2=FK4&Frame3=G&Equi1=2000.0&Equi2=1950.0&Equi3=2000.0"
+                               + "&Epoch1=2000.0&Epoch2=1950.0&Epoch3=2000.0";
+
+       hrefs.ADS = "http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=AST&sim_query=YES&aut_xct=NO&aut_logic=OR"
+                               + "&obj_logic=OR&author=&object=" + hmsRA + "+" + dmsDec + "&start_mon=&start_year=&end_mon="
+                               + "&end_year=&ttl_logic=OR&title=&txt_logic=OR&text=&nr_to_return=100&start_nr=1"
+                               + "&start_entry_day=&start_entry_mon=&start_entry_year=&min_score=&jou_pick=ALL"
+                               + "&ref_stems=&data_and=ALL&group_and=ALL&sort=SCORE&aut_syn=YES&ttl_syn=YES"
+                               + "&txt_syn=YES&aut_wt=1.0&obj_wt=1.0&ttl_wt=0.3&txt_wt=3.0&aut_wgt=YES&obj_wgt=YES"
+                               + "&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1";
+
+       hrefs.Print = "framePrint();";
+       hrefs.AllSpec = "AllSpec?"+allID;
+
+       if (specID != null)
+       {
+           hrefs.SpecObj = "DisplayResults?name=SpecObj&" + allID;
+           hrefs.sppLines = "DisplayResults?name=sppLines&" + allID;
+           hrefs.sppParams = "DisplayResults?name=sppParams&" + allID;
+           hrefs.galSpecLine = "DisplayResults?name=galSpecLine&" + allID;
+           hrefs.galSpecIndx = "DisplayResults?name=galSpecIndx&" + allID;
+           hrefs.galSpecInfo = "DisplayResults?name=galSpecInfo&" + allID;
+
+           hrefs.Plate = "Plate?&name=Plate&plateID=" + plateID;
+
+           hrefs.Spectrum = "/v1/image/SpecById/" + specID;
+
+           hrefs.SpecFITS = "FitsSpec?&sid=" + specObjID + "&id=" + id + "&spec=" + specID + "&apid=" + apid;
+               
+          if (globals.getReleaseNumber() >= 8)
+           {  
+               hrefs.theParameters = "Parameters?"+allID;
+               hrefs.stellarMassStarformingPort = "DisplayResults?name=stellarMassStarFormingPort&" + allID;
+               hrefs.stellarMassPassivePort = "DisplayResults?name=stellarMassPassivePort&" + allID;
+               hrefs.emissionLinesPort = "DisplayResults?name=emissionlinesPort&" + allID;
+               hrefs.stellarMassPCAWiscBC03 = "DisplayResults?name=stellarMassPCAWiscBC03&" + allID;
+               hrefs.stellarMassPCAWiscM11 = "DisplayResults?name=stellarMassPCAWiscM11&" + allID;
+           }  
+           /*if (globals.getReleaseNumber() >= 10)  DR9 不支持
+           {
+               hrefs.stellarMassFSPSGranEarlyDust = "DisplayResults?name=stellarMassFSPSGranEarlyDust&" + allID;
+               hrefs.stellarMassFSPSGranEarlyNoDust = "DisplayResults?name=stellarMassFSPSGranEarlyNoDust&" + allID;
+               hrefs.stellarMassFSPSGranWideDust = "DisplayResults?name=stellarMassFSPSGranWideDust&" + allID;
+               hrefs.stellarMassFSPSGranWideNoDust = "DisplayResults?name=stellarMassFSPSGranWideNoDust&" + allID;
+            }*/
+        }            
+        if (apid != null && !apid.isEmpty())
+        {
+            hrefs.apogeeStar = "DisplayResults?name=apogeeStar&" + allID;
+            hrefs.aspcapStar = "DisplayResults?name=aspcapStar&" + allID;
+        }
+		
+	}
+
+ private void getSessionIDs(ObjectInfo o) {
+
+        this.objID = o.objID;
+        this.specObjID = o.specObjID;
+        this.apid = o.apid;
+
+        this.ra = o.ra;
+        this.dec = o.dec;
+
+        this.plateID =o.plateID;
+        this.fieldID = o.fieldID;
+        this.fiberID = o.fiberID;
+        this.mjd = o.mjd;
+        this.plate = o.plate;
+
+        this.run = o.run;
+        this.rerun = o.rerun;
+        this.camcol = o.camcol;
+        this.field = o.field;
+
+        this.id = o.id;
+        this.specID = o.specID;
     }
 
     public Long getId() {
@@ -219,10 +224,6 @@ public class ObjectExplorer {
 
 	public String getUrl() {
 		return url;
-	}
-
-	public ExplorerQueries getExploreQuery() {
-		return exploreQuery;
 	}
 
 	public Long getSpecID() {
@@ -279,7 +280,7 @@ public class ObjectExplorer {
 
 	public String getURL()
     {
-    	return "";
+    	return "http://skyserver.sdss.org";
         /*String host = Request.ServerVariables["SERVER_NAME"];
         String path = Request.ServerVariables["SCRIPT_NAME"];     
 
