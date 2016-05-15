@@ -318,7 +318,12 @@ public class ExplorerResource {
         else if (id != null && specID == null) pmtsFromPhoto(id);
 //        else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid); DR9不支持该功能
     }
-
+    /**
+     * 通过三个参数查询满足条件的objID、specObjID
+     * @param plate 
+     * @param mjd 
+     * @param fiber 
+     */
     private void ObjIDFromPlfib(short plate, int mjd, short fiber)
     {
         
@@ -341,14 +346,12 @@ public class ExplorerResource {
         }
 
     }
-    
-   private void apogeeFromEq(double qra, double qdec)
-    {
-	   double searchRadius = 0.5 / 60;
-	   long apid = explorerService.findApid(qra,qdec,searchRadius);
-	   objectInfo.apid = ""+apid;
-    } 
-
+   
+   /**
+    * 
+    * @param qra 赤经
+    * @param qdec 赤纬
+    */
     private void photoFromEq(double qra, double qdec)
     {
     	double searchRadius = 0.5 / 60;
@@ -384,7 +387,7 @@ public class ExplorerResource {
     }
 
     /**
-     * 
+     * 利用sid查询主要信息参数
      * @param sid 光谱观测对象id
      */
     private void pmtsFromSpec(String sid)
@@ -404,29 +407,16 @@ public class ExplorerResource {
         {
             sidnumber = Long.parseLong(sidstring);
             pmtsFromSpecWithSpecobjID(sidnumber);
-            if (objectInfo.specObjID != null && objectInfo.specObjID != ZERO_ID)
+            /*if (objectInfo.specObjID != null && objectInfo.specObjID != ZERO_ID)
             {
                 apogeeFromEq(objectInfo.ra, objectInfo.dec);
-            }
+            } 	DR9 不支持该功能 */
         }
-        catch (Exception e) { }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
     }
-    /**
-     * DR9不支持该功能
-     * @param sid
-     */
-    /*
-    private void pmtsFromSpecWithApogeeID(String sid)
-    {
-        String whatdoiget = null;
-        if (sid.startsWith("apogee")) { whatdoiget = "apstar_id"; } else { whatdoiget = "apogee_id"; }
-
-        Map<String,Object> attrs = explorerService.findApogeeStar(whatdoiget,sid);
-        objectInfo.apid = ((Long)attrs.get("apid")).toString();
-        objectInfo.ra = (Double)attrs.get("ra");
-        objectInfo.dec = (Double)attrs.get("dec");
-    }
-    */
+  
     /**
      * 由specObjID查询获取天体的基本信息
      * @param sid 即specObjID
@@ -494,9 +484,27 @@ public class ExplorerResource {
         }
         catch(Exception e) { e.printStackTrace();}*/
     }
-    /**
-     * DR9不支持该功能
-     */
+  //--------------------------*****以下功能DR9不支持****--------------------------------
+    /*
+     
+   private void apogeeFromEq(double qra, double qdec)
+    {
+	   double searchRadius = 0.5 / 60;
+	   long apid = explorerService.findApid(qra,qdec,searchRadius);
+	   objectInfo.apid = ""+apid;
+    } */
+    /*
+    private void pmtsFromSpecWithApogeeID(String sid)
+    {
+        String whatdoiget = null;
+        if (sid.startsWith("apogee")) { whatdoiget = "apstar_id"; } else { whatdoiget = "apogee_id"; }
+
+        Map<String,Object> attrs = explorerService.findApogeeStar(whatdoiget,sid);
+        objectInfo.apid = ((Long)attrs.get("apid")).toString();
+        objectInfo.ra = (Double)attrs.get("ra");
+        objectInfo.dec = (Double)attrs.get("dec");
+    }
+    */
     /*
     private void parseApogeeID(String idstring)
     {
@@ -523,6 +531,4 @@ public class ExplorerResource {
            objectInfo.specObjID = attrsTwo.get("specObjID")==null || attrsTwo.get("specObjID")==0 ? null : Utilities.longToHex(attrsTwo.get("specObjID"));                    
         }
     }*/
-    
-    
 }

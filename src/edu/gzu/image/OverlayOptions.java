@@ -254,7 +254,7 @@ public class OverlayOptions
 	 	aql.append(" SELECT m.area ");
 	 	aql.append(" FROM ("+res+") AS f JOIN Mask AS m ");
 	 	aql.append(" ON f.objID = m.maskID WHERE (m.type = 2) ");
-	 	aql.append(" OR (m.type=0 OR m.type=1 OR m.type=3 AND m.filter=2) ");
+	 	aql.append(" OR ((m.type=0 OR m.type=1 OR m.type=3) AND m.filter=2) ");
 	 	aql.append(" OR (m.type = 4 and m.filter = 2 and m.seeing > 1.7 ) ");
 	 	System.out.print("drawMask-->aql:"+aql.toString());
 	 	ExQuery exQuery = new ExQuery();
