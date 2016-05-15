@@ -762,7 +762,7 @@ public class ExplorerQueries {
 
     public static String getSpec= "SELECT specObjID,survey FROM specObjAll WHERE specObjID= @specID";
        
-
+    
     public static String getApogee(String apid) {
 //    public static String getApogee = " SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss"
 //    	+"   FROM apogeeStar WHERE apstar_id='@apogeeID'";

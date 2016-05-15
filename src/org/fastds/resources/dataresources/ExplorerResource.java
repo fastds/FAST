@@ -288,7 +288,10 @@ public class ExplorerResource {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * 将十六进制的字符串形式的ID解析为Long类型
+	 * 解析objID、specObjID
+	 */
     private void parseIDs() {
         if (objectInfo.objID != null && !objectInfo.objID.equals(""))
             objectInfo.id = Utilities.ParseId(objectInfo.objID);
@@ -297,7 +300,10 @@ public class ExplorerResource {
             objectInfo.specID = Utilities.ParseId(objectInfo.specObjID);
 
     } 
-
+    /**
+     * 根据不同类型的用户参数构造查询，获取将后续查询需要<br/>
+     * 的所有id(objID、specObjID等)以及部分主要信息(坐标等)。
+     */
     private void getObjPmts()
     {
     	System.out.println(" fiber,plate:"+fiber==null+","+(plate==null));
@@ -310,7 +316,7 @@ public class ExplorerResource {
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
         else if (id != null && specID == null) pmtsFromPhoto(id);
-        else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid);
+//        else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid); DR9不支持该功能
     }
 
     private void ObjIDFromPlfib(short plate, int mjd, short fiber)
@@ -354,7 +360,7 @@ public class ExplorerResource {
        
     }
     /**
-     * 
+     * 根据赤经、赤纬查询基本信息参数。
      * @param qra 赤经，单位：度
      * @param qdec 赤纬，单位：度
      */
@@ -377,13 +383,16 @@ public class ExplorerResource {
         }
     }
 
-
+    /**
+     * 
+     * @param sid 光谱观测对象id
+     */
     private void pmtsFromSpec(String sid)
     {
         long sidnumber = 0;
-        try
+        try			
         {
-            pmtsFromSpecWithApogeeID(sidstring);
+//            pmtsFromSpecWithApogeeID(sidstring);	DR9不支持该功能
             if (objectInfo.apid != null && objectInfo.apid != "")
             {
                 photoFromEq(objectInfo.ra, objectInfo.dec);
@@ -402,7 +411,11 @@ public class ExplorerResource {
         }
         catch (Exception e) { }
     }
-
+    /**
+     * DR9不支持该功能
+     * @param sid
+     */
+    /*
     private void pmtsFromSpecWithApogeeID(String sid)
     {
         String whatdoiget = null;
@@ -413,6 +426,7 @@ public class ExplorerResource {
         objectInfo.ra = (Double)attrs.get("ra");
         objectInfo.dec = (Double)attrs.get("dec");
     }
+    */
     /**
      * 由specObjID查询获取天体的基本信息
      * @param sid 即specObjID
@@ -432,7 +446,18 @@ public class ExplorerResource {
         objectInfo.plate = (Short)attrs.get("plate");
     } 
 
-
+    /**
+     * 根据id查询主要信息。			<br/>
+     * ra,dec:赤经、赤纬 				<br/>
+     * run:
+     * rerun:
+     * camcol:
+     * field:
+     * fieldID:
+     * objID:光度测量对象的id		<br/>
+     * specObjID:光谱测量对象id		<br/>
+     * @param id 光度测量对象的id	<br/>
+     */
     private void pmtsFromPhoto(Long id)
     {
        
@@ -448,7 +473,7 @@ public class ExplorerResource {
         objectInfo.objID = photoTag.getObjID() == null ? null : Utilities.longToHex(photoTag.getObjID());
         objectInfo.specObjID = photoTag.getSpecObjID() == null ? null : Utilities.longToHex(photoTag.getSpecObjID());
         
-        // get the plateID and fiberID from the specObj, if it exists
+        // 通过specObjID(如果存在)，获取plateID、 fiberID 
         if (objectInfo.specObjID != null && !ZERO_ID.equals(objectInfo.specObjID))
         {
             long specID = Long.parseLong(objectInfo.specObjID.substring(2),16);
@@ -463,13 +488,16 @@ public class ExplorerResource {
             }
         }
 
-        try
+        /*try		DR9不支持该功能
         {
             apogeeFromEq(objectInfo.ra, objectInfo.dec);
         }
-        catch(Exception e) { e.printStackTrace();}
+        catch(Exception e) { e.printStackTrace();}*/
     }
-
+    /**
+     * DR9不支持该功能
+     */
+    /*
     private void parseApogeeID(String idstring)
     {
         double qra =0, qdec=0;
@@ -494,7 +522,7 @@ public class ExplorerResource {
            objectInfo.objID = attrsTwo.get("objID")==null || attrsTwo.get("objID")==0 ? null : Utilities.longToHex(attrsTwo.get("objID"));
            objectInfo.specObjID = attrsTwo.get("specObjID")==null || attrsTwo.get("specObjID")==0 ? null : Utilities.longToHex(attrsTwo.get("specObjID"));                    
         }
-    }
+    }*/
     
     
 }
