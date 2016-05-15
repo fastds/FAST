@@ -83,31 +83,18 @@ public class OverlayOptions
             System.out.println("listSize:"+list.size());
         	for(int i = 0;i<list.size();i++)
             {
-        		Obj obj = list.get(i);
-                oRa = obj.getRa();
-                oDec = obj.getDec();
-                oFlag = (byte)obj.getFlag();
-            	if (drawSpecObjs && (oFlag & SdssConstants.sflag) > 0)
-  	              canvas.drawSpecObj(oRa, oDec, size);
-            	if (drawPhotoObjs && (oFlag & SdssConstants.pflag) > 0)
-  	              canvas.drawPhotoObj(oRa, oDec, size);
-  	          	if (drawTargetObjs && (oFlag & SdssConstants.tflag) > 0)
-  	              canvas.drawTargetObj(oRa, oDec, size);
+//    以前    		Obj obj = list.get(i);
+//                oRa = obj.getRa();
+//                oDec = obj.getDec();
+//                oFlag = (byte)obj.getFlag();
+            	if (drawSpecObjs && ((byte)list.get(i).getFlag() & SdssConstants.sflag) > 0)
+  	              canvas.drawSpecObj(list.get(i).getRa(), list.get(i).getDec(), size);
+            	if (drawPhotoObjs && ((byte)list.get(i).getFlag() & SdssConstants.pflag) > 0)
+  	              canvas.drawPhotoObj(list.get(i).getRa(), list.get(i).getDec(), size);
+  	          	if (drawTargetObjs && ((byte)list.get(i).getFlag() & SdssConstants.tflag) > 0)
+  	              canvas.drawTargetObj(list.get(i).getRa(), list.get(i).getDec(), size);
             }
 	          
-//            while (reader.Read())
-//            {
-//                oRa = Convert.ToDouble(reader[0]);		// get ra
-//                oDec = Convert.ToDouble(reader[1]);		// get dec
-//                oFlag = Convert.ToByte(reader[2]);		    // get flag												
-//                if (drawSpecObjs && (oFlag & SdssConstants.sflag) > 0)
-//                    canvas.drawSpecObj(oRa, oDec, size);
-//                if (drawPhotoObjs && (oFlag & SdssConstants.pflag) > 0)
-//                    canvas.drawPhotoObj(oRa, oDec, size);
-                //canvas.drawApogeeObj(oRa,oDec,size);
-//                if (drawTargetObjs && (oFlag & SdssConstants.tflag) > 0)
-//                    canvas.drawTargetObj(oRa, oDec, size);
-//            }
             
         }
         catch (Exception e)
