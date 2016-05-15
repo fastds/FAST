@@ -354,9 +354,9 @@ Coord coord = null;	// coord of current tile
 			   cTable = new Hashtable<Long,Coord>();
 			   if(rs == null || rs.wasNull())
 			   {
-				   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
-				   canvas.drawDebugMessage(width, height);
-				   return;
+				   throw new Exception("Requested (ra, dec) is outside the SDSS footprint. \n");
+//				   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
+//				   canvas.drawDebugMessage(width, height);
 			   }
 			   while(!rs.isAfterLast())
 			   {
