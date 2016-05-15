@@ -140,7 +140,7 @@
 			    <p class="content">Finding nearby objects is computationally intensive, so we have precomputed 
 			    a 0.5-arcminute neighbors search for each object in the photoObjAll table. These precomputed 
 			    neighbor searches are stored in the  
-			    <a href="<c:url url='/v1/schema?name=neighbors'/>" class='content'>Neighbors</a> 
+			    <a href="<c:url value='/v1/schema?name=neighbors'/>"/> class='content'>Neighbors</a> 
 			    table.</p>
 			    </td></tr>
 			

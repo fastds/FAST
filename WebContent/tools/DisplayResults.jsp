@@ -132,7 +132,7 @@
       <!--  url = master.getURL(); 后台已有，但不明确这里赋值是否有影响，属于内嵌java代码 -->
        
     <p />
-     <h2><a href="<c:out value='/v1/schema?name=${displayResults.name}'/>" target="_top" class="content">${displayResults.name}</a></h2>
+     <h2><a href="<c:url value='/v1/schema?name=${displayResults.name}'/>" target="_top" class="content">${displayResults.name}</a></h2>
     <p />   
     <!--    put the option for Plate Objects -->
     <%=((ObjectExplorer)request.getAttribute("master")).showVTable(((DisplayResults)request.getAttribute("displayResults")).getDs(), 300)%>
