@@ -58,7 +58,6 @@ public class ImagingControl {
     
     public ImagingControl(ObjectExplorer master)
     {
-//    	load(master);
     	 globals = master.globals;   
          this.master  = master;
 

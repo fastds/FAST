@@ -547,6 +547,7 @@ public class ExplorerQueries {
 
     // Summary.jsp
     /**
+     * 
      * @return AQL语句，该语句对满足给定条件并对objID、specObjID、ra、dec进行查询
      */
     public static String getObjIDFromPlatefiberMjd(String mjd, String plate,String fiber)
