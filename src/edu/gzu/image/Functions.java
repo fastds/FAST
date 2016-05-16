@@ -45,45 +45,37 @@ public class Functions {
 			obj(fieldID);
 		return result;
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H Extracts SkyVersion from an SDSS Photo Object ID
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp> select top 10 objId, dbo.fSkyVersion(objId) as fSkyVersion from Galaxy</samp>
-	-------------------------------------------------------------------------------
+	/**
+	 * Extracts SkyVersion from an SDSS Photo Object ID
+	 * The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br/>
+	 * <samp> select top 10 objId, dbo.fSkyVersion(objId) as fSkyVersion from Galaxy</samp>
 	 */
 	public static int skyVersion(long id)
 	{
 		return (int)(id/(long)Math.pow(2, 59) & 0x0000000F);
 	}
-	/*
-	 -------------------------------------------------------------------------------
-	--/H Extracts Run from an SDSS Photo Object ID
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp> select top 10 objId, dbo.fRun(objId) as fRun from Galaxy</samp>
-	------------------------------------------------------------------------------- 
+	/**
+	 * Extracts Run from an SDSS Photo Object ID
+	 * The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br/>
+	 * <samp> select top 10 objId, dbo.fRun(objId) as fRun from Galaxy</samp>
 	 */
 	public static int run(long id)
 	{
 		return (int)(id/(long)Math.pow(2, 32) & 0x0000FFFF);
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H Extracts Rerun from an SDSS Photo Object ID
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp> select top 10 objId, dbo.fRerun(objId) as fRerun from Galaxy</samp>
-	------------------------------------------------------------------------------- 
+	/**
+	 * Extracts Rerun from an SDSS Photo Object ID
+	 * The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br/>
+	 * <samp> select top 10 objId, dbo.fRerun(objId) as fRun from Galaxy</samp>
 	 */
 	public static int rerun(long id)
 	{
 		return (int)(id/(long)Math.pow(2, 48) & 0x000007FF);
 	}
-	/*
-	-------------------------------------------------------------------------------
-	--/H	Extracts Camcol from an SDSS Photo Object ID
-	--/T The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br>
-	--/T <samp>select top 10 objId, dbo.fCamcol(objId) as fCamcol from Galaxy</samp>
-	-------------------------------------------------------------------------------
+	/**
+	 * Extracts Camcol from an SDSS Photo Object ID
+	 * The bit-fields and their lengths are: Skyversion[5] Rerun[11] Run[16] Camcol[3] First[1] Field[12] Obj[16]<br/>
+	 * <samp>select top 10 objId, dbo.fCamcol(objId) as fCamcol from Galaxy</samp>
 	 */
 	public static int camcol(long id)
 	{
@@ -119,7 +111,7 @@ public class Functions {
 	 * @param radiusArcMin 半径范围，以弧分为单位
 	 * @return
 	 */
-	public static List<Pair> fHtmCoverCircleXyz(double x, double y, double z, double radiusArcMin)
+	public static List<Pair> htmCoverCircleXyz(double x, double y, double z, double radiusArcMin)
 	{
 		System.out.println("Functions.fHtmCoverCircleXyz-----run");
 	    double[] num = new double[1];
@@ -177,7 +169,7 @@ public class Functions {
 		ny  = Math.cos(dec*d2r)*Math.sin(ra*d2r);
 		nz  = Math.sin(dec*d2r);
 		
-		List<Pair> pair = fHtmCoverCircleXyz(nx,ny,nz,radius);
+		List<Pair> pair = htmCoverCircleXyz(nx,ny,nz,radius);
         double lim = Math.pow(2*Math.sin(Math.toRadians(radius/120)),2);
 
         StringBuilder aql = new StringBuilder();
@@ -212,7 +204,7 @@ public class Functions {
 			nz  =  Math.sin(Math.toRadians(dec));
 			System.out.println("nx="+nx+",ny="+ny+",nz="+nz+",radius="+radius);
 			
-			List<Pair> list = fHtmCoverCircleXyz(nx,ny,nz,radius);
+			List<Pair> list = htmCoverCircleXyz(nx,ny,nz,radius);
 			System.out.println("listSize:"+list.size());
 			for(Pair p : list)
 			{
@@ -243,7 +235,7 @@ public class Functions {
 	        nz  = Math.sin(radians(dec));
 	        mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
 		        
-	        List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
+	        List<Pair> pair = htmCoverCircleXyz(nx, ny, nz, rad);
 			
 	        double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
 			String res = null;
@@ -336,7 +328,7 @@ public class Functions {
         nz  = Math.sin(radians(dec));
         mag =  25 - 1.5* zoom;  ///-- magnitude reduction.
 	        
-        List<Pair> pair = fHtmCoverCircleXyz(nx, ny, nz, rad);
+        List<Pair> pair = htmCoverCircleXyz(nx, ny, nz, rad);
 		System.out.println("fGetObjectsEq()--->pair.size()"+pair.size());
         double lim = Math.pow(2*Math.sin(radians(rad/120)), 2);
 		List<Obj> objList = new ArrayList<Obj>();
@@ -561,7 +553,7 @@ public class Functions {
 		
 		double lim = Math.pow(2*Math.sin(Math.toRadians(r/120)),2);
 		double d2r = Math.PI/180.0;
-		List<Pair> pair = fHtmCoverCircleXyz(nx,ny,nz,r);
+		List<Pair> pair = htmCoverCircleXyz(nx,ny,nz,r);
 		
 		aql = aql.append("SELECT * FROM (SELECT objID, run, camcol, field, rerun, "
 				+" type, mode, cx, cy, cz, htmID, "
@@ -576,7 +568,6 @@ public class Functions {
 	}
 	public static String fGetNearestApogeeStarEq(double qra, double qdec,
 			double searchRadius) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	public static String fPhotoModeN(int value)

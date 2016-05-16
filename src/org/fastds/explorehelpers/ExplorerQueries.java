@@ -543,45 +543,7 @@ public class ExplorerQueries {
     	aql.append(" SELECT '2MASS' AS Catalog, j AS J, h AS H, k AS K_s, phQual FROM TwoMass WHERE objID="+objID);
 		return aql.toString();
 	}
-    public static String wiseLinkCrossID(String objID) {
-    	StringBuilder aql = new StringBuilder();
-    	objID = objID !=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
-    	aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
-    	aql.append(" WHERE x.sdss_objid="+objID);
-    	
-		return aql.toString();
-	}
-
-    // Apogee_Queries
-    
-//    public static String APOGEE_BASE_QUERY= " SELECT   a.ra,    a.dec,   a.apstar_id,    a.apogee_id,    a.glon,    a.glat,    a.location_id,   a.commiss,   a.vhelio_avg,    a.vscatter,     b.teff,"
-//    	+" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m,    b.param_alpha_m_err, c.j,   c.h,   c.k,   c.j_err,   c.h_err,   c.k_err," 
-//    	+" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5"     
-//    	+"  when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,"  
-//    	+" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N," 
-//    	+" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  "
-//    	+" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ";                   
-    public static String getApogeeBaseQuery()
-    {
-    	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT a.ra, a.dec, a.apstar_id, a.apogee_id, a.glon, a.glat, a.location_id, a.commiss, a.vhelio_avg, a.vscatter, b.teff, ");
-    	aql.append(" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m, b.param_alpha_m_err, c.j, c.h, c.k, c.j_err, c.h_err,   c.k_err,");
-    	aql.append(" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5");
-    	aql.append(" when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,");
-    	aql.append(" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N,");
-    	aql.append(" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  ");
-    	aql.append(" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ");
-    	return aql.toString();
-    }
-
-    public static String apogeevisitsBaseQuery(String id)
-    {
-    	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT visit_id, plate,  mjd, fiberid, dateobs, vrel");
-    	aql.append(" FROM apogeeVisit ");
-    	aql.append(" WHERE apogee_id='"+id+"' ORDER BY dateobs");
-    	return aql.toString();
-    }
+   
 
     // Summary.jsp
     /**
@@ -602,30 +564,7 @@ public class ExplorerQueries {
     	return aql.toString();
     }
 
-    public static String getAPOGEEID_PlateFiberMjd = " SELECT s.apstar_id"
-    	+"FROM apogeeVisit v JOIN apogeeStar s ON s.apogee_id=v.apogee_id"
-    	+" WHERE v.plate = @plate  and v.mjd = @mjd  and v.fiberID = @fiberID";
-          
-    /**
-     * DR9不支持该查询。
-     * @param qra 赤经
-     * @param qdec 赤纬
-     * @param searchRadius 搜索半径
-     * @return
-     */
-    public static String getApogeeFromEq(double qra, double qdec, double searchRadius)
-    {
-//    public static String getApogeeFromEq = " SELECT top 1 p.apstar_id"                     
-//    	+"  FROM apogeeStar p, dbo.fGetNearestApogeeStarEq(@qra , @qdec , @searchRadius) n" 
-//    	+"    WHERE p.apstar_id=n.apstar_id";
-//          
-    	StringBuilder aql = new StringBuilder();
-    	String subselect = Functions.fGetNearestApogeeStarEq(qra, qdec, searchRadius);
-    	aql.append(" SELECT p.apstar_id");
-    	aql.append(" FROM apogeeStar AS p, "+subselect+" AS n");
-    	aql.append(" WHERE p.apstar_id=n.apstar_id");
-    	return aql.toString();
-    }
+   
     public static String getPhotoFromEq(double qra, double qdec,
 			double searchRadius) {
 //    public static String getPhotoFromEq = " SELECT top 1 cast(p.objID as binary(8)) as objID, cast(p.specObjID as binary(8)) as specObjID"
@@ -763,27 +702,7 @@ public class ExplorerQueries {
     public static String getSpec= "SELECT specObjID,survey FROM specObjAll WHERE specObjID= @specID";
        
     
-    public static String getApogee(String apid) {
-//    public static String getApogee = " SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss"
-//    	+"   FROM apogeeStar WHERE apstar_id='@apogeeID'";
-    	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss");
-    	aql.append("   FROM apogeeStar WHERE apstar_id='"+apid+"'");
-		return aql.toString();
-	}
-//    public static String getApogee2 = " SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss"
-//    	+" FROM apogeeStar WHERE apogee_id='@apogeeID'";
-    public static String getApogee2(String apid)
-    {
-    	StringBuilder aql = new StringBuilder();
-    	aql.append(" SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss");
-    	aql.append(" FROM apogeeStar WHERE apogee_id='"+apid+"'");
-		return aql.toString();
-    }
-
-    public static String getPlateFromApogee = "SELECT  top 1   a.ra,    a.dec,   a.apstar_id,    a.apogee_id, v.plate,v.fiberID,v.mjd" 
-    	+" FROM apogeeStar a join apogeeVisit v on a.apogee_id=v.apogee_id "
-    	+"  WHERE a.apstar_id = '@apogeeID'";
+    
            
 
     public static String fitsimg = "SELECT"
@@ -845,9 +764,86 @@ public class ExplorerQueries {
     	return aql.toString();
     }
 
-	
+    //--------------------***** DR9不支持以下查询  *****--------------------------
+    public static String wiseLinkCrossID(String objID) {
+    	StringBuilder aql = new StringBuilder();
+    	objID = objID !=null && objID.startsWith("0x")?Long.parseLong(objID.substring(2),16)+"":objID;
+    	aql.append("SELECT * FROM wise_xmatch AS x join wise_allsky AS a on x.wise_cntr=a.cntr ");
+    	aql.append(" WHERE x.sdss_objid="+objID);
+    	
+		return aql.toString();
+	}
 
-	
+    // Apogee_Queries
+    
+//    public static String APOGEE_BASE_QUERY= " SELECT   a.ra,    a.dec,   a.apstar_id,    a.apogee_id,    a.glon,    a.glat,    a.location_id,   a.commiss,   a.vhelio_avg,    a.vscatter,     b.teff,"
+//    	+" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m,    b.param_alpha_m_err, c.j,   c.h,   c.k,   c.j_err,   c.h_err,   c.k_err," 
+//    	+" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5"     
+//    	+"  when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,"  
+//    	+" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N," 
+//    	+" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  "
+//    	+" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ";                   
+    public static String getApogeeBaseQuery()
+    {
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT a.ra, a.dec, a.apstar_id, a.apogee_id, a.glon, a.glat, a.location_id, a.commiss, a.vhelio_avg, a.vscatter, b.teff, ");
+    	aql.append(" b.teff_err,   b.logg,    b.logg_err,  b.param_m_h,    b.param_m_h_err,     b.param_alpha_m, b.param_alpha_m_err, c.j, c.h, c.k, c.j_err, c.h_err,   c.k_err,");
+    	aql.append(" case c.src_4_5      when 'none' then NULL      when 'WISE' then c.wise_4_5      when 'IRAC' then c.irac_4_5      end      as mag_4_5,   case c.src_4_5");
+    	aql.append(" when 'none' then NULL      when 'WISE' then c.wise_4_5_err      when 'IRAC' then c.irac_4_5_err      end      as mag_4_5_err,   c.src_4_5,");
+    	aql.append(" dbo.fApogeeTarget1N(a.apogee_target1) as apogeeTarget1N,   dbo.fApogeeTarget2N(a.apogee_target2) as apogeeTarget2N,");
+    	aql.append(" dbo.fApogeeStarFlagN(a.starflag) as apogeeStarFlagN,   dbo.fApogeeAspcapFlagN(aspcapflag) as apogeeAspcapFlagN  ");
+    	aql.append(" FROM apogeeStar a join aspcapStar b on a.apstar_id = b.apstar_id join apogeeObject c on a.apogee_id = c.apogee_id ");
+    	return aql.toString();
+    }
+
+    public static String apogeevisitsBaseQuery(String id)
+    {
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT visit_id, plate,  mjd, fiberid, dateobs, vrel");
+    	aql.append(" FROM apogeeVisit ");
+    	aql.append(" WHERE apogee_id='"+id+"' ORDER BY dateobs");
+    	return aql.toString();
+    }
+    public static String getAPOGEEID_PlateFiberMjd = " SELECT s.apstar_id"
+    	+"FROM apogeeVisit v JOIN apogeeStar s ON s.apogee_id=v.apogee_id"
+    	+" WHERE v.plate = @plate  and v.mjd = @mjd  and v.fiberID = @fiberID";
+    /**
+     * DR9不支持该查询。
+     * @param qra 赤经
+     * @param qdec 赤纬
+     * @param searchRadius 搜索半径
+     * @return
+    */
+    public static String getApogeeFromEq(double qra, double qdec, double searchRadius)
+    {
+    	StringBuilder aql = new StringBuilder();
+    	String subselect = Functions.fGetNearestApogeeStarEq(qra, qdec, searchRadius);
+    	aql.append(" SELECT top 1 p.apstar_id");
+    	aql.append(" FROM apogeeStar AS p, ("+subselect+") AS n");
+    	aql.append(" WHERE p.apstar_id=n.apstar_id");
+    	return aql.toString();
+    } 
+    public static String getApogee(String apid) {
+//      public static String getApogee = " SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss"
+//      	+"   FROM apogeeStar WHERE apstar_id='@apogeeID'";
+      	StringBuilder aql = new StringBuilder();
+      	aql.append(" SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss");
+      	aql.append("   FROM apogeeStar WHERE apstar_id='"+apid+"'");
+  		return aql.toString();
+  	}
+//      public static String getApogee2 = " SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss"
+//      	+" FROM apogeeStar WHERE apogee_id='@apogeeID'";
+      public static String getApogee2(String apid)
+      {
+      	StringBuilder aql = new StringBuilder();
+      	aql.append(" SELECT apstar_id, ra, dec, apogee_id, glon, glat,location_id,commiss");
+      	aql.append(" FROM apogeeStar WHERE apogee_id='"+apid+"'");
+  		return aql.toString();
+      }
+
+      public static String getPlateFromApogee = "SELECT  top 1   a.ra,    a.dec,   a.apstar_id,    a.apogee_id, v.plate,v.fiberID,v.mjd" 
+      	+" FROM apogeeStar a join apogeeVisit v on a.apogee_id=v.apogee_id "
+      	+"  WHERE a.apstar_id = '@apogeeID'";
 
 	
 

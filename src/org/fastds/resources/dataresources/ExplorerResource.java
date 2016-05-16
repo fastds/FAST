@@ -442,9 +442,9 @@ public class ExplorerResource {
      * ra,dec:赤经、赤纬 				<br/>
      * run:
      * rerun:
-     * camcol:
-     * field:
-     * fieldID:
+     * camcol: 相机阵列
+     * field: 
+     * fieldID: 
      * objID:光度测量对象的id		<br/>
      * specObjID:光谱测量对象id		<br/>
      * @param id 光度测量对象的id	<br/>

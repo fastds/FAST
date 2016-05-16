@@ -71,7 +71,6 @@ public class ExplorerDao {
 		}
 		return apid;
 	}
-
 	public PhotoTag getPhotoTag(long id) {
 		String[] aqls = ExplorerQueries.getPmtsFromPhoto(id);
 		System.out.println("ExplorerDao.getPhotoTag-->aql:"+Arrays.toString(aqls));
