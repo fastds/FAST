@@ -29,7 +29,7 @@ public class MetaDataControl {
     private void executeQuery()
     {
         Map<String,Object> params = null;
-        params = explorerService.findParamsFromTables(master.objID);
+        params = explorerService.findAttrsFromPhotoAndSpec(master.objID);
         if(params !=null && params.size()!=0)
         {
         	ra = (Double)params.get("ra");

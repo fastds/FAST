@@ -935,7 +935,7 @@ public class ExplorerDao {
 		return attrs;
 	}
 
-	public Map<String, Object> getParamsFromTables(String objID) {
+	public Map<String, Object> getAttrsFromPhotoAndSpec(String objID) {
 		String aql = ExplorerQueries.getObjParamaters(objID);
 		System.out.println("ExplorerDao.getParamsFromTables-->aql:"+aql);
 		ResultSet rs = null;

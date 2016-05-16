@@ -95,8 +95,8 @@ public class ExplorerService {
 		return dao.getAttrsFromTWOMASS(objID);
 	}
 
-	public Map<String, Object> findParamsFromTables(String objID) {
-		return dao.getParamsFromTables(objID);
+	public Map<String, Object> findAttrsFromPhotoAndSpec(String objID) {
+		return dao.getAttrsFromPhotoAndSpec(objID);
 	}
 
 	public Map<String, Object> findAttrsFromSpecObjAllAndPlateX(String objID,
