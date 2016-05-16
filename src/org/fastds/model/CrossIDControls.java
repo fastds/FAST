@@ -170,7 +170,7 @@ private ExplorerService explorerService = new ExplorerService();
     private void execQuery() { 
         
         //USNO Query
-        Map<String,Object> attrs = explorerService.findAttrsFromUSNOByID(objID);
+        Map<String,Object> attrs = explorerService.findAttrsFromUSNO(objID);
          if (attrs != null && attrs.size()!=0)
          {
             isUSNO = true;

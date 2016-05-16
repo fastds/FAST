@@ -369,7 +369,7 @@ public class ExplorerResource {
      */
     private void pmtsFromEq(double qra, double qdec)
     {
-       Map<String,Long> ids = explorerService.fillObjectInfo(qra, qdec);
+       Map<String,Long> ids = explorerService.findIDsByEq(qra, qdec);
        Long objID = ids.get("objID");
        Long specObjID = ids.get("specObjID");
        if(ids!=null && ids.size()>0)

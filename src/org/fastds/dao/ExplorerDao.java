@@ -26,7 +26,7 @@ public class ExplorerDao {
 	 * @return 返回给定坐标一定范围内(radius=0.5*60)objID、specObjID，<br/>
 	 * 			以<列名，ID>对为元素的map作为返回结果
 	 */
-	public Map<String,Long> getObjIDAndSpecObjIDByCoord(double qra, double qdec) {
+	public Map<String,Long> getObjIDAndSpecObjIDByEq(double qra, double qdec) {
 		double searchRadius = 0.5 / 60;
         String aql = ExplorerQueries.getPmtsFromEq(qra,qdec,searchRadius);
         System.out.println("ExplorerDao.getObjIDAndSpecObjIDByCoord-->aql:"+aql);

@@ -11,10 +11,15 @@ import edu.gzu.domain.PhotoTag;
 
 public class ExplorerService {
 	private ExplorerDao dao = new ExplorerDao();
-
-	public Map<String,Long> fillObjectInfo(double qra, double qdec) {
+	/**
+	 * 根据天球坐标获取距离最近天体的objID、specObjID
+	 * @param qra 赤经
+	 * @param qdec 赤纬
+	 * @return
+	 */
+	public Map<String,Long> findIDsByEq(double qra, double qdec) {
 		
-		return dao.getObjIDAndSpecObjIDByCoord(qra,qdec);
+		return dao.getObjIDAndSpecObjIDByEq(qra,qdec);
 	}
 
 	public long findApid(double qra, double qdec, double searchRadius) {
@@ -66,7 +71,7 @@ public class ExplorerService {
 		return dao.getApogeeByAql(command);
 	}
 
-	public Map<String, Object> findAttrsFromUSNOByID(String objID) {
+	public Map<String, Object> findAttrsFromUSNO(String objID) {
 		return dao.getAttrsFromUSNOByID(objID);
 	}
 
