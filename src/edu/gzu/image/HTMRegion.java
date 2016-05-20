@@ -119,14 +119,14 @@ class V3
 		return w;
 	}
 
-	/// <summary>
-	/// ToEq. Calculate the Equatorial point corresponding to 
-	/// a Cartesian normal vector (x,y,z).
-	/// </summary>
-	/// <param name="x_">Cartesian x</param>
-	/// <param name="y_">Cartesian y</param>
-	/// <param name="z_">Cartesian z</param>
-	/// <returns>Array of 2 doubles, a 2-vector</returns>
+	
+	/**
+	 * ToEq. Calculate the Equatorial point corresponding to  a Cartesian normal vector (x,y,z).
+	 *r[0]:Cartesian x
+	 *r[1]:Cartesian y
+	 *r[2]:Cartesian z
+	 * @return Array of 2 doubles, a 2-vector
+	 */
 	public static PointEq ToEq(double[] r)
 	{
 		double _dec	= Math.asin(r[2]) / D2R;
