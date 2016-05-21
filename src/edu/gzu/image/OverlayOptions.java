@@ -57,7 +57,6 @@ public class OverlayOptions
             try {
 				showException("getFields()", "", e);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         }

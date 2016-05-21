@@ -397,9 +397,16 @@ Coord coord = null;	// coord of current tile
 			    	   System.out.println("img string length："+img.length());
 			    	   BufferedImage tile = ImageIO.read(is);
 			    	   System.out.println("tile="+tile);
-						
+						int i = 0;
 			           if (tile != null)
+			           {
 			               canvas.drawFrame(coord, tile);
+			               if(i<3)
+			               {
+			            	   canvas.drawField(coord);
+			            	   i++;
+			               }
+			           }
 			       }
 				   rs.next();
 			   }
