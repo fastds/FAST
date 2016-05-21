@@ -761,7 +761,7 @@ class Pen
 				ArrayList<Line> l = polyFunk.getPoly(newSpan);
 				System.out.println("poly size:"+l.size());
 				gc.setColor(outlinePen.getColor());
-				for(int i=0; i < l.size()/1.3;  i++)
+				for(int i=0; i < l.size()/1.1;  i++)
 				{
 //	zoe				gc.drawLine(outlinePen,((Line)l.get(i)).p1,((Line)l.get(i)).p2);						
 					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
