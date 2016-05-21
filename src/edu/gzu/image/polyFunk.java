@@ -2,7 +2,6 @@ package edu.gzu.image;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Objects;
 
 class polyFunk {
 
