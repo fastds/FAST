@@ -128,13 +128,13 @@ class polyFunk {
                     {
                         Point p1 = new Point((int)current.p2.getX() + rightChunk,(int) current.p1.getY());
                         Point p2 = new Point((int)current.p2.getX(),(int) current.p1.getY());
-                        if (!Objects.equals(p1, p2)) lines.add(new Line(p1, p2));
+                        if (!equal(p1, p2)) lines.add(new Line(p1, p2));
                     }
                     if (rightChunk > 0)			//right piece of compare
                     {
                         Point p1 = new Point((int)current.p2.getX(),(int) compare.p1.getY());
                         Point p2 = new Point((int)current.p2.getX() + rightChunk, (int)compare.p1.getY());
-                        if (!Objects.equals(p1, p2)) lines.add(new Line(p1, p2));
+                        if (!equal(p1, p2)) lines.add(new Line(p1, p2));
                     }
                     //Console.WriteLine("\t***");
                     //dumpSegments(lines);
