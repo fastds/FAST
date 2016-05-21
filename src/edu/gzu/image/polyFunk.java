@@ -20,7 +20,6 @@ class polyFunk {
      */
     public static ArrayList<Line> getPoly(String spans)
     {
-        // if(1==1)return getAll(spans);
         ArrayList<Line> hSegments = new ArrayList<Line>();
         ArrayList<Line> vSegments = new ArrayList<Line>();
         loadLines(spans, /*ref*/ hSegments, /*ref*/ vSegments);
@@ -170,7 +169,7 @@ class polyFunk {
     }
     /**
      * sorts line segments, highest to lowest.  pass X or Y to specify axis
-     * 将线段从高到低排序，通过X Y指定轴
+     * 将线段从高到低排序，通过指定X Y轴
      */
     private static Tuple lineSort2(/*ref*/ ArrayList<Line> segments, int compareBy)
     {
