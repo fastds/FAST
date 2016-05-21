@@ -761,12 +761,16 @@ class Pen
 				ArrayList<Line> l = polyFunk.getPoly(newSpan);
 				System.out.println("poly size:"+l.size());
 				gc.setColor(outlinePen.getColor());
-				for(int i=0; i < l.size()/1.2;  i++)
+				Polygon po = new Polygon();
+				for(int i=0; i < l.size();  i++)
 				{
 //	zoe				gc.drawLine(outlinePen,((Line)l.get(i)).p1,((Line)l.get(i)).p2);						
-					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
+//					gc.drawLine(l.get(i).p1.x, l.get(i).p1.y, l.get(i).p2.x, l.get(i).p2.y);
+					po.addPoint(l.get(i).p1.x, l.get(i).p1.y);
+					po.addPoint(l.get(i).p2.x, l.get(i).p2.y);
 					System.out.println("line:"+l.get(i).p1.x+","+ l.get(i).p1.y+","+ l.get(i).p2.x+","+l.get(i).p2.y);
-				}					
+				}			
+				gc.drawPolygon(po);
 			}
 			catch(Exception e) {
 				System.out.println("Exception in drawOutline " + newSpan);
