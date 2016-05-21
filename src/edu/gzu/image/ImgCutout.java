@@ -346,7 +346,7 @@ Coord coord = null;	// coord of current tile
 	
 		try
 		{
-			   String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius-8.4, zoom10x);
+			   String sql = Functions.fGetNearbyFrameEq(ra, dec, fradius, zoom10x);
 			   ExQuery exQuery = new ExQuery();
 			   System.out.println("ImgCutout.getFrame()--->sql:"+sql);
 			   rs = exQuery.aqlQuery(sql);
