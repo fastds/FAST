@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.imageio.ImageReader;
 import javax.imageio.stream.MemoryCacheImageInputStream;
@@ -18,8 +19,10 @@ import org.scidb.jdbc.IStatementWrapper;
 
 import com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi;
 
+import edu.gzu.image.Functions;
 import edu.gzu.image.Hex2Image;
 import edu.gzu.image.ImgCutout;
+import edu.gzu.image.sphericalhtm.Pair;
 
 
 public class ImageTest {
@@ -116,4 +119,5 @@ public class ImageTest {
 		}
 		
 	}
+	
 }

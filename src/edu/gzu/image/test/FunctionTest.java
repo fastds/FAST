@@ -2,9 +2,12 @@ package edu.gzu.image.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import edu.gzu.image.Functions;
+import edu.gzu.image.sphericalhtm.Pair;
 
 public class FunctionTest {
 	@Test
@@ -45,6 +48,19 @@ public class FunctionTest {
 		System.out.println(Functions.fIAUFromEq(ra, dec));
 		assertEquals("testFIAUFromEq测试不通过", "SDSS J035002.13+000359.6", Functions.fIAUFromEq(ra, dec));
 	}
-	
+	@Test
+	public void test()
+	{
+		double nx=0.5371682317808762;
+		double ny = 0.8434743275522294;
+		double nz = 0.0011616908888386443;
+		double radius = 13.166842132769187;
+		List<Pair> list = Functions.htmCoverCircleXyz(nx,ny,nz,radius);
+		System.out.println("listSize:"+list.size());
+		for(Pair p : list)
+		{
+			System.out.println(p.getLo()+","+p.getHi());
+		}
+	}
 
 }
