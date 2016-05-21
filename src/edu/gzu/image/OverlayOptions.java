@@ -47,8 +47,10 @@ public class OverlayOptions
     	System.out.println("ctable size:"+cTable.size());
         try
         {
+        	int num = 0;
             for (Long key: cTable.keySet())
             {
+            	if(num++<8)
                 canvas.drawField((Coord)cTable.get(key));
             }
         }
