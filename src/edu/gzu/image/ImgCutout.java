@@ -358,7 +358,8 @@ Coord coord = null;	// coord of current tile
 //				   canvas.addDebugMessage("Requested (ra, dec) is outside the SDSS footprint. \n");
 //				   canvas.drawDebugMessage(width, height);
 			   }
-			   while(!rs.isAfterLast())
+			   int i = 0;
+			   while(!rs.isAfterLast()&&(i++)<5)
 			   {
 				   String img = rs.getString("img");
 				   double a = rs.getFloat("a");
