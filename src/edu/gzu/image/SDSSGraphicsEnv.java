@@ -370,13 +370,12 @@ class Pen
 			gc.transform(coord.m) ;
 //zoe		gc.DrawLines(fieldPen, new Point2D[] {p[0],p[1],p[2],p[3],p[0]});
 			gc.setColor(fieldPen.getColor());
-			Polygon poly = new Polygon();
-			for(int i =0;i < p.length; i++)
-			{
-				poly.addPoint((int)p[i].getX(),(int) p[i].getY());
-			}
 			
-			gc.draw(poly);
+			gc.drawLine((int)p[0].getX(), (int) p[0].getY(), (int)p[1].getX(),(int) p[1].getY());
+			gc.drawLine((int)p[1].getX(), (int) p[1].getY(), (int)p[2].getX(),(int) p[2].getY());
+			gc.drawLine((int)p[2].getX(), (int) p[2].getY(), (int)p[3].getX(),(int) p[3].getY());
+			gc.drawLine((int)p[3].getX(), (int) p[3].getY(), (int)p[0].getX(),(int) p[0].getY());
+			
 			gc.setTransform(beforeTS);//重置为之前的单位矩阵
 			if (debug)
 			{
