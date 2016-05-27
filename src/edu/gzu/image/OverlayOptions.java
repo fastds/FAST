@@ -12,6 +12,7 @@ import org.fastds.dao.ExplorerDao;
 import org.fastds.service.ExplorerService;
 
 import edu.gzu.domain.Obj;
+import edu.gzu.image.sphericalhtm.Pair;
 
 public class OverlayOptions
 {
@@ -341,8 +342,29 @@ public class OverlayOptions
 	   }
     }
    public static void main(String[] args) {
-	//16,337.082,-0.945,28.68265860209495+89.4,1
-	   Functions.fGetObjectsEq(16,337.082,-0.945,118.08265860209495,0);
+	   /**
+	    * HtmIDStart           HtmIDEnd
+			-------------------- --------------------
+			8796093022208        8796093087743
+			8796093239296        8796093243391
+			8796093259776        8796093263871
+			8796093267968        8796093272063
+			12644383719424       12644383784959
+			12644383936512       12644383940607
+			12644383956992       12644383961087
+			12644383965184       12644383969279
+			13194139533312       13194139598847
+			13194139750400       13194139754495
+			13194139770880       13194139774975
+			13194139779072       13194139783167
+			17042430230528       17042430296063
+			17042430447616       17042430451711
+			17042430468096       17042430472191
+			17042430476288       17042430480383
+				    */
+	  List<Pair> list = Functions.htmCoverCircleXyz(1, 0, 0, 1);
+	  for(Pair p :list)
+		  System.out.println(p.getLo()+","+p.getHi());
 }
 
 }

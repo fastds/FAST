@@ -1042,7 +1042,7 @@ class Pen
               g[i] = proj.EqToScreen(fc.ra, fc.dec, 0.0F);  
 			}
 			// build up the terms for solving the best fit affine transformation
-			//建立求解最佳拟合仿射变换的项
+			//建立求解仿射变换参数的多项式拟合项
 			float qu=0, qv=0, qux=0, quy=0, qvx=0, qvy=0, 
 				  qx=0, qy=0, qxx=0, qyy=0, qxy=0;
 

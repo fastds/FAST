@@ -277,7 +277,7 @@ import org.fastds.dao.ExQuery;
               if (drawTargetObjs) oflag |= SdssConstants.tflag;
               //为canvas 初始化切面投影成员对象
               canvas.InitializeProjection(ra, dec, "TAN"); ///TAN or STR     
-//              canvas.GetViewPort();  ？？？？？？？什么用处？
+              canvas.GetViewPort();  
 
               imgfield = imgfield_;
 
