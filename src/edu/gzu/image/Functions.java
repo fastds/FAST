@@ -1235,32 +1235,6 @@ aijklmnef
 	 * @param filter
 	 */
 	public static String fGetUrlFitsCFrame(String fieldID, String filter) {
-		/*
-		 * DECLARE @link varchar(256), @run varchar(8), @rerun varchar(8),
-		@camcol varchar(8), @field varchar(8), @run6 varchar(10),
-		@dbType varchar(32), @release varchar(8);
-	SET @link = (select value from SiteConstants where name='DataServerURL');
-	SET @release = (select value from SiteConstants where name='Release');
-	SET @dbType = (select value from SiteConstants where name='DB Type');
-	--SET @link = @link + 'imaging/';
-	SET @link = @link + 'sas/dr' + @release + '/boss/photoObj/frames/';
-	SELECT  @run = cast(run as varchar(8)), @rerun=cast(rerun as varchar(8)), 
-		@camcol=cast(camcol as varchar(8)), @field=cast(field as varchar(8))
-	    FROM Field
-	    WHERE fieldId=@fieldId;
-	IF (@dbType LIKE 'Stripe 82%') AND @run IN ('106','206')
-	    BEGIN
-	    	-- kludge for coadd runs, which were changed for CAS since the
-	    	-- run numbers did not fit in 16 bits (smallint)
-	    	SET @run6 = substring(@run,1,1) + '000' + substring(@run,2,2);
-		SET @run = @run6;
-	    END
-	ELSE
-	    SET @run6   = substring('000000',1,6-len(@run)) + @run;
-	SET @field = substring('0000',1,4-len(@field)) + @field;
-	--RETURN 	 @link + @run + '/' + @rerun + '/corr/'+@camcol+'/fpC-'+@run6+'-'+@filter+@camcol+'-'+@field+'.fit.gz';
-	RETURN 	 @link + @rerun + '/' + @run + '/' +@camcol+'/frame-'+@filter+'-'+@run6+'-'+@camcol+'-'+@field+'.fits.bz2';
-		 */
 		String link = "http://dr12.sdss3.org/";
 	    String release = "9";
 	    String dbType = "DR9 FASTDB";
