@@ -1260,8 +1260,8 @@ aijklmnef
 			e.printStackTrace();
 		}
 	    
-	    run6 = "000000".substring(1, 6-run.length())+run;
-	    field = "0000".substring(1, 4-field.length())+field;
+	    run6 = "000000".substring(0, 6-run.length())+run;
+	    field = "0000".substring(0, 4-field.length())+field;
 		return link + rerun + "/" + run + "/" +camcol+"/frame-"+filter+'-'+run6+'-'+camcol+'-'+field+".fits.bz2";
 	}
 	/**
@@ -1304,8 +1304,8 @@ aijklmnef
 			e.printStackTrace();
 		}
 	    
-	    run6 = "000000".substring(1, 6-run.length())+run;
-	    field = "0000".substring(1, 4-field.length())+field;
+	    run6 = "000000".substring(0, 6-run.length())+run;
+	    field = "0000".substring(0, 4-field.length())+field;
 		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpBIN-"+run6+'-'+filter+camcol+'-'+field+".fits.bz2";
 	}
 	/**
@@ -1349,8 +1349,8 @@ aijklmnef
 			e.printStackTrace();
 		}
 	    
-	    run6 = "000000".substring(1, 6-run.length())+run;
-	    field = "0000".substring(1, 4-field.length())+field;
+	    run6 = "000000".substring(0, 6-run.length())+run;
+	    field = "0000".substring(0, 4-field.length())+field;
 		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpM-"+run6+'-'+filter+camcol+'-'+field+".fits.gz";
 	}
 	/**
@@ -1391,8 +1391,8 @@ aijklmnef
 			e.printStackTrace();
 		}
 	    
-	    run6 = "000000".substring(1, 6-run.length())+run;
-	    field = "0000".substring(1, 4-field.length())+field;
+	    run6 = "000000".substring(0, 6-run.length())+run;
+	    field = "0000".substring(0, 4-field.length())+field;
 		return link + rerun + "/" + run + "/objcs/" +camcol+"/fpAtlas-"+run6+'-'+camcol+'-'+field+".fits";
 	}
 	/**
@@ -1444,7 +1444,7 @@ aijklmnef
 	     link = link + "inchunk_best/";
 	    else
 	     link = link + run + "/" + camcol + "/";
-	    field = "0000".substring(1,4-field.length()) + field;
+	    field = "0000".substring(0,4-field.length()) + field;
 		if ("15".equals(skyVersion))
 	     link = link + rerun + "/calibChunks/";
 	    return  link+"photoObj-"+run6+"-"+camcol+"-"+field+".fits";
