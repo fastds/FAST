@@ -235,7 +235,7 @@ public class ExplorerDao {
 		Map<String,Object> attrs = new HashMap<String,Object>();
 		 try {
 			rs = exQuery.aqlQuery(aql.toString());
-			if(!rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				double ra = rs.getDouble("ra");
 				double dec = rs.getDouble("dec");

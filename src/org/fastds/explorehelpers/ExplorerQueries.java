@@ -1,5 +1,8 @@
 package org.fastds.explorehelpers;
 
+import java.sql.SQLException;
+
+import org.fastds.dao.ExQuery;
 import org.fastds.model.View;
 import org.junit.Test;
 
@@ -638,10 +641,11 @@ public class ExplorerQueries {
 //    	+" WHERE s.specObjID= @sid";
     	  
     	  StringBuilder aql = new StringBuilder();
-    	  aql.append(" SELECT p.ra, p.dec,p.fieldID,s.specObjID ,p.objID,");
-    	  aql.append(" s.plateID , s.mjd, s.fiberID, q.plate ");
-    	  aql.append(" FROM (SELECT plateID, mjd, fiberID, specObjID, bestObjID, plateID ");
-    	  aql.append(" FROM SpecObjAll WHERE specObjID="+sid+") AS s JOIN ("+View.getPhotoTag()+") AS p ON s.bestObjID=p.objID JOIN PlateX AS q ON s.plateID=q.plateID");
+    	  aql.append(" SELECT s.ra,s.dec,fieldID,s.specObjID,s.objID,s.plateID,s.mjd,s.fiberID,q.plate ");
+    	  aql.append(" FROM (SELECT * ");
+    	  aql.append(" FROM (SELECT specObjID, plateID, mjd, fiberID, bestObjID FROM SpecObjAll WHERE specObjID="+sid+") AS s");
+    	  aql.append(" JOIN (SELECT ra, dec, fieldID, objID FROM PhotoObjAll) AS p ON s.bestObjID=p.objID) AS s ");
+    	  aql.append(" JOIN PlateX AS q ON s.plateID=q.plateID");
     	  return aql.toString();
       }
 
