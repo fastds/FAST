@@ -78,7 +78,8 @@ public class ObjectExplorer {
      */
    private void buildURLs() {
 	   // common query to explorer
-       String allID ="id="+id + "&spec=" + specID + "&apid=" + apid+"&field="+fieldID;
+// DR9 不支持apid      String allID ="id="+id + "&spec=" + specID + "&apid=" + apid+"&field="+fieldID;
+       String allID ="id="+id + "&spec=" + specID +"&field="+fieldID;
 
        
        // id is the decimal representation; objID is the hex representation.

@@ -1,7 +1,9 @@
 package test;
 
 import java.io.IOException;
+import java.sql.Connection;
 
+import org.fastds.dbutil.DBConnection;
 import org.junit.Test;
 
 import com.github.dockerjava.api.DockerClient;
@@ -32,5 +34,10 @@ public class test {
 				.withPortBindings(portBindings).exec();
 		docker.startContainerCmd(container.getId()).exec();
 		docker.close();
+	}
+	@Test
+	public void db() throws IOException {
+		Connection con = DBConnection.getConnection("192.168.221.131");
+		System.out.println(con);
 	}
 }

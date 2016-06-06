@@ -16,8 +16,8 @@ public class DBConnection {
 		} catch (ClassNotFoundException e3) {
 			e3.printStackTrace();
 		}
-		try {//192.168.11.139
-			conn = DriverManager.getConnection("jdbc:scidb://192.168.100.111:1239/");
+		try {//192.168.100.111:1239
+			conn = DriverManager.getConnection("jdbc:scidb://192.168.221.131:1239/");
 		} catch (SQLException e) {
 
 			e.printStackTrace();

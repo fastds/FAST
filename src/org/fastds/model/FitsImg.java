@@ -10,9 +10,9 @@ public class FitsImg {
 
 	 protected String fieldID;
      ExplorerService explorerService = new ExplorerService();
-     public FitsImg()
+     public FitsImg(ObjectExplorer master)
      {
-    	 globals = new Globals();
+    	 globals = master.getGlobals();
      }
 //     protected void Page_Load()
 //     {

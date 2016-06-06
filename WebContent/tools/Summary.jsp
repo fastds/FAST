@@ -13,11 +13,9 @@
 
 	<link href="../css/tools.css" rel="stylesheet" type="text/css" />
 	<link href="../css/alerts.css" rel="stylesheet" type="text/css" />
-	
 	<title>
 		Object Explorer
 	</title>
-	
     <script src="../js/jquery-1.7.1.js"></script>
     <script type="text/javascript" src="../js/master.js"> </script>
     <script type="text/javascript" src="../js/explore.js"></script>
@@ -28,8 +26,8 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
-		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/planet.jpg" border=0 width="40" height="50"></a></td>
+		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;DR9</td>
 	</tr>
    </table>
    <div id="search" style="display:none;">
@@ -65,7 +63,7 @@
 	        <c:if test="${not empty master.id }">
 	        	<tr><td align="left"><a class="med" href='${master.hrefs.summary}#imaging' title="Parameters for Imaging Observations.">Imaging Summary</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.FITS}" title="Get FITS images of the SDSS fields containing this object.">FITS</a></td></tr>
-                <tr><td class="s" align="right"><a onclick="${master.hrefs.chart}" title="Link to Finding Chart for this object.">Finding chart<img src="../../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
+                <tr><td class="s" align="right"><a onclick="${master.hrefs.chart}" title="Link to Finding Chart for this object.">Finding chart<img src="../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.matches}" title="Find other imaging observations for this object in the Match table.">Other Observations</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.neighbors}" title="The nearest neighbors of this object within a predetermined radius.">Neighbors</a></td></tr>
                 <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.galaxyzoo}" title="Morphological classifications from Galaxy Zoo users">Galaxy Zoo</a></td></tr>
@@ -107,12 +105,14 @@
 	            </c:if>  <!--  if (specId != null) -->
 	            <tr><td align="right"><hr width="90"/></td></tr>
 	        </c:if>
+	        <!-- DR9不支持
         	<c:if test="${not empty master.apid }">
         		<tr><td align="left"><a class="med" href='${master.hrefs.summary}#irspec' title="Summary of infrared spectroscopy">IR Spec Summary</a></td></tr>                      
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.apogeeStar}" title="'Display contents of ApogeeStar table">ApogeeStar</a></td></tr> 
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.aspcapStar}" title="'Display contents of ASPCAPstar table">ASPCAPstar</a></td></tr>
 	              <tr><td align="right"><hr width="90"/></td></tr>
         	</c:if>
+        	 -->
 	        <!--If the ID is a string, then it's an APOGEE object, print these also.  -->  
 	
 	
@@ -120,11 +120,12 @@
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.SIMBAD}' title="SIMBAD search results for this RA,dec."> SIMBAD search</a></td></tr>
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.ADS}' title="Astrophysical Data System literature search results for this RA,dec."> ADS search</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
+	     <!--  
 	     <tr><td><a class="med" href='${master.hrefs.showBook}' title="Save and view notepad data on Explore objects.">Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.saveBook}' title="Save this object in notepad."> Save in Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.showBook}' title="View your saved notes, if any.">Show Notes</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
-	     <tr><td><a class="med" href=# onclick="${master.hrefs.print}"> Print </a></td></tr>
+	     <tr><td><a class="med" href=# onclick="${master.hrefs.print}"> Print </a></td></tr>-->
 	    </table>
 		</div>
      
@@ -136,6 +137,13 @@
  		<%@ include file="CrossIDControl.jsp" %>
  		<%@ include file="SpectralControl.jsp" %>
  		<%@ include file="ApogeeControl.jsp" %>  --%>
+ 		<c:if test="${not empty error}">
+ 		<table class="table table-bordered table-striped">
+			<tbody>
+			${not empty error}
+			</tbody>
+		</table>
+ 		</c:if>
  		<c:choose>
 		<c:when test="${not empty master.objID}">
 			<div id="metadata">

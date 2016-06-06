@@ -1245,11 +1245,12 @@ aijklmnef
 	    String run6 = "";
 	    link += "sas/dr12/boss/photoObj/frames/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
+	    System.out.println("Functions.fGetUrlFitsCFrame-->aql:"+aql);
 	    ExQuery ex = new ExQuery();
 	    try {
 			ResultSet rs = ex.aqlQuery(aql);
 			
-			if(rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				run = rs.getLong("run")+"";
 				rerun = rs.getLong("rerun")+"";
@@ -1293,7 +1294,7 @@ aijklmnef
 	    try {
 			ResultSet rs = ex.aqlQuery(aql);
 			
-			if(rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				run = rs.getLong("run")+"";
 				rerun = rs.getLong("rerun")+"";
@@ -1338,7 +1339,7 @@ aijklmnef
 	    try {
 			ResultSet rs = ex.aqlQuery(aql);
 			
-			if(rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				run = rs.getLong("run")+"";
 				rerun = rs.getLong("rerun")+"";
@@ -1373,14 +1374,14 @@ aijklmnef
 	    String camcol = "";
 	    String field = "";
 	    String run6 = "";
-	    link += "sas/dr9/boss/photo/redux/";
+	    link += "sas/dr12/boss/photo/redux/";
 	    String aql = "SELECT run, rerun, camcol, field FROM Field WHERE fieldID="+fieldID;
 	    
 	    ExQuery ex = new ExQuery();
 	    try {
 			ResultSet rs = ex.aqlQuery(aql);
 			
-			if(rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				run = rs.getLong("run")+"";
 				rerun = rs.getLong("rerun")+"";
@@ -1418,13 +1419,13 @@ aijklmnef
 	    String run6 = "";
 	    String skyVersion = fSkyVersion(fieldID)+"";
 	    String stripe = null;
-	    link += "sas/dr9/boss/photoObj/";
-	    String aql = "SELECT f.run, f.rerun, s.stripe, f.camcol, f.field FROM Field AS f, Run AS s WHERE f.fieldID="+fieldID +" AND s.run=f.run";
+	    link += "sas/dr12/boss/photoObj/";
+	    String aql = "SELECT f.run, f.rerun, s.stripe, f.camcol, f.field FROM Field AS f JOIN Run AS s ON s.run=f.run WHERE f.fieldID="+fieldID;
 	    ExQuery ex = new ExQuery();
 	    try {
 			ResultSet rs = ex.aqlQuery(aql);
 			
-			if(rs.isAfterLast())
+			if(rs!=null && !rs.isAfterLast())
 			{
 				run = rs.getLong("run")+"";
 				rerun = rs.getLong("rerun")+"";

@@ -155,7 +155,7 @@ function resolveCoords() {
 }
 
 function press_ok(kind) {
-    var windowPage = "summary";
+    var windowPage = "Summary";
     var f = (document.layers) ? document.ctrl.document.forms[0] : document.forms[0];
     switch (kind) {
         case 'name':

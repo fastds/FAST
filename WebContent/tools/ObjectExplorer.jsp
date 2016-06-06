@@ -10,7 +10,7 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/planet.jpg" border=0 width="40" height="50"></a></td>
 		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
 	</tr>
    </table>

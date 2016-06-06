@@ -26,7 +26,7 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/planet.jpg" border=0 width="40" height="50"></a></td>
 		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
 	</tr>
    </table>
@@ -105,12 +105,14 @@
 	            </c:if>  <!--  if (specId != null) -->
 	            <tr><td align="right"><hr width="90"/></td></tr>
 	        </c:if>
+	        <!-- DR9不支持
         	<c:if test="${not empty master.apid }">
         		<tr><td align="left"><a class="med" href='${master.hrefs.summary}#irspec' title="Summary of infrared spectroscopy">IR Spec Summary</a></td></tr>                      
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.apogeeStar}" title="'Display contents of ApogeeStar table">ApogeeStar</a></td></tr> 
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.aspcapStar}" title="'Display contents of ASPCAPstar table">ASPCAPstar</a></td></tr>
 	              <tr><td align="right"><hr width="90"/></td></tr>
         	</c:if>
+        	 -->
 	        <!--If the ID is a string, then it's an APOGEE object, print these also.  -->  
 	
 	
@@ -118,11 +120,13 @@
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.SIMBAD}' title="SIMBAD search results for this RA,dec."> SIMBAD search</a></td></tr>
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.ADS}' title="Astrophysical Data System literature search results for this RA,dec."> ADS search</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
+	     <!-- 
 	     <tr><td><a class="med" href='${master.hrefs.showBook}' title="Save and view notepad data on Explore objects.">Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.saveBook}' title="Save this object in notepad."> Save in Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.showBook}' title="View your saved notes, if any.">Show Notes</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
 	     <tr><td><a class="med" href=# onclick="${master.hrefs.print}"> Print </a></td></tr>
+	      -->
 	    </table>
 		</div>
      

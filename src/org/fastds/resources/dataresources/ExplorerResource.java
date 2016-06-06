@@ -28,6 +28,7 @@ import org.fastds.model.Matches;
 import org.fastds.model.MetaDataControl;
 import org.fastds.model.Neighbors;
 import org.fastds.model.ObjectExplorer;
+import org.fastds.model.Parameters;
 import org.fastds.model.Plate;
 import org.fastds.model.SpectralControl;
 import org.fastds.service.ExplorerService;
@@ -91,19 +92,19 @@ public class ExplorerResource {
 		}
 		if(spec != null)
 			sidstring = (spec.isEmpty()) ? spec : Utilities.ParseId(spec).toString();
-		try {
-				if(qapid !=null && !qapid.isEmpty())
-				{
-					String s = null;
-					s = URLEncoder.encode(qapid,"UTF-8");
-		            if (qapid != null & !"".equals(qapid))
-		            {
-		                    this.apid = s;
-		            } 
-				}
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+//		try {DR9不支持该操作
+//				if(qapid !=null && !qapid.isEmpty())
+//				{
+//					String s = null;
+//					s = URLEncoder.encode(qapid,"UTF-8");
+//		            if (qapid != null & !"".equals(qapid))
+//		            {
+//		                    this.apid = s;
+//		            } 
+//				}
+//			} catch (UnsupportedEncodingException e) {
+//				e.printStackTrace();
+//			}
 		if(ra != null && !ra.isEmpty()) qra = Utilities.parseRA(ra); 	  // need to parse J2000
         if(dec != null && !dec.isEmpty()) qdec = Utilities.parseDec(dec); // need to parse J2000
         if(plate != null && !plate.isEmpty()) this.plate = Short.parseShort(plate);
@@ -140,7 +141,13 @@ public class ExplorerResource {
 	@GET
 	@Path("AllSpec")
 	public Viewable getAllSpec(@QueryParam("id") String id) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("timeout", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		AllSpec allSpec = new AllSpec(master);
 		allSpec.setObjID(id);
 		allSpec.executeQuery();
@@ -154,7 +161,13 @@ public class ExplorerResource {
 			,@QueryParam("apid") String apid,@QueryParam("spec") String spec
 			,@QueryParam("field") String field,@QueryParam("cmd") String cmd
 			,@QueryParam("name") String name,@QueryParam("url") String url) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		DisplayResults displayResults = new DisplayResults(master);
 		
          if(apid != null && !apid.isEmpty())
@@ -197,7 +210,13 @@ public class ExplorerResource {
 	@GET
 	@Path("Plate")
 	public Viewable getPlate(@QueryParam("plateID") String plateID) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		Plate plate = new Plate(master);
 		plate.setPlateID(Utilities.ParseId(plateID));
 		plate.executeQuery();
@@ -209,8 +228,14 @@ public class ExplorerResource {
 	@GET
 	@Path("FitsImg")
 	public Viewable getFitsImg(@QueryParam("field") String fieldID) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
-		FitsImg fitsImg = new FitsImg();
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
+		FitsImg fitsImg = new FitsImg(master);
 		Long id = Utilities.ParseId(fieldID);
 		if(id !=null && id != 0)
 			fitsImg.setHrefsCf(fitsImg.getCFrame(id.longValue()));
@@ -222,7 +247,13 @@ public class ExplorerResource {
 	@GET
 	@Path("FitsSpec")
 	public Viewable getFitsSpec(@QueryParam("sid") String sid) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		FitsSpec fitsSpec = new FitsSpec(master);
 		fitsSpec.setSpecObjID(Utilities.ParseId(sid));
 		fitsSpec.setHrefsSpec(fitsSpec.getFits());
@@ -234,7 +265,13 @@ public class ExplorerResource {
 	@GET
 	@Path("GalaxyZoo")
 	public Viewable getGalaxyZoo(@QueryParam("id") String id) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		GalaxyZoo galaxyZoo = new GalaxyZoo(master);
 		galaxyZoo.setObjID(id);
 		galaxyZoo.executeQuery();
@@ -246,7 +283,13 @@ public class ExplorerResource {
 	@GET
 	@Path("Matches")
 	public Viewable getMatches(@QueryParam("id") String id) {
-		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		ObjectInfo objInfo = (ObjectInfo)request.getSession().getAttribute("objectInfo");
+		if(objInfo==null)
+		{
+			request.setAttribute("error", "the request has timed out…");
+			return new Viewable("/tools/Summary.jsp", null);
+		}
+		ObjectExplorer master = new ObjectExplorer(objInfo);
 		Matches matches = new Matches(master);
 		matches.setObjID(id);
 		matches.executeQueries();
@@ -288,6 +331,31 @@ public class ExplorerResource {
 			e.printStackTrace();
 		}
 	}
+	@GET
+	@Path("Parameters")
+	@Produces("text/plain")
+	public Viewable getParameters(@QueryParam("spec") String spec) {
+		ObjectExplorer master = new ObjectExplorer((ObjectInfo)request.getSession().getAttribute("objectInfo"));
+		Parameters params = new Parameters(master);
+		String qSpecId = spec;
+        try
+        {
+            if (qSpecId != null && !"".equals(qSpecId))
+            {
+                // code changed by Jordan on 2013-3-28 to allow either decimal or hex input
+                params.setSpecId(Utilities.ParseId(qSpecId));
+                //if (qSpecId.StartsWith("0x")) specId = Int64.Parse(qSpecId.SubString(2), NumberStyles.AllowHexSpecifier);
+                //else specId = Int64.Parse(qSpecId);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Could not parse, so leave null
+        }
+
+        params.getQueries();
+        return new Viewable("/tools/Parameters.jsp", null);
+	}
 	/**
 	 * 将十六进制的字符串形式的ID解析为Long类型
 	 * 解析objID、specObjID
@@ -314,8 +382,9 @@ public class ExplorerResource {
     	System.out.println(" apid:"+apid==null);
         if (fiber != null && plate != null) ObjIDFromPlfib(plate, mjd, fiber);
         else if (qra != null && qdec != null) pmtsFromEq(qra, qdec);
+        else if (id != null) pmtsFromPhoto(id);
         else if (specID != null || (sidstring!=null && !sidstring.isEmpty())) pmtsFromSpec(sidstring);
-        else if (id != null && specID == null) pmtsFromPhoto(id);
+//old        else if (id != null && specID == null) pmtsFromPhoto(id);
 //        else if (apid!=null && !apid.isEmpty()) parseApogeeID(apid); DR9不支持该功能
     }
     /**
@@ -337,14 +406,17 @@ public class ExplorerResource {
         	objectInfo.ra = (Double)attrsOne.get("ra");
         	objectInfo.dec = (Double)attrsOne.get("dec");
         }
-
+        
+/*		DR9不支持该操作
         long apid = explorerService.findApid(objectInfo.ra, objectInfo.dec,(0.5 / 60));
         // if we couldn't find that plate/mjd/fiber, maybe it's an APOGEE object
         if (apid != -1)
         {
             objectInfo.apid = apid +"";
         }
-
+*/
+        //added by zoe
+        objectInfo.apid="";
     }
    
    /**

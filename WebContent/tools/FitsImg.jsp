@@ -24,8 +24,8 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
-		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/planet.jpg" border=0 width="40" height="50"></a></td>
+		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;DR9</td>
 	</tr>
    </table>
    <div id="search" style="display:none;">
@@ -61,7 +61,7 @@
 	        <c:if test="${not empty master.id }">
 	        	<tr><td align="left"><a class="med" href='${master.hrefs.summary}#imaging' title="Parameters for Imaging Observations.">Imaging Summary</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.FITS}" title="Get FITS images of the SDSS fields containing this object.">FITS</a></td></tr>
-                <tr><td class="s" align="right"><a href='${master.hrefs.chart}' title="Link to Finding Chart for this object.">Finding chart<img src="../../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
+                <tr><td class="s" align="right"><a href='${master.hrefs.chart}' title="Link to Finding Chart for this object.">Finding chart<img src="../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.matches}" title="Find other imaging observations for this object in the Match table.">Other Observations</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.neighbors}" title="The nearest neighbors of this object within a predetermined radius.">Neighbors</a></td></tr>
                 <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.galaxyzoo}" title="Morphological classifications from Galaxy Zoo users">Galaxy Zoo</a></td></tr>
@@ -103,12 +103,14 @@
 	            </c:if>  <!--  if (specId != null) -->
 	            <tr><td align="right"><hr width="90"/></td></tr>
 	        </c:if>
+	        <!-- DR9不支持
         	<c:if test="${not empty master.apid }">
         		<tr><td align="left"><a class="med" href='${master.hrefs.summary}#irspec' title="Summary of infrared spectroscopy">IR Spec Summary</a></td></tr>                      
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.apogeeStar}" title="'Display contents of ApogeeStar table">ApogeeStar</a></td></tr> 
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.aspcapStar}" title="'Display contents of ASPCAPstar table">ASPCAPstar</a></td></tr>
 	              <tr><td align="right"><hr width="90"/></td></tr>
         	</c:if>
+        	 -->
 	        <!--If the ID is a string, then it's an APOGEE object, print these also.  -->  
 	
 	
@@ -135,7 +137,7 @@
 		        <h2>FITS Images</h2>
 		        <p class="content">The links below allow you to directly download FITS images 
 		        (<a class="content" href="http://fits.gsfc.nasa.gov/" target="_blank">Flexbile Image 
-		        Transport System<img src="../../images/offsite_black.png" alt=" (offsite)" /></a>) 
+		        Transport System<img src="../images/offsite_black.png" alt=" (offsite)" /></a>) 
 		        of the SDSS field that contains this object.</p>
 		
 		        <p class="content">Several different types of FITS files are available from SDSS imaging. 
@@ -146,7 +148,7 @@
 		        <p class="content">Click on one of the filter links below (<i>u/g/r/i/z/all</i>) to 
 		        download a FITS image. The image is compressed as a .bz2 file, which can be uncompressed 
 		        with programs like 
-		        <a href="http://www.bzip.org/" target="offsite" class="content">bzip2<img src="../../images/offsite_black.png" alt=" (offsite)" /></a>. 
+		        <a href="http://www.bzip.org/" target="offsite" class="content">bzip2<img src="../images/offsite_black.png" alt=" (offsite)" /></a>. 
 		        Note that in some older browsers, you may need to right-click (or CTRL-click) on the link 
 		        to download the file.</p>
 		        <% FitsImg fitsImg = ((FitsImg)request.getAttribute("fitsImg")); %>

@@ -22,7 +22,7 @@
   <div>        
     <table border="0" cellspacing="0" cellpadding="2" bgcolor="black">
 	 <tr>
-		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/sdss3_logo.gif" border=0 width="40" height="50"></a></td>
+		<td width="40"><a href="${master.enUrl }" target="_top"><img src="../images/planet.jpg" border=0 width="40" height="50"></a></td>
 		<td class="title" align="left" width="${ master.tabwidth-60 }">&nbsp;&nbsp;${ master.globals.release }</td>
 	</tr>
    </table>
@@ -59,7 +59,7 @@
 	        <c:if test="${not empty master.id }">
 	        	<tr><td align="left"><a class="med" href='${master.hrefs.summary}#imaging' title="Parameters for Imaging Observations.">Imaging Summary</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.FITS}" title="Get FITS images of the SDSS fields containing this object.">FITS</a></td></tr>
-                <tr><td class="s" align="right"><a href='${master.hrefs.chart}' title="Link to Finding Chart for this object.">Finding chart<img src="../../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
+                <tr><td class="s" align="right"><a href='${master.hrefs.chart}' title="Link to Finding Chart for this object.">Finding chart<img src="../images/new_window_black.png" alt=" (new window)" /></a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.matches}" title="Find other imaging observations for this object in the Match table.">Other Observations</a></td></tr>
 	            <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.neighbors}" title="The nearest neighbors of this object within a predetermined radius.">Neighbors</a></td></tr>
                 <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.galaxyzoo}" title="Morphological classifications from Galaxy Zoo users">Galaxy Zoo</a></td></tr>
@@ -101,12 +101,14 @@
 	            </c:if>  <!--  if (specId != null) -->
 	            <tr><td align="right"><hr width="90"/></td></tr>
 	        </c:if>
+	        <!-- DR9不支持
         	<c:if test="${not empty master.apid }">
         		<tr><td align="left"><a class="med" href='${master.hrefs.summary}#irspec' title="Summary of infrared spectroscopy">IR Spec Summary</a></td></tr>                      
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.apogeeStar}" title="'Display contents of ApogeeStar table">ApogeeStar</a></td></tr> 
 	              <tr><td class="s" align="right"><a target="_top" href="${master.hrefs.aspcapStar}" title="'Display contents of ASPCAPstar table">ASPCAPstar</a></td></tr>
 	              <tr><td align="right"><hr width="90"/></td></tr>
         	</c:if>
+        	 -->
 	        <!--If the ID is a string, then it's an APOGEE object, print these also.  -->  
 	
 	
@@ -114,11 +116,13 @@
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.SIMBAD}' title="SIMBAD search results for this RA,dec."> SIMBAD search</a></td></tr>
 	     <tr><td><a class="med" target="_top" href='${master.hrefs.ADS}' title="Astrophysical Data System literature search results for this RA,dec."> ADS search</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
+	     <!-- 
 	     <tr><td><a class="med" href='${master.hrefs.showBook}' title="Save and view notepad data on Explore objects.">Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.saveBook}' title="Save this object in notepad."> Save in Notes</a></td></tr>
 	     <tr><td class="s" align="right" ><a href='${master.hrefs.showBook}' title="View your saved notes, if any.">Show Notes</a></td></tr>
 	     <tr><td align="right"><hr width="90"/></td></tr>
 	     <tr><td><a class="med" href=# onclick="${master.hrefs.print}"> Print </a></td></tr>
+	      -->
 	    </table>
 		</div>
      
@@ -133,16 +137,16 @@
 		
 		    <p class="content">SDSS photometric data also includes morphological classifications of galaxies from the Galaxy Zoo project. More than 200,000 
 		        online volunteer citizen scientists. <a href="http://zoo1.galaxyzoo.org" class="content">Galaxy Zoo 1 
-		        <img src="../../images/offsite_black.png" alt="offiste" /></a> data consists of simple morphological type classification 
+		        <img src="../images/offsite_black.png" alt="offiste" /></a> data consists of simple morphological type classification 
 		        (spiral vs. elliptical) for 893,212 galaxies. Galaxy Zoo 1 data are described in 
 		        <a href="http://adsabs.harvard.edu/abs/2011MNRAS.410..166L" class="content">Lintott et al. 2011 
-		        <img src="../../images/offsite_black.png" alt="(offsite)" /></a>, and details of the project are available 
+		        <img src="../images/offsite_black.png" alt="(offsite)" /></a>, and details of the project are available 
 		        in <a href="http://adsabs.harvard.edu/abs/2008MNRAS.389.1179L" class="content">
-		        Linott et al. 2008 <img src="../../images/offsite_black.png" alt="(offsite)" /></a>.
+		        Linott et al. 2008 <img src="../images/offsite_black.png" alt="(offsite)" /></a>.
 		    </p>
 		
 		    <p class="content">New in SDSS Data Release 10 are more detailed classifications of internal structure of the brightest 25% of the Main Galaxy 
-		        Sample from <a href="http://zoo2.galaxyzoo.org" class="content">Galaxy Zoo 2 <img src="../../images/offsite_black.png" alt="(offiste)" /></a>. 
+		        Sample from <a href="http://zoo2.galaxyzoo.org" class="content">Galaxy Zoo 2 <img src="../images/offsite_black.png" alt="(offiste)" /></a>. 
 		        Full details of the processes used to combine the votes (from a median of ~40 people per galaxy) and construct debiased classification 
 		        likelihoods are described in Willett et al. (in press at <i>MNRAS</i>).
 		    </p>

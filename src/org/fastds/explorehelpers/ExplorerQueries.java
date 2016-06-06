@@ -1,6 +1,7 @@
 package org.fastds.explorehelpers;
 
 import org.fastds.model.View;
+import org.junit.Test;
 
 import edu.gzu.image.Functions;
 
@@ -235,11 +236,21 @@ public class ExplorerQueries {
 //                                                            +"bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID=@specID";
     	StringBuilder aql = new StringBuilder();
     	aql.append(" SELECT velstars as 'Stellar velocity (km/s)',sigmaStars as 'Stellar velocity disperson (km/s)',");
-    	aql.append("sigmaStarsErr as 'Velocity dispersion error' ,chisq as 'Chi-squared fit of template',");
-    	aql.append("bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID="+specID);
+    	aql.append(" sigmaStarsErr as 'Velocity dispersion error' ,chisq as 'Chi-squared fit of template',");
+    	aql.append(" bpt as 'BPT classification' FROM emissionLinesPort WHERE specObjID="+specID);
     	return aql.toString();
     }
-
+    public static String getFitsParametersStellarMassPCAWiscBC03(String specID)
+    {
+//    public static  string fitsParametersStellarMassPCAWiscBC03 = @" select str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',
+//    str(mstellar_err,8,3) as 'Error', str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'
+//    from stellarMassPCAWiscBC03 where specObjId=@specId";
+    	StringBuilder aql = new StringBuilder();
+    	aql.append(" SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)' ");
+    	aql.append(" str(mstellar_err,8,3) as 'Error', str(vdisp_median,8,2) as 'Median veldisp (km/s)', str(vdisp_err,9,3) as 'Error VelDisp'");
+    	aql.append(" FROM stellarMassPCAWiscBC03 where specObjId="+specID);
+    	return aql.toString();
+    }
     public static String getFisParametersStellarMassPCAWiscBC03(String specID)
     {
 //    public static  String fitsParametersStellarMassPCAWiscBC03 = " SELECT str(mstellar_median,7,2) as 'Best-fit log<sub>10</sub>(stellar mass)',"
@@ -630,7 +641,7 @@ public class ExplorerQueries {
     	  aql.append(" SELECT p.ra, p.dec,p.fieldID,s.specObjID ,p.objID,");
     	  aql.append(" s.plateID , s.mjd, s.fiberID, q.plate ");
     	  aql.append(" FROM (SELECT plateID, mjd, fiberID, specObjID, bestObjID, plateID ");
-    	  aql.append(" FROM SpecObjAll WHERE specObjID="+sid+") AS s JOIN ("+View.getPhotoTag()+") AS p ON s.bestobjID=p.objID JOIN PlateX AS q ON s.plateID=q.plateID");
+    	  aql.append(" FROM SpecObjAll WHERE specObjID="+sid+") AS s JOIN ("+View.getPhotoTag()+") AS p ON s.bestObjID=p.objID JOIN PlateX AS q ON s.plateID=q.plateID");
     	  return aql.toString();
       }
 

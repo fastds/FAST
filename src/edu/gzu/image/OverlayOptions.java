@@ -174,7 +174,10 @@ public class OverlayOptions
         try
         {
         	System.out.println("OverlayOptions:getOutlines()---->aqlTwo:"+aqlTwo.toString());
-        	rs = ex.aqlQuery(aqlTwo.substring(0,aqlTwo.lastIndexOf("OR")));
+        	int index = aqlTwo.lastIndexOf("OR");
+        	if(index == -1)
+        		return;
+        	rs = ex.aqlQuery(aqlTwo.substring(0,index));
             Long fieldid;
             StringBuilder span = null;
             long rmin, rmax, cmin, cmax;
