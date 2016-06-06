@@ -502,7 +502,7 @@ public class ExplorerResource {
         objectInfo.dec = (Double)attrs.get("dec");
         objectInfo.fieldID = (Long)attrs.get("fieldID") == 0 ? null : Utilities.longToHex((Long)attrs.get("fieldID"));
         objectInfo.objID = (Long)attrs.get("objID") == 0 ? null : Utilities.longToHex(((Long)attrs.get("objID")));
-        objectInfo.specObjID = (Long)attrs.get("specObjID") == 0 ? null : Utilities.longToHex(((Long)attrs.get("fieldID")));
+        objectInfo.specObjID = (Long)attrs.get("specObjID") == 0 ? null : Utilities.longToHex(((Long)attrs.get("specObjID")));
         objectInfo.plateID = (Long)attrs.get("plateID") == 0 ? null : Utilities.longToHex(((Long)attrs.get("fieldID")));
         objectInfo.mjd = (Integer)attrs.get("mjd");
         objectInfo.fiberID = (Short)attrs.get("fiberID");

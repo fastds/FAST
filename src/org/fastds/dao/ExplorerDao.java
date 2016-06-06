@@ -250,7 +250,7 @@ public class ExplorerDao {
 				attrs.put("dec",dec);
 				attrs.put("fieldID", fieldID);
 				attrs.put("objID", objID);
-				attrs.put("specObjID",specObjID );
+				attrs.put("specObjID",specObjID);
 				attrs.put("plateID", plateID);
 				attrs.put("mjd", mjd);
 				attrs.put("fiberID", fiberID);
